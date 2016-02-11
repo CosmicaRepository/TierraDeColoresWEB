@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+        <div ng-show="user.nombre" class="panel panel-primary" data-ng-init="detailUsuario()" style="margin-top: 5%; width: 60%; margin-left: 20%;"> 
+        <div class="panel panel-heading"># {{user.idUsuario}}: {{user.username}}
+            <a href='#/editarUsuario' style="color: #ffffff; float: right;">Editar</a>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal col-xs-7">
+                <div class="form-group">
+                    <label class="col-xs-5">Nombre:</label>                
+                    <div type="text" class="col-xs-7">{{user.nombre}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Apellido:</label>
+                    <div type="text" class="col-xs-7">{{user.apellido}}</div>  
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">D.N.I.:</label>            
+                    <div type="text" class="col-xs-7">{{user.dni}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Fecha de nacimiento:</label>
+                    <div type="text" class="col-xs-7">{{user.fechaNacimiento}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Ciudad:</label>
+                    <div type="text" class="col-xs-7">{{user.provincia}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Email:</label>
+                    <div type="text" class="col-xs-7">{{user.email}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Telefono:</label>
+                    <div type="text" class="col-xs-7">{{user.telefono}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Rol:</label>
+                    <div type="text" class="col-xs-7">{{user.roles.nombreRol}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-5">Estado:</label>
+                    <div type="text" class="col-xs-7">{{user.estado}}</div>
+                </div>
+            </form>  
+            <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 35%; height: 35%; margin-top: 5%;">
+        </div>        
+    </div>
+
+</body>
+</html>

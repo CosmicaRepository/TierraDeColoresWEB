@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+
+        <div style="margin-top: 5%; width: 60%; margin-left: 20%;" ng-show="user.estado">
+            <uib-tabset justified="true">
+                <uib-tab heading="Perfil de {{user.username}}">
+                    <div class="panel" data-ng-init="detailUsuario()">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar datos de usuario</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal col-xs-8" name="changePerfil" data-ng-init="detailUsuario()" style="margin-left: 20%;">                    
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Nombre</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.nombre" name="nombre" required
+                                           data-ng-class='{
+                                           error: changePerfil.nombre.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Apellido</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.apellido" name="apellido" required
+                                           data-ng-class='{
+                                           error: changePerfil.apellido.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Documento</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.dni" name="documento" required
+                                           data-ng-class='{
+                                           error: changePerfil.documento.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>            
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Domicilio</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.domicilio" name="domicilio" required
+                                           data-ng-class='{
+                                           error: changePerfil.domicilio.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Fecha nacimiento</label>
+                                    <input type="date" class="col-xs-8" ng-model="user.fechaNacimiento" name="fecha" required
+                                           data-ng-class='{
+                                           error: changePerfil.fecha.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">E-mail</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.email" name="email" required 
+                                           data-ng-class='{
+                                           error: changePerfil.email.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Telefono</label>                        
+                                    <input type="text" class="col-xs-8" ng-model="user.telefono" name="telefono" required 
+                                           data-ng-class='{
+                                           error: changePerfil.telefono.$invalid && !changePerfil.$pristine
+                                       }'/>
+                                </div>
+                                <div class="form-group">                    
+                                    <label class="col-xs-3">Ciudad</label>
+                                    <input type="text" class="col-xs-8" ng-model="user.provincia" name="ciudad" required 
+                                           data-ng-class='{
+                                           error: changePerfil.ciudad.$invalid && !changePerfil.$pristine
+                                       }'/>
+
+                                </div>                                
+                                <button ng-click="actualizarPerfil()" class="btn btn-success" ng-disabled="changePerfil.$invalid" style="float: right; margin-top: 6%; margin-right: 3%;">Guardar</button>
+                            </form>                            
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab heading="Foto perfil">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Selecciona foto perfil</h3>
+                    </div>
+                    <form name="fotoPerfil">
+                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 300px; height: 300px; margin-left: 30%;">
+                        <input class="col-xs-8" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'image/*'"
+                               ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100" type="file"
+                               style="margin-left: 28%;" required/>
+                        <button ng-click="actualizarFoto(fileUpload)" ng-disabled="fotoPerfil.$invalid" class="btn btn-success" style="margin-left: 45%;">Guardar</button>
+                    </form>
+                </uib-tab>
+                <uib-tab heading="Contraseña">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar contraseña</h3>
+                    </div>
+                    <form class="form-horizontal col-xs-8" name="changePassword" data-ng-init="detailUsuario()" style="margin-left: 20%; margin-top: 5%;">  
+                        <div class="form-group">                    
+                            <label class="col-xs-4">Contraseña actual</label>
+                            <input type="password" class="col-xs-7" ng-model="userPw.old" name="old" required
+                                   data-ng-class='{
+                                           error: changePassword.old.$invalid && !changePassword.$pristine
+                                       }'/>
+                        </div>
+                        <div class="form-group">                    
+                            <label class="col-xs-4">Contraseña nueva</label>
+                            <input type="password" class="col-xs-7" ng-model="userPw.new" name="new" required 
+                                   data-ng-class='{
+                                           error: changePassword.new.$invalid && !changePassword.$pristine
+                                       }'/>
+                        </div>
+                        <div class="form-group">                    
+                            <label class="col-xs-4">Repetir contraseña</label>                        
+                            <input type="password" class="col-xs-7" ng-model="userPw.rep" name="rep" required 
+                                   data-ng-class='{
+                                           error: changePassword.rep.$invalid && !changePassword.$pristine
+                                       }'/>
+                        </div>
+                        <button ng-click="cambiarPassword()" class="btn btn-success" ng-disabled="changePassword.$invalid">Guardar</button>
+                    </form>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+
+
+
+
+
+
+
+
+    </body>
+</html>

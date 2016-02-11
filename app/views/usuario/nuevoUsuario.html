@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+    <center style="width: 40%; margin-top: 5%; margin-left: 30%;">
+        <form class="form-horizontal" name="registrarUsuario" autocomplete="off">
+            <h2 class="iniciarSesion">Registrar nuevo Usuario</h2>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Nombre</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.nombre" name="nombre" required
+                           data-ng-class='{ error: registrarUsuario.nombre.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Apellido</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.apellido" name="apellido" required
+                           data-ng-class='{ error: registrarUsuario.apellido.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Nombre de usuario</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.username" name="newUsername" required
+                           data-ng-class='{ error: registrarUsuario.newUsername.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Contraseña</label>
+                <div class="col-lg-7">
+                    <input type="password" class="form-control" ng-model="user.passwordUsuario" name="newPassword" required
+                           data-ng-class='{ error: registrarUsuario.newPassword.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">D.N.I.</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.dni" name="dni" required
+                           data-ng-class='{ error: registrarUsuario.dni.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Domicilio</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.domicilio" name="domicilio" required
+                           data-ng-class='{ error: registrarUsuario.domicilio.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Fecha nacimiento</label>
+                <div class="col-lg-7">
+                    <input type="date" class="form-control" ng-model="user.fechaNacimiento" name="fecha" required
+                           data-ng-class='{ error: registrarUsuario.fecha.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">E-mail</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.email" name="email" required 
+                           data-ng-class='{ error: registrarUsuario.email.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <label class="col-lg-3 control-label">Telefono</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="user.telefono" name="telefono" required 
+                           data-ng-class='{ error: registrarUsuario.telefono.$invalid && !registrarUsuario.$pristine }'/>
+                </div>
+            </div>
+            <button class="btn btn-lg btn-success" id="btn-register" type="submit" ng-click="nuevoUsuario(user)" ng-disabled="registrarUsuario.$invalid">Registrarse</button>
+
+        </form>
+    </center>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%;">
+        <uib-tab heading="Lista de marcas">
+            <table data-ng-init="listaMarcas()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Nombre</th> 
+                        <th style="text-align: center">Fecha</th> 
+                        <th style="text-align: center">Acciones</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="marca in marcas">
+                        <th style="text-align: center">{{marca.idMarca}}</th>
+                        <th style="text-align: center">{{marca.nombreMarca}}</th>                        
+                        <th style="text-align: center">{{marca.fechaCreacion}}</th>                        
+                        <th style="text-align: center">
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarMarca(marca)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarMarca(marca)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </th>                        
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab heading="Agregar nueva marca">
+            <form name="nuevaMarca" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%;">
+                <center><h3>Nueva Marca</h3></center>
+                <div class="form-group" style="margin-top: 13%;">                    
+                    <label class="col-xs-4">Nombre categoria</label>
+                    <input type="text" class="col-xs-7" ng-model="__marca.nombreMarca" name="marca" required
+                           data-ng-class='{
+                                           error: nuevaMarca.marca.$invalid && !nuevaMarca.$pristine
+                                       }'/>
+                </div>
+                <button ng-click="agrearMarca(__marca)" type="submit" class="btn btn-success" ng-disabled="nuevaMarca.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
+            </form>
+        </uib-tab>
+    </uib-tabset>
+
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modificar Marca</h4>
+                </div>
+                <form name="modificarMarca" class="form-horizontal" id="newAfilidadoModal">    
+                    <div class="form-group">                    
+                        <label class="col-lg-3 control-label">Id</label>
+                        <div class="col-lg-7">
+                            <input type="number" class="form-control" ng-model="__marca.idMarca" name="idMarca" required  disabled
+                                   data-ng-class='{ error: modificarMarca.idMarca.$invalid && !modificarMarca.$pristine }'/>            
+                        </div>
+                    </div>    
+                    <div class="form-group">                    
+                        <label class="col-lg-3 control-label">Nombre de marca</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" ng-model="__marca.nombreMarca" name="nombreMarca" required placeholder="Ingrese nombre de categoria"
+                                   data-ng-class='{ error: modificarMarca.nombreMarca.$invalid && !modificarMarca.$pristine }'/>
+                        </div>
+                    </div> 
+                    <center>
+                        <div>
+                            <button class="btn btn-primary" data-dismiss="modal" ng-click="_modificarMarca(__marca)" ng-disabled="modificarMarca.$invalid">Modificar</button>
+                        </div>
+                    </center>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
