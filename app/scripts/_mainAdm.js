@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var miApp = angular.module('Tdc', ['ngRoute', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable'])
+var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable'])
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {
