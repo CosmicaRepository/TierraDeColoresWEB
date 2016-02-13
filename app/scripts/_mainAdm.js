@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable'])
+var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'aa.select2', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {
                         controller: "_usuarioController",
-                        templateUrl: "views/inicio.html"                        
+                        templateUrl: "views/inicio.html"
                     })
                     .when("/perfil", {
                         controller: "_usuarioController",
@@ -47,8 +47,16 @@ var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ngCookies', 'fundo
                         templateUrl: "views/proveedor/detalleProveedor.html"
                     })
                     .when("/productos", {
-                        controller: "_usuarioController",
+                        controller: "_productoController",
                         templateUrl: "views/producto/lista.html"
+                    })
+                    .when("/producto/:idProducto", {
+                        controller: "_productoController",
+                        templateUrl: "views/producto/detalleProducto.html"
+                    })
+                    .when("/agregarProducto", {
+                        controller: "_productoController",
+                        templateUrl: "views/producto/agregarProducto.html"
                     })
                     .when("/editarProducto", {
                         controller: "_usuarioController",
@@ -58,5 +66,4 @@ var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ngCookies', 'fundo
                         redirectTo: "/",
                         templateUrl: "views/inicio.html"
                     });
-        });
-
+        }); 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.controller('_marcaController', ['$scope', 'ngTableParams', 'createDialog', '$route', '$timeout', '$cookies', 'Upload', '$location', '_marcaService', 'factoryCache', '$rootScope', function ($scope, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
+miApp.controller('_marcaController', ['$scope', '$http', 'ngTableParams', 'createDialog', '$route', '$timeout', '$cookies', 'Upload', '$location', '_marcaService', 'factoryCache', '$rootScope', function ($scope, $http, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
 
         $scope._marcas = {
             "idMarca": null,
@@ -61,6 +61,28 @@ miApp.controller('_marcaController', ['$scope', 'ngTableParams', 'createDialog',
                     alert("error");
                 }
             });
+        };
+
+        $scope.selectMarcasConf = {
+            mode: 'object',
+            id: 'idMarca',
+            text: 'nombreMarca',
+            options: function (searchText) {
+                var token = $cookies.getObject('token');
+                return $http({
+                    url: 'http://localhost:8080/marcas/searchText',
+                    method: 'post',
+                    headers: {
+                        'Authorization': 'Bearer ' + token.data.access_token
+                    },
+                    params: {
+                        'text': searchText
+                    }
+                });
+            },
+            select2: {
+                minimumInputLength: 2
+            }
         };
 
     }]);

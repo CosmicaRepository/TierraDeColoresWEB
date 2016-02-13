@@ -9,7 +9,31 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <center><h1 style="margin-top: 10%;">Lista de productos</h1></center>
+    <center><h1 style="margin-top: 70px;">Lista de productos</h1></center>
+
+    <table data-ng-init="listaProductos()" class="table table-bordered table-hover table-striped" style="width: 60%; margin-left: 20%;">
+        <thead>
+            <tr>
+                <th style="text-align: center">ID</th>
+                <th style="text-align: center">Descripcion</th> 
+                <th style="text-align: center">Cantidad</th> 
+                <th style="text-align: center">Talla</th> 
+                <th style="text-align: center">Color</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="producto in productos">
+                <td style="text-align: center">{{producto.idProducto}}</td>
+                <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
+                <td style="text-align: center">{{producto.cantidadProducto}}</td>
+                <td style="text-align: center">{{producto.talla}}</td>
+                <td style="text-align: center">{{producto.colorProducto}}</td>                
+            </tr>
+        </tbody>
+    </table>
+
+
+
     <button ng-controller="_loginController" ng-click="go('/editarProducto')">Editar Usuario</button>
-    </body>
+</body>
 </html>

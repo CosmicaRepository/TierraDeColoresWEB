@@ -9,7 +9,68 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <center><h1 style="margin-top: 10%;">Detalles de producto</h1></center>
-        
+        <div class="panel panel-primary" data-ng-init="buscarProducto()" style="width: 60%; margin-left: 20%;"> 
+            <div class="panel panel-heading"># {{foundProducto.idProducto}}
+                <a href='#/editarUsuario' style="color: #ffffff; float: right;">Editar</a>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal col-xs-7">
+                    <div class="form-group">
+                        <label class="col-xs-5">Descripcion</label>                
+                        <div type="text" class="col-xs-7">{{foundProducto.descripcion}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Color</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.colorProducto}}</div>  
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Talla</label>            
+                        <div type="text" class="col-xs-7">{{foundProducto.talla}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Precio costo</label>
+                        <div type="text" class="col-xs-7">${{foundProducto.precioCosto}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Precio venta</label>
+                        <div type="text" class="col-xs-7">${{foundProducto.precioVenta}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Cantidad en stock</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.cantidadProducto}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Marca</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.marcas.nombreMarca}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Categoria</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.categoria.nombreCategoria}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Tipo</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.tipoProducto.nombreTipo}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Temporada</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.temporada.nombreTemporada}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Sexo</label>
+                        <div type="text" class="col-xs-7">{{foundProducto.sexo.nombreSexo}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-5">Proveedor</label>
+                        <div type="text" class="col-xs-7"><a href="#/proveedor/{{foundProducto.proveedor.idProveedor}}">{{foundProducto.proveedor.nombreProveedor}}</a></div>
+                    </div>
+                </form>
+                <center>
+                    <div id="printable" style="margin-top: 20%;">
+                        <io-barcode code="{{foundProducto.idProducto}}" options="options" type="{{type}}"></io-barcode>
+                    </div>
+                    <button ng-click="printDiv('printable');" class="btn btn-info">Imprimir codigo</button>
+                </center>
+            </div>        
+        </div>
     </body>
 </html>
