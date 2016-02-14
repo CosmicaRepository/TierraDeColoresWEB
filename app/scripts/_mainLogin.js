@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ngCookies', 'fundoo.services'])
+var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'ngCookies', 'fundoo.services'])
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {

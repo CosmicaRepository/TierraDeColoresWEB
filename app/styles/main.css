@@ -1,85 +1,6 @@
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-body {
-    padding: 0;
-}
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 10px;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
-
-/* Custom page footer */
-.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
-}
-.marketing p + h4 {
-    margin-top: 28px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
-    }
+@font-face{
+    font-family: kaufmann-bold;
+    src: url('../styles/Kaufmann-Bold.otf');
 }
 #loading-bar .bar {
     background: #FF4000 !important;
@@ -93,4 +14,40 @@ body {
     border-top-color:  #FF4000;
     border-left-color: #FF4000;
     border-radius: 50%;
+}
+#bodyStyle{
+    background-image: url('../images/wall4.jpg');
+    background-repeat: no-repeat;    
+    background-size: cover;
+}
+#login-banner{
+    width: 30%;
+    margin-left: 35%;
+    /*opacity: 0.7;*/
+    background: #DF013A; 
+    background: -webkit-linear-gradient(#8904B1, #DF013A);
+    background: -o-linear-gradient(#8904B1, #DF013A); 
+    background: -moz-linear-gradient(#8904B1, #DF013A); 
+    background: linear-gradient(#8904B1, #DF013A);
+    border-radius: 25px;
+    margin-top: 5%;
+}
+.form-horizontal .form-group {
+    margin-right: 20px; 
+    margin-left: 20px; 
+}
+.iniciarSesion{
+    color: white;
+    padding-top: 10%;
+    padding-bottom: 3%;
+}
+#btn-login{
+    margin-bottom: 10%;
+}
+#titulo{
+    font-family: kaufmann-bold;
+    color: white;
+    font-weight: bold;
+    font-size: 70pt;
+    text-shadow: 8px 0 0 #8904B1;
 }

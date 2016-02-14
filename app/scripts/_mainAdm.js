@@ -7,31 +7,31 @@ var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'aa.select2', 'ngCo
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/inicio.html"
                     })
                     .when("/perfil", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/usuario/perfil.html"
                     })
                     .when("/usuarios", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/usuario/lista.html"
                     })
                     .when("/editarUsuario", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/usuario/modificarUsuario.html"
                     })
                     .when("/agregarUsuario", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/usuario/nuevoUsuario.html"
                     })
                     .when("/categorias", {
-                        controller: "_categoriaController",
+                        controller: "CategoriaController",
                         templateUrl: "views/categoria/categoriaPanel.html"
                     })
                     .when("/marcas", {
-                        controller: "_marcaController",
+                        controller: "MarcaController",
                         templateUrl: "views/marcas/marcasPanel.html"
                     })
                     .when("/tipo-de-productos", {
@@ -39,27 +39,27 @@ var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'aa.select2', 'ngCo
                         templateUrl: "views/tipo/panelTipo.html"
                     })
                     .when("/proveedores", {
-                        controller: "_proveedorController",
+                        controller: "ProveedorController",
                         templateUrl: "views/proveedor/proveedorPanel.html"
                     })
                     .when("/proveedor/:idProveedor", {
-                        controller: "_proveedorController",
+                        controller: "ProveedorController",
                         templateUrl: "views/proveedor/detalleProveedor.html"
                     })
                     .when("/productos", {
-                        controller: "_productoController",
+                        controller: "ProductoController",
                         templateUrl: "views/producto/lista.html"
                     })
                     .when("/producto/:idProducto", {
-                        controller: "_productoController",
+                        controller: "ProductoController",
                         templateUrl: "views/producto/detalleProducto.html"
                     })
                     .when("/agregarProducto", {
-                        controller: "_productoController",
+                        controller: "ProductoController",
                         templateUrl: "views/producto/agregarProducto.html"
                     })
                     .when("/editarProducto", {
-                        controller: "_usuarioController",
+                        controller: "UsuarioController",
                         templateUrl: "views/producto/modificarProducto.html"
                     })
                     .otherwise({

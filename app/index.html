@@ -7,7 +7,7 @@ and open the template in the editor.
 <html ng-app="tierraDeColoresApp">
     <head>
         <meta charset="utf-8">
-        <title>Iniciar sesion</title>
+        <title>Iniciar sesión</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -21,13 +21,13 @@ and open the template in the editor.
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
     </head>
-    <body>
+    <body id="bodyStyle">
         <!--[if lte IE 8]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <!-- Add your site or application content here -->
-    <center><h1>Tierra de colores</h1></center>
+    <center id="titulo">Tierra de colores</center>
     <article class="col-sm-12" ng-view>
 
     </article>
@@ -42,6 +42,7 @@ and open the template in the editor.
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-io-barcode/build/angular-io-barcode.js"></script>
     <script src="bower_components/angular-agility/dist/angular-agility.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

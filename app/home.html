@@ -42,7 +42,7 @@ and open the template in the editor.
             </div>
             <div id="navbar" class="collapse navbar-collapse pull-right" style="margin-right: 5%;">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/perfil" ng-controller="_usuarioController" ng-show="user.estado" data-ng-init="detailUsuario()"><img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 25px; height: 25px;">  {{user.nombre}}</a></li>
+                    <li><a href="#/perfil" ng-controller="UsuarioController" ng-show="user.estado" data-ng-init="detailUsuario()"><img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 25px; height: 25px;">  {{user.nombre}}</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -92,14 +92,14 @@ and open the template in the editor.
         <script src="scripts/ng-file-upload-shim.js" type="text/javascript"></script>
         <script src="scripts/ng-file-upload.min.js" type="text/javascript"></script>
         <script src="scripts/angular/controllers/_loginController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_usuarioController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_categoriaController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_marcaController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/UsuarioController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/CategoriaController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/MarcaController.js" type="text/javascript"></script>
         <script src="scripts/angular/controllers/_tipoController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_proveedorController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_productoController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_sexoController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_temporadaController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/ProveedorController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/ProductoController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/SexoController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/TemporadaController.js" type="text/javascript"></script>
         <script src="scripts/angular/factory/factoryCache.js" type="text/javascript"></script>
         <script src="scripts/angular/factory/factoryProducto.js" type="text/javascript"></script>
         <script src="scripts/angular/models/_loginService.js" type="text/javascript"></script>

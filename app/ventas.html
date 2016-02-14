@@ -40,7 +40,7 @@ and open the template in the editor.
             </div>
             <div id="navbar" class="collapse navbar-collapse pull-right" style="margin-right: 5%;">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/perfil" ng-controller="_usuarioController" ng-show="user.estado" data-ng-init="detailUsuario()"><img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 25px; height: 25px;">  {{user.nombre}}</a></li>
+                    <li><a href="#/perfil" ng-controller="UsuarioController" ng-show="user.estado" data-ng-init="detailUsuario()"><img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 25px; height: 25px;">  {{user.nombre}}</a></li>
                     <li><a href="#/productos">Productos</a></li>
                     <li><a href="#/marcas">Marcas</a></li>
                     <li><a href="#" ng-controller="_loginController" ng-click="">Salir</a></li>
@@ -70,7 +70,7 @@ and open the template in the editor.
         <script src="scripts/ng-file-upload-shim.js" type="text/javascript"></script>
         <script src="scripts/ng-file-upload.min.js" type="text/javascript"></script>
         <script src="scripts/angular/controllers/_loginController.js" type="text/javascript"></script>
-        <script src="scripts/angular/controllers/_usuarioController.js" type="text/javascript"></script>
+        <script src="scripts/angular/controllers/UsuarioController.js" type="text/javascript"></script>
         <script src="scripts/angular/factory/factoryCache.js" type="text/javascript"></script>
         <script src="scripts/angular/models/_loginService.js" type="text/javascript"></script>
         <script src="scripts/angular/models/_usuarioService.js" type="text/javascript"></script>

@@ -9,37 +9,40 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <center style=" margin-left: 30%; margin-right: 30%; margin-top: 7%;">
-        <form class="form-horizontal" name="loginForm" id="loginIDForm">
-            <h2 class="iniciarSesion">INICIAR SESION</h2>
+    <center id="login-banner">
+        <form class="form-horizontal" name="loginForm">
+            <h2 class="iniciarSesion" >Iniciar sesión</h2>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Usuario</label>
-                <div class="col-lg-7">
-                    <input type="text" name="userDocumento" class="form-control" id="apellido-owner" ng-model="usuario.username" required autofocus placeholder="Ingresar documento"
-                           data-ng-class='{ error: exampleForm.userDocumento.$invalid && !exampleForm.$pristine }'/>            
-                </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                    <input type="text"
+                           required
+                           class="form-control"
+                           name="username"
+                           ng-model="usuario.username"
+                           placeholder="Ingresar usuario"
+                           uib-tooltip="Ingresa tu usuario para iniciar sesion"
+                           tooltip-placement="bottom"
+                           tooltip-trigger="mouseenter"
+                           tooltip-enable="!usuario.username">
+                </div>                
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">contraseña</label>
-                <div class="col-lg-7">
-                    <input type="password" name="userPassword" class="form-control" id="nombre-owner" ng-model="usuario.password" required placeholder="Ingresr contraseña"
-                           data-ng-class='{ error: exampleForm.userPassword.$invalid && !exampleForm.$pristine }'/>            
-                </div>
-            </div>
-            <div class="form-group" >
-                <label class="col-lg-3 control-label"></label>                
-                <div class="col-lg-6"><label style="margin-right: 5%;">Recuerdame</label>
-                    <input type="checkbox" value="remember-me"> 
-                </div>
-            </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                    <input type="password"
+                           required
+                           class="form-control"
+                           name="password"
+                           ng-model="usuario.password"
+                           placeholder="Ingresar contraseña">
+                </div> 
+            </div>           
             <div class="form-group">
-                <label class="col-lg-3 control-label"></label>                
-                <div class="col-lg-6">
-                    <button id="btn-aceptarForm" type="submit" class="btn btn-lg btn-info" ng-click="iniciarSesion()" ng-disabled="loginForm.$invalid">INGRESAR</button>
-               </div>
+                <button id="btn-login" type="submit" class="btn btn-lg btn-info" ng-click="iniciarSesion()" ng-disabled="loginForm.$invalid">Ingresar</button>
             </div>
         </form>       
-    </center>
+    </center>   
 
 </body>
 </html>
