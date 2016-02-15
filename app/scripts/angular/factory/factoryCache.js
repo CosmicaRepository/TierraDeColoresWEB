@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.factory('factoryCache', function ($cacheFactory) {
+miAppHome.factory('factoryCache', function ($cacheFactory) {
     
     return $cacheFactory('myData');
     

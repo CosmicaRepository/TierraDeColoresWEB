@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miApp.controller('MarcaController', function ($scope, $http, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
+miAppHome.controller('MarcaController', function ($scope, $http, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
 
     /**
      * Modelo de objecto Marca usado en la vista para agregar nuevas Marcas.

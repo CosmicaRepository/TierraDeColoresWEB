@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.service('_usuarioService', function ($http, $q, $cookies) {
+miAppHome.service('_usuarioService', function ($http, $q, $cookies) {
 
     this.getListaUsuarios = function () {
         var datosRecu = null;

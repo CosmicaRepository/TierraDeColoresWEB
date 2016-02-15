@@ -1,10 +1,15 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Controlador de Proveedores encargado de procesar datos para el objeto Proveedor
+ * en la base de datos
+ * @param {type} param1
+ * @param {type} param2
  */
-miApp.controller('ProveedorController', function ($scope, $http, $routeParams, ngTableParams, createDialog, $route, $timeout, $cookies, $location, _proveedorService) {
+miAppHome.controller('ProveedorController', function ($scope, $http, $routeParams, ngTableParams, createDialog, $route, $timeout, $cookies, $location, _proveedorService) {
 
+    /**
+     * Modelo de objeto Proveedor utilizado para agregar nuevos proveedores
+     * a la base de datos.
+     */
     $scope._proveedor = {
         "idProveedor": null,
         "nombreProveedor": "",
@@ -17,12 +22,17 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         "telefonoProveedor": "",
         "emailProveedor": "",
         "estadoProveedor": true,
-        "usuarioCreacion": 1,
+        "usuarioCreacion": null,
         "usuarioModificacion": null,
         "fechaCreacion": "",
         "fechaModificacion": null
     };
 
+    /**
+     * Funcion lista de proveedores, encarga de mostrar todos los proveedorers
+     * disponibles en la base de datos.
+     * @returns {undefined}
+     */
     $scope.listaProveedores = function () {
         $scope.proveedores = "";
         $promesa = _proveedorService.getAll();
@@ -35,6 +45,12 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         });
     };
 
+    /**
+     * Funcion agregar Proveedor, encargada de agregar un nuevo proveedor
+     * a la base de datos.
+     * @param {type} proveedor objeto recibido desde la vista.
+     * @returns {undefined}
+     */
     $scope.agrearProveedor = function (proveedor) {
         $promesa = _proveedorService.add(proveedor);
         $promesa.then(function (datos) {
@@ -46,6 +62,12 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         });
     };
 
+    /**
+     * Funcion eliminar Proveedor, encargada de deshabilitar un proveedor en la 
+     * base de datos.
+     * @param {type} proveedor
+     * @returns {undefined}
+     */
     $scope.eliminarProveedor = function (proveedor) {
         $promesa = _proveedorService.delete(proveedor);
         $promesa.then(function (datos) {
@@ -57,10 +79,22 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         });
     };
 
+    /**
+     * Funcion seleccionar, selecciona un Proveedor desde una tabla en la vista
+     * @param {type} proveedor objeto proveedor recibido desde la vista.
+     * @returns {undefined}
+     */
     $scope.seleccionarProveedor = function (proveedor) {
         $scope.__proveedor = proveedor;
     };
 
+
+    /**
+     * Funcion modificar Proveedor, encargadad de modificar un objeto en la base
+     * de datos.
+     * @param {type} proveedor
+     * @returns {undefined}
+     */
     $scope._modificarProveedor = function (proveedor) {
         console.log(proveedor);
         $promesa = _proveedorService.update(proveedor);
@@ -73,7 +107,12 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         });
     };
 
+    /**
+     * Funcion buscar proveedor, busca un proveedor apartir del id del proveedor
+     * @returns {undefined}
+     */
     $scope.buscarProveedor = function () {
+        /* id proveniente de la url */
         var idProveedor = $routeParams.idProveedor;
         $promesa = _proveedorService.searchById(idProveedor);
         $promesa.then(function (datos) {
@@ -86,6 +125,11 @@ miApp.controller('ProveedorController', function ($scope, $http, $routeParams, n
         });
     };
 
+
+    /**
+     * Configuracion para la directiva select para la busqueda dinamica de 
+     * proveedores
+     */
     $scope.selectProveedorConf = {
         mode: 'object',
         id: 'idProveedor',

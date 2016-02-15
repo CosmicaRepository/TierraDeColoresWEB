@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.controller('UsuarioController', function ($scope, $route, $timeout, $cookies, Upload, $location, _usuarioService, factoryCache, $rootScope) {
+miAppHome.controller('UsuarioController', function ($scope, $route, $timeout, $cookies, Upload, $location, _usuarioService, factoryCache, $rootScope) {
 
     $scope.user = {
         "apellido": "",

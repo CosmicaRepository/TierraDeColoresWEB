@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miApp.controller('CategoriaController', function ($scope, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _categoriaService, factoryCache, $rootScope) {
+miAppHome.controller('CategoriaController', function ($scope, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _categoriaService, factoryCache, $rootScope) {
 
     /**
      * Modelo de objecto categoria usado en las vistas para Agregar.

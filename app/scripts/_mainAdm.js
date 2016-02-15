@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'aa.select2', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
+var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {
@@ -35,7 +35,7 @@ var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'aa.select2', 'ngCo
                         templateUrl: "views/marcas/marcasPanel.html"
                     })
                     .when("/tipo-de-productos", {
-                        controller: "_tipoController",
+                        controller: "TipoController",
                         templateUrl: "views/tipo/panelTipo.html"
                     })
                     .when("/proveedores", {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.service('_tipoService', function ($http, $q, $cookies) {
+miAppHome.service('_tipoService', function ($http, $q, $cookies) {
 
     this.getListaTipo = function () {
         var datosRecu = null;
