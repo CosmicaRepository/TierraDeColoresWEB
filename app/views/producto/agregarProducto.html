@@ -70,7 +70,7 @@ and open the template in the editor.
         </div>
         <div class="form-group">
             <label class="col-xs-4">Tipo de producto</label>
-            <div ng-controller="_tipoController" data-ng-init="listaTipo()" >
+            <div ng-controller="TipoController" data-ng-init="listaTipo()" >
                 <select class="col-xs-7" style="height: 26px;" ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo" ng-model="_producto.tipoProducto"></select>
             </div>
         </div>

@@ -9,7 +9,7 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-        <div ng-show="user.nombre" class="panel panel-primary" data-ng-init="detailUsuario()" style="margin-top: 5%; width: 60%; margin-left: 20%;"> 
+        <div ng-show="user.nombre" class="panel panel-primary" data-ng-init="detailUsuario()" id="perfil"> 
         <div class="panel panel-heading"># {{user.idUsuario}}: {{user.username}}
             <a href='#/editarUsuario' style="color: #ffffff; float: right;">Editar</a>
         </div>
@@ -52,7 +52,7 @@ and open the template in the editor.
                     <div type="text" class="col-xs-7">{{user.estado}}</div>
                 </div>
             </form>  
-            <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 35%; height: 35%; margin-top: 5%;">
+            <img ng-src="data:image/JPEG;base64,{{user.imagen}}" id="foto-perfil">
         </div>        
     </div>
 

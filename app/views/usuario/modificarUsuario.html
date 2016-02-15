@@ -10,7 +10,7 @@ and open the template in the editor.
     </head>
     <body>
 
-        <div style="margin-top: 5%; width: 60%; margin-left: 20%;" ng-show="user.estado">
+        <div id="panel-editar-perfil" ng-show="user.estado">
             <uib-tabset justified="true">
                 <uib-tab heading="Perfil de {{user.username}}">
                     <div class="panel" data-ng-init="detailUsuario()">
