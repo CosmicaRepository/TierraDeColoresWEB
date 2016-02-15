@@ -19,6 +19,8 @@ and open the template in the editor.
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link href="styles/aa.select2Optional.css" rel="stylesheet" type="text/css"/>
+        <link href="styles/select2.css" rel="stylesheet" type="text/css"/>
         <!-- endbuild -->
     </head>
     <body id="bodyStyle">
@@ -42,17 +44,39 @@ and open the template in the editor.
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-io-barcode/build/angular-io-barcode.js"></script>
     <script src="bower_components/angular-agility/dist/angular-agility.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/aa.select2.js" type="text/javascript"></script>
+    <script src="scripts/select2.js" type="text/javascript"></script>
+    <script src="scripts/ng-table/ng-table.min.js" type="text/javascript"></script>
     <script src="scripts/_mainLogin.js" type="text/javascript"></script>
+    <script src="scripts/_mainAdm.js" type="text/javascript"></script>
     <script src="scripts/createDialog.js" type="text/javascript"></script>
     <script src="scripts/ng-file-upload-shim.js" type="text/javascript"></script>
     <script src="scripts/ng-file-upload.min.js" type="text/javascript"></script>
     <script src="scripts/angular/controllers/_loginController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/UsuarioController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/CategoriaController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/MarcaController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/TipoController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/ProveedorController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/ProductoController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/SexoController.js" type="text/javascript"></script>
+    <script src="scripts/angular/controllers/TemporadaController.js" type="text/javascript"></script>
+    <script src="scripts/angular/factory/factoryCache.js" type="text/javascript"></script>
+    <script src="scripts/angular/factory/factoryProducto.js" type="text/javascript"></script>
     <script src="scripts/angular/models/_loginService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_usuarioService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_categoriaService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_marcaService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_tipoService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_proveedorService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_productoService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_sexoService.js" type="text/javascript"></script>
+    <script src="scripts/angular/models/_temporadaService.js" type="text/javascript"></script>
     <!-- endbuild -->
 </body>
 </html>
