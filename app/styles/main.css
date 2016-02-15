@@ -1,6 +1,6 @@
 @font-face{
     font-family: kaufmann-bold;
-    src: url('../styles/Kaufmann-Bold.otf');
+    src: url('../styles/fonts/Kaufmann-Bold.otf');
 }
 #loading-bar .bar {
     background: #FF4000 !important;
@@ -50,4 +50,31 @@
     font-weight: bold;
     font-size: 70pt;
     text-shadow: 8px 0 0 #8904B1;
+}
+/*CSS para home.html*/
+#body-home{
+    background-image: url('../images/fondo.jpg');
+    background-repeat: no-repeat;    
+    background-size: cover;
+}
+#nav-titulo{
+    font-family: kaufmann-bold !important;
+    font-size: 30pt;
+    color: #EC4D71;
+    text-shadow: 2px 0 0 #8904B1;
+}
+#perfil{
+    width: 60%;
+    margin-left: 20%;
+}
+#foto-perfil{
+    width: 35%;
+    height: 35%;
+    margin-top: 5%;
+}
+#panel-editar-perfil{
+    width: 60%; 
+    margin-left: 20%;
+    background-color: white;
+    height: 550px;
 }
