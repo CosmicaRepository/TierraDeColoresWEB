@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.controller('_loginController', function ($scope, _loginService, $location, $rootScope, $cookies, $window, createDialog) {
+miApp.controller('LoginController', function ($scope, toaster, LoginService, $location, $rootScope, $cookies, $window, createDialog) {
 
     $scope.usuario = {username: '', password: ''};
     $scope.go = function (path) {
         $location.path(path);
     };
+
     $scope.iniciarSesion = function () {
-        $promesa = _loginService.getAccess($scope.usuario);
+        $promesa = LoginService.getAccess($scope.usuario);
         $promesa.then(function (datos) {
             switch (datos.status) {
                 case 200:
                     $cookies.put('render', true);
                     $cookies.putObject('token', datos);
+                    $cookies.put('a_tk', datos.data.access_token);
                     $rootScope.render = true;
                     var role = datos.data.role[0].authority;
                     if (role === 'ROLE_ADMIN') {
@@ -25,28 +27,13 @@ miApp.controller('_loginController', function ($scope, _loginService, $location,
                     }
                     break;
                 case 401:
-                    createDialog({
-                        id: 'simpleDialogs',
-                        title: datos.data.error,
-                        template: datos.data.error_description,
-                        backdrop: true
-                    });
+                    toaster.pop('error', "Error", "No tienes autorizacion para ingresar.");
                     break;
                 case 400:
-                    createDialog({
-                        id: 'simpleDialog',
-                        title: datos.data.error,
-                        template: datos.data.error_description,
-                        backdrop: true
-                    });
+                    toaster.pop('error', "Error", "Contraseña y/o usuario incorrectos.");
                     break;
                 default:
-                    createDialog({
-                        id: 'simpleDialog',
-                        title: datos.data.error,
-                        template: datos.data.error_description,
-                        backdrop: true
-                    });
+                    toaster.pop('error', "Error", "¡Op's algo paso!, comunicate con el administrador");
             }
         });
     };

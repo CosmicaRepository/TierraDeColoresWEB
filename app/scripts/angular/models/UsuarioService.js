@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('_usuarioService', function ($http, $q, $cookies) {
+miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
 
     this.getListaUsuarios = function () {
         var datosRecu = null;
@@ -72,7 +72,7 @@ miAppHome.service('_usuarioService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
-    
+
     this.updateUsuario = function (usuario) {
         var datosRecu = null;
         var deferred = $q.defer();
@@ -127,7 +127,7 @@ miAppHome.service('_usuarioService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/changeStatus';        
+        var uri = 'http://localhost:8080/usuarios/changeStatus';
         $http({
             url: uri,
             method: 'post',

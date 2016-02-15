@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.service('_loginService', function ($http, $q, $cookies) {
+miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $location) {
 
     this.getAccess = function (Auth) {
         var datosRecu = null;
@@ -58,6 +58,25 @@ miApp.service('_loginService', function ($http, $q, $cookies) {
                 grant_type: 'refresh_token'}
         });
         return request;
+    };
+
+    this.isLogged = function () {
+        var tk = $cookies.get('a_tk');
+        $http({
+            url: 'http://localhost:8080/usuarios/logged',
+            method: 'post',
+            headers: {
+                'Authorization': 'Bearer ' + tk,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            $rootScope.isLoggedIn = true;
+        }, function errorCallback(response) {
+            if (response.status === 401) {
+                $rootScope.isLoggedIn = false;
+                $location.path("/login");
+            }
+        });
     };
 });
 

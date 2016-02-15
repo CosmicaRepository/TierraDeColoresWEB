@@ -18,41 +18,42 @@ and open the template in the editor.
                             <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar datos de usuario</h3>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal col-xs-8" name="changePerfil" data-ng-init="detailUsuario()" style="margin-left: 20%;">                    
+                            <form class="form-horizontal" role="form" name="changePerfil" data-ng-init="detailUsuario()">                    
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Nombre</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.nombre" name="nombre" required
-                                           data-ng-class='{
-                                           error: changePerfil.nombre.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">Nombre</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" ng-model="user.nombre" name="nombre" required
+                                               minlength="4"
+                                               data-ng-class='{error: changePerfil.nombre.$invalid && !changePerfil.$pristine}'/>
+                                    </div>                                   
                                 </div>
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Apellido</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.apellido" name="apellido" required
-                                           data-ng-class='{
-                                           error: changePerfil.apellido.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">Apellido</label>
+                                    <div class="col-lg-8">    
+                                        <input type="text" class="form-control" ng-model="user.apellido" name="apellido" required
+                                               data-ng-class='{error: changePerfil.apellido.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Documento</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.dni" name="documento" required
-                                           data-ng-class='{
-                                           error: changePerfil.documento.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">Documento</label>
+                                    <div class="col-lg-8">  
+                                        <input type="text" class="form-control" ng-model="user.dni" name="documento" required
+                                               data-ng-class='{error: changePerfil.documento.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>            
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Domicilio</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.domicilio" name="domicilio" required
-                                           data-ng-class='{
-                                           error: changePerfil.domicilio.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">Domicilio</label>
+                                    <div class="col-lg-8">  
+                                        <input type="text" class="form-control" ng-model="user.domicilio" name="domicilio" required
+                                               data-ng-class='{error: changePerfil.domicilio.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>
-                                <div class="form-group">                    
-                                    <label class="col-xs-3">Fecha nacimiento</label>
-                                    <input type="date" class="col-xs-8" ng-model="user.fechaNacimiento" name="fecha" required
-                                           data-ng-class='{
-                                           error: changePerfil.fecha.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                <div class="form-group" >                    
+                                    <label class="control-label col-lg-4">Fecha nacimiento</label>
+                                    <div class="col-lg-8">  
+                                        <input type="date" class="form-control" ng-model="user.fechaNacimiento" name="fecha" required
+                                               data-ng-class='{error: changePerfil.fecha.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>
                                 <div class="form-group">                    
                                     <label class="col-xs-3">E-mail</label>
@@ -124,13 +125,5 @@ and open the template in the editor.
                 </uib-tab>
             </uib-tabset>
         </div>
-
-
-
-
-
-
-
-
     </body>
 </html>

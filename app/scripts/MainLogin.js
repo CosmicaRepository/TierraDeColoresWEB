@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var miApp = angular.module('tierraDeColoresApp', ['ngRoute', 'tierraDeColoresAppHome', 'ui.bootstrap', 'ngAnimate', 'ngCookies', 'fundoo.services'])
+"use strict";
+var miApp = angular.module('tierraDeColoresApp', ['tierraDeColoresAppHome'])
         .config(function ($routeProvider) {
             $routeProvider
                     .when("/", {
-                        controller: "_loginController",
+                        controller: "LoginController",
+                        templateUrl: "views/login.html"
+                    })
+                    .when("/login", {
+                        controller: "LoginController",
                         templateUrl: "views/login.html"
                     })
                     .otherwise({
