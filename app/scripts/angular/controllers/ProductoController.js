@@ -67,14 +67,17 @@ miAppHome.controller('ProductoController', function ($scope, $http, factoryProdu
         "colorProducto": "",
         "precioCosto": null,
         "precioVenta": null,
-        "cantidadProducto": null,
+        "precioLista": null,
+        "cantidadClaseB": null,
+        "cantidadClaseN": null,
+        "cantidadTotal": null,
         "cantidadMinima": null,
         "talla": "",
         "fechaProducto": "",
         "estadoProducto": true,
         "fechaCreacion": "",
         "fechaModificacion": null,
-        "usuarioCreacion": 1,
+        "usuarioCreacion": null,
         "usuarioModificacion": null
     };
 
