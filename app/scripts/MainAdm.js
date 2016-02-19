@@ -96,6 +96,11 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'toaster', 
                         templateUrl: "views/producto/modificarProducto.html",
                         resolve: {authentication: auth}
                     })
+                    .when("/tarjetas", {
+                        controller: "TarjetaController",
+                        templateUrl: "views/tarjeta/panelTarjeta.html",
+                        resolve: {authentication: auth}
+                    })
                     .otherwise({
                         redirectTo: "/",
                         templateUrl: "views/inicio.html"
