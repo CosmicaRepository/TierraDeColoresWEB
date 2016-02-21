@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
-
-
-    this.getAll = function () {
+miAppHome.service('planPagoService', function ($http, $q, $cookies){
+    
+    this.getAll = function (){
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/list';
+        var uri = 'http://localhost:8080/plan/list';
         $http({
             url: uri,
             method: 'get',
@@ -28,15 +27,15 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
         return deferred.promise;
     };
     
-    this.add = function (entidad){
+    this.add = function (planPago){
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/add';
+        var uri = 'http://localhost:8080/plan/add';
         $http({
             url: uri,
             method: 'post',
-            data: angular.toJson(entidad),
+            data: angular.toJson(planPago),
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,
                 'Content-type': 'application/json'
@@ -50,5 +49,6 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
+    
 });
 

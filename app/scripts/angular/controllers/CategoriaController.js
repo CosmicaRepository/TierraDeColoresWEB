@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('CategoriaController', function ($scope, $route, _categoriaService) {
+miAppHome.controller('CategoriaController', function ($scope, $route, categoriaService) {
 
     /**
      * Modelo de objecto categoria usado en las vistas para Agregar.
@@ -15,7 +15,17 @@ miAppHome.controller('CategoriaController', function ($scope, $route, _categoria
         "usuarioCreacion": null,
         "usuarioModificacion": null,
         "fechaCreacion": "",
-        "fechaModificacion": null
+        "fechaModificacion": null,
+        "estado": true,
+        "tipoCategoria": {
+            "idTipo": null,
+            "nombreTipo": "",
+            "usuarioCreacion": null,
+            "usuarioModificacion": null,
+            "fechaCreacion": "",
+            "fechaModificacion": null,
+            "estado": true
+        }
     };
 
     /**
@@ -25,7 +35,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, _categoria
      */
     $scope.listaCategorias = function () {
         $scope.categorias = "";
-        $promesa = _categoriaService.getListaCategorias();
+        $promesa = categoriaService.getListaCategorias();
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $scope.categorias = datos.data;
@@ -41,7 +51,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, _categoria
      * @returns {undefined}
      */
     $scope.agrearCategoria = function (categoria) {
-        $promesa = _categoriaService.addCategoria(categoria);
+        $promesa = categoriaService.addCategoria(categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
@@ -57,7 +67,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, _categoria
      * @returns {undefined}
      */
     $scope.eliminarCategoria = function (categoria) {
-        $promesa = _categoriaService.deleteCategoria(categoria);
+        $promesa = categoriaService.deleteCategoria(categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
@@ -84,7 +94,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, _categoria
      * @returns {undefined}
      */
     $scope._modificarCategoria = function (categoria) {
-        $promesa = _categoriaService.updateCategoria(categoria);
+        $promesa = categoriaService.updateCategoria(categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();

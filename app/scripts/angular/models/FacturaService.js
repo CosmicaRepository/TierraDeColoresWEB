@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
-
-
-    this.getAll = function () {
+miAppHome.service('facturaService', function ($q, $http, $cookies){
+    
+    this.getAll = function (){
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/list';
+        var uri = 'http://localhost:8080/factura/list';
         $http({
             url: uri,
             method: 'get',
@@ -28,15 +27,15 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
         return deferred.promise;
     };
     
-    this.add = function (entidad){
+    this.add = function (factura){
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/add';
+        var uri = 'http://localhost:8080/factura/add';
         $http({
             url: uri,
             method: 'post',
-            data: angular.toJson(entidad),
+            data: angular.toJson(factura),
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,
                 'Content-type': 'application/json'
@@ -50,5 +49,31 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
+    
+    this.searchById = function (idFactura){
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/factura/search';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'idFactura': idFactura
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
 });
 

@@ -9,7 +9,7 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%;">
+    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
         <uib-tab heading="Lista de Categorias">
             <table data-ng-init="listaCategorias()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
                 <thead>
@@ -37,13 +37,18 @@ and open the template in the editor.
             <form name="newCategoria" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%;">
                 <center><h3>Nueva categoria</h3></center>
                 <div class="form-group" style="margin-top: 13%;">                    
-                    <label class="col-xs-4">Nombre categoria</label>
-                    <input type="text" class="col-xs-7" ng-model="_categoria.nombreCategoria" name="categoria" required
-                           data-ng-class='{
-                                           error: newCategoria.categoria.$invalid && !newCategoria.$pristine
-                                       }'/>
+                    <label class="control-label">Nombre categoria</label>
+                    <input type="text" class="form-control" ng-model="_categoria.nombreCategoria" name="categoria" required
+                           data-ng-class='{error: newCategoria.categoria.$invalid && !newCategoria.$pristine}'/>
                 </div>
-                <button ng-click="agrearCategoria(_categoria)" type="submit" class="btn btn-success" ng-disabled="newCategoria.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
+                <div class="form-group" ng-controller="TipoController" data-ng-init="listaTipo()">                    
+                    <label class="control-label">Tipo de producto</label>
+                    <select name="tipo" class="form-control" ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo" ng-model="_categoria.tipoCategoria" required
+                            data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
+                </div>
+                <div class="form-group">
+                    <button ng-click="agrearCategoria(_categoria)" type="submit" class="btn btn-success" ng-disabled="newCategoria.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
+                </div>
             </form>
         </uib-tab>        
     </uib-tabset>
@@ -82,6 +87,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
-    </body>
+    </div>
+</body>
 </html>

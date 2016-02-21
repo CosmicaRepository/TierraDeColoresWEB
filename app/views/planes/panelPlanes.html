@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>
+
+    </head>
+    <body>
+    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
+        <uib-tab heading="Planes de pago">
+            <table data-ng-init="listaPlanPago()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Tarjeta</th> 
+                        <th style="text-align: center">Plan de pago</th> 
+                        <th style="text-align: center">Acciones</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="plan in planes">
+                        <th style="text-align: center">{{plan.idPlanesPago}}</th>
+                        <th style="text-align: center">{{plan.tarjeta.entidadBancaria.nombreEntidad}} ~ {{plan.tarjeta.nombreTarjeta}}</th>                        
+                        <th style="text-align: center">{{plan.nombrePlanesPago}}</th>                        
+                        <th style="text-align: center">
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarCategoria(categoria)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarCategoria(categoria)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </th>                        
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab heading="Agregar nuevo Plan de Pago">
+            <form name="newPlan" class="form-horizontal" style="">
+                <center><h3>Nuevo Plan de Pago</h3></center>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">Nombre de plan de pago</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_planPago.nombrePlanesPago" name="nombrePlan" required
+                               data-ng-class='{error: newPlan.nombrePlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group" ng-controller="TarjetaController" data-ng-init="listaTarjetas()">                    
+                    <label class="control-label col-lg-4">Tarjeta</label>
+                    <div class="col-lg-8">
+                        <select name="tarjeta" class="form-control" ng-options="tarjeta as tarjeta.entidadBancaria.nombreEntidad + ' ~ ' + tarjeta.nombreTarjeta  for tarjeta in tarjetas track by tarjeta.idTarjeta" ng-model="_planPago.tarjeta" required
+                                data-ng-class='{error: newPlan.tarjeta.$invalid && !newPlan.$pristine}'></select>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">Cantidad de cuotas</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_planPago.cuotasPlanesPago" name="cuotasPlan" required
+                               maxlength="2" data-ng-class='{error: newPlan.cuotasPlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">Fecha de inicio</label>
+                    <div class="col-lg-8">
+                        <input type="date" class="form-control" ng-model="_planPago.fechaInicioPlanes" name="inicioPlan" required
+                               data-ng-class='{error: newPlan.inicioPlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">Fecha de finalizacion</label>
+                    <div class="col-lg-8">
+                        <input type="date" class="form-control" ng-model="_planPago.fechaFinalizacionPlanes" name="finalizacionPlan" required
+                               data-ng-class='{error: newPlan.finalizacionPlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">Dia de cierre</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_planPago.fechaCierre" name="cierraPlan" required
+                               maxlength="2" data-ng-class='{error: newPlan.cierraPlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <label class="control-label col-lg-4">% de interes</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_planPago.porcentajeInterez" name="porcentajePlan" required
+                               maxlength="2" data-ng-class='{error: newPlan.porcentajePlan.$invalid && !newPlan.$pristine}'/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button ng-click="agregarPlan(_planPago)" type="submit" class="btn btn-success" ng-disabled="newCategoria.$invalid" style="margin-left: 40%;">Agregar</button>
+                </div>
+            </form>
+        </uib-tab>        
+    </uib-tabset>
+</body>
+</html>

@@ -101,6 +101,21 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'toaster', 
                         templateUrl: "views/tarjeta/panelTarjeta.html",
                         resolve: {authentication: auth}
                     })
+                    .when("/planes-de-pago", {
+                        controller: "PlanPagoController",
+                        templateUrl: "views/planes/panelPlanes.html",
+                        resolve: {authentication: auth}
+                    })
+                    .when("/bancos", {
+                        controller: "EntidadBancariaController",
+                        templateUrl: "views/banco/panelBanco.html",
+                        resolve: {authentication: auth}
+                    })
+                    .when("/factura/:idFactura", {
+                        controller: "FacturaController",
+                        templateUrl: "views/factura/facturaPanel.html",
+                        resolve: {authentication: auth}
+                    })
                     .otherwise({
                         redirectTo: "/",
                         templateUrl: "views/inicio.html"

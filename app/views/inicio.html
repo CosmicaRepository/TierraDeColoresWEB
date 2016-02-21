@@ -4,7 +4,13 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<center><h1 style="margin-top: 10%;">Pagina de inicio</h1></center>
+<center>
+    <h1 style="margin-top: 10%;">Pagina de inicio</h1>
+
+    <div ng-controller="FacturaController">
+        <button type="button" ng-click="agregarFactura(_newFactura)" class="btn btn-success">Nueva factura</button>
+    </div>
+
+</center>
 
 
- <io-barcode code="30169260" options="options" type="CODE128C"></io-barcode>

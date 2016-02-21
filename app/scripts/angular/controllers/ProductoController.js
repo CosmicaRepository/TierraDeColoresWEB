@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $http, factoryProducto, $compile, $routeParams, ngTableParams, createDialog, $route, $timeout, $cookies, Upload, $location, _productoService, factoryCache, $rootScope) {
+miAppHome.controller('ProductoController', function ($scope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
