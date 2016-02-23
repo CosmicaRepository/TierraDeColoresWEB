@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('FacturaController', function ($scope, $http, uibDateParser, $anchorScroll, $cookies, $route, facturaService, $location, $routeParams) {
+miAppHome.controller('FacturaController', function ($scope, $http, $timeout, $uibModal, $log, $anchorScroll, $cookies, $route, facturaService, $location, $routeParams) {
 
     $scope._newFactura = {
         "idFactura": null,
@@ -15,6 +15,8 @@ miAppHome.controller('FacturaController', function ($scope, $http, uibDateParser
         "usuarioCreacion": null,
         "usuarioModificacion": null
     };
+
+    $scope.barcode = "";
 
     $scope.clienteFactura = {
         "idCliente": null,
@@ -78,6 +80,32 @@ miAppHome.controller('FacturaController', function ($scope, $http, uibDateParser
         select2: {
             minimumInputLength: 2
         }
+    };
+
+
+
+
+
+
+    $scope.open = function () {
+        var control = $scope.barcode.length;
+        console.log($scope.barcode);
+        if (control >= 8) {
+            $timeout(function timer() {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'myModalContent.html',
+                    controller: 'ProductoController',
+                    size: 'lg',
+                    resolve: {
+                        items: function () {
+//                    return $scope.items;
+                        }
+                    }
+                });
+            }, 2000);
+        }
+
     };
 
 

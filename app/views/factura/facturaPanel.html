@@ -105,14 +105,50 @@ and open the template in the editor.
                             </h3>
                         </div>
                         <div class="panel-body">
-
-
-
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label class="control-label">Ingresa codigo de producto</label>
+                                    <input type="text"
+                                           maxlength="8"
+                                           placeholder="Ingrese codigo de barras"
+                                           ng-change="open()"
+                                           ng-model="barcode"
+                                           class="form-control"/>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </body>
+
+    <script type="text/ng-template" id="myModalContent.html">   
+    <div class="modal-header">
+        <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in usuarios">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </script>
 </html>
