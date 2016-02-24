@@ -9,7 +9,7 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-        <div class="panel panel-primary" data-ng-init="buscarProducto()" style="width: 60%; margin-left: 20%;"> 
+        <div class="panel panel-primary" data-ng-init="buscarProducto()" style="margin-top: 70px;width: 60%; margin-left: 20%;"> 
             <div class="panel panel-heading"># {{foundProducto.idProducto}}
                 <a href='#/' style="color: #ffffff; float: right;">Editar</a>
             </div>
@@ -46,11 +46,7 @@ and open the template in the editor.
                     <div class="form-group">
                         <label class="col-xs-5">Categoria</label>
                         <div type="text" class="col-xs-7">{{foundProducto.categoria.nombreCategoria}}</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-5">Tipo</label>
-                        <div type="text" class="col-xs-7">{{foundProducto.tipoProducto.nombreTipo}}</div>
-                    </div>
+                    </div>                    
                     <div class="form-group">
                         <label class="col-xs-5">Temporada</label>
                         <div type="text" class="col-xs-7">{{foundProducto.temporada.nombreTemporada}}</div>

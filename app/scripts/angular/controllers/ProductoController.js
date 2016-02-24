@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $http, $routeParams, $uibModalInstance, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -15,21 +15,38 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
      */
     $scope._producto = {
         "idProducto": null,
-        "categoria": {"idCategoria": null,
+        "codigoProducto": null,
+        "claseProducto": "",
+        "numeroFactura": "",
+        "categoria": {
+            "idCategoria": null,
             "nombreCategoria": "",
-            "usuarioCreacion": 1,
+            "usuarioCreacion": null,
             "usuarioModificacion": null,
             "fechaCreacion": "",
             "fechaModificacion": null,
-            "estado": true},
-        "marcas": {"idMarca": null,
+            "estado": true,
+            "tipoCategoria": {
+                "idTipo": null,
+                "nombreTipo": "",
+                "usuarioCreacion": null,
+                "usuarioModificacion": null,
+                "fechaCreacion": "",
+                "fechaModificacion": null,
+                "estado": true
+            }
+        },
+        "marcas": {
+            "idMarca": null,
             "nombreMarca": "",
             "fechaCreacion": "",
             "fechaModificacion": null,
-            "usuarioCreacion": null,
+            "usuarioCreacion":null,
             "usuarioModificacion": null,
-            "estado": true},
-        "proveedor": {"idProveedor": null,
+            "estado": true
+        },
+        "proveedor": {
+            "idProveedor": null,
             "nombreProveedor": "",
             "cuitProveedor": "",
             "direccionProveedor": "",
@@ -43,33 +60,29 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
             "usuarioCreacion": null,
             "usuarioModificacion": null,
             "fechaCreacion": "",
-            "fechaModificacion": ""},
-        "sexo": {"idSexo": null,
+            "fechaModificacion": ""
+        },
+        "sexo": {
+            "idSexo": null,
             "nombreSexo": "",
             "fechaCreacion": "",
             "fechaModificacion": null,
             "usuarioCreacion": null,
-            "usuarioModificacion": null},
-        "temporada": {"idTemporada": null,
+            "usuarioModificacion": null
+        },
+        "temporada": {
+            "idTemporada": null,
             "nombreTemporada": "",
             "usuarioCreacion": null,
             "usuarioModificacion": null,
             "fechaCreacion": "",
-            "fechaModificacion": null},
-        "tipoProducto": {"idTipo": null,
-            "nombreTipo": "",
-            "usuarioCreacion": null,
-            "usuarioModificacion": null,
-            "fechaCreacion": "",
-            "fechaModificacion": null,
-            "estado": true},
+            "fechaModificacion": null
+        },
         "descripcion": "",
         "colorProducto": "",
         "precioCosto": null,
         "precioVenta": null,
         "precioLista": null,
-        "cantidadClaseB": null,
-        "cantidadClaseN": null,
         "cantidadTotal": null,
         "cantidadMinima": null,
         "talla": "",
@@ -80,7 +93,6 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
         "usuarioCreacion": null,
         "usuarioModificacion": null
     };
-
 
     /**
      * Funcion encargada de enlistar los Productos disponibles en la base de 
@@ -93,7 +105,6 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $scope.productos = datos.data;
-                select2States = datos.data;
             } else {
                 alert("error");
             }
@@ -235,14 +246,8 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
         }
     };
 
-
-
-    $scope.ok = function () {
-        $uibModalInstance.close($scope.selected.item);
-    };
-
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
+//    $scope.cancel = function () {
+//        $uibModalInstance.dismiss('cancel');
+//    };
 });
 

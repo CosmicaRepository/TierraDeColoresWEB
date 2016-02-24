@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('FacturaController', function ($scope, $http, $timeout, $uibModal, $log, $anchorScroll, $cookies, $route, facturaService, $location, $routeParams) {
+miAppHome.controller('FacturaController', function ($scope, _productoService, $http, $timeout, $uibModal, $log, $anchorScroll, $cookies, $route, facturaService, $location, $routeParams) {
 
     $scope._newFactura = {
         "idFactura": null,
@@ -82,11 +82,6 @@ miAppHome.controller('FacturaController', function ($scope, $http, $timeout, $ui
         }
     };
 
-
-
-
-
-
     $scope.open = function () {
         var control = $scope.barcode.length;
         console.log($scope.barcode);
@@ -95,11 +90,28 @@ miAppHome.controller('FacturaController', function ($scope, $http, $timeout, $ui
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'myModalContent.html',
-                    controller: 'ProductoController',
+                    controller: 'FacturaController',
                     size: 'lg',
                     resolve: {
-                        items: function () {
-//                    return $scope.items;
+                        productosBarcode: function () {
+                            var token = $cookies.getObject('token');
+                            var list = null;
+                            $http({
+                                url: 'http://localhost:8080/producto/barcode',
+                                method: 'post',
+                                headers: {
+                                    'Authorization': 'Bearer ' + token.data.access_token
+                                },
+                                params: {
+                                    'barcode': $scope.barcode
+                                }
+                            }).then(function successCallback(response) {
+                                return response;
+                            }, function errorCallback(response) {
+                                alert("error");
+                            });
+//                            console.log(list);
+//                            return list;
                         }
                     }
                 });
@@ -107,7 +119,17 @@ miAppHome.controller('FacturaController', function ($scope, $http, $timeout, $ui
         }
 
     };
-
+    $scope.searchBarcode = function () {
+//        console.log($scope.barcode);
+//        $scope.productosBarcode = "";
+//        $promesa = _productoService.searchByBarcode($scope.barcode);
+//        $promesa.then(function (datos) {
+//            if (datos.status === 200) {
+//                console.log(datos.data);
+//                $scope.productosBarcode = datos.data;
+//            }
+//        });
+    };
 
 });
 

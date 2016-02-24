@@ -132,15 +132,17 @@ and open the template in the editor.
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                    <th>Codigo de barras</th>
+                    <th>Clase</th>
+                    <th>Descripcion</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="usuario in usuarios">
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr ng-repeat="productoBarcode in productosBarcode">
+                    <td>{{productoBarcode.idProducto}}</td>
+                    <td>{{productoBarcode.codigoProducto}}</td>
+                    <td>{{productoBarcode.claseProducto}}</td>
+                    <td>{{productoBarcode.descripcion}}</td>
                 </tr>
             </tbody>
         </table>

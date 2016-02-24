@@ -19,7 +19,12 @@ and open the template in the editor.
             </div>
             <div class="form-group">
                 <label class="col-xs-4">Codigo producto</label>
-                <input type="text" class="col-xs-7" ng-model="_producto.idProducto" name="nombreProveedor" required
+                <input type="text" class="col-xs-7" ng-model="_producto.codigoProducto" name="nombreProveedor" required
+                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4">N° de Factura</label>
+                <input type="text" class="col-xs-7" ng-model="_producto.numeroFactura" name="nombreProveedor" required
                        data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
             </div>
             <div class="form-group">
@@ -29,13 +34,15 @@ and open the template in the editor.
             </div>            
             <div class="form-group">
                 <label class="col-xs-4">Clase B</label>
-                <input type="text" class="col-xs-7" ng-model="_producto.cantidadClaseB" name="cantidadClaseB" required
-                       data-ng-class='{error: nuevoProveedor.cantidadClaseB.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
+                <select class="form-group-lg" ng-model="_producto.claseProducto">
+                    <option value="A"> Clase A</option>
+                    <option value="B"> Clase B</option>
+                </select>
+            </div>            
             <div class="form-group">
-                <label class="col-xs-4">Clase N</label>
-                <input type="text" class="col-xs-7" ng-model="_producto.cantidadClaseN" name="cantidadClaseN"
-                       data-ng-class='{error: nuevoProveedor.cantidadClaseN.$invalid && !nuevoProveedor.$pristine}'/>
+                <label class="col-xs-4">Stock</label>
+                <input type="text" class="col-xs-7" ng-model="_producto.cantidadTotal" name="nombreProveedor" required
+                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
             </div>
             <div class="form-group">
                 <label class="col-xs-4">Stock minimo</label>
@@ -78,13 +85,7 @@ and open the template in the editor.
                 <div ng-controller="SexoController" data-ng-init="listaSexos()" >
                     <select class="col-xs-7" style="height: 26px;" ng-options="sexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo" ng-model="_producto.sexo"></select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Tipo de producto</label>
-                <div ng-controller="TipoController" data-ng-init="listaTipo()" >
-                    <select class="col-xs-7" style="height: 26px;" ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo" ng-model="_producto.tipoProducto"></select>
-                </div>
-            </div>
+            </div>           
             <div class="form-group">
                 <label class="col-xs-4">Categoria</label>
                 <div ng-controller="CategoriaController" data-ng-init="listaCategorias()" >

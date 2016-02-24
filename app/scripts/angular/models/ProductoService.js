@@ -95,7 +95,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
-    
+
     this.searchById = function (idProducto) {
         var datosRecu = null;
         var deferred = $q.defer();
@@ -119,6 +119,23 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
             deferred.resolve(datosRecu);
         });
         return deferred.promise;
+    };
+
+    this.searchByBarcode = function (barcode) {
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/producto/barcode';
+        var list = $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'barcode': barcode
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        });
+        return list;
     };
 
 });
