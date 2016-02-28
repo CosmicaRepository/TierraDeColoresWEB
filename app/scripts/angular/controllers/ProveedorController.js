@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProveedorController', function ($scope, $http, $routeParams, ngTableParams, createDialog, $route, $timeout, $cookies, $location, _proveedorService) {
+miAppHome.controller('ProveedorController', function ($scope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
 
     /**
      * Modelo de objeto Proveedor utilizado para agregar nuevos proveedores

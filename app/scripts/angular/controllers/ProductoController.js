@@ -41,7 +41,7 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
             "nombreMarca": "",
             "fechaCreacion": "",
             "fechaModificacion": null,
-            "usuarioCreacion":null,
+            "usuarioCreacion": null,
             "usuarioModificacion": null,
             "estado": true
         },
@@ -136,6 +136,14 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
         });
     };
 
+    /**
+     * Funcion randomCode regresa un numero random para insertar en un nuevo 
+     * producto
+     * @returns {undefined}
+     */
+    $scope.randomCode = function () {
+        $scope._producto.codigoProducto = Math.floor((Math.random() * 999999999999999) + 100000000000000);
+    };
 
     /**
      * Funcion eliminar Producto
