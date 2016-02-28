@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('facturaService', function ($q, $http, $cookies){
-    
-    this.getAll = function (){
+miAppHome.service('facturaService', function ($q, $http, $cookies) {
+
+    this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -26,8 +26,8 @@ miAppHome.service('facturaService', function ($q, $http, $cookies){
         });
         return deferred.promise;
     };
-    
-    this.add = function (factura){
+
+    this.add = function (factura) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -49,8 +49,8 @@ miAppHome.service('facturaService', function ($q, $http, $cookies){
         });
         return deferred.promise;
     };
-    
-    this.searchById = function (idFactura){
+
+    this.searchById = function (idFactura) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -74,6 +74,54 @@ miAppHome.service('facturaService', function ($q, $http, $cookies){
         });
         return deferred.promise;
     };
-    
+
+    this.getDetalleFacturaList = function (idFacturaDetalle) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/detalle/factura';
+        $http({
+            url: uri,
+            method: 'get',
+            params: {
+                'idFactura': idFacturaDetalle
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+
+    this.addDetalleFactura = function (detalle) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/detalle/add';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(detalle),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+
 });
 

@@ -5,7 +5,7 @@
  */
 /* global usuarioController */
 "use strict";
-var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'toaster', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'fundoo.services', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
+var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngTable', 'toaster', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
         .config(function ($routeProvider) {
             var auth = function ($cookies, $rootScope, $http, $window, $location) {
                 var tk = $cookies.get('a_tk');
