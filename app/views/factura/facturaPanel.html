@@ -14,9 +14,9 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li ng-class="{active: $location.hash() == 'encabezado'}"><a href="" ng-click="gotoAnchor('encabezado')" >Encabezado</a></li>
-                        <li ng-class="{active: $location.hash() == 'detalle'}"><a href="" ng-click="gotoAnchor('detalle')">Detalle</a></li>
-                        <li ng-class="{active: $location.hash() == 'metodo'}"><a href="">Metodo de pago</a></li>
+                        <li><a href="" scroll-to="encabezado">Encabezado</a></li>
+                        <li><a href="" scroll-to="detalle">Detalle</a></li>
+                        <li><a href="" >Metodo de pago</a></li>
                     </ul>                    
                 </div>
                 <div id="encabezado" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -31,7 +31,7 @@ and open the template in the editor.
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label">Buscar cliente</label>
-                                <div aa-select2="selectCliente" ng-model="clienteFactura"></div>
+                                <div aa-select2="selectCliente" ng-model="factura.cliente"></div>
                             </div>
                             <h4>Datos del Cliente</h4>
                             <form name="clienteEncabezado">
@@ -39,7 +39,7 @@ and open the template in the editor.
                                     <div class="form-group col-lg-12">
                                         <label class="control-label">DNI o CUIT</label>
                                         <div class="">
-                                            <input type="text" class="form-control" ng-model="clienteFactura.dniCuit" name="dniCliente" required
+                                            <input type="text" class="form-control" ng-model="factura.cliente.dniCuit" name="dniCliente" required
                                                    data-ng-class='{error: clienteEncabezado.dniCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>
@@ -48,14 +48,14 @@ and open the template in the editor.
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">Nombre</label>
                                         <div class="">
-                                            <input type="text" class="form-control" ng-model="clienteFactura.nombreCliente" name="nombreCliente" required
+                                            <input type="text" class="form-control" ng-model="factura.cliente.nombreCliente" name="nombreCliente" required
                                                    data-ng-class='{error: clienteEncabezado.nombreCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">Apellido</label>
                                         <div class="">
-                                            <input type="text" class="form-control" ng-model="clienteFactura.apellidoCliente" name="apellidoCliente" required
+                                            <input type="text" class="form-control" ng-model="factura.cliente.apellidoCliente" name="apellidoCliente" required
                                                    data-ng-class='{error: clienteEncabezado.apellidoCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
@@ -64,14 +64,14 @@ and open the template in the editor.
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">Domicilio</label>
                                         <div class="">
-                                            <input type="text" class="form-control" ng-model="clienteFactura.domicilio" name="domicilioCliente" required
+                                            <input type="text" class="form-control" ng-model="factura.cliente.domicilio" name="domicilioCliente" required
                                                    data-ng-class='{error: clienteEncabezado.domicilioCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">Telefono</label>
                                         <div class="">
-                                            <input type="tel" class="form-control" ng-model="clienteFactura.telefono" name="telefonoCliente" required
+                                            <input type="tel" class="form-control" ng-model="factura.cliente.telefono" name="telefonoCliente" required
                                                    data-ng-class='{error: clienteEncabezado.telefonoCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
@@ -80,14 +80,14 @@ and open the template in the editor.
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">E-mail</label>
                                         <div class="">
-                                            <input type="email" class="form-control" ng-model="clienteFactura.emailCliente" name="emailCliente" required
+                                            <input type="email" class="form-control" ng-model="factura.cliente.emailCliente" name="emailCliente" required
                                                    data-ng-class='{error: clienteEncabezado.emailCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
                                     <div class="form-group col-lg-6">
                                         <label class="control-label">Fecha de nacimiento</label>
                                         <div class="">
-                                            <input type="text" class="form-control" ng-model="clienteFactura.fechaNacimiento" name="nacimientoCliente" required
+                                            <input type="text" class="form-control" ng-model="factura.cliente.fechaNacimiento" name="nacimientoCliente" required
                                                    data-ng-class='{error: clienteEncabezado.nacimientoCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                         </div>
                                     </div>                                    
@@ -105,7 +105,7 @@ and open the template in the editor.
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <form class="form-inline">
+                            <form class="form-inline" style="margin-left: 20%; padding-bottom: 30px;">
                                 <div class="form-group">
                                     <label class="control-label">Ingresa codigo de producto</label>
                                     <input type="text"
@@ -113,9 +113,43 @@ and open the template in the editor.
                                            placeholder="Ingrese codigo de barras"
                                            ng-change="open()"
                                            ng-model="barcode"
+                                           style="width: 400px; text-align: center;"
                                            class="form-control"/>
                                 </div>
                             </form>
+                            <div style="margin-left: 15%; margin-right: 15%; margin-top: 10px;">
+                                <table ng-table="tableParams" style="margin-top: 10px;" 
+                                       class="table-condensed table-bordered table-striped"                                   
+                                       data-ng-init="listaDetalleFactura()"
+                                       >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px; text-align: center;">Id</th>
+                                            <th style="width: 300px;">Descripcion</th>
+                                            <th style="width: 30px; text-align: center;">Cantidad</th>
+                                            <th style="width: 150px; text-align: center;">Precio por Unidad</th>
+                                            <th style="width: 50px; text-align: center;">Descuento</th>
+                                            <th style="width: 50px; text-align: center;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="detalleFactura in $data">
+                                            <td style="text-align: center;">{{detalleFactura.idDetalleFactura}}</td>
+                                            <td>{{detalleFactura.producto.descripcion}}</td>
+                                            <td style="width: 30px; text-align: center;">{{detalleFactura.cantidadDetalle}}</td>
+                                            <td style="width: 150px; text-align: center;">${{detalleFactura.producto.precioVenta}}</td>
+                                            <td style="width: 50px; text-align: center;">{{detalleFactura.descuentoDetalle}}</td>
+                                            <td style="width: 50px; text-align: center;">${{detalleFactura.totalDetalle}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th style="text-align: center;">${{totalCompra}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,34 +157,81 @@ and open the template in the editor.
         </div>
     </body>
 
-    <script type="text/ng-template" id="myModalContent.html">   
+    <script type="text/ng-template" id="searchResultados.html">    
     <div class="modal-header">
-        <h3 class="modal-title">I'm a modal!</h3>
+        <h3 class="modal-title">Lista de productos</h3>
     </div>
     <div class="modal-body">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="barcode" placeholder="Ingresa codigo de barras para buscar">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">BUSCAR</button>
+            </span>
+        </div>
+        <h4>Resultados</h4>
         <table class="table table-condensed table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Codigo de barras</th>
                     <th>Clase</th>
                     <th>Descripcion</th>
+                    <th>Stock</th>
+                    <th>Color</th>
+                    <th>Precio</th>
+                    <th>Talla</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="productoBarcode in productosBarcode">
-                    <td>{{productoBarcode.idProducto}}</td>
                     <td>{{productoBarcode.codigoProducto}}</td>
                     <td>{{productoBarcode.claseProducto}}</td>
                     <td>{{productoBarcode.descripcion}}</td>
+                    <td>{{productoBarcode.cantidadTotal}}</td>
+                    <td>{{productoBarcode.colorProducto}}</td>
+                    <td>${{productoBarcode.precioVenta}}</td>
+                    <td>{{productoBarcode.talla}}</td>
+                    <td>                    
+                        <button ng-click="addProductoDetalle(productoBarcode)" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-check"></span></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger" type="button" ng-click="close()">Cerrar</button>
+    </div>
+    </script>
+
+
+    <script type="text/ng-template" id="addProductoFactura.html">  
+    <div class="modal-header">
+    <center>
+        <h3 class="modal-title">{{productoSelected.descripcion}}</h3>
+    </center>
+    </div>
+    <center>
+    <form name="detalleFactura">
+        <div class="form-group" style="width: 50%; margin-left: 5%;">
+            <label class="control-label">Cantidad</label>
+            <div class="">
+                <input type="text" class="form-control" ng-model="_detalleFactura.cantidadDetalle" name="cantidadDetalle" required
+                       data-ng-class='{error: detalleFactura.cantidadDetalle.$invalid && !detalleFactura.$pristine}'/>
+            </div>
+        </div>
+        <div class="form-group" style="width: 50%; margin-left: 5%;">
+            <label class="control-label">Descuento</label>
+            <div class="">
+                <input type="text" class="form-control" ng-model="_detalleFactura.descuentoDetalle" name="descuentoDetalle" required
+                       data-ng-class='{error: detalleFactura.descuentoDetalle.$invalid && !detalleFactura.$pristine}'/>
+            </div>
+        </div>
+        <button class="btn btn-success" type="button" ng-click="addDetalleFactura()">Agregar</button>
+    </form>
+    </center>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="close()">Cerrar</button>
     </div>
     </script>
 </html>

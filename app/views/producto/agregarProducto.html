@@ -19,8 +19,9 @@ and open the template in the editor.
             </div>
             <div class="form-group">
                 <label class="col-xs-4">Codigo producto</label>
-                <input type="text" class="col-xs-7" ng-model="_producto.codigoProducto" name="nombreProveedor" required
+                <input type="text" class="col-xs-7" ng-model="_producto.codigoProducto" name="nombreProveedor" required maxlength="20"
                        data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                <button class="btn btn-xs btn-info" ng-click="randomCode()" ng-disabled="_producto.codigoProducto">Random</button>
             </div>
             <div class="form-group">
                 <label class="col-xs-4">N° de Factura</label>
