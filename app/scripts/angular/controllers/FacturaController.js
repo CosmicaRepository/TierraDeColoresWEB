@@ -110,8 +110,9 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.getDetalleFacturaList(idFacturaDetalle);
                     $promesa.then(function (datos) {
                         $scope.detalleFacturas = datos.data;
-                        var data = datos.data;                        
+                        var data = datos.data;
                         angular.forEach(data, function (value, key) {
+                            value.idDetalleFactura = key + 1; //posiblemente a eliminar, de mas
                             $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
                         });
                         $scope.tableParams = new NgTableParams({
@@ -132,12 +133,12 @@ miAppHome.controller('FacturaController',
 
                 $rootScope.$on('ReloadTable', function () {
                     var idFacturaDetalle = $routeParams.idFactura;
-                    $scope.tableParams.reload();
                     $timeout(function timer() {
                         facturaService.getDetalleFacturaList(idFacturaDetalle).then(function (datos) {
                             $scope.detalleFacturas = datos.data;
                             $scope.totalCompra = 0;
                             angular.forEach(datos.data, function (value, key) {
+                                value.idDetalleFactura = key; //posiblemente a eliminar, de mas
                                 $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
                             });
                             $scope.tableParams.reload();
@@ -145,5 +146,23 @@ miAppHome.controller('FacturaController',
                     }, 1000);
                 });
 
+
+                $scope.getCliente = function (val) {
+                    var token = $cookies.getObject('token');
+                    return $http({
+                        url: 'http://localhost:8080/cliente/searchApellido',
+                        method: 'post',
+                        headers: {
+                            'Authorization': 'Bearer ' + token.data.access_token
+                        },
+                        params: {
+                            'apellidoCliente': val
+                        }
+                    }).then(function (response) {
+                        return response.data.map(function (item) {
+                            return item;
+                        });
+                    });
+                };
             }]);
 
