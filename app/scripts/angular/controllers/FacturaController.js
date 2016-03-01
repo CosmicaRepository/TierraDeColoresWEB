@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 miAppHome.controller('FacturaController',
-        ['$scope', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams',
-            function ($scope, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams) {
+        ['$scope', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
+            function ($scope, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
 
                 $scope._newFactura = {
                     "idFactura": null,
@@ -17,9 +17,7 @@ miAppHome.controller('FacturaController',
                     "usuarioCreacion": null,
                     "usuarioModificacion": null
                 };
-
                 $scope.barcode = "";
-
                 $scope.totalCompra = 0;
 
                 $scope.clienteFactura = {
@@ -57,28 +55,6 @@ miAppHome.controller('FacturaController',
                     $promesa.then(function (datos) {
                         $scope.factura = datos.data;
                     });
-                };
-
-                $scope.selectCliente = {
-                    mode: 'object',
-                    id: 'idCliente',
-                    text: 'nombreCliente',
-                    options: function (searchText) {
-                        var token = $cookies.getObject('token');
-                        return $http({
-                            url: 'http://localhost:8080/cliente/searchApellido',
-                            method: 'post',
-                            headers: {
-                                'Authorization': 'Bearer ' + token.data.access_token
-                            },
-                            params: {
-                                'apellidoCliente': searchText
-                            }
-                        });
-                    },
-                    select2: {
-                        minimumInputLength: 2
-                    }
                 };
 
                 $scope.open = function () {
@@ -164,5 +140,77 @@ miAppHome.controller('FacturaController',
                         });
                     });
                 };
+
+                $scope.listaMetodoPagoFactura = function () {
+                    $scope.metodoPagos = "";
+                    var idFactura = $routeParams.idFactura;
+                    $promesa = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+                    $promesa.then(function (datos) {
+                        $scope.metodoPagos = datos.data;
+                        var data = datos.data;
+                        $scope.tableMetodos = new NgTableParams({
+                            page: 1,
+                            count: 5
+                        }, {
+                            total: data.length,
+                            getData: function (params) {
+                                data = $scope.metodoPagos;
+                                params.total(data.length);
+                                if (params.total() <= ((params.page() - 1) * params.count())) {
+                                    params.page(1);
+                                }
+                                return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                            }});
+                    });
+                };
+
+
+                /**
+                 * Modulo carga metodo de pago, correspondientes listados
+                 * @returns {undefined}
+                 */
+                $scope.listaMedioPago = function () {
+                    $promesa = medioPagoService.getAll();
+                    $promesa.then(function (datos) {
+                        $scope.mediosPagos = datos.data;
+                    });
+                };
+                $scope.listaEntidades = function () {
+                    $promesa = entidadBancariaService.getAll();
+                    $promesa.then(function (datos) {
+                        $scope.entidades = datos.data;
+                    });
+                };
+                $scope.listaPlanesPago = function () {
+                    $promesa = planPagoService.getAll();
+                    $promesa.then(function (datos) {
+                        $scope.planesPago = datos.data;
+                    });
+                };
+                $scope.listaTarjetas = function () {
+                    $promesa = tarjetaService.getAll();
+                    $promesa.then(function (datos) {
+                        $scope.tarjetas = datos.data;
+                    });
+                };
+
+
+                $scope.mediosPago = "";
+                $scope.entidadPago = "";
+                $scope.planPago = "";
+                $scope.tarjetasPago = "";
+
+                $scope.$watchGroup(['mediosPago', 'entidadPago', 'tarjetasPago', 'planPago'], function (newValues, oldValues) {
+                    console.log(newValues);
+                    console.log(oldValues);
+                });
+
+                $scope.$watch('mediosPago', function (data) {
+                    if (data !== "") {
+
+                    }
+                });
+
+
             }]);
 

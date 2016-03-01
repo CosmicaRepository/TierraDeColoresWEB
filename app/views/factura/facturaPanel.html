@@ -186,41 +186,29 @@ and open the template in the editor.
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="medioPago">Medio Pago</label>
-                                                <div class="col-md-8">
-                                                    <select id="medioPago" name="medioPago" class="form-control">
-                                                        <option value="1">Option one</option>
-                                                        <option value="2">Option two</option>
-                                                    </select>
+                                                <div class="col-md-8" data-ng-init="listaMedioPago()">
+                                                    <select class="form-control" ng-options="medio as medio.nombrePago for medio in mediosPagos track by medio.idMedioPago" ng-model="mediosPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="entidad">Entidad</label>
-                                                <div class="col-md-8">
-                                                    <select id="entidad" name="entidad" class="form-control">
-                                                        <option value="1">Option one</option>
-                                                        <option value="2">Option two</option>
-                                                    </select>
+                                                <div class="col-md-8" data-ng-init="listaEntidades()">
+                                                    <select class="form-control" ng-options="entidad as entidad.nombreEntidad for entidad in entidades track by entidad.idEntidadMonetaria" ng-model="entidadPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="tarjeta">Tarjeta</label>
-                                                <div class="col-md-8">
-                                                    <select id="tarjeta" name="tarjeta" class="form-control">
-                                                        <option value="1">Option one</option>
-                                                        <option value="2">Option two</option>
-                                                    </select>
+                                                <div class="col-md-8" data-ng-init="listaTarjetas()">
+                                                    <select class="form-control" ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta" ng-model="tarjetasPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="metodoPago">Metodo de pago</label>
-                                                <div class="col-md-8">
-                                                    <select id="metodoPago" name="metodoPago" class="form-control">
-                                                        <option value="1">Option one</option>
-                                                        <option value="2">Option two</option>
-                                                    </select>
+                                                <div class="col-md-8" data-ng-init="listaPlanesPago()">
+                                                    <select class="form-control" ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago" ng-model="planPago"></select>
                                                 </div>
                                             </div>                                            
                                             <button class="btn btn-primary">Agregar</button>                                                                                          
@@ -229,7 +217,9 @@ and open the template in the editor.
                                 </div>
                                 <div class="col-lg-6">
                                     <h4 style="text-align: center;">Metodos cargados</h4>
-                                    <table class="table table-bordered table-condensed">
+                                    <table class="table table-bordered table-condensed"
+                                           ng-table="tableMetodos"
+                                           data-ng-init="listaMetodoPagoFactura()">
                                         <thead>
                                             <tr>
                                                 <th>Metodo</th>
@@ -239,6 +229,15 @@ and open the template in the editor.
                                                 <th>Monto</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            <tr ng-repeat="metodo in $data">
+                                                <td>{{metodo.planPago.tarjeta.medioPago.nombrePago}}</td>
+                                                <td>{{metodo.planPago.tarjeta.entidadBancaria.nombreEntidad}}</td>
+                                                <td>{{metodo.planPago.tarjeta.nombreTarjeta}}</td>
+                                                <td>{{metodo.planPago.nombrePlanesPago}}</td>
+                                                <td>{{metodo.montoPago}}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
