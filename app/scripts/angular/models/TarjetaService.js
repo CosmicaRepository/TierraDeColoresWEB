@@ -97,16 +97,17 @@ miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
     };
 
 
-    this.getEntidades = function (idEntidad) {
+    this.getEntidades = function (idEntidad, idMedio) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/entidad';
+        var uri = 'http://localhost:8080/tarjeta/entidadMedio';
         $http({
             url: uri,
             method: 'get',
-            params:{
-                'idEntidad': idEntidad
+            params: {
+                'idEntidad': idEntidad,
+                'idMedio': idMedio
             },
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,

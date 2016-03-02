@@ -49,6 +49,29 @@ miAppHome.service('facturaService', function ($q, $http, $cookies) {
         });
         return deferred.promise;
     };
+    
+    this.update = function (factura) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/factura/update';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(factura),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 
     this.searchById = function (idFactura) {
         var datosRecu = null;

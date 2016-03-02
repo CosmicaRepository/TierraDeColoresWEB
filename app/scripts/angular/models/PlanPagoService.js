@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('planPagoService', function ($http, $q, $cookies){
-    
-    this.getAll = function (){
+miAppHome.service('planPagoService', function ($http, $q, $cookies) {
+
+    this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -26,8 +26,8 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies){
         });
         return deferred.promise;
     };
-    
-    this.add = function (planPago){
+
+    this.add = function (planPago) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -50,16 +50,16 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies){
         return deferred.promise;
     };
     
-    this.getEntidades = function (idEntidad) {
+    this.searchByTarjeta = function (idTarjeta) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/entidad';
+        var uri = 'http://localhost:8080/plan/tarjeta';
         $http({
             url: uri,
             method: 'get',
             params:{
-                'idEntidad': idEntidad
+                'idTarjeta': idTarjeta
             },
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,
@@ -74,5 +74,6 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies){
         });
         return deferred.promise;
     };
+
 });
 

@@ -15,14 +15,34 @@ miAppHome.controller('FacturaController',
                     "fechaCreacion": null,
                     "fechaModificacion": null,
                     "usuarioCreacion": null,
+                    "usuarioModificacion": null,
+                    "total": null
+                };
+                $rootScope.factura = "";
+                $scope._metodoPago = {
+                    "idMetodoPagoFactura": null,
+                    "planPago": null,
+                    "factura": null,
+                    "montoPago": null,
+                    "estado": true,
+                    "fechaCreacion": null,
+                    "fechaModificacion": null,
+                    "usuarioCreacion": null,
                     "usuarioModificacion": null
                 };
+
                 $scope.barcode = "";
+                $scope.montoPago = "";
                 $scope.totalCompra = 0;
+                $scope.totalPago = 0;
                 $scope.entidadPago = "";
-                $scope.planPago = "";
+                $scope.planPago = null;
                 $scope.tarjetasPago = "";
                 $scope.mediosPago = "";
+                $scope.disableSelectEntidades = true;
+                $scope.disableSelectTarjeta = true;
+                $scope.disableSelectMetodo = true;
+
                 $scope.clienteFactura = {
                     "idCliente": null,
                     "nombreCliente": "",
@@ -38,10 +58,6 @@ miAppHome.controller('FacturaController',
                     "usuarioModificacion": null
                 };
 
-                $scope.listaFacturas = function () {
-
-                };
-
                 $scope.agregarFactura = function (factura) {
                     $promesa = facturaService.add(factura);
                     $promesa.then(function (datos) {
@@ -52,11 +68,10 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.detailFactura = function () {
-                    $scope.factura = "";
                     var idFactura = $routeParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
-                        $scope.factura = datos.data;
+                        $rootScope.factura = datos.data;
                     });
                 };
 
@@ -79,9 +94,6 @@ miAppHome.controller('FacturaController',
                         }, 2000);
                     }
                 };
-                $scope.searchBarcode = function () {
-
-                };
 
                 $scope.listaDetalleFactura = function () {
                     var idFacturaDetalle = $routeParams.idFactura;
@@ -91,7 +103,7 @@ miAppHome.controller('FacturaController',
                         $scope.detalleFacturas = datos.data;
                         var data = datos.data;
                         angular.forEach(data, function (value, key) {
-                            value.idDetalleFactura = key + 1; //posiblemente a eliminar, de mas
+//                            value.idDetalleFactura = key + 1; //posiblemente a eliminar, de mas
                             $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
                         });
                         $scope.tableParams = new NgTableParams({
@@ -117,7 +129,7 @@ miAppHome.controller('FacturaController',
                             $scope.detalleFacturas = datos.data;
                             $scope.totalCompra = 0;
                             angular.forEach(datos.data, function (value, key) {
-                                value.idDetalleFactura = key; //posiblemente a eliminar, de mas
+//                                value.idDetalleFactura = key; //posiblemente a eliminar, de mas
                                 $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
                             });
                             $scope.tableParams.reload();
@@ -151,6 +163,9 @@ miAppHome.controller('FacturaController',
                     $promesa.then(function (datos) {
                         $scope.metodoPagos = datos.data;
                         var data = datos.data;
+                        angular.forEach(datos.data, function (value, key) {
+                            $scope.totalPago = parseInt($scope.totalPago) + parseInt(value.montoPago);
+                        });
                         $scope.tableMetodos = new NgTableParams({
                             page: 1,
                             count: 5
@@ -206,33 +221,91 @@ miAppHome.controller('FacturaController',
 //                    }
                 });
 
-                $scope.$watch('mediosPago', function (data) {
-                    if (typeof data !== 'undefined') {
-                        if (data.nombrePago === 'CONTADO') {
-                            $scope.disableSelect = true;
-                            $scope.entidadPago = "";
-                            $scope.planPago = "";
-                            $scope.tarjetasPago = "";
-                        } else {
-                            $scope.disableSelect = false;
-                        }
+                $scope.$watch('mediosPago', function (newValue, oldValue) {
+                    if (newValue.nombrePago === 'CONTADO') {
+                        $scope.disableSelectEntidades = true;
+                        $scope.disableSelectTarjeta = true;
+                        $scope.disableSelectMetodo = true;
+                        $scope.entidadPago = "";
+                        $scope.planPago = "";
+                        $scope.tarjetasPago = "";
+                    }
+                    if (newValue.nombrePago === 'CREDITO' || newValue.nombrePago === 'DEBITO') {
+                        $scope.disableSelectEntidades = false;
+
                     }
                 });
 
                 $scope.busquedaTarjeta = function () {
-                    if ($scope.mediosPago === "") {
-
-                    } else {
-                        $promesa = tarjetaService.getEntidades($scope.entidadPago.idEntidadMonetaria);
-                        $promesa.then(function (datos) {
-                            $scope.tarjetas = datos.data;
-                        });
-                        $promesa = planPagoService.getEntidades($scope.entidadPago.idEntidadMonetaria);
-                        $promesa.then(function (datos) {
-                            $scope.planesPago = datos.data;
-                        });
-                    }
+                    $promesa = tarjetaService.getEntidades($scope.entidadPago.idEntidadMonetaria, $scope.mediosPago.idMedioPago);
+                    $promesa.then(function (datos) {
+                        $scope.disableSelectTarjeta = false;
+                        $scope.tarjetas = datos.data;
+                    });
                 };
+
+                $scope.busquedaPlanByTarjeta = function () {
+                    console.log($scope.tarjetasPago);
+                    $promesa = planPagoService.searchByTarjeta($scope.tarjetasPago.idTarjeta);
+                    $promesa.then(function (datos) {
+                        console.log(datos);
+                        $scope.planesPago = datos.data;
+                        $scope.disableSelectMetodo = false;
+                    });
+                };
+
+                $scope.agregarMetodoPago = function () {
+                    var idFactura = $routeParams.idFactura;
+                    $promesa = facturaService.searchById(idFactura);
+                    $promesa.then(function (datos) {
+                        $scope._metodoPago.factura = datos.data;
+                        console.log($scope.mediosPago.idMedioPago);
+                        if ($scope.mediosPago.idMedioPago !== 1) {
+                            $scope._metodoPago.planPago = $scope.planPago;
+                        } else {
+                            $scope._metodoPago.planPago = null;
+                        }
+                        if ($scope.montoPago === "") {
+                            alert("el monto no puede ser 0");
+                        } else {
+                            $scope._metodoPago.montoPago = $scope.montoPago;
+                            $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
+                            $prom.then(function (datos) {
+                                $recharge = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+                                $recharge.then(function (datos) {
+                                    angular.forEach(datos.data, function (value, key) {
+                                        console.log(value);
+                                        $scope.totalPago = parseInt($scope.totalPago) + parseInt(value.montoPago);
+                                    });
+                                    $scope.metodoPagos = datos.data;
+                                    $scope.tableMetodos.reload();
+                                    $scope.montoPago = "";
+                                    $scope.planPago = null;
+                                    $scope.tarjetasPago = "";
+                                    $scope.entidadPago = "";
+                                    $scope.mediosPago = "";
+                                    $scope.disableSelectEntidades = true;
+                                    $scope.disableSelectTarjeta = true;
+                                    $scope.disableSelectMetodo = true;
+                                });
+                            });
+                        }
+                    });
+                };
+
+                $scope.$watch('totalPago', function (newValue, oldValue) {
+                    $scope.finalizar = true;
+                    $scope.agregarMetodo = false;
+                    console.log(newValue);
+                    console.log($rootScope.factura.total);
+                    if (newValue.totalPago >= $rootScope.factura.total) {
+                        console.log($rootScope.factura.total);
+                        if ($rootScope.factura.total > 0) {
+                            $scope.finalizar = false;
+                            $scope.agregarMetodo = true;
+                        }
+                    }
+                });
 
             }]);
 

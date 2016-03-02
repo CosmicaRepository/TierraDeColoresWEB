@@ -159,7 +159,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </section>
-                    <section id="metodo-de-pago">
+                    <section id="metodo-de-pago" data-ng-init="controlTotal()">
                         <h1 class="page-header" style="margin-top: 50px; color: white;">Metodo de Pago</h1>
                         <div class="panel panel-default" data-ng-init="detailFactura()" style="height: 450px;">
                             <div class="panel-heading">
@@ -172,14 +172,19 @@ and open the template in the editor.
                                     <form class="form-horizontal">
                                         <fieldset>
                                             <!-- Form Name -->
-                                            <legend style="text-align: center;">Medio de Pago</legend>
+                                            <legend style="text-align: center;">Total a pagar: ${{factura.total}}</legend>
                                             <!-- Prepended text-->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="prependedtext">Monto</label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">$</span>
-                                                        <input id="prependedtext" name="prependedtext" class="form-control" placeholder="Monto a pagar" required="" type="text">
+                                                        <input id="prependedtext"
+                                                               name="prependedtext"
+                                                               class="form-control"
+                                                               placeholder="Monto a pagar"
+                                                               required="" type="text"
+                                                               ng-model="montoPago">
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,14 +192,16 @@ and open the template in the editor.
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="medioPago">Medio Pago</label>
                                                 <div class="col-md-8" data-ng-init="listaMedioPago()">
-                                                    <select class="form-control" ng-options="medio as medio.nombrePago for medio in mediosPagos track by medio.idMedioPago" ng-model="mediosPago"></select>
+                                                    <select class="form-control"
+                                                            ng-options="medio as medio.nombrePago for medio in mediosPagos track by medio.idMedioPago"
+                                                            ng-model="mediosPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="entidad">Entidad</label>
                                                 <div class="col-md-8" data-ng-init="listaEntidades()">
-                                                    <select ng-disabled="disableSelect"
+                                                    <select ng-disabled="disableSelectEntidades"
                                                             class="form-control"
                                                             ng-options="entidad as entidad.nombreEntidad for entidad in entidades track by entidad.idEntidadMonetaria"
                                                             ng-model="entidadPago"
@@ -205,17 +212,26 @@ and open the template in the editor.
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="tarjeta">Tarjeta</label>
                                                 <div class="col-md-8" data-ng-init="listaTarjetas()">
-                                                    <select ng-disabled="disableSelect" class="form-control" ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta" ng-model="tarjetasPago"></select>
+                                                    <select ng-disabled="disableSelectTarjeta"
+                                                            class="form-control"
+                                                            ng-change="busquedaPlanByTarjeta()"
+                                                            ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta"
+                                                            ng-model="tarjetasPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="metodoPago">Metodo de pago</label>
                                                 <div class="col-md-8" data-ng-init="listaPlanesPago()">
-                                                    <select ng-disabled="disableSelect" class="form-control" ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago" ng-model="planPago"></select>
+                                                    <select ng-disabled="disableSelectMetodo"
+                                                            class="form-control"                                                            
+                                                            ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago"
+                                                            ng-model="planPago"></select>
                                                 </div>
                                             </div>                                            
-                                            <button class="btn btn-primary">Agregar</button>                                                                                          
+                                            <button class="btn btn-primary"
+                                                    ng-click="agregarMetodoPago()"
+                                                    ng-disabled="agregarMetodo">Agregar</button>                                                                                          
                                         </fieldset>
                                     </form>
                                 </div>
@@ -242,10 +258,17 @@ and open the template in the editor.
                                                 <td>{{metodo.montoPago}}</td>
                                             </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th style="text-align: center;">${{totalPago}}</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
+                        <button class="btn btn-block btn-lg btn-success" ng-disabled="finalizar">FINALIZAR COMPRA</button>
                     </section>
                 </div>
             </div>

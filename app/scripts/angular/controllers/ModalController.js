@@ -43,8 +43,17 @@ miAppHome.controller('ModalController', ['$scope', 'facturaService', '$routePara
                 $scope._detalleFactura.factura = datos.data;
                 $scope._detalleFactura.producto = $rootScope.productoSelected;
                 $promesa = facturaService.addDetalleFactura($scope._detalleFactura);
-                $promesa.then(function (datos){
+                $promesa.then(function (datos) {
                     $uibModalInstance.close();
+                });
+                $scope.toUpdate = datos.data;
+                $scope.toUpdate.total = parseInt($scope.toUpdate.total) + parseInt($rootScope.productoSelected.precioVenta) * $scope._detalleFactura.cantidadDetalle;
+                $updateTotal = facturaService.update($scope.toUpdate);
+                $updateTotal.then(function (datos) {
+                    $updated = facturaService.searchById(idFactura);
+                    $updated.then(function (datos) {
+                        $rootScope.factura = datos.data;
+                    });
                 });
             });
             $rootScope.$emit('ReloadTable', {});
