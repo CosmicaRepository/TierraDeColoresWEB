@@ -9,10 +9,10 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
+    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; height: 550px">
         <uib-tab heading="Lista de Categorias">
-            <table data-ng-init="listaCategorias()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
-                <thead>
+            <table data-ng-init="listaCategorias()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%">
+                <thead style="background:black; color: white">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
@@ -47,7 +47,7 @@ and open the template in the editor.
                             data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
                 </div>
                 <div class="form-group">
-                    <button ng-click="agrearCategoria(_categoria)" type="submit" class="btn btn-success" ng-disabled="newCategoria.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
+                    <button ng-click="agrearCategoria(_categoria)" type="submit" class="btn btn-success btn" style="background: #FFBF00; border-color: white; margin-left: 40%; margin-top: 5%;"  ng-disabled="newCategoria.$invalid">Agregar</button>
                 </div>
             </form>
         </uib-tab>        
