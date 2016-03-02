@@ -194,21 +194,25 @@ and open the template in the editor.
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="entidad">Entidad</label>
                                                 <div class="col-md-8" data-ng-init="listaEntidades()">
-                                                    <select class="form-control" ng-options="entidad as entidad.nombreEntidad for entidad in entidades track by entidad.idEntidadMonetaria" ng-model="entidadPago"></select>
+                                                    <select ng-disabled="disableSelect"
+                                                            class="form-control"
+                                                            ng-options="entidad as entidad.nombreEntidad for entidad in entidades track by entidad.idEntidadMonetaria"
+                                                            ng-model="entidadPago"
+                                                            ng-change="busquedaTarjeta()"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="tarjeta">Tarjeta</label>
                                                 <div class="col-md-8" data-ng-init="listaTarjetas()">
-                                                    <select class="form-control" ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta" ng-model="tarjetasPago"></select>
+                                                    <select ng-disabled="disableSelect" class="form-control" ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta" ng-model="tarjetasPago"></select>
                                                 </div>
                                             </div>
                                             <!-- Select Basic -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="metodoPago">Metodo de pago</label>
                                                 <div class="col-md-8" data-ng-init="listaPlanesPago()">
-                                                    <select class="form-control" ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago" ng-model="planPago"></select>
+                                                    <select ng-disabled="disableSelect" class="form-control" ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago" ng-model="planPago"></select>
                                                 </div>
                                             </div>                                            
                                             <button class="btn btn-primary">Agregar</button>                                                                                          

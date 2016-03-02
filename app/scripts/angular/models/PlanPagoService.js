@@ -50,5 +50,29 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies){
         return deferred.promise;
     };
     
+    this.getEntidades = function (idEntidad) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/plan/entidad';
+        $http({
+            url: uri,
+            method: 'get',
+            params:{
+                'idEntidad': idEntidad
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 });
 

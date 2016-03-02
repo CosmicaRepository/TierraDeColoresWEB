@@ -19,7 +19,10 @@ miAppHome.controller('FacturaController',
                 };
                 $scope.barcode = "";
                 $scope.totalCompra = 0;
-
+                $scope.entidadPago = "";
+                $scope.planPago = "";
+                $scope.tarjetasPago = "";
+                $scope.mediosPago = "";
                 $scope.clienteFactura = {
                     "idCliente": null,
                     "nombreCliente": "",
@@ -194,23 +197,42 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
-
-                $scope.mediosPago = "";
-                $scope.entidadPago = "";
-                $scope.planPago = "";
-                $scope.tarjetasPago = "";
-
                 $scope.$watchGroup(['mediosPago', 'entidadPago', 'tarjetasPago', 'planPago'], function (newValues, oldValues) {
-                    console.log(newValues);
-                    console.log(oldValues);
+//                    if (typeof (newValues[1]) !== 'undefined' || newValues[1] === "") {
+//                        $promesa = tarjetaService.getEntidades(newValues[1].idEntidadMonetaria);
+//                        $promesa.then(function (datos) {
+////                            $scope.tarjetasPago = datos.data;
+//                        });
+//                    }
                 });
 
                 $scope.$watch('mediosPago', function (data) {
-                    if (data !== "") {
-
+                    if (typeof data !== 'undefined') {
+                        if (data.nombrePago === 'CONTADO') {
+                            $scope.disableSelect = true;
+                            $scope.entidadPago = "";
+                            $scope.planPago = "";
+                            $scope.tarjetasPago = "";
+                        } else {
+                            $scope.disableSelect = false;
+                        }
                     }
                 });
 
+                $scope.busquedaTarjeta = function () {
+                    if ($scope.mediosPago === "") {
+
+                    } else {
+                        $promesa = tarjetaService.getEntidades($scope.entidadPago.idEntidadMonetaria);
+                        $promesa.then(function (datos) {
+                            $scope.tarjetas = datos.data;
+                        });
+                        $promesa = planPagoService.getEntidades($scope.entidadPago.idEntidadMonetaria);
+                        $promesa.then(function (datos) {
+                            $scope.planesPago = datos.data;
+                        });
+                    }
+                };
 
             }]);
 
