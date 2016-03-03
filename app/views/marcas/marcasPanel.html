@@ -11,7 +11,9 @@ and open the template in the editor.
     <body>
     <uib-tabset justified="true" id="panelMarcas">
         <uib-tab heading="Lista de marcas">
-            <table data-ng-init="listaMarcas()" class="table table-bordered">
+            <table data-ng-init="listaMarcas()"
+                   ng-table="tableMarcas"
+                   class="table table-bordered">
                 <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -21,7 +23,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="marca in marcas">
+                    <tr ng-repeat="marca in $data">
                         <th style="text-align: center">{{marca.idMarca}}</th>
                         <th style="text-align: center">{{marca.nombreMarca}}</th>                        
                         <th style="text-align: center">{{marca.fechaCreacion}}</th>                        

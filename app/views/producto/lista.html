@@ -11,7 +11,10 @@ and open the template in the editor.
     <body>
     <center><h1 style="margin-top: 70px;">Lista de productos</h1></center>
 
-    <table data-ng-init="listaProductos()" class="table table-bordered" id="tableProductos">
+    <table data-ng-init="listaProductos()"
+           class="table table-bordered"
+           ng-table="tableProductos"
+           id="tableProductos">
         <thead id="headTableProductos">
             <tr>
                 <th style="text-align: center">ID</th>
@@ -22,7 +25,7 @@ and open the template in the editor.
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="producto in productos">
+            <tr ng-repeat="producto in $data">
                 <td style="text-align: center">{{producto.idProducto}}</td>
                 <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
                 <td style="text-align: center">{{producto.cantidadTotal}}</td>

@@ -9,7 +9,7 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngResource
         .config(function ($routeProvider) {
             var auth = function ($cookies, $rootScope, $http, $window, $location) {
                 var tk = $cookies.get('a_tk');
-                var uri = 'http://localhost:8080/usuarios/logged';
+                var uri = 'http://localhost:8084/usuarios/logged';
                 $http({
                     url: uri,
                     method: 'post',

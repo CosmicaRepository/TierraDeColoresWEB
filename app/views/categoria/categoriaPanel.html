@@ -11,7 +11,9 @@ and open the template in the editor.
     <body>
     <uib-tabset justified="true" id="tabCategoria">
         <uib-tab heading="Lista de Categorias">
-            <table data-ng-init="listaCategorias()" class="table table-bordered">
+            <table data-ng-init="listaCategorias()"
+                   ng-table="tableCategorias"
+                   class="table table-bordered">
                 <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -21,7 +23,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="categoria in categorias">
+                    <tr ng-repeat="categoria in $data">
                         <th style="text-align: center">{{categoria.idCategoria}}</th>
                         <th style="text-align: center">{{categoria.nombreCategoria}}</th>                        
                         <th style="text-align: center">{{categoria.fechaCreacion}}</th>                        

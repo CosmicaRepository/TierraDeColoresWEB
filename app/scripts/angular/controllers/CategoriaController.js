@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('CategoriaController', function ($scope, $route, categoriaService) {
+miAppHome.controller('CategoriaController', function ($scope, $route, NgTableParams, categoriaService) {
 
     /**
      * Modelo de objecto categoria usado en las vistas para Agregar.
@@ -42,6 +42,20 @@ miAppHome.controller('CategoriaController', function ($scope, $route, categoriaS
             } else {
                 alert("error");
             }
+            var data = datos.data;
+            $scope.tableCategorias = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.categorias;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
         });
     };
 

@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -103,11 +103,25 @@ miAppHome.controller('ProductoController', function ($scope, $rootScope, $http, 
         $scope.productos = "";
         $promesa = _productoService.getAll();
         $promesa.then(function (datos) {
+            var data = datos.data;
             if (datos.status === 200) {
                 $scope.productos = datos.data;
             } else {
                 alert("error");
             }
+            $scope.tableProductos = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.productos;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
         });
     };
 
