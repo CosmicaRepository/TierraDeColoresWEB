@@ -10,7 +10,7 @@ and open the template in the editor.
     </head>
     <body>
     <center id="agregarProducto">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="nuevoProducto">
             <h2 class="iniciarSesion" style="color: black">Agregar nuevo Producto</h2>
 
             <div class="form-group"> 
@@ -19,8 +19,8 @@ and open the template in the editor.
                     <input type="text"
                            class="form-control"
                            ng-model="_producto.descripcion"
-                           name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           name="descripcion" required
+                           data-ng-class='{error: nuevoProducto.descripcion.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>            
             <div class="form-group">
@@ -28,11 +28,11 @@ and open the template in the editor.
                 <div class="input-group col-lg-7" id="btnRandom">                   
                     <input type="text" class="form-control"
                            ng-model="_producto.codigoProducto" 
-                           name="nombreProveedor" 
+                           name="codigo" 
                            required maxlength="20"
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           data-ng-class='{error: nuevoProducto.codigo.$invalid && !nuevoProducto.$pristine}'/>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="randomCode()" ng-disabled="_producto.codigoProducto" type="button">Random</button>
+                        <button class="btn btn-danger" ng-click="randomCode()" ng-disabled="_producto.codigoProducto" type="button">Random</button>
                     </span>
                 </div> 
             </div>
@@ -42,16 +42,16 @@ and open the template in the editor.
                     <input type="text"
                            class="col-xs-6
                            form-control"
-                           ng-model="_producto.numeroFactura" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.numeroFactura" name="factura" required
+                           data-ng-class='{error: nuevoProducto.factura.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label">Color</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.colorProducto" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.colorProducto" name="color" required
+                           data-ng-class='{error: nuevoProducto.color.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>            
             <div class="form-group">
@@ -67,56 +67,56 @@ and open the template in the editor.
                 <label class="col-lg-4 control-label">Stock</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.cantidadTotal" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.cantidadTotal" name="stock" required
+                           data-ng-class='{error: nuevoProducto.stock.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Stock minimo</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.cantidadMinima" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.cantidadMinima" name="minimo" required
+                           data-ng-class='{error: nuevoProducto.minimo.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Precio de Lista</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.precioLista" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.precioLista" name="lista" required
+                           data-ng-class='{error: nuevoProducto.lista.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Precio de Costo</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.precioCosto" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.precioCosto" name="costo" required
+                           data-ng-class='{error: nuevoProducto.costo.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Precio de Venta</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control"
-                           ng-model="_producto.precioVenta" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.precioVenta" name="venta" required
+                           data-ng-class='{error: nuevoProducto.venta.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Talla</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control" 
-                           ng-model="_producto.talla" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.talla" name="talla" required
+                           data-ng-class='{error: nuevoProducto.talla.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-lg-4">Fecha de compra</label>
                 <div class="col-lg-8">
                     <input type="date" class="form-control" 
-                           ng-model="_producto.fechaProducto" name="nombreProveedor" required
-                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                           ng-model="_producto.fechaProducto" name="fecha" required
+                           data-ng-class='{error: nuevoProducto.fecha.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
@@ -166,7 +166,7 @@ and open the template in the editor.
                          ng-model="_producto.proveedor"></div>
                 </div>               
             </div>
-            <button class="btn btn-warning" id="btnFinalizarProducto" ng-click="agregarProducto(_producto)">AGREGAR</button>
+            <button class="btn btn-warning" id="btnFinalizarProducto" ng-disabled="nuevoProducto.$invalid" ng-click="agregarProducto(_producto)">AGREGAR</button>
         </form>
     </center>
 
