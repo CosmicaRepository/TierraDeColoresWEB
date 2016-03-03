@@ -56,26 +56,30 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">E-mail</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.email" name="email" required 
-                                           data-ng-class='{
-                                           error: changePerfil.email.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">E-mail</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" 
+                                               class="form-control"
+                                               ng-model="user.email" name="email" required 
+                                               data-ng-class='{error: changePerfil.email.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Telefono</label>                        
-                                    <input type="text" class="col-xs-8" ng-model="user.telefono" name="telefono" required 
-                                           data-ng-class='{
-                                           error: changePerfil.telefono.$invalid && !changePerfil.$pristine
-                                       }'/>
+                                    <label class="control-label col-lg-4">Telefono</label>   
+                                    <div class="col-lg-8">
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="user.telefono" name="telefono" required 
+                                               data-ng-class='{error: changePerfil.telefono.$invalid && !changePerfil.$pristine}'/>
+                                    </div>                                    
                                 </div>
                                 <div class="form-group">                    
-                                    <label class="col-xs-3">Ciudad</label>
-                                    <input type="text" class="col-xs-8" ng-model="user.provincia" name="ciudad" required 
-                                           data-ng-class='{
-                                           error: changePerfil.ciudad.$invalid && !changePerfil.$pristine
-                                       }'/>
-
+                                    <label class="control-label col-lg-4">Ciudad</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" 
+                                               ng-model="user.provincia" name="ciudad" required 
+                                               data-ng-class='{error: changePerfil.ciudad.$invalid && !changePerfil.$pristine}'/>
+                                    </div>
                                 </div>                                
                                 <button ng-click="actualizarPerfil()" class="btn btn-success" ng-disabled="changePerfil.$invalid" style="float: right; margin-top: 6%; margin-right: 3%;">Guardar</button>
                             </form>                            
@@ -84,10 +88,10 @@ and open the template in the editor.
                 </uib-tab>
                 <uib-tab heading="Foto perfil">
                     <div class="panel-heading">
-                        <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Selecciona foto perfil</h3>
+                        <h3 class="panel-title" style="margin-left: 35%; font-weight: bolder;">Selecciona foto perfil</h3>
                     </div>
                     <form name="fotoPerfil">
-                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 300px; height: 300px; margin-left: 30%;">
+                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 300px; height: 300px; margin-left: 25%;">
                         <input class="col-xs-8" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'image/*'"
                                ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100" type="file"
                                style="margin-left: 28%;" required/>
@@ -98,29 +102,32 @@ and open the template in the editor.
                     <div class="panel-heading">
                         <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar contraseña</h3>
                     </div>
-                    <form class="form-horizontal col-xs-8" name="changePassword" data-ng-init="detailUsuario()" style="margin-left: 20%; margin-top: 5%;">  
+                    <form class="form-horizontal" name="changePassword" data-ng-init="detailUsuario()" style="margin-top: 7%;">  
                         <div class="form-group">                    
-                            <label class="col-xs-4">Contraseña actual</label>
-                            <input type="password" class="col-xs-7" ng-model="userPw.old" name="old" required
-                                   data-ng-class='{
-                                           error: changePassword.old.$invalid && !changePassword.$pristine
-                                       }'/>
+                            <label class="control-label col-lg-4">Contraseña actual</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" ng-model="userPw.old" name="old" required
+                                       data-ng-class='{error: changePassword.old.$invalid && !changePassword.$pristine}'/>
+                            </div>
                         </div>
                         <div class="form-group">                    
-                            <label class="col-xs-4">Contraseña nueva</label>
-                            <input type="password" class="col-xs-7" ng-model="userPw.new" name="new" required 
-                                   data-ng-class='{
-                                           error: changePassword.new.$invalid && !changePassword.$pristine
-                                       }'/>
+                            <label class="control-label col-lg-4">Contraseña nueva</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" ng-model="userPw.new" name="new" required 
+                                       data-ng-class='{error: changePassword.new.$invalid && !changePassword.$pristine}'/>
+                            </div>                            
                         </div>
                         <div class="form-group">                    
-                            <label class="col-xs-4">Repetir contraseña</label>                        
-                            <input type="password" class="col-xs-7" ng-model="userPw.rep" name="rep" required 
-                                   data-ng-class='{
-                                           error: changePassword.rep.$invalid && !changePassword.$pristine
-                                       }'/>
+                            <label class="control-label col-lg-4">Repetir contraseña</label> 
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" ng-model="userPw.rep" name="rep" required 
+                                   data-ng-class='{error: changePassword.rep.$invalid && !changePassword.$pristine}'/>
+                            </div>                            
                         </div>
-                        <button ng-click="cambiarPassword()" class="btn btn-success" ng-disabled="changePassword.$invalid">Guardar</button>
+                        <button ng-click="cambiarPassword()"
+                                class="btn btn-success" 
+                                style="margin-left: 45%;"
+                                ng-disabled="changePassword.$invalid">Guardar</button>
                     </form>
                 </uib-tab>
             </uib-tabset>

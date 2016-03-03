@@ -9,104 +9,166 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-     <center style="width: 40%; margin-top: 5%; margin-left: 30%;">
+    <center id="agregarProducto">
         <form class="form-horizontal">
             <h2 class="iniciarSesion" style="color: black">Agregar nuevo Producto</h2>
-            
+
             <div class="form-group"> 
-                <label class="col-lg-4 control-label">Descripcion </label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.descripcion" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                <label class="control-label col-lg-4">Descripcion </label>
+                <div class="col-lg-8">
+                    <input type="text"
+                           class="form-control"
+                           ng-model="_producto.descripcion"
+                           name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>            
+            <div class="form-group">
+                <label class="control-label col-lg-4">Codigo</label>   
+                <div class="input-group col-lg-7" id="btnRandom">                   
+                    <input type="text" class="form-control"
+                           ng-model="_producto.codigoProducto" 
+                           name="nombreProveedor" 
+                           required maxlength="20"
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="randomCode()" ng-disabled="_producto.codigoProducto" type="button">Random</button>
+                    </span>
+                </div> 
             </div>
-            
             <div class="form-group">
-                <label class="col-lg-4 control-label">Codigo</label>   
-            <input type="text" class="col-xs-6 form-control" style="width: 50%" ng-model="_producto.codigoProducto" name="nombreProveedor" required maxlength="20"
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            
-            <button class="btn btn-warning btn-xs" ng-click="randomCode()" ng-disabled="_producto.codigoProducto">Random</button>
-             </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label">NÂ° de Factura</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.numeroFactura" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                <label class="control-label col-lg-4">N° de Factura</label>
+                <div class="col-lg-8">
+                    <input type="text"
+                           class="col-xs-6
+                           form-control"
+                           ng-model="_producto.numeroFactura" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label">Color</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.colorProducto" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.colorProducto" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
             </div>            
             <div class="form-group">
                 <label class="col-lg-4 control-label">Clase B</label>
-                <select class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.claseProducto">
-                    <option value="A"> Clase A</option>
-                    <option value="B"> Clase B</option>
-                </select>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="_producto.claseProducto">
+                        <option value="A"> Clase A</option>
+                        <option value="B"> Clase B</option>
+                    </select>
+                </div>
             </div>            
             <div class="form-group">
-                <label class="col-lg-4">Stock</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.cantidadTotal" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4">Stock minimo</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%" ng-model="_producto.cantidadMinima" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Precio de Lista</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%"  ng-model="_producto.precioLista" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Precio de Costo</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%"  ng-model="_producto.precioCosto" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Precio de Venta</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%"  ng-model="_producto.precioVenta" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Talla</label>
-                <input type="text" class="col-xs-6 form-control" style="width: 60%"  ng-model="_producto.talla" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Fecha de compra</label>
-                <input type="date" class="col-xs-6 form-control" style="width: 60%"  ng-model="_producto.fechaProducto" name="nombreProveedor" required
-                       data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4">Temporada</label>
-                <div ng-controller="TemporadaController" data-ng-init="listaTemporadas()" >
-                    <select class="col-xs-6 form-control" style="width: 60%" style="height: 26px;" ng-options="temporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada" ng-model="_producto.temporada"></select>
+                <label class="col-lg-4 control-label">Stock</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.cantidadTotal" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-4">Sexo</label>
-                <div ng-controller="SexoController" data-ng-init="listaSexos()" >
-                    <select class="col-xs-6 form-control" style="width: 60%" style="height: 26px;" ng-options="sexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo" ng-model="_producto.sexo"></select>
+                <label class="control-label col-lg-4">Stock minimo</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.cantidadMinima" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
                 </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Precio de Lista</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.precioLista" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Precio de Costo</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.precioCosto" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Precio de Venta</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control"
+                           ng-model="_producto.precioVenta" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Talla</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" 
+                           ng-model="_producto.talla" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Fecha de compra</label>
+                <div class="col-lg-8">
+                    <input type="date" class="form-control" 
+                           ng-model="_producto.fechaProducto" name="nombreProveedor" required
+                           data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine}'/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Temporada</label>
+                <div class="col-lg-8">                                        
+                    <select class="form-control"
+                            ng-controller="TemporadaController"
+                            data-ng-init="listaTemporadas()"
+                            ng-options="temporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada"
+                            ng-model="_producto.temporada"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-4">Sexo</label>
+                <div class="col-lg-8">                    
+                    <select class="form-control"
+                            data-ng-init="listaSexos()"
+                            ng-controller="SexoController"
+                            ng-options="sexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo"
+                            ng-model="_producto.sexo"></select>
+                </div>
+
             </div>           
             <div class="form-group">
-                <label class="col-xs-4">Categoria</label>
-                <div ng-controller="CategoriaController" data-ng-init="listaCategorias()" >
-                    <select class="col-xs-6 form-control" style="width: 60%" style="height: 26px;" ng-options="categoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" ng-model="_producto.categoria"></select>
+                <label class="control-label col-lg-4">Categoria</label>
+                <div class="col-lg-8" ng-controller="CategoriaController" data-ng-init="listaCategorias()" >
+                    <select class="form-control"
+                            ng-options="categoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" 
+                            ng-model="_producto.categoria"></select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-4">Marca</label>
-                <div class="col-xs-7" ng-controller="MarcaController" aa-select2="selectMarcasConf" ng-model="_producto.marcas"></div>
+                <label class="control-label col-lg-4">Marca</label>
+                <div class="col-lg-8">
+                    <div class="form-control"
+                         ng-controller="MarcaController"
+                         aa-select2="selectMarcasConf"
+                         ng-model="_producto.marcas"></div>
+                </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-4">Proveedor</label>
-                <div class="col-xs-7" ng-controller="ProveedorController" aa-select2="selectProveedorConf" ng-model="_producto.proveedor"></div>
+                <label class="control-label col-lg-4">Proveedor</label>
+                <div class="col-lg-8">
+                    <div class="form-control"
+                         ng-controller="ProveedorController"
+                         aa-select2="selectProveedorConf"
+                         ng-model="_producto.proveedor"></div>
+                </div>               
             </div>
-            <button class="btn btn-warning btn" ng-click="agregarProducto(_producto)">AGREGAR</button>
+            <button class="btn btn-warning" id="btnFinalizarProducto" ng-click="agregarProducto(_producto)">AGREGAR</button>
         </form>
-     </center>
-    
+    </center>
+
 </body>
 </html>

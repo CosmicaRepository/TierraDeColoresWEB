@@ -89,7 +89,7 @@ var usuarioController = miAppHome.controller('UsuarioController', ['$scope', 'to
             });
         };
         $scope.detailUsuario = function () {
-            $promesa = UsuarioService.getDetallesUsuario();
+            $promesa = UsuarioService.getDetailUser();
             $promesa.then(function (datos) {
                 if (datos.data.estado === true) {
                     datos.data.estado = 'Activo';

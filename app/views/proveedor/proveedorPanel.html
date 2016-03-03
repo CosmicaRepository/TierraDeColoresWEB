@@ -9,10 +9,10 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 80%; margin-left: 10%;">
+    <uib-tabset justified="true" id="tabProveedor">
         <uib-tab heading="Lista de Proveedores">
-            <table data-ng-init="listaProveedores()" class="table table-hover table-bordered table-striped" style="width: 90%; margin-left: 5%; margin-top: 5%;">
-                <thead>
+            <table data-ng-init="listaProveedores()" class="table table-bordered" id="tablaProveedores">
+                <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">CUIT</th> 
@@ -41,69 +41,78 @@ and open the template in the editor.
             <form name="nuevoProveedor" class="form-horizontal" style="width: 50%; margin-left: 25%; margin-top: 2%;">
                 <center><h3>Nuevo Proveedor</h3></center>                                  
                 <div class="form-group">
-                    <label class="col-xs-4">Nombre Proovedor</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.nombreProveedor" name="nombreProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Nombre Proovedor</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.nombreProveedor" name="nombreProveedor" required
+                               data-ng-class='{error: nuevoProveedor.nombreProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
-                </div>                    
+                    </div>     
+                </div>              
                 <div class="form-group">
-                    <label class="col-xs-4">C.U.I.T. Proovedor</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.cuitProveedor" name="cuitProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.cuitProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">C.U.I.T. Proovedor</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.cuitProveedor" name="cuitProveedor" required
+                               data-ng-class='{error: nuevoProveedor.cuitProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">Direccion Proovedor</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.direccionProveedor" name="direccionProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.direccionProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Direccion Proovedor</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.direccionProveedor" name="direccionProveedor" required
+                               data-ng-class='{error: nuevoProveedor.direccionProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">Pais</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.paisProveedor" name="paisProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.paisProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Pais</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.paisProveedor" name="paisProveedor" required
+                               data-ng-class='{error: nuevoProveedor.paisProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">Provincia</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.provinciaProveedor" name="provinciaProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.provinciaProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Provincia</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.provinciaProveedor" name="provinciaProveedor" required
+                               data-ng-class='{error: nuevoProveedor.provinciaProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">Localidad</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.localidadProveedor" name="localidadProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.localidadProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Localidad</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.localidadProveedor" name="localidadProveedor" required
+                               data-ng-class='{error: nuevoProveedor.localidadProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>                
                 </div>                
                 <div class="form-group">
-                    <label class="col-xs-4">Codigo Postal</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.codigoPostal" name="codigoPostal" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.codigoPostal.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Codigo Postal</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.codigoPostal" name="codigoPostal" required
+                               data-ng-class='{error: nuevoProveedor.codigoPostal.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">Telefono</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.telefonoProveedor" name="telefonoProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.telefonoProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">Telefono</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.telefonoProveedor" name="telefonoProveedor" required
+                               data-ng-class='{error: nuevoProveedor.telefonoProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4">E-mail</label>
-                    <input type="text" class="col-xs-7" ng-model="_proveedor.emailProveedor" name="emailProveedor" required
-                           data-ng-class='{
-                                           error: nuevoProveedor.emailProveedor.$invalid && !nuevoProveedor.$pristine
+                    <label class="control-label col-lg-4">E-mail</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="_proveedor.emailProveedor" name="emailProveedor" required
+                               data-ng-class='{error: nuevoProveedor.emailProveedor.$invalid && !nuevoProveedor.$pristine
                                        }'/>
+                    </div>
                 </div>
-                <button ng-click="agrearProveedor(_proveedor)" type="submit" class="btn btn-success" ng-disabled="nuevoProveedor.$invalid" style="margin-left: 40%;">Agregar</button>
+                <button ng-click="agrearProveedor(_proveedor)" type="submit" class="btn btn-warning" ng-disabled="nuevoProveedor.$invalid" style="margin-left: 40%;">Agregar</button>
             </form>
         </uib-tab>
     </uib-tabset>
@@ -194,5 +203,5 @@ and open the template in the editor.
             </div>
         </div>
     </div>
-    </body>
+</body>
 </html>

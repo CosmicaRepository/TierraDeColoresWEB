@@ -5,10 +5,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <center>
-    <h1 style="margin-top: 10%;">Pagina de inicio</h1>
+    <h1 id="tituloInicio">Bienvenido/a al Sistema de tierra de colores</h1>
 
     <div ng-controller="FacturaController">
-        <button type="button" ng-click="agregarFactura(_newFactura)" class="btn btn-success">Nueva factura</button>
+        <button type="button"
+                ng-click="agregarFactura(_newFactura)" 
+                ng-disabled="true"
+                class="btn btn-success">Nueva factura</button>
     </div>
 
 </center>

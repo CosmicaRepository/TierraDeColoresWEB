@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
+miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, factoryConnection) {
 
     this.getListaUsuarios = function () {
         var datosRecu = null;
@@ -27,13 +27,13 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         return deferred.promise;
     };
 
-    this.getDetallesUsuario = function () {
+    this.getDetailUser = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/detail';
+        var url = 'http://localhost:8080/usuarios/detail';
         $http({
-            url: uri,
+            url: url,
             method: 'get',
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,

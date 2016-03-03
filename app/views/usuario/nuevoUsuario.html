@@ -9,9 +9,9 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <center style="width: 40%; margin-top: 5%; margin-left: 30%;">
+    <center id="agregarUsuario">
         <form class="form-horizontal" name="registrarUsuario" autocomplete="off">
-            <h2 class="iniciarSesion">Registrar nuevo Usuario</h2>
+            <h2 id="tituloUsuario">Registrar nuevo Usuario</h2>
             <div class="form-group">                    
                 <label class="col-lg-3 control-label">Nombre</label>
                 <div class="col-lg-7">
@@ -75,7 +75,11 @@ and open the template in the editor.
                            data-ng-class='{ error: registrarUsuario.telefono.$invalid && !registrarUsuario.$pristine }'/>
                 </div>
             </div>
-            <button class="btn btn-lg btn-success" id="btn-register" type="submit" ng-click="nuevoUsuario(user)" ng-disabled="registrarUsuario.$invalid">Registrarse</button>
+            <button class="btn btn-lg btn-success"
+                    id="btn-register" 
+                    type="submit"
+                    ng-click="nuevoUsuario(user)"
+                    ng-disabled="registrarUsuario.$invalid">Registrarse</button>
 
         </form>
     </center>

@@ -9,10 +9,10 @@ and open the template in the editor.
         <title></title>       
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%;">
+    <uib-tabset justified="true" id="tabTipo">
         <uib-tab heading="Tipo de Productos">
             <table data-ng-init="listaTipo()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
-                <thead>
+                <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
@@ -37,13 +37,13 @@ and open the template in the editor.
             <form name="nuevoTipo" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%;">
                 <center><h3>Nueva Tipo de Producto</h3></center>
                 <div class="form-group" style="margin-top: 13%;">                    
-                    <label class="col-xs-4">Nombre categoria</label>
-                    <input type="text" class="col-xs-7" ng-model="_tipo.nombreTipo" name="tipo" required
+                    <label class="control-label">Nombre categoria</label>
+                    <input type="text" class="form-control" ng-model="_tipo.nombreTipo" name="tipo" required
                            data-ng-class='{
                                            error: nuevoTipo.tipo.$invalid && !nuevoTipo.$pristine
                                        }'/>
                 </div>
-                <button ng-click="agregarTipo(_tipo)" type="submit" class="btn btn-success" ng-disabled="nuevoTipo.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
+                <button ng-click="agregarTipo(_tipo)" type="submit" class="btn btn-warning" ng-disabled="nuevoTipo.$invalid" style="margin-left: 40%; margin-top: 5%;">Agregar</button>
             </form>
         </uib-tab>
     </uib-tabset>

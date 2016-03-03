@@ -9,10 +9,10 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; height: 550px">
+    <uib-tabset justified="true" id="tabCategoria">
         <uib-tab heading="Lista de Categorias">
-            <table data-ng-init="listaCategorias()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%">
-                <thead style="background:black; color: white">
+            <table data-ng-init="listaCategorias()" class="table table-bordered">
+                <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
@@ -26,8 +26,16 @@ and open the template in the editor.
                         <th style="text-align: center">{{categoria.nombreCategoria}}</th>                        
                         <th style="text-align: center">{{categoria.fechaCreacion}}</th>                        
                         <th style="text-align: center">
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarCategoria(categoria)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarCategoria(categoria)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button"                                     
+                                    class="btn btn-xs btn-info"
+                                    data-toggle="modal"
+                                    data-target="#myModal"
+                                    ng-click="seleccionarCategoria(categoria)">
+                                <span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button"                                    
+                                    class="btn btn-xs btn-danger" 
+                                    ng-click="eliminarCategoria(categoria)">
+                                <span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -47,7 +55,11 @@ and open the template in the editor.
                             data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
                 </div>
                 <div class="form-group">
-                    <button ng-click="agrearCategoria(_categoria)" type="submit" class="btn btn-success btn" style="background: #FFBF00; border-color: white; margin-left: 40%; margin-top: 5%;"  ng-disabled="newCategoria.$invalid">Agregar</button>
+                    <button ng-click="agrearCategoria(_categoria)"
+                            type="submit"
+                            id="btnAgregarCategoria"
+                            class="btn btn-warning"
+                            ng-disabled="newCategoria.$invalid">Agregar</button>
                 </div>
             </form>
         </uib-tab>        
@@ -75,7 +87,19 @@ and open the template in the editor.
                             <input type="text" class="form-control" ng-model="__categoria.nombreCategoria" name="nombreCategoria" required placeholder="Ingrese nombre de categoria"
                                    data-ng-class='{ error: modificarCategoria.nombreCategoria.$invalid && !modificarCategoria.$pristine }'/>
                         </div>
-                    </div> 
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Tipo Producto</label>
+                        <div class="col-lg-7">
+                            <select name="tipo"
+                                    class="form-control"
+                                    ng-controller="TipoController"
+                                    data-ng-init="listaTipo()"
+                                    ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo"
+                                    ng-model="__categoria.tipoCategoria" required
+                                    data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
+                        </div>                    
+                    </div>                    
                     <center>
                         <div>
                             <button class="btn btn-primary" data-dismiss="modal" ng-click="_modificarCategoria(__categoria)" ng-disabled="modificarCategoria.$invalid">Modificar</button>

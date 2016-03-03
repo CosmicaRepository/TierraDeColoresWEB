@@ -9,10 +9,10 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%;">
+    <uib-tabset justified="true" id="panelMarcas">
         <uib-tab heading="Lista de marcas">
-            <table data-ng-init="listaMarcas()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
-                <thead style="background: black; color: white">
+            <table data-ng-init="listaMarcas()" class="table table-bordered">
+                <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
@@ -35,15 +35,19 @@ and open the template in the editor.
         </uib-tab>
         <uib-tab heading="Agregar nueva marca">
             <form name="nuevaMarca" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%" >
-                <center><h3 style="background:black; color: white" class="table table-hover table-bordered table-striped">Nueva Marca</h3></center>
-                <div class="form-group" style="margin-top: 13%;">                    
-                    <label class="col-xs-4">Nombre categoria</label>
-                    <input type="text" class="col-xs-7" ng-model="__marca.nombreMarca" name="marca" required
-                           data-ng-class='{
-                                           error: nuevaMarca.marca.$invalid && !nuevaMarca.$pristine
-                                       }'/>
-                </div>
-                <button ng-click="agrearMarca(__marca)" type="submit" class="btn btn-warning btn-lg" ng-disabled="nuevaMarca.$invalid" style=" background: #FFBF00; border-color: white;margin-left: 40%; margin-top: 5%;">Agregar</button>
+                <center><h3>Nueva Marca</h3></center>
+                <div class="form-group">                    
+                    <label class="control-label">Nombre marca</label>
+                    <input type="text" 
+                           class="form-control"
+                           ng-model="__marca.nombreMarca" name="marca" required
+                           data-ng-class='{error: nuevaMarca.marca.$invalid && !nuevaMarca.$pristine}'/>
+                </div>                
+                <button ng-click="agrearMarca(__marca)" 
+                        type="submit"
+                        class="btn btn-warning"
+                        id="btnAgregarCategoria"
+                        ng-disabled="nuevaMarca.$invalid">Agregar</button>
             </form>
         </uib-tab>
     </uib-tabset>

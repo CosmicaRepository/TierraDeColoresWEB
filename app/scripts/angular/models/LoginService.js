@@ -31,17 +31,26 @@ miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $locati
         return deferred.promise;
     };
 
-    this.logoutApi = function (Token) {
+    this.logoutApi = function () {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
         var uri = $rootScope.resource + 'oauth/logout';
-        var request = $http({
+        $http({
             url: uri,
             method: 'post',
             headers: {
-                'Authorization': 'Bearer ' + Token,
+                'Authorization': 'Bearer ' + token.data.access_token,
                 'Content-type': 'application/json'
             }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
         });
-        return request;
+        return deferred.promise;        
     };
 
     this.refreshToken = function (Token) {

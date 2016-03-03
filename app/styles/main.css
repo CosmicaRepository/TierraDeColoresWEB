@@ -15,22 +15,19 @@
     border-radius: 50%;
 }
 #bodyStyle{
-    background-image: url('../images/wall4.jpg');
+    background-image: url('../images/wall5.jpg');
     background-repeat: no-repeat;    
     background-size: cover;
 }
 #login-banner{
-    width: 30%;
-    margin-left: 35%;
-    /*opacity: 0.7;*/
-    background: #DF013A; 
-    background: -webkit-linear-gradient(#8904B1, #DF013A);
-    background: -o-linear-gradient(#8904B1, #DF013A); 
-    background: -moz-linear-gradient(#8904B1, #DF013A); 
-    background: linear-gradient(#8904B1, #DF013A);
+    margin-left: 32%;
+    background: #DF013A;
     border-radius: 25px;
+    border-color: #8904B1;
+    border-style: solid;
     margin-top: 5%;
 }
+
 .form-horizontal .form-group {
     margin-right: 20px; 
     margin-left: 20px; 
@@ -52,7 +49,7 @@
 }
 /*CSS para home.html*/
 #body-home{
-    background-image: url('../images/wall4.jpg');
+    background-image: url('../images/wall5.jpg');
     background-repeat: no-repeat;    
     background-size: cover;
 }
@@ -73,6 +70,7 @@
     margin-top: 5%;
 }
 #panel-editar-perfil{
+    margin-top: 5%;
     width: 40%; 
     margin-left: 30%;
     background-color: white;
@@ -183,4 +181,93 @@ body {
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
+}
+#tableProductos{
+    background-color: white;
+    width: 60%;
+    margin-left: 20%;
+}
+#headTableProductos{
+    background:black; 
+    color: white
+}
+#agregarProducto{
+    width: 40%;
+    margin-top: 5%; 
+    background-color: white;
+    border-radius: 25px;    
+    margin-left: 30%;
+    margin-bottom: 5%;
+}
+#btnRandom{
+    width: 61%;
+}
+#btnFinalizarProducto{
+    margin-bottom: 5%;
+}
+#tabCategoria{
+    margin-top: 70px;
+    width: 50%;
+    margin-left: 25%;
+    height: 550px;
+    background-color: white;
+}
+#btnAgregarCategoria{
+    margin-left: 40%;
+    margin-top: 5%;
+}
+#panelMarcas{
+    margin-top: 70px;
+    width: 50%;
+    height: 550px;
+    margin-left: 25%;
+    background-color: white;
+}
+#tabProveedor{
+    margin-top: 70px;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+    height: 600px;
+    margin-bottom: 5%;
+    background-color: white;
+}
+#tablaProveedores{
+    width: 90%; 
+    margin-left: 5%; 
+    margin-top: 5%;
+}
+#tableUsuarios{
+    background-color: white;
+    width: 80%; 
+    margin-left: 10%;
+}
+#agregarUsuario{
+    width: 40%; 
+    margin-top: 5%;
+    background-color: white;
+    border-radius: 25px;
+    margin-left: 30%;
+    margin-bottom: 5%;
+}
+#tituloUsuario{
+    padding-top: 10%;
+    padding-bottom: 3%;
+}
+#btn-register{
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+#tabTipo{
+    margin-top: 70px;
+    background-color: white;
+    height: 550px;
+    width: 50%; 
+    margin-left: 25%;
+}
+#tituloInicio{
+    font-family: kaufmann-bold;
+    font-size: 50pt;
+    margin-top: 10%;
+    text-shadow: 2px 0 0 #fff;
 }

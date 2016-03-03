@@ -37,5 +37,14 @@ miApp.controller('LoginController', function ($scope, toaster, LoginService, $lo
             }
         });
     };
+    
+    $scope.logout = function (){
+        $promesa = LoginService.logoutApi();
+        $promesa.then(function (datos){
+            if(datos.status === 200){
+                $window.location.href = 'index.html';
+            }
+        });
+    };
 });
 
