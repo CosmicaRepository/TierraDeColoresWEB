@@ -12,8 +12,8 @@ and open the template in the editor.
 
     <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
         <uib-tab heading="Tarjetas">
-            <table data-ng-init="listaTarjetas()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
-                <thead>
+            <table data-ng-init="listaTarjetas()" class="table table-bordered" style="width: 80%; margin-left: 10%; margin-top: 5%;">
+                <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
@@ -27,8 +27,16 @@ and open the template in the editor.
                         <th style="text-align: center">{{tarjeta.nombreTarjeta}}</th>                        
                         <th style="text-align: center">{{tarjeta.entidadBancaria.nombreEntidad}}</th>                        
                         <th style="text-align: center">
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarTipo(tipo)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button"
+                                    class="btn btn-xs btn-info"
+                                    data-toggle="modal" 
+                                    ng-disabled="true"
+                                    data-target="#myModal"
+                                    ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" 
+                                    class="btn btn-xs btn-danger"
+                                    ng-disabled="true"
+                                    ng-click="eliminarTipo(tipo)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
