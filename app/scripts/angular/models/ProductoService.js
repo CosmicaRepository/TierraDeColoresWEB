@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('_productoService', function ($http, $q, $cookies) {
+miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope) {
 
     this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/list';
+        var uri = $rootScope.resource + 'producto/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/add';
+        var uri = $rootScope.resource + 'producto/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/update';
+        var uri = $rootScope.resource + 'producto/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/delete';
+        var uri = $rootScope.resource + 'producto/delete';
         $http({
             url: uri,
             method: 'post',
@@ -100,7 +100,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/search';
+        var uri = $rootScope.resource + 'producto/search';
         $http({
             url: uri,
             method: 'post',
@@ -123,7 +123,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies) {
 
     this.searchByBarcode = function (barcode) {
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/barcode';
+        var uri = $rootScope.resource + 'producto/barcode';
         var list = $http({
             url: uri,
             method: 'post',

@@ -39,8 +39,9 @@ var usuarioController = miAppHome.controller('UsuarioController', ['$scope', 'to
         $scope.actualizarFoto = function (file) {
             var token = $cookies.getObject('token');
             if (typeof file !== 'undefined') {
+                var uri = $rootScope.resource + 'usuarios/updatePhoto';
                 Upload.upload({
-                    url: 'http://localhost:8080/usuarios/updatePhoto',
+                    url: uri,
                     headers: {'Authorization': 'Bearer ' + token.data.access_token},
                     data: {file: file}
                 }).then(function (resp) {

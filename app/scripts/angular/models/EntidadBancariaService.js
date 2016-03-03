@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
+miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $rootScope) {
 
 
     this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/list';
+        var uri = $rootScope.resource + 'entidad/list';
         $http({
             url: uri,
             method: 'get',
@@ -32,7 +32,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/add';
+        var uri = $rootScope.resource + 'entidad/add';
         $http({
             url: uri,
             method: 'post',

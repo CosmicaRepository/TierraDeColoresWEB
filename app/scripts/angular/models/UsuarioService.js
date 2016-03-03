@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
+miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
 
     this.getListaUsuarios = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        console.log(token.data.access_token);
-        var uri = 'http://localhost:8080/usuarios/list';
+        var uri = $rootScope.resource + 'usuarios/list';
         $http({
             url: uri,
             method: 'get',
@@ -54,7 +53,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/addUsuario';
+        var uri = $rootScope.resource + 'usuarios/addUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +76,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/updateUsuario';
+        var uri = $rootScope.resource + 'usuarios/updateUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -100,7 +99,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/changePassword';
+        var uri = $rootScope.resource + 'usuarios/changePassword';
         $http({
             url: uri,
             method: 'post',
@@ -127,7 +126,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/changeStatus';
+        var uri = $rootScope.resource + 'usuarios/changeStatus';
         $http({
             url: uri,
             method: 'post',

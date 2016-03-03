@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProveedorController', function ($scope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
+miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
 
     /**
      * Modelo de objeto Proveedor utilizado para agregar nuevos proveedores
@@ -136,8 +136,9 @@ miAppHome.controller('ProveedorController', function ($scope, $http, $routeParam
         text: 'nombreProveedor',
         options: function (searchText) {
             var token = $cookies.getObject('token');
+            var uri = $rootScope.resource + 'proveedor/searchText';
             return $http({
-                url: 'http://localhost:8080/proveedor/searchText',
+                url: uri,
                 method: 'post',
                 headers: {
                     'Authorization': 'Bearer ' + token.data.access_token

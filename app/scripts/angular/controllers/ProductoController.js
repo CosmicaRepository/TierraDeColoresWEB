@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -238,8 +238,9 @@ miAppHome.controller('ProductoController', function ($scope, $http, $routeParams
         text: 'descripcion',
         options: function (searchText) {
             var token = $cookies.getObject('token');
+            var uri = $rootScope.resource + 'producto/searchText';
             return $http({
-                url: 'http://localhost:8080/producto/searchText',
+                url: uri,
                 method: 'post',
                 headers: {
                     'Authorization': 'Bearer ' + token.data.access_token

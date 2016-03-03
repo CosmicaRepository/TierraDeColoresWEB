@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
+miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
 
     this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/list';
+        var uri = $rootScope.resource + 'tarjeta/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/add';
+        var uri = $rootScope.resource + 'tarjeta/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/update';
+        var uri = $rootScope.resource + 'tarjeta/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/delete';
+        var uri = $rootScope.resource + 'tarjeta/delete';
         $http({
             url: uri,
             method: 'post',
@@ -101,7 +101,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/entidadMedio';
+        var uri = $rootScope.resource + 'tarjeta/entidadMedio';
         $http({
             url: uri,
             method: 'get',

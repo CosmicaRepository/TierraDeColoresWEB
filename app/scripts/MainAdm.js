@@ -5,12 +5,13 @@
  */
 /* global usuarioController */
 "use strict";
-var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngTable', 'toaster', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
+var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngResource', 'ngTable', 'toaster', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
         .config(function ($routeProvider) {
             var auth = function ($cookies, $rootScope, $http, $window, $location) {
                 var tk = $cookies.get('a_tk');
+                var uri = 'http://localhost:8080/usuarios/logged';
                 $http({
-                    url: 'http://localhost:8080/usuarios/logged',
+                    url: uri,
                     method: 'post',
                     headers: {
                         'Authorization': 'Bearer ' + tk,
@@ -120,5 +121,10 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngTable', 
                         redirectTo: "/",
                         templateUrl: "views/inicio.html"
                     });
+        })
+        .run(function (factoryConnection, $rootScope) {
+            factoryConnection.get(function (data) {
+                $rootScope.resource = data.root;
+            });
         });
 

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('_tipoService', function ($http, $q, $cookies) {
+miAppHome.service('_tipoService', function ($http, $q, $rootScope, $cookies) {
 
     this.getListaTipo = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/list';
+        var uri = $rootScope.resource + 'tipo/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_tipoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/add';
+        var uri = $rootScope.resource + 'tipo/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_tipoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/update';
+        var uri = $rootScope.resource + 'tipo/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_tipoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/delete';
+        var uri = $rootScope.resource + 'tipo/delete';
         $http({
             url: uri,
             method: 'post',

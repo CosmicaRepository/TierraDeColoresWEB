@@ -140,8 +140,9 @@ miAppHome.controller('FacturaController',
 
                 $scope.getCliente = function (val) {
                     var token = $cookies.getObject('token');
+                    var uri = $rootScope.resource + 'cliente/searchApellido';
                     return $http({
-                        url: 'http://localhost:8080/cliente/searchApellido',
+                        url: uri,
                         method: 'post',
                         headers: {
                             'Authorization': 'Bearer ' + token.data.access_token

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.service('planPagoService', function ($http, $q, $cookies) {
+miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) {
 
     this.getAll = function () {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/list';
+        var uri = $rootScope.resource + 'plan/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/add';
+        var uri = $rootScope.resource + 'plan/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/tarjeta';
+        var uri = $rootScope.resource + 'plan/tarjeta';
         $http({
             url: uri,
             method: 'get',

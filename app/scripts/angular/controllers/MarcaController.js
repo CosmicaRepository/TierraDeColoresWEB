@@ -103,8 +103,9 @@ miAppHome.controller('MarcaController', function ($scope, $http, ngTableParams, 
         text: 'nombreMarca',
         options: function (searchText) {
             var token = $cookies.getObject('token');
+            var uri = $rootScope.resource + 'marcas/searchText';
             return $http({
-                url: 'http://localhost:8080/marcas/searchText',
+                url: uri,
                 method: 'post',
                 headers: {
                     'Authorization': 'Bearer ' + token.data.access_token
