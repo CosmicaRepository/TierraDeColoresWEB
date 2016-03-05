@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -107,7 +107,7 @@ miAppHome.controller('ProductoController', function ($scope, NgTableParams, $roo
             if (datos.status === 200) {
                 $scope.productos = datos.data;
             } else {
-                alert("error");
+                toaster.pop('error', "Error", "Un error ha ocurrido.");
             }
             $scope.tableProductos = new NgTableParams({
                 page: 1,
@@ -142,10 +142,11 @@ miAppHome.controller('ProductoController', function ($scope, NgTableParams, $roo
                 /* directiva encargada de retrasar 1 segundo la redireccion a 
                  * la correspondiente location. */
                 $timeout(function timer() {
-                    $location.path("/producto/" + producto.idProducto);
+                    toaster.pop('success', "Exito", "Producto agregado correctamente.");
+                    $location.path("/productos");
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop('error', "Error", "Un error ha ocurrido.");
             }
         });
     };
@@ -156,7 +157,15 @@ miAppHome.controller('ProductoController', function ($scope, NgTableParams, $roo
      * @returns {undefined}
      */
     $scope.randomCode = function () {
-        $scope._producto.codigoProducto = Math.floor((Math.random() * 999999999999999) + 100000000000000);
+        var marcaId = $scope._producto.marcas.idMarca;
+        var talla = $scope._producto.talla;
+        var categoriaId = $scope._producto.categoria.idCategoria;
+        var codigo = Math.floor((Math.random() * 999) + 100);
+        if (marcaId === null && categoriaId === null & talla === "") {
+            toaster.pop('error', "Error", "Revisa los campos anteriores.");
+        } else {
+            $scope._producto.codigoProducto = "" + categoriaId + marcaId + codigo + '-' + talla.toUpperCase();
+        }
     };
 
     /**
@@ -207,8 +216,8 @@ miAppHome.controller('ProductoController', function ($scope, NgTableParams, $roo
      */
     $scope.buscarProducto = function () {
         $scope.options = {
-            width: 2,
-            height: 100,
+            width: 1,
+            height: 50,
             displayValue: true,
             font: 'monospace',
             textAlign: 'center',
@@ -269,8 +278,5 @@ miAppHome.controller('ProductoController', function ($scope, NgTableParams, $roo
         }
     };
 
-//    $scope.cancel = function () {
-//        $uibModalInstance.dismiss('cancel');
-//    };
 });
 

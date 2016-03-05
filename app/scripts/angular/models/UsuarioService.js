@@ -31,7 +31,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var url = 'http://localhost:8084/usuarios/detail';
+        var url = 'http://localhost:8080/usuarios/detail';
         $http({
             url: url,
             method: 'get',

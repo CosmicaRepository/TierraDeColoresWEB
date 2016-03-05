@@ -127,32 +127,28 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
 
 
     /**
-     * Configuracion para la directiva select para la busqueda dinamica de 
-     * proveedores
+     * metodo para la busqueda dinamica de proveedores
+     * @param {type} val string para bsucar proveedores
+     * @returns {unresolved}
      */
-    $scope.selectProveedorConf = {
-        mode: 'object',
-        id: 'idProveedor',
-        text: 'nombreProveedor',
-        options: function (searchText) {
-            var token = $cookies.getObject('token');
-            var uri = $rootScope.resource + 'proveedor/searchText';
-            return $http({
-                url: uri,
-                method: 'post',
-                headers: {
-                    'Authorization': 'Bearer ' + token.data.access_token
-                },
-                params: {
-                    'text': searchText
-                }
+    $scope.getProveedor = function (val) {
+        var token = $cookies.getObject('token');
+        var uri = $rootScope.resource + 'proveedor/searchText';
+        return $http({
+            url: uri,
+            method: 'post',
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token
+            },
+            params: {
+                'text': val
+            }
+        }).then(function (response) {
+            return response.data.map(function (item) {
+                return item;
             });
-        },
-        select2: {
-            minimumInputLength: 2
-        }
+        });
     };
-
 
 });
 

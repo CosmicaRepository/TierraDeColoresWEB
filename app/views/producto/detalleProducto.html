@@ -9,9 +9,12 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-        <div class="panel panel-warning" data-ng-init="buscarProducto()" style="margin-top: 70px;width: 60%; margin-left: 20%;"> 
+        <div class="panel panel-warning"
+             data-ng-init="buscarProducto()"
+             style="margin-top: 70px;width: 60%; margin-left: 20%;"
+             ng-show="foundProducto.codigoProducto"> 
             <div class="panel panel-heading"># {{foundProducto.idProducto}}
-                <a href='#/' style="color: #000; float: right;">Editar</a>
+                <a href='#/' style="color: #8a6d3b; float: right;">Editar</a>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal col-xs-7">
@@ -61,7 +64,11 @@ and open the template in the editor.
                     </div>
                 </form>
                 <center>
-                    <div id="printable" style="margin-top: 20%;">
+                    <div style="margin-top: 20%;">
+                        <io-barcode code="{{foundProducto.codigoProducto}}" options="options" type="{{type}}"></io-barcode>
+                    </div>
+                    <div id="printable" style="margin-top: 20%;" ng-hide="true">
+                        <io-barcode code="{{foundProducto.codigoProducto}}" options="options" type="{{type}}"></io-barcode>
                         <io-barcode code="{{foundProducto.codigoProducto}}" options="options" type="{{type}}"></io-barcode>
                     </div>
                     <button ng-click="printDiv('printable');" class="btn btn-info">Imprimir codigo</button>

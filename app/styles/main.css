@@ -271,3 +271,9 @@ body {
     margin-top: 10%;
     text-shadow: 2px 0 0 #fff;
 }
+#tallaCodigo{
+    font-weight: bolder;
+    font-family: monospace;
+    font-size: 10pt;
+    margin-bottom: 0px;
+}
