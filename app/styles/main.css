@@ -277,3 +277,13 @@ body {
     font-size: 10pt;
     margin-bottom: 0px;
 }
+#clienteContainer{
+    border-color: #8a6d3b !important;
+    border-width: 3px !important;
+    height: auto;
+    width: auto;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    background-color: black;
+}

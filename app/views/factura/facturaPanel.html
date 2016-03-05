@@ -23,88 +23,158 @@ and open the template in the editor.
                     <div id="encabezado" style=" margin-bottom: 90px;"></div>
                     <section>
                         <h1 class="page-header" style="color: white;">Encabezado Factura</h1>
-                        <div class="panel panel-warning" data-ng-init="detailFactura()" style="height: 450px;">
+                        <div class="panel panel-warning" data-ng-init="detailFactura()" style="height: auto;">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Factura N°{{factura.idFactura}}
                                     <div style="float: right;">{{ factura.fechaCreacion | date : 'medium'}}</div>
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label">Buscar cliente</label>
-                                    <input type="text" ng-model="factura.cliente" placeholder="Ingresa apellido del cliente" uib-typeahead="cliente as cliente.nombreCliente +' '+ cliente.apellidoCliente for cliente in getCliente($viewValue)" typeahead-loading="loadingcliente" typeahead-no-results="noResults" class="form-control">
-                                    <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
-                                    <div ng-show="noResults">
-                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                <uib-accordion close-others="oneAtATime">            
+                                    <uib-accordion-group heading="Buscar cliente existente" panel-class="panel-warning">
+                                        <label class="control-label">Buscar cliente</label>
+                                        <div class="input-group col-lg-5">                                            
+                                            <input type="text"
+                                                   ng-model="dynamicCliente"
+                                                   placeholder="Ingresa apellido del cliente" 
+                                                   uib-typeahead="cliente as cliente.nombreCliente +' '+ cliente.apellidoCliente for cliente in getCliente($viewValue)"
+                                                   typeahead-loading="loadingcliente" 
+                                                   typeahead-no-results="noResults"
+                                                   class="form-control">
+                                            <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
+                                            <div ng-show="noResults">
+                                                <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-warning"
+                                                        ng-click="agregarClienteDynamic(dynamicCliente)"
+                                                        type="button">Añadir</button>
+                                            </span>
+                                        </div>
+                                    </uib-accordion-group>                     
+                                    <uib-accordion-group heading="Agregar nuevo Cliente" panel-class="panel-warning">
+                                        <h4>Datos del Cliente</h4>
+                                        <form class="form-horizontal" name="clienteEncabezado">
+                                            <div class="row col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">DNI o CUIT</label>
+                                                    <div class="">
+                                                        <input type="text" class="form-control" ng-model="_cliente.dniCuit" name="dniCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.dniCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre</label>
+                                                    <div class="">
+                                                        <input type="text" class="form-control" ng-model="_cliente.nombreCliente" name="nombreCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.nombreCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div>                                    
+                                                <div class="form-group">
+                                                    <label class="control-label">Apellido</label>
+                                                    <div class="">
+                                                        <input type="text" class="form-control" ng-model="_cliente.apellidoCliente" name="apellidoCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.apellidoCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div> 
+
+                                                <div class="form-group">
+                                                    <label class="control-label">Domicilio</label>
+                                                    <div class="">
+                                                        <input type="text" class="form-control" ng-model="_cliente.domicilio" name="domicilioCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.domicilioCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div>     
+                                            </div>
+                                            <div class="row col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Telefono</label>
+                                                    <div class="">
+                                                        <input type="tel" class="form-control" ng-model="_cliente.telefono" name="telefonoCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.telefonoCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div>                                    
+                                                <div class="form-group">
+                                                    <label class="control-label">E-mail</label>
+                                                    <div class="">
+                                                        <input type="email" class="form-control" ng-model="_cliente.emailCliente" name="emailCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.emailCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                </div>                                    
+                                                <div class="form-group">
+                                                    <label class="control-label">Fecha de nacimiento</label>
+                                                    <div class="">
+                                                        <input type="date" class="form-control" ng-model="_cliente.fechaNacimiento" name="nacimientoCliente" required
+                                                               data-ng-class='{error: clienteEncabezado.nacimientoCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                    </div>
+                                                    <button class="btn btn-block btn-warning"
+                                                            ng-disabled="clienteEncabezado.$invalid"
+                                                            ng-click="agregarCliente(_cliente)"
+                                                            style="margin-top: 10%;">Agregar cliente</button>
+                                                </div> 
+
+                                            </div>
+                                        </form>
+                                    </uib-accordion-group>                     
+                                </uib-accordion>
+
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Datos del Cliente</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="clienteContainer">
+                                            <div class="row col-lg-5">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre:</label>
+                                                    <div class="pull-right">{{factura.cliente.nombreCliente}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Apellido:</label>
+                                                    <div class="pull-right">{{factura.cliente.apellidoCliente}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">DNI/CUIT:</label>
+                                                    <div class="pull-right">{{factura.cliente.dniCuit}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Domicilio:</label>
+                                                    <div class="pull-right">{{factura.cliente.domicilio}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-lg-6" style="margin-left: 10px;">
+                                                <div class="form-group">
+                                                    <label class="control-label">Fecha de nacimiento:</label>
+                                                    <div class="pull-right">{{factura.cliente.fechaNacimiento| date : 'yyyy/MM/dd'}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Telefono:</label>
+                                                    <div class="pull-right">{{factura.cliente.telefono}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">E-mail:</label>
+                                                    <div class="pull-right">{{factura.cliente.emailCliente}}</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Fecha de alta:</label>
+                                                    <div class="pull-right">{{factura.cliente.fechaCreacion| date : 'yyyy/MM/dd'}}</div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
                                     </div>
                                 </div>
-                                <h4>Datos del Cliente</h4>
-                                <form name="clienteEncabezado">
-                                    <div class="row" style="margin-left: 50%;">
-                                        <div class="form-group col-lg-12">
-                                            <label class="control-label">DNI o CUIT</label>
-                                            <div class="">
-                                                <input type="text" class="form-control" ng-model="factura.cliente.dniCuit" name="dniCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.dniCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">Nombre</label>
-                                            <div class="">
-                                                <input type="text" class="form-control" ng-model="factura.cliente.nombreCliente" name="nombreCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.nombreCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">Apellido</label>
-                                            <div class="">
-                                                <input type="text" class="form-control" ng-model="factura.cliente.apellidoCliente" name="apellidoCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.apellidoCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                    </div>   
-                                    <div class="row">
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">Domicilio</label>
-                                            <div class="">
-                                                <input type="text" class="form-control" ng-model="factura.cliente.domicilio" name="domicilioCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.domicilioCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">Telefono</label>
-                                            <div class="">
-                                                <input type="tel" class="form-control" ng-model="factura.cliente.telefono" name="telefonoCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.telefonoCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">E-mail</label>
-                                            <div class="">
-                                                <input type="email" class="form-control" ng-model="factura.cliente.emailCliente" name="emailCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.emailCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                        <div class="form-group col-lg-6">
-                                            <label class="control-label">Fecha de nacimiento</label>
-                                            <div class="">
-                                                <input type="text" class="form-control" ng-model="factura.cliente.fechaNacimiento" name="nacimientoCliente" required
-                                                       data-ng-class='{error: clienteEncabezado.nacimientoCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                            </div>
-                                        </div>                                    
-                                    </div>                                                                                              
-                                </form>
+
+
+
+
+
                             </div>
                         </div>
                     </section>
                     <div id="detalle" style=" margin-bottom: 110px;"></div>
                     <section>
                         <h1 class="page-header" style="margin-top: 50px; color: white;">Detalles</h1>
-                        <div class="panel panel-default" data-ng-init="detailFactura()" style="height: 450px;">
+                        <div class="panel panel-warning" data-ng-init="detailFactura()" style="height: 450px;">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Factura N°{{factura.idFactura}}
                                     <div style="float: right;">{{ factura.fechaCreacion | date : 'medium'}}</div>

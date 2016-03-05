@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 miAppHome.controller('FacturaController',
-        ['$scope', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
-            function ($scope, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
+        ['$scope', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
+            function ($scope, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
 
                 $scope._newFactura = {
                     "idFactura": null,
@@ -307,6 +307,41 @@ miAppHome.controller('FacturaController',
                         }
                     }
                 });
+
+                $scope.agregarCliente = function (cliente) {
+                    $addCliente = clienteService.add(cliente);
+                    $addCliente.then(function (datos) {
+                        if (datos.status === 200) {
+                            toaster.pop('success', "Exito", "Cliente agregado con exito.");
+                            console.log(datos);
+                            cliente.idCliente = datos.data.msg;
+                            $rootScope.factura.cliente = cliente;
+                            $promesa = facturaService.update($rootScope.factura);
+                            $promesa.then(function (datos) {
+                                if (datos.status === 200) {
+                                    toaster.pop('success', "Exito", "Factura actualizada.");
+                                    $timeout(function timer() {
+                                        $route.reload();
+                                    }, 2000);
+                                }
+                            });
+                        } else {
+                            toaster.pop('error', 'Error', 'El cliente no pudo ser agregado');
+                        }
+                    });
+                };
+
+                $scope.agregarClienteDynamic = function (cliente) {
+                    $rootScope.factura.cliente = cliente;
+                    $promesa = facturaService.update($rootScope.factura);
+                    $promesa.then(function (datos) {
+                        if (datos.status === 200) {
+                            toaster.pop('success', "Exito", "Factura actualizada.");                            
+                        }else{
+                            toaster.pop('error', 'Error', 'Error, la factura no pudo ser actualizada');
+                        }
+                    });
+                };
 
             }]);
 

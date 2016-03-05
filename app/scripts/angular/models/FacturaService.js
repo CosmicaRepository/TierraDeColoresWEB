@@ -9,7 +9,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'factura/list';
+        var uri = 'http://localhost:8080/factura/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'factura/add';
+        var uri = 'http://localhost:8080/factura/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'factura/update';
+        var uri = 'http://localhost:8080/factura/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'factura/search';
+        var uri = 'http://localhost:8080/factura/search';
         $http({
             url: uri,
             method: 'post',
@@ -102,7 +102,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'detalle/factura';
+        var uri = 'http://localhost:8080/detalle/factura';
         $http({
             url: uri,
             method: 'get',
@@ -127,7 +127,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'detalle/add';
+        var uri = 'http://localhost:8080/detalle/add';
         $http({
             url: uri,
             method: 'post',
