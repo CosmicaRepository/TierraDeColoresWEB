@@ -37,6 +37,7 @@ miAppHome.controller('FacturaController',
                 $scope.totalPago = 0;
                 $scope.entidadPago = "";
                 $scope.planPago = null;
+                $scope.comprobantePago = "";
                 $scope.tarjetasPago = "";
                 $scope.mediosPago = "";
                 $scope.disableSelectEntidades = true;
@@ -213,15 +214,6 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
-                $scope.$watchGroup(['mediosPago', 'entidadPago', 'tarjetasPago', 'planPago'], function (newValues, oldValues) {
-//                    if (typeof (newValues[1]) !== 'undefined' || newValues[1] === "") {
-//                        $promesa = tarjetaService.getEntidades(newValues[1].idEntidadMonetaria);
-//                        $promesa.then(function (datos) {
-////                            $scope.tarjetasPago = datos.data;
-//                        });
-//                    }
-                });
-
                 $scope.$watch('mediosPago', function (newValue, oldValue) {
                     if (newValue.nombrePago === 'CONTADO') {
                         $scope.disableSelectEntidades = true;
@@ -246,10 +238,8 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.busquedaPlanByTarjeta = function () {
-                    console.log($scope.tarjetasPago);
                     $promesa = planPagoService.searchByTarjeta($scope.tarjetasPago.idTarjeta);
                     $promesa.then(function (datos) {
-                        console.log(datos);
                         $scope.planesPago = datos.data;
                         $scope.disableSelectMetodo = false;
                     });
@@ -259,54 +249,65 @@ miAppHome.controller('FacturaController',
                     var idFactura = $routeParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
-                        $scope._metodoPago.factura = datos.data;
-                        console.log($scope.mediosPago.idMedioPago);
-                        if ($scope.mediosPago.idMedioPago !== 1) {
-                            $scope._metodoPago.planPago = $scope.planPago;
-                        } else {
-                            $scope._metodoPago.planPago = null;
-                        }
-                        if ($scope.montoPago === "") {
-                            alert("el monto no puede ser 0");
-                        } else {
-                            $scope._metodoPago.montoPago = $scope.montoPago;
-                            $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
-                            $prom.then(function (datos) {
-                                $recharge = metodoPagoFacturaService.getListaPagoFactura(idFactura);
-                                $recharge.then(function (datos) {
-                                    angular.forEach(datos.data, function (value, key) {
-                                        console.log(value);
-                                        $scope.totalPago = parseInt($scope.totalPago) + parseInt(value.montoPago);
+                        /* suma monto a pagar y total para controlar que no exceda a la factura*/
+                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);
+                        console.log(compare);
+                        console.log(datos.data.total);
+                        if (datos.data.total >= compare) {
+                            $scope._metodoPago.factura = datos.data;
+                            /* control para separar pago contado y otros metodos*/
+                            if ($scope.mediosPago.idMedioPago !== 1) {
+                                $scope._metodoPago.planPago = $scope.planPago;
+                            } else {
+                                $scope._metodoPago.planPago = null;
+                            }
+                            /* control para evitar monto vacio*/
+                            if ($scope.montoPago === "") {
+                                toaster.pop('warning', 'Advertencia', 'El monto a pagar no puede estar vacio.');
+                            } else {
+                                $scope._metodoPago.montoPago = $scope.montoPago;
+                                /* control para evitar comprobante de pago vacio*/
+                                if ($scope.comprobantePago === "" && $scope.mediosPago.idMedioPago !== 1) {
+                                    toaster.pop('warning', 'Advertencia', 'El comprobante no puede estar vacio.');
+                                } else {
+                                    $scope._metodoPago.comprobante = $scope.comprobantePago;
+                                    $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
+                                    $prom.then(function (datos) {
+                                        if (datos.status === 200) {
+                                            $recharge = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+                                            $recharge.then(function (datos) {
+                                                var control = 0;
+                                                angular.forEach(datos.data, function (value, key) {
+                                                    control = parseInt(control) + parseInt(value.montoPago);
+                                                });
+                                                $scope.totalPago = control;
+                                                $scope.metodoPagos = datos.data;
+                                                $scope.tableMetodos.reload();
+                                                $scope.montoPago = "";
+                                                $scope.planPago = null;
+                                                $scope.tarjetasPago = "";
+                                                $scope.entidadPago = "";
+                                                $scope.mediosPago = "";
+                                                $scope.comprobantePago = "";
+                                                $scope.disableSelectEntidades = true;
+                                                $scope.disableSelectTarjeta = true;
+                                                $scope.disableSelectMetodo = true;
+                                                toaster.pop('success', 'Exito', 'Metodo de pago agregado.');
+                                            });
+                                        }
                                     });
-                                    $scope.metodoPagos = datos.data;
-                                    $scope.tableMetodos.reload();
-                                    $scope.montoPago = "";
-                                    $scope.planPago = null;
-                                    $scope.tarjetasPago = "";
-                                    $scope.entidadPago = "";
-                                    $scope.mediosPago = "";
-                                    $scope.disableSelectEntidades = true;
-                                    $scope.disableSelectTarjeta = true;
-                                    $scope.disableSelectMetodo = true;
-                                });
-                            });
+                                }
+                            }
+                        } else {
+                            /* control para diferenciar monto vacio*/
+                            if (isNaN(compare)) {
+                                toaster.pop('error', 'Error', 'El monto no puede estar vacio.');
+                            } else {
+                                toaster.pop('error', 'Error', 'El monto supera el total de la factura.');
+                            }
                         }
                     });
                 };
-
-                $scope.$watch('totalPago', function (newValue, oldValue) {
-                    $scope.finalizar = true;
-                    $scope.agregarMetodo = false;
-                    console.log(newValue);
-                    console.log($rootScope.factura.total);
-                    if (newValue.totalPago >= $rootScope.factura.total) {
-                        console.log($rootScope.factura.total);
-                        if ($rootScope.factura.total > 0) {
-                            $scope.finalizar = false;
-                            $scope.agregarMetodo = true;
-                        }
-                    }
-                });
 
                 $scope.agregarCliente = function (cliente) {
                     $addCliente = clienteService.add(cliente);
@@ -336,8 +337,8 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.update($rootScope.factura);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            toaster.pop('success', "Exito", "Factura actualizada.");                            
-                        }else{
+                            toaster.pop('success', "Exito", "Factura actualizada.");
+                        } else {
                             toaster.pop('error', 'Error', 'Error, la factura no pudo ser actualizada');
                         }
                     });

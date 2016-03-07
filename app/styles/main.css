@@ -287,3 +287,6 @@ body {
     margin-top: 5%;
     background-color: black;
 }
+.ng-table-counts{
+    display: none !important;
+}

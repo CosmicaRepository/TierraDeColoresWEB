@@ -31,7 +31,10 @@ and open the template in the editor.
                             </div>
                             <div class="panel-body">
                                 <uib-accordion close-others="oneAtATime">            
-                                    <uib-accordion-group heading="Buscar cliente existente" panel-class="panel-warning">
+                                    <uib-accordion-group 
+                                        heading="Buscar cliente existente"
+                                        is-disabled="factura.estado === 'CONFIRMADO'"
+                                        panel-class="panel-warning">
                                         <label class="control-label">Buscar cliente</label>
                                         <div class="input-group col-lg-5">                                            
                                             <input type="text"
@@ -46,13 +49,16 @@ and open the template in the editor.
                                                 <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
                                             </div>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-warning"
+                                                <button class="btn btn-warning"                                                        
                                                         ng-click="agregarClienteDynamic(dynamicCliente)"
                                                         type="button">Añadir</button>
                                             </span>
                                         </div>
                                     </uib-accordion-group>                     
-                                    <uib-accordion-group heading="Agregar nuevo Cliente" panel-class="panel-warning">
+                                    <uib-accordion-group 
+                                        heading="Agregar nuevo Cliente"
+                                        is-disabled="factura.estado === 'CONFIRMADO'"
+                                        panel-class="panel-warning">
                                         <h4>Datos del Cliente</h4>
                                         <form class="form-horizontal" name="clienteEncabezado">
                                             <div class="row col-lg-6">
@@ -189,6 +195,7 @@ and open the template in the editor.
                                                placeholder="Ingrese codigo de barras"
                                                ng-change="open()"
                                                ng-model="barcode"
+                                               ng-disabled="factura.estado === 'CONFIRMADO'"
                                                style="width: 400px; text-align: center;"
                                                class="form-control"/>
                                     </div>
@@ -231,7 +238,7 @@ and open the template in the editor.
                     </section>
                     <section id="metodo-de-pago" data-ng-init="controlTotal()">
                         <h1 class="page-header" style="margin-top: 50px; color: white;">Metodo de Pago</h1>
-                        <div class="panel panel-default" data-ng-init="detailFactura()" style="height: 450px;">
+                        <div class="panel panel-warning" data-ng-init="detailFactura()" style="height: 450px;">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Factura N°{{factura.idFactura}}
                                     <div style="float: right;">{{ factura.fechaCreacion | date : 'medium'}}</div>
@@ -252,6 +259,7 @@ and open the template in the editor.
                                                         <input id="prependedtext"
                                                                name="prependedtext"
                                                                class="form-control"
+                                                               maxlength="4"
                                                                placeholder="Monto a pagar"
                                                                required="" type="text"
                                                                ng-model="montoPago">
@@ -298,10 +306,23 @@ and open the template in the editor.
                                                             ng-options="plan as plan.nombrePlanesPago for plan in planesPago track by plan.idPlanesPago"
                                                             ng-model="planPago"></select>
                                                 </div>
-                                            </div>                                            
-                                            <button class="btn btn-primary"
-                                                    ng-click="agregarMetodoPago()"
-                                                    ng-disabled="agregarMetodo">Agregar</button>                                                                                          
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Comprobante</label>
+                                                <div class="col-md-8">                                                                                                            
+                                                    <input id="prependedtext"
+                                                           class="form-control"
+                                                           placeholder="Numero de comprobante"
+                                                           required type="text"
+                                                           maxlength="15"
+                                                           ng-disabled="!planPago"
+                                                           ng-model="comprobantePago">                                                    
+                                                </div>                                               
+                                            </div>
+                                            <button class="btn btn-warning"
+                                                    style="margin-left: 40%;"
+                                                    data-toggle="modal" data-target="#myModal"
+                                                    ng-disabled="factura.estado === 'CONFIRMADO'">Agregar</button>
                                         </fieldset>
                                     </form>
                                 </div>
@@ -335,16 +356,94 @@ and open the template in the editor.
                                             </tr>
                                         </tfoot>
                                     </table>
+                                    <button class="btn btn-block btn-lg btn-success"
+                                            ng-disabled="factura.estado === 'CONFIRMADO'"
+                                            data-toggle="modal" data-target="#finalizarModal"
+                                            style="float: bottom;">FINALIZAR COMPRA</button>
                                 </div>                                
                             </div>
                         </div>
-                        <button class="btn btn-block btn-lg btn-success" ng-disabled="finalizar">FINALIZAR COMPRA</button>
                     </section>
                 </div>
             </div>
         </div>
     </body>
-
+    <!-- Modal agregar metodo pago -->
+    <div class="modal fade" id="finalizarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">¿Finalizar operación?</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label class="control-label">
+                            Por favor carga un vendedor.
+                        </label>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label" for="vendedor">Vendedor</label>
+                                <div class="" data-ng-init="listaTarjetas()">
+                                    <select ng-disabled="disableSelectTarjeta"
+                                            class="form-control"
+                                            ng-change="busquedaPlanByTarjeta()"
+                                            ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta"
+                                            ng-model="tarjetasPago"></select>
+                                </div>
+                            </div>                        
+                            <div class="form-group">
+                                <label class="control-label" for="tipoFactura">Tipo factura</label>
+                                <div class="" data-ng-init="listaTarjetas()">
+                                    <select ng-disabled="disableSelectTarjeta"
+                                            class="form-control"
+                                            ng-change="busquedaPlanByTarjeta()"
+                                            ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta"
+                                            ng-model="tarjetasPago"></select>
+                                </div>
+                            </div>   
+                        </fieldset>                                             
+                        <br>
+                        <button class="btn btn-success"
+                                style=""
+                                data-dismiss="modal"
+                                ng-disabled="factura.estado === 'CONFIRMADO'"
+                                ng-click="agregarMetodoPago()">Finalizar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal finalizar factura-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">¿Finalizar operación?</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label class="control-label">
+                            ¿Continuar?
+                        </label>
+                        <br>
+                        <button class="btn btn-success"
+                                style=""
+                                data-dismiss="modal"
+                                ng-disabled="factura.estado === 'CONFIRMADO'"
+                                ng-click="agregarMetodoPago()">Agregar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/ng-template" id="searchResultados.html">    
         <div class="modal-header">
         <h3 class="modal-title">Lista de productos</h3>

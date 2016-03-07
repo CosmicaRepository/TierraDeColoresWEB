@@ -45,7 +45,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, NgTablePar
             var data = datos.data;
             $scope.tableCategorias = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 8
             }, {
                 total: data.length,
                 getData: function (params) {
