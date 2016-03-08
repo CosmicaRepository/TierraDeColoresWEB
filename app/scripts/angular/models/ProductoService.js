@@ -9,7 +9,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/list';
+        var uri = 'http://localhost:8080/producto/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/add';
+        var uri = 'http://localhost:8080/producto/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/update';
+        var uri = 'http://localhost:8080/producto/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/delete';
+        var uri = 'http://localhost:8080/producto/delete';
         $http({
             url: uri,
             method: 'post',
@@ -100,7 +100,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/search';
+        var uri = 'http://localhost:8080/producto/search';
         $http({
             url: uri,
             method: 'post',
@@ -123,7 +123,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
 
     this.searchByBarcode = function (barcode) {
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'producto/barcode';
+        var uri = 'http://localhost:8080/producto/barcode';
         var list = $http({
             url: uri,
             method: 'post',

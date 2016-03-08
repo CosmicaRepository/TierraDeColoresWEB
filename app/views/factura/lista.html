@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+    <uib-tabset justified="true" id="panelFacturacion">
+        <!-- TAB de todas las facturas generadas-->
+        <uib-tab heading="Todas mis facturas">
+            <button type="button"
+                    ng-click="agregarFactura(_newFactura)" 
+                    ng-disabled="false"
+                    id="btnNuevaFactura"
+                    uib-tooltip="Crea una nueva factura"
+                    class="btn btn-block btn-warning">Nueva factura</button>
+            <table class="table table-bordered table-condensed"
+                   ng-table="tableFacturas"
+                   data-ng-init="listaFacturas()">
+                <thead id="headTableProductos">
+                    <tr>
+                        <th style="width: 30px; text-align: center;">N°</th>
+                        <th style="width: 150px;">Cliente</th>
+                        <th style="width: 40px; text-align: center">Total</th>
+                        <th style="width: 150px;">Fecha</th>
+                        <th style="width: 50px; text-align: center;">Estado</th>
+                        <th style="width: 120px;">Vendedor</th>
+                        <th style="width: 20px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="factura in $data">
+                        <td style="width: 30px; text-align: center;"><a href="">{{factura.idFactura}}</a></td>
+                        <td style="width: 150px;">{{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}</td>
+                        <td style="width: 40px; text-align: center">${{factura.total}}</td>
+                        <td style="text-align: center; width: 150px;">{{factura.fechaCreacion| date : 'medium'}}</td>
+                        <td style="width: 50px; text-align: center;">{{factura.estado}}</td>
+                        <td>{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}</td>
+                        <td style="text-align: center; width: 20px;"> 
+                            <button type="button"
+                                    ng-disabled="true"
+                                    class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">${{totalFacturas}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </uib-tab><!-- END TAB de todas las facturas generadas-->
+        <!-- TAB de todas las reservas generadas-->
+        <uib-tab heading="Facturas del día">
+            <button type="button"
+                    ng-click="agregarFactura(_newFactura)" 
+                    ng-disabled="false"
+                    id="btnNuevaFactura"
+                    uib-tooltip="Crea una nueva factura"
+                    class="btn btn-block btn-warning">Nueva factura</button>
+            <table class="table table-bordered table-condensed"
+                   ng-table="tableFacturasDiaria"
+                   data-ng-init="listaFacturasDiaria()">
+                <thead id="headTableProductos">
+                    <tr>
+                        <th style="width: 30px; text-align: center;">N°</th>
+                        <th style="width: 150px;">Cliente</th>
+                        <th style="width: 40px; text-align: center">Total</th>
+                        <th style="width: 150px;">Fecha</th>
+                        <th style="width: 50px; text-align: center;">Estado</th>
+                        <th style="width: 120px;">Vendedor</th>
+                        <th style="width: 20px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="factura in $data">
+                        <td style="width: 30px; text-align: center;"><a href="">{{factura.idFactura}}</a></td>
+                        <td style="width: 150px;">{{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}</td>
+                        <td style="width: 40px; text-align: center">${{factura.total}}</td>
+                        <td style="text-align: center; width: 150px;">{{factura.fechaCreacion| date : 'medium'}}</td>
+                        <td style="width: 50px; text-align: center;">{{factura.estado}}</td>
+                        <td>{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}</td>
+                        <td style="text-align: center; width: 20px;">
+                            <button type="button"
+                                    ng-disabled="true"
+                                    class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">${{totalFacturasDiaria}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </uib-tab>
+        <uib-tab heading="Todas mis reservas"></uib-tab>
+        <uib-tab heading="Reservas del día"></uib-tab>
+    </uib-tabset>
+
+
+
+
+</body>
+</html>

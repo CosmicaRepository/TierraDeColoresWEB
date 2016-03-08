@@ -189,7 +189,8 @@ body {
 }
 #headTableProductos{
     background:black; 
-    color: white
+    color: white;
+    text-align: center;
 }
 #agregarProducto{
     width: 40%;
@@ -289,4 +290,16 @@ body {
 }
 .ng-table-counts{
     display: none !important;
+}
+#panelFacturacion{
+    background-color: white;
+    height: 550px;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#btnNuevaFactura{
+    border-radius: 0px;
+    font-weight: bolder;
+    font-size: large;
 }

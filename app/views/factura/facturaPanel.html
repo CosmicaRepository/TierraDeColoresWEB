@@ -385,21 +385,19 @@ and open the template in the editor.
                             <div class="form-group">
                                 <label class="control-label" for="vendedor">Vendedor</label>
                                 <div class="" data-ng-init="listaTarjetas()">
-                                    <select ng-disabled="disableSelectTarjeta"
+                                    <select ng-disabled=""
                                             class="form-control"
-                                            ng-change="busquedaPlanByTarjeta()"
-                                            ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta"
-                                            ng-model="tarjetasPago"></select>
+                                            ng-options="vendedor as vendedor.nombre + ' ' + vendedor.apellido for vendedor in vendedores track by vendedor.idUsuario"
+                                            ng-model="vendedor"></select>
                                 </div>
                             </div>                        
                             <div class="form-group">
                                 <label class="control-label" for="tipoFactura">Tipo factura</label>
-                                <div class="" data-ng-init="listaTarjetas()">
-                                    <select ng-disabled="disableSelectTarjeta"
+                                <div class="" data-ng-init="listaVendedores()">
+                                    <select ng-disabled="true"
                                             class="form-control"
-                                            ng-change="busquedaPlanByTarjeta()"
-                                            ng-options="tarjeta as tarjeta.nombreTarjeta for tarjeta in tarjetas track by tarjeta.idTarjeta"
-                                            ng-model="tarjetasPago"></select>
+                                            ng-options="vendedor as vendedor.nombre + ' ' + vendedor.apellido for vendedor in vendedores track by vendedor.idUsuario"
+                                            ng-model="tipoFactura"></select>
                                 </div>
                             </div>   
                         </fieldset>                                             
@@ -407,8 +405,7 @@ and open the template in the editor.
                         <button class="btn btn-success"
                                 style=""
                                 data-dismiss="modal"
-                                ng-disabled="factura.estado === 'CONFIRMADO'"
-                                ng-click="agregarMetodoPago()">Finalizar</button>
+                                ng-click="finalizarFactura()">Finalizar</button>
                     </center>
                 </div>
                 <div class="modal-footer">

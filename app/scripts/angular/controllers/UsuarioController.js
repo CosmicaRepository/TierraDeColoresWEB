@@ -41,15 +41,13 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.actualizarFoto = function (file) {
                     var token = $cookies.getObject('token');
                     if (typeof file !== 'undefined') {
-                        var uri = $rootScope.resource + 'usuarios/updatePhoto';
+                        var uri = 'http://localhost:8080/usuarios/updatePhoto';
                         Upload.upload({
                             url: uri,
                             headers: {'Authorization': 'Bearer ' + token.data.access_token},
                             data: {file: file}
                         }).then(function (resp) {
-                            console.log("success");
                         }, function (resp) {
-                            console.log('Error status: ' + resp.status);
                         });
                     }
                     $timeout(function timer() {
@@ -148,7 +146,6 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     };
                     $promesa = UsuarioService.addUsuario($scope.newUser);
                     $promesa.then(function (datos) {
-                        console.log(datos);
                         if (datos.status === 200) {
                             $location.path("/usuarios");
                         } else {
@@ -161,7 +158,6 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.cambiarPassword = function () {
                     $promesa = UsuarioService.changePassword($scope.userPw);
                     $promesa.then(function (datos) {
-                        console.log(datos);
                         if (datos.status === 200) {
                             toaster.pop('success', "Exito", "Contraseña actualizada.");
                             $location.path("/perfil");

@@ -9,7 +9,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'usuarios/list';
+        var uri = 'http://localhost:8080/usuarios/list';
         $http({
             url: uri,
             method: 'get',
@@ -53,7 +53,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'usuarios/addUsuario';
+        var uri = 'http://localhost:8080/usuarios/addUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -76,7 +76,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'usuarios/updateUsuario';
+        var uri = 'http://localhost:8080/usuarios/updateUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -99,7 +99,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'usuarios/changePassword';
+        var uri = 'http://localhost:8080/usuarios/changePassword';
         $http({
             url: uri,
             method: 'post',
@@ -126,7 +126,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies, f
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'usuarios/changeStatus';
+        var uri = 'http://localhost:8080/usuarios/changeStatus';
         $http({
             url: uri,
             method: 'post',

@@ -32,6 +32,8 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.barcode = "";
+                $scope.vendedor = "";
+                $scope.tipoFactura = "";
                 $scope.montoPago = "";
                 $scope.totalCompra = 0;
                 $scope.totalPago = 0;
@@ -141,7 +143,7 @@ miAppHome.controller('FacturaController',
 
                 $scope.getCliente = function (val) {
                     var token = $cookies.getObject('token');
-                    var uri = $rootScope.resource + 'cliente/searchApellido';
+                    var uri = 'http://localhost:8080/cliente/searchApellido';
                     return $http({
                         url: uri,
                         method: 'post',
@@ -250,9 +252,7 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         /* suma monto a pagar y total para controlar que no exceda a la factura*/
-                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);
-                        console.log(compare);
-                        console.log(datos.data.total);
+                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);                     
                         if (datos.data.total >= compare) {
                             $scope._metodoPago.factura = datos.data;
                             /* control para separar pago contado y otros metodos*/
@@ -314,7 +314,6 @@ miAppHome.controller('FacturaController',
                     $addCliente.then(function (datos) {
                         if (datos.status === 200) {
                             toaster.pop('success', "Exito", "Cliente agregado con exito.");
-                            console.log(datos);
                             cliente.idCliente = datos.data.msg;
                             $rootScope.factura.cliente = cliente;
                             $promesa = facturaService.update($rootScope.factura);
@@ -342,6 +341,114 @@ miAppHome.controller('FacturaController',
                             toaster.pop('error', 'Error', 'Error, la factura no pudo ser actualizada');
                         }
                     });
+                };
+
+                /*listdos de las tabs */
+
+                $scope.listaFacturas = function () {
+                    $scope.facturas = "";
+                    $promesa = facturaService.getAll();
+                    $promesa.then(function (datos) {
+                        if (datos.status === 200) {
+                            $scope.totalFacturas = 0;
+                            angular.forEach(datos.data, function (value, key) {
+                                if (value.estado === 'CONFIRMADO') {
+                                    $scope.totalFacturas = parseInt($scope.totalFacturas) + parseInt(value.total);
+                                }
+                            });
+                            $scope.facturas = datos.data;
+                            var data = datos.data;
+                            $scope.tableFacturas = new NgTableParams({
+                                page: 1,
+                                count: 10
+                            }, {
+                                total: data.length,
+                                getData: function (params) {
+                                    data = $scope.facturas;
+                                    params.total(data.length);
+                                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                                        params.page(1);
+                                    }
+                                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                                }});
+                        }
+                    });
+                };
+                $scope.listaFacturasDiaria = function () {
+                    $scope.facturaDiarias = "";
+                    $promesa = facturaService.getDay();
+                    $promesa.then(function (datos) {
+                        if (datos.status === 200) {
+                            $scope.totalFacturasDiaria = 0;
+                            angular.forEach(datos.data, function (value, key) {
+                                if (value.estado === 'CONFIRMADO') {
+                                    $scope.totalFacturasDiaria = parseInt($scope.totalFacturasDiaria) + parseInt(value.total);
+                                }
+                            });
+                            $scope.facturaDiarias = datos.data;
+                            var data = datos.data;
+                            $scope.tableFacturasDiaria = new NgTableParams({
+                                page: 1,
+                                count: 10
+                            }, {
+                                total: data.length,
+                                getData: function (params) {
+                                    data = $scope.facturaDiarias;
+                                    params.total(data.length);
+                                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                                        params.page(1);
+                                    }
+                                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                                }});
+                        }
+                    });
+                };
+
+                $scope.listaVendedores = function () {
+                    $scope.vendedores = "";
+                    $promesa = facturaService.getVendedores();
+                    $promesa.then(function (datos) {
+                        if (datos.status === 200) {
+                            $scope.vendedores = datos.data;
+                        }
+                    });
+                };
+
+                $scope.finalizarFactura = function () {
+                    var idFactura = $routeParams.idFactura;
+                    if ($scope.vendedor !== "") {
+                        var metodo = 0;
+                        $metodo = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+                        $metodo.then(function (datos) {
+                            angular.forEach(datos.data, function (value, key) {
+                                metodo = parseInt(metodo) + parseInt(value.montoPago);
+                            });
+                            $promesa = facturaService.searchById(idFactura);
+                            $promesa.then(function (datos) {
+                                if (datos.data.total === metodo && datos.data.total !== 0) {
+                                    $rootScope.factura.idVendedor = $scope.vendedor;
+                                    $rootScope.factura.estado = 'CONFIRMADO';
+                                    $update = facturaService.update($rootScope.factura);
+                                    $update.then(function (datos) {
+                                        if (datos.status === 200) {
+                                            $location.path("/facturacion");
+                                        } else {
+                                            toaster.pop('error', 'Error', 'Un error ha ocurrido.');
+                                        }
+                                    });
+                                } else {
+                                    if (datos.data.total === 0) {
+                                        toaster.pop('warning', 'Advertencia', 'El monto no puede ser cero.');
+                                    } else {
+                                        toaster.pop('error', 'Error', 'Aun queda saldo por pagar.');
+                                    }
+                                }
+                            });
+                        });
+                    } else {
+                        toaster.pop('warning', 'Advertencia', 'Por favor elige un vendedor');
+                    }
+
                 };
 
             }]);

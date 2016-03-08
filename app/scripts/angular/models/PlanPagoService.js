@@ -9,7 +9,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'plan/list';
+        var uri = 'http://localhost:8080/plan/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'plan/add';
+        var uri = 'http://localhost:8080/plan/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'plan/tarjeta';
+        var uri = 'http://localhost:8080/plan/tarjeta';
         $http({
             url: uri,
             method: 'get',

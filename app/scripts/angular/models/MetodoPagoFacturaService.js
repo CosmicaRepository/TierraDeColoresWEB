@@ -9,7 +9,7 @@ miAppHome.service('metodoPagoFacturaService', function ($http, $cookies, $q, $ro
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'pago/list';
+        var uri = 'http://localhost:8080/pago/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('metodoPagoFacturaService', function ($http, $cookies, $q, $ro
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'pago/factura';
+        var uri = 'http://localhost:8080/pago/factura';
         $http({
             url: uri,
             method: 'get',
@@ -57,7 +57,7 @@ miAppHome.service('metodoPagoFacturaService', function ($http, $cookies, $q, $ro
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'pago/add';
+        var uri = 'http://localhost:8080/pago/add';
         $http({
             url: uri,
             method: 'post',

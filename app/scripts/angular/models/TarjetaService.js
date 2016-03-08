@@ -9,7 +9,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'tarjeta/list';
+        var uri = 'http://localhost:8080/tarjeta/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'tarjeta/add';
+        var uri = 'http://localhost:8080/tarjeta/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'tarjeta/update';
+        var uri = 'http://localhost:8080/tarjeta/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'tarjeta/delete';
+        var uri = 'http://localhost:8080/tarjeta/delete';
         $http({
             url: uri,
             method: 'post',
@@ -101,7 +101,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'tarjeta/entidadMedio';
+        var uri = 'http://localhost:8080/tarjeta/entidadMedio';
         $http({
             url: uri,
             method: 'get',

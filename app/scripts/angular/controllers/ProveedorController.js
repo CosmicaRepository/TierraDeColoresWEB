@@ -96,7 +96,6 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
      * @returns {undefined}
      */
     $scope._modificarProveedor = function (proveedor) {
-        console.log(proveedor);
         $promesa = _proveedorService.update(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
@@ -116,7 +115,6 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
         var idProveedor = $routeParams.idProveedor;
         $promesa = _proveedorService.searchById(idProveedor);
         $promesa.then(function (datos) {
-            console.log(datos);
             if (datos.status !== 200 || datos.data.estadoProveedor === false) {
                 $location.path("/proveedores");
             } else {
@@ -133,7 +131,7 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
      */
     $scope.getProveedor = function (val) {
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'proveedor/searchText';
+        var uri = 'http://localhost:8080/proveedor/searchText';
         return $http({
             url: uri,
             method: 'post',

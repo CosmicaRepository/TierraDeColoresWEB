@@ -9,7 +9,7 @@ miAppHome.service('_marcaService', function ($http, $q, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'marcas/list';
+        var uri = 'http://localhost:8080/marcas/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_marcaService', function ($http, $q, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'marcas/add';
+        var uri = 'http://localhost:8080/marcas/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_marcaService', function ($http, $q, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'marcas/update';
+        var uri = 'http://localhost:8080/marcas/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_marcaService', function ($http, $q, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'marcas/delete';
+        var uri = 'http://localhost:8080/marcas/delete';
         $http({
             url: uri,
             method: 'post',

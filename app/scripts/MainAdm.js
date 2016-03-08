@@ -112,6 +112,11 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngResource
                         templateUrl: "views/banco/panelBanco.html",
                         resolve: {authentication: auth}
                     })
+                    .when("/facturacion", {
+                        controller: "FacturaController",
+                        templateUrl: "views/factura/lista.html",
+                        resolve: {authentication: auth}
+                    })
                     .when("/factura/:idFactura", {
                         controller: "FacturaController",
                         templateUrl: "views/factura/facturaPanel.html",

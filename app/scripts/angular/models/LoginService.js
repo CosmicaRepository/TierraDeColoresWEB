@@ -8,7 +8,7 @@ miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $locati
     this.getAccess = function (Auth) {
         var datosRecu = null;
         var deferred = $q.defer();
-        var uri = $rootScope.resource + 'oauth/token';
+        var uri = 'http://localhost:8080/oauth/token';
         $http({
             url: uri,
             method: 'post',
@@ -35,7 +35,7 @@ miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $locati
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'oauth/logout';
+        var uri = 'http://localhost:8080/oauth/logout';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $locati
     };
 
     this.refreshToken = function (Token) {
-        var uri = $rootScope.resource + 'oauth/token';
+        var uri = 'http://localhost:8080/oauth/token';
         var request = $http({
             url: uri,
             method: 'post',
@@ -72,7 +72,7 @@ miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $locati
     this.isLogged = function () {
         var tk = $cookies.get('a_tk');
         $http({
-            url: $rootScope.resource + 'usuarios/logged',
+            url: 'http://localhost:8080/usuarios/logged',
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + tk,

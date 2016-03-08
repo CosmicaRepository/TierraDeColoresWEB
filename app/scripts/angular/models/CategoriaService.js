@@ -9,7 +9,7 @@ miAppHome.service('categoriaService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'categoria/list';
+        var uri = 'http://localhost:8080/categoria/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('categoriaService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'categoria/add';
+        var uri = 'http://localhost:8080/categoria/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('categoriaService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'categoria/update';
+        var uri = 'http://localhost:8080/categoria/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('categoriaService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'categoria/delete';
+        var uri = 'http://localhost:8080/categoria/delete';
         $http({
             url: uri,
             method: 'post',

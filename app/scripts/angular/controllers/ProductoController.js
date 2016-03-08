@@ -228,7 +228,6 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         var idProducto = $routeParams.idProducto;
         $promesa = _productoService.searchById(idProducto);
         $promesa.then(function (datos) {
-            console.log(datos);
             if (datos.status !== 200) {
                 $location.path("/productos");
             } else {
@@ -261,7 +260,7 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         text: 'descripcion',
         options: function (searchText) {
             var token = $cookies.getObject('token');
-            var uri = $rootScope.resource + 'producto/searchText';
+            var uri = 'http://localhost:8080/producto/searchText';
             return $http({
                 url: uri,
                 method: 'post',

@@ -115,7 +115,7 @@ miAppHome.controller('MarcaController', function ($scope, $http, NgTableParams, 
      */
     $scope.getMarca = function (val) {
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'marcas/searchText';
+        var uri = 'http://localhost:8080/marcas/searchText';
         return $http({
             url: uri,
             method: 'post',

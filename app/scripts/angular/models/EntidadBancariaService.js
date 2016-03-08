@@ -10,7 +10,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'entidad/list';
+        var uri = 'http://localhost:8080/entidad/list';
         $http({
             url: uri,
             method: 'get',
@@ -32,7 +32,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = $rootScope.resource + 'entidad/add';
+        var uri = 'http://localhost:8080/entidad/add';
         $http({
             url: uri,
             method: 'post',

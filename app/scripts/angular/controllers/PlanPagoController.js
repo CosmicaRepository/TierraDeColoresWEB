@@ -58,10 +58,8 @@ miAppHome.controller('PlanPagoController', function ($scope, planPagoService, $r
     };
 
     $scope.agregarPlan = function (planPago) {
-        console.log(planPago);
         $promesa = planPagoService.add(planPago);
         $promesa.then(function (datos) {
-            console.log(datos);
             if (datos.status === 200) {
                 $route.reload();
             } else {
