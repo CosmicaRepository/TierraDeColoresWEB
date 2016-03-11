@@ -14,7 +14,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     "dni": "",
                     "domicilio": "",
                     "email": "",
-                    "estado": 1,
+                    "estado": "",
                     "fechaCreacion": "",
                     "fechaModificacion": "",
                     "fechaNacimiento": "",
@@ -29,14 +29,27 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     "telefono": "",
                     "username": ""
                 };
-
+                
                 $scope.userPw = {
                     "old": "",
                     "new": "",
                     "rep": ""
                 };
 
+                $scope.dateOptions = {
+                    formatYear: 'yy',
+                    maxDate: new Date(2020, 5, 22),
+                    minDate: null,
+                    startingDay: 1
+                };
 
+                $scope.open2 = function () {
+                    $scope.popup2.opened = true;
+                };
+
+                $scope.popup2 = {
+                    opened: false
+                };
 
                 $scope.actualizarFoto = function (file) {
                     var token = $cookies.getObject('token');
@@ -54,7 +67,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                         $route.reload();
                         $window.location.href = 'home.html#/perfil';
 //                $location.path("/perfil");
-                    }, 1000);
+                    }, 2000);
                 };
                 $scope.actualizarPerfil = function () {
                     if ($scope.user.estado !== 'INACTVO') {
@@ -167,9 +180,14 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     });
                 };
 
-                $scope.cambiarEstado = function (status, user) {
-                    user.estado = status;
-                    $promesa = UsuarioService.changeStatus(status, user);
+                $scope.seleccionarUsuario = function (usuario) {
+                    $scope.modificarUsuario = usuario;
+                };
+
+
+                $scope.cambiarEstado = function (status) {
+                    $scope.modificarUsuario.estado = status;
+                    $promesa = UsuarioService.changeStatus(status, $scope.modificarUsuario);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
                             $route.reload();
@@ -178,5 +196,5 @@ var usuarioController = miAppHome.controller('UsuarioController',
                         }
                     });
                 };
-            }
-        ]);
+
+            }]);

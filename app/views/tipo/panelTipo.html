@@ -9,7 +9,9 @@ and open the template in the editor.
         <title></title>       
     </head>
     <body>
-    <uib-tabset justified="true" id="tabTipo">
+    <uib-tabset justified="true"
+                ng-show="tipos"
+                id="tabTipo">
         <uib-tab heading="Tipo de Productos">
             <table data-ng-init="listaTipo()" class="table table-hover table-bordered table-striped" style="width: 80%; margin-left: 10%; margin-top: 5%;">
                 <thead id="headTableProductos">
@@ -26,8 +28,18 @@ and open the template in the editor.
                         <th style="text-align: center">{{tipo.nombreTipo}}</th>                        
                         <th style="text-align: center">{{tipo.fechaCreacion}}</th>                        
                         <th style="text-align: center">
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarTipo(tipo)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button"
+                                    class="btn btn-xs btn-info"
+                                    data-toggle="modal" 
+                                    data-target="#myModal" 
+                                    uib-tooltip="Modificar tipo"
+                                    ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button"
+                                    class="btn btn-xs btn-danger" 
+                                    data-toggle="modal" 
+                                    data-target="#myModalDelete"
+                                    uib-tooltip="Eliminar Tipo"
+                                    ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -84,5 +96,30 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar tipo producto</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        ¿Desea eliminar esta Tipo producto?
+                        <br>
+                        <button class="btn btn-danger"
+                                ng-click="eliminarTipo()"
+                                data-dismiss="modal"
+                                >Eliminar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

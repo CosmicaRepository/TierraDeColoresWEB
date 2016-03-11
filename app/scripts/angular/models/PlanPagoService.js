@@ -50,6 +50,52 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         return deferred.promise;
     };
     
+    this.update = function (planPago) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/plan/update';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(planPago),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.delete = function (planPago) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/plan/delete';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(planPago),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
     this.searchByTarjeta = function (idTarjeta) {
         var datosRecu = null;
         var deferred = $q.defer();

@@ -97,7 +97,7 @@ miAppHome.controller('FacturaController',
                         }, 2000);
                     }
                 };
-
+                
                 $scope.listaDetalleFactura = function () {
                     var idFacturaDetalle = $routeParams.idFactura;
                     $scope.detalleFacturas = "";
@@ -252,7 +252,7 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         /* suma monto a pagar y total para controlar que no exceda a la factura*/
-                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);                     
+                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);
                         if (datos.data.total >= compare) {
                             $scope._metodoPago.factura = datos.data;
                             /* control para separar pago contado y otros metodos*/

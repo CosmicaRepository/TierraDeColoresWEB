@@ -9,7 +9,9 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true" id="panelMarcas">
+    <uib-tabset justified="true"
+                ng-show="marcas[1]"
+                id="panelMarcas">
         <uib-tab heading="Lista de marcas">
             <table data-ng-init="listaMarcas()"
                    ng-table="tableMarcas"
@@ -28,8 +30,17 @@ and open the template in the editor.
                         <th style="text-align: center">{{marca.nombreMarca}}</th>                        
                         <th style="text-align: center">{{marca.fechaCreacion}}</th>                        
                         <th style="text-align: center">
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarMarca(marca)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarMarca(marca)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button" class="btn btn-xs btn-info"
+                                    data-toggle="modal"
+                                    data-target="#myModal"
+                                    uib-tooltip="Modificar marca"
+                                    ng-click="seleccionarMarca(marca)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" 
+                                    data-toggle="modal"
+                                    data-target="#myModalDelete"
+                                    uib-tooltip="Eliminar marca"
+                                    class="btn btn-xs btn-danger"
+                                    ng-click="seleccionarMarca(marca)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -90,5 +101,29 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar marca</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        ¿Desea eliminar esta Marca?
+                        <br>
+                        <button class="btn btn-danger"
+                                ng-click="eliminarMarca()"
+                                data-dismiss="modal"
+                                >Eliminar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

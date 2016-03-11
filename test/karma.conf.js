@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/AngularJS-Toaster/toaster.js',
       'bower_components/ng-table/dist/ng-table.min.js',
       'bower_components/angular-resource/angular-resource.js',
+      'bower_components/highcharts-ng/dist/highcharts-ng.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

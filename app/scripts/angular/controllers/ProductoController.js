@@ -93,6 +93,24 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         "usuarioCreacion": null,
         "usuarioModificacion": null
     };
+    /**
+     * Funciones encargadas de manejar el datepicker en productos
+     */
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: null,
+        startingDay: 1
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
 
     /**
      * Funcion encargada de enlistar los Productos disponibles en la base de 
@@ -169,17 +187,23 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
     };
 
     /**
-     * Funcion eliminar Producto
-     * @param {type} producto  objeto Producto recibido desde la vista.
+     * Funcion eliminar Producto 
      * @returns {undefined}
      */
-    $scope.eliminarProducto = function (producto) {
-        $promesa = _productoService.delete(producto);
-        $promesa.then(function (datos) {
+    $scope.eliminarProducto = function () {
+        var idProducto = $routeParams.idProducto;
+        $producto = _productoService.searchById(idProducto);
+        $producto.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
-            } else {
-                alert("error");
+                $promesa = _productoService.delete(datos.data);
+                $promesa.then(function (datos) {
+                    if (datos.status === 200) {
+                        toaster.pop('success', 'Exito', 'EL producto ha sido eliminado exitosamente.');
+                        $location.path("/productos");
+                    } else {
+                        alert("error");
+                    }
+                });
             }
         });
     };
@@ -191,6 +215,7 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
      */
     $scope.seleccionarProducto = function (producto) {
         $scope.__producto = producto;
+        $scope.__producto.fechaProducto = new Date(producto.fechaProducto);
     };
 
     /**
@@ -202,6 +227,7 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         $promesa = _productoService.update(producto);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
+                toaster.pop('success', 'Exito', 'Producto modificado exitosamente.');
                 $route.reload();
             } else {
                 alert("error");

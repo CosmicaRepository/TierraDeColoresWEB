@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('MarcaController', function ($scope, $http, NgTableParams, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
+miAppHome.controller('MarcaController', function ($scope, toaster, $http, NgTableParams, $route, $timeout, $cookies, Upload, $location, _marcaService, factoryCache, $rootScope) {
 
     /**
      * Modelo de objecto Marca usado en la vista para agregar nuevas Marcas.
@@ -59,6 +59,7 @@ miAppHome.controller('MarcaController', function ($scope, $http, NgTableParams, 
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Marca agregada con exito.');
             } else {
                 alert("error");
             }
@@ -66,15 +67,15 @@ miAppHome.controller('MarcaController', function ($scope, $http, NgTableParams, 
     };
 
     /**
-     * Funcion eliminar Marca
-     * @param {type} marca objeto Marca recibido desde la vista
+     * Funcion eliminar Marca     
      * @returns {undefined}
      */
-    $scope.eliminarMarca = function (marca) {
-        $promesa = _marcaService.deleteMarca(marca);
+    $scope.eliminarMarca = function () {
+        $promesa = _marcaService.deleteMarca($scope.__marca);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Marca eliminada con exito.');
             } else {
                 alert("error");
             }
@@ -100,6 +101,7 @@ miAppHome.controller('MarcaController', function ($scope, $http, NgTableParams, 
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Marca modificada con exito.');
             } else {
                 alert("error");
             }

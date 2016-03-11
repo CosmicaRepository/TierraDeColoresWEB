@@ -9,7 +9,9 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true" id="tabProveedor">
+    <uib-tabset justified="true" 
+                ng-show="proveedores"
+                id="tabProveedor">
         <uib-tab heading="Lista de Proveedores">
             <table data-ng-init="listaProveedores()" class="table table-bordered" id="tablaProveedores">
                 <thead id="headTableProductos">

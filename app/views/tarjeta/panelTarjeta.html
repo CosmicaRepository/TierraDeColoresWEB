@@ -10,9 +10,14 @@ and open the template in the editor.
     </head>
     <body>
 
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
+    <uib-tabset justified="true"
+                ng-show="tarjetas[1]"
+                style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
         <uib-tab heading="Tarjetas">
-            <table data-ng-init="listaTarjetas()" class="table table-bordered" style="width: 80%; margin-left: 10%; margin-top: 5%;">
+            <table data-ng-init="listaTarjetas()"
+                   class="table table-bordered"
+                   ng-table="tableTarjetas"
+                   style="width: 80%; margin-left: 10%; margin-top: 5%;">
                 <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -22,7 +27,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="tarjeta in tarjetas">
+                    <tr ng-repeat="tarjeta in $data">
                         <th style="text-align: center">{{tarjeta.idTarjeta}}</th>
                         <th style="text-align: center">{{tarjeta.nombreTarjeta}}</th>                        
                         <th style="text-align: center">{{tarjeta.entidadBancaria.nombreEntidad}}</th>                        
@@ -30,13 +35,15 @@ and open the template in the editor.
                             <button type="button"
                                     class="btn btn-xs btn-info"
                                     data-toggle="modal" 
-                                    ng-disabled="true"
+                                    uib-tooltip="Modificar tarjeta"
                                     data-target="#myModal"
-                                    ng-click="seleccionarTipo(tipo)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    ng-click="seleccionarTarjeta(tarjeta)"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button type="button" 
                                     class="btn btn-xs btn-danger"
-                                    ng-disabled="true"
-                                    ng-click="eliminarTipo(tipo)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    data-toggle="modal" 
+                                    uib-tooltip="Eliminar tarjeta"
+                                    data-target="#myModalDelete"                                    
+                                    ng-click="seleccionarTarjeta(tarjeta)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -48,19 +55,32 @@ and open the template in the editor.
                 <form class="form-horizontal" role="form" name="addTarjeta" style="margin-left: 22%;">                    
                     <div class="form-group col-lg-8">                    
                         <label class="control-label">Nombre tarjeta</label>
-                        <input type="text" class="form-control" ng-model="_tarjeta.nombreTarjeta" name="nombre" required
+                        <input type="text"
+                               class="form-control"
+                               ng-model="_tarjeta.nombreTarjeta" name="nombre" required
                                minlength="4"
+                               maxlength="30"
                                data-ng-class='{error: addTarjeta.nombre.$invalid && !addTarjeta.$pristine}'/>
                     </div>
                     <div class="form-group col-lg-8" ng-controller="MedioPagoController" data-ng-init="listaMedioPago()">                    
                         <label class="control-label">Tipo de tarjeta</label>
-                        <select name="medio" class="form-control" ng-options="medio as medio.nombrePago for medio in medioPagos track by medio.idMedioPago" ng-model="_tarjeta.medioPago" required
-                                data-ng-class='{error: addTarjeta.medio.$invalid && !addTarjeta.$pristine}'></select>
+                        <select name="medio"
+                                class="form-control"
+                                ng-options="medio as medio.nombrePago for medio in medioPagos track by medio.idMedioPago"
+                                ng-model="_tarjeta.medioPago" required
+                                data-ng-class='{error: addTarjeta.medio.$invalid && !addTarjeta.$pristine}'>
+                                    <option></option>
+                        </select>
                     </div>
                     <div class="form-group col-lg-8" ng-controller="EntidadBancariaController" data-ng-init="listaEntidadBancaria()">                    
                         <label class="control-label">Entidad bancaria</label>
-                        <select name="entidad" class="form-control" ng-options="entidad as entidad.nombreEntidad for entidad in entidadBancarias track by entidad.idEntidadMonetaria" ng-model="_tarjeta.entidadBancaria" required
-                                data-ng-class='{error: addTarjeta.entidad.$invalid && !addTarjeta.$pristine}'></select>
+                        <select name="entidad"
+                                class="form-control"
+                                ng-options="entidad as entidad.nombreEntidad for entidad in entidadBancarias track by entidad.idEntidadMonetaria"
+                                ng-model="_tarjeta.entidadBancaria" required
+                                data-ng-class='{error: addTarjeta.entidad.$invalid && !addTarjeta.$pristine}'>
+                                    <option></option>
+                        </select>
                     </div>
                     <div class="form-group col-lg-8">
                         <button ng-click="agregarTarjeta(_tarjeta)" type="submit" class="btn btn-success" ng-disabled="addTarjeta.$invalid" style="margin-top: 5%;">Agregar</button>
@@ -71,5 +91,74 @@ and open the template in the editor.
         </uib-tab>
     </uib-tabset>
     <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Cambiar datos de la tarjeta</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="updateTarjeta">                    
+                        <div class="form-group">                    
+                            <label class="control-label">Nombre tarjeta</label>
+                            <input type="text" class="form-control" ng-model="tarjetaSeleccionada.nombreTarjeta" name="nombre" required
+                                   minlength="4"
+                                   maxlength="30"
+                                   data-ng-class='{error: updateTarjeta.nombre.$invalid && !updateTarjeta.$pristine}'/>
+                        </div>
+                        <div class="form-group" ng-controller="MedioPagoController" data-ng-init="listaMedioPago()">                    
+                            <label class="control-label">Tipo de tarjeta</label>
+                            <select name="medio" 
+                                    class="form-control"
+                                    ng-options="medio as medio.nombrePago for medio in medioPagos track by medio.idMedioPago" 
+                                    ng-model="tarjetaSeleccionada.medioPago" required
+                                    data-ng-class='{error: updateTarjeta.medio.$invalid && !updateTarjeta.$pristine}'></select>
+                        </div>
+                        <div class="form-group" ng-controller="EntidadBancariaController" data-ng-init="listaEntidadBancaria()">                    
+                            <label class="control-label">Entidad bancaria</label>
+                            <select name="entidad" class="form-control"
+                                    ng-options="entidad as entidad.nombreEntidad for entidad in entidadBancarias track by entidad.idEntidadMonetaria" 
+                                    ng-model="tarjetaSeleccionada.entidadBancaria" required
+                                    data-ng-class='{error: updateTarjeta.entidad.$invalid && !updateTarjeta.$pristine}'></select>
+                        </div>
+                        <div class="form-group">
+                            <button ng-click="modificarTarjeta(tarjetaSeleccionada)"
+                                    type="submit" class="btn btn-success"
+                                    data-dismiss="modal"
+                                    ng-disabled="updateTarjeta.$invalid" style="margin-top: 5%;">Modificar</button>
+                        </div>
+                    </form>             
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar tarjeta</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        ¿Desea eliminar esta tarjeta?
+                        <br>
+                        <button class="btn btn-danger"
+                                ng-click="eliminarTarjeta()"
+                                data-dismiss="modal"
+                                >Eliminar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

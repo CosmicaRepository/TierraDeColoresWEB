@@ -5,7 +5,21 @@
  */
 /* global usuarioController */
 "use strict";
-var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngResource', 'ngTable', 'toaster', 'tierraDeColoresApp', 'aa.select2', 'ngCookies', 'ngFileUpload', 'angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'ngTable', 'io-barcode'])
+var miAppHome = angular.module('tierraDeColoresAppHome',
+        ['ngRoute',            
+            'highcharts-ng',
+            'ngResource',
+            'ngTable',
+            'toaster',
+            'tierraDeColoresApp',
+            'aa.select2',
+            'ngCookies',
+            'ngFileUpload',
+            'angular-loading-bar',
+            'ngAnimate',
+            'ui.bootstrap',
+            'ngTable',
+            'io-barcode'])
         .config(function ($routeProvider) {
             var auth = function ($cookies, $rootScope, $http, $window, $location) {
                 var tk = $cookies.get('a_tk');
@@ -122,14 +136,14 @@ var miAppHome = angular.module('tierraDeColoresAppHome', ['ngRoute', 'ngResource
                         templateUrl: "views/factura/facturaPanel.html",
                         resolve: {authentication: auth}
                     })
+                    .when("/estadisticas", {
+                        controller: "ChartController",
+                        templateUrl: "views/charts/chartPanel.html",
+                        resolve: {authentication: auth}
+                    })
                     .otherwise({
                         redirectTo: "/",
                         templateUrl: "views/inicio.html"
                     });
-        })
-        .run(function (factoryConnection, $rootScope) {
-            factoryConnection.get(function (data) {
-                $rootScope.resource = data.root;
-            });
         });
 

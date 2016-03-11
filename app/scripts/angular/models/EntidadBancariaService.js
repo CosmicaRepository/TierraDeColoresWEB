@@ -27,12 +27,58 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         });
         return deferred.promise;
     };
-    
-    this.add = function (entidad){
+
+    this.add = function (entidad) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
         var uri = 'http://localhost:8080/entidad/add';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(entidad),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.update = function (entidad) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/entidad/update';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(entidad),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.delete = function (entidad) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'http://localhost:8080/entidad/delete';
         $http({
             url: uri,
             method: 'post',

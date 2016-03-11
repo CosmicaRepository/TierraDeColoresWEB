@@ -12,7 +12,8 @@ and open the template in the editor.
     <center><h1 style="margin-top: 70px;">Lista de productos</h1></center>
 
     <table data-ng-init="listaProductos()"
-           class="table table-bordered"
+           class="table table-bordered table-condensed"
+           ng-show="productos[1]"
            ng-table="tableProductos"
            id="tableProductos">
         <thead id="headTableProductos">
@@ -29,22 +30,30 @@ and open the template in the editor.
                 <td style="text-align: center">{{producto.idProducto}}</td>
                 <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
                 <td style="text-align: center">{{producto.cantidadTotal}}</td>
-                <td style="text-align: center">{{producto.talla}}</td>
-                <td style="text-align: center">{{producto.colorProducto}}</td>                
+                <td style="text-align: center">{{producto.talla| uppercase}}</td>
+                <td style="text-align: center">{{producto.colorProducto | uppercase}}</td>                
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th style="margin-top: 0px;
+                    width: 95px;
+                    padding-top: 0px;
+                    margin-left: 0px;
+                    padding-left: 0px;
+                    margin-right: 0px;
+                    padding-right: 0px;
+                    margin-bottom: 0px;
+                    padding-bottom: 0px;">
+                    <button class="btn btn-warning btn-sm"
+                            ng-controller="LoginController"                            
+                            uib-tooltip="Agregar nuevo producto"
+                            ng-click="go('/agregarProducto')">Agregar Producto</button>
+                </th>
+                <th></th>
+            </tr>
+        </tfoot>
     </table>
 
-
-
-    <button ng-click="go('/editarProducto')"
-            class="btn btn-warning"
-            ng-controller="LoginController"
-            ng-disabled="true"
-            uib-tooltip="En construccion...">Editar Producto</button>
-    
-    <button class="btn btn-warning"
-            ng-controller="LoginController"
-            ng-click="go('/agregarProducto')">Agregar Producto</button>
 </body>
 </html>

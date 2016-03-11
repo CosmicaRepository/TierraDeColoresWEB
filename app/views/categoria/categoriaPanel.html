@@ -9,7 +9,9 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true" id="tabCategoria">
+    <uib-tabset justified="true"
+                ng-show="categorias[1]"
+                id="tabCategoria">
         <uib-tab heading="Lista de Categorias">
             <table data-ng-init="listaCategorias()"
                    ng-table="tableCategorias"
@@ -32,11 +34,15 @@ and open the template in the editor.
                                     class="btn btn-xs btn-info"
                                     data-toggle="modal"
                                     data-target="#myModal"
+                                    uib-tooltip="Modificar categoria"
                                     ng-click="seleccionarCategoria(categoria)">
                                 <span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button"                                    
+                            <button type="button"   
+                                    data-toggle="modal"
+                                    data-target="#myModalDelete"
+                                    uib-tooltip="Eliminar categoria"
                                     class="btn btn-xs btn-danger" 
-                                    ng-click="eliminarCategoria(categoria)">
+                                    ng-click="seleccionarCategoria(categoria)">
                                 <span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
@@ -114,5 +120,29 @@ and open the template in the editor.
             </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Eliminar categoria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            ¿Desea eliminar esta Categoria?
+                            <br>
+                            <button class="btn btn-danger"
+                                    ng-click="eliminarCategoria()"
+                                    data-dismiss="modal"
+                                    >Eliminar</button>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

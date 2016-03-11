@@ -57,8 +57,17 @@ and open the template in the editor.
             <div class="form-group">                    
                 <label class="col-lg-3 control-label">Fecha nacimiento</label>
                 <div class="col-lg-7">
-                    <input type="date" class="form-control" ng-model="user.fechaNacimiento" name="fecha" required
-                           data-ng-class='{ error: registrarUsuario.fecha.$invalid && !registrarUsuario.$pristine }'/>
+                    <p class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup ng-model="user.fechaNacimiento"
+                               is-open="popup2.opened" 
+                               datepicker-options="dateOptions"
+                               ng-required="true"
+                               current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="form-group">                    

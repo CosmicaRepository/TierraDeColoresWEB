@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('TipoController', function ($scope, ngTableParams, $route, $timeout, $cookies, Upload, $location, _tipoService, factoryCache, $rootScope) {
+miAppHome.controller('TipoController', function ($scope, toaster, ngTableParams, $route, $timeout, $cookies, Upload, $location, _tipoService, factoryCache, $rootScope) {
 
     $scope._tipo = {
         "idTipo": null,
@@ -31,17 +31,19 @@ miAppHome.controller('TipoController', function ($scope, ngTableParams, $route, 
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Tipo agregado con exito.');
             } else {
                 alert("error");
             }
         });
     };
 
-    $scope.eliminarTipo = function (tipo) {
-        $promesa = _tipoService.deleteTipo(tipo);
+    $scope.eliminarTipo = function () {
+        $promesa = _tipoService.deleteTipo($scope.__tipo);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Tipo eliminado con exito.');
             } else {
                 alert("error");
             }
@@ -56,6 +58,7 @@ miAppHome.controller('TipoController', function ($scope, ngTableParams, $route, 
         $promesa = _tipoService.updateTipo(tipo);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
+                toaster.pop('success', 'Exito', 'Tipo modificado con exito.');
                 $route.reload();
             } else {
                 alert("error");

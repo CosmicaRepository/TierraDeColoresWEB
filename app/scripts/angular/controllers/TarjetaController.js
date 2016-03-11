@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('TarjetaController', function ($scope, tarjetaService, $timeout, $location, $route, toaster) {
+miAppHome.controller('TarjetaController', function ($scope, NgTableParams, tarjetaService, $timeout, $location, $route, toaster) {
 
     $scope._tarjeta = {
         "idTarjeta": null,
@@ -40,7 +40,25 @@ miAppHome.controller('TarjetaController', function ($scope, tarjetaService, $tim
         $promesa = tarjetaService.getAll();
         $promesa.then(function (datos) {
             $scope.tarjetas = datos.data;
+            var data = datos.data;
+            $scope.tableTarjetas = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.tarjetas;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
         });
+    };
+
+    $scope.seleccionarTarjeta = function (tarjeta) {
+        $scope.tarjetaSeleccionada = tarjeta;
     };
 
     $scope.agregarTarjeta = function (tarjeta) {
@@ -56,6 +74,43 @@ miAppHome.controller('TarjetaController', function ($scope, tarjetaService, $tim
             }
         });
     };
+
+
+    $scope.modificarTarjeta = function (tarjeta) {
+        $promesa = tarjetaService.update(tarjeta);
+        $promesa.then(function (datos) {
+            if (datos.status === 200) {
+                $timeout(function timer() {
+                    tarjetaService.getAll().then(function (datos) {
+                        $scope.tarjetas = datos.data;
+                        $scope.tableTarjetas.reload();
+                    });
+                    toaster.pop('success', "Exito", "Tarjeta modificada existosamente.");
+                }, 1000);
+            } else {
+                alert("error");
+            }
+        });
+
+    };
+    
+    $scope.eliminarTarjeta = function (){
+        $promesa = tarjetaService.delete($scope.tarjetaSeleccionada);
+        $promesa.then(function (datos) {
+            if (datos.status === 200) {
+                $timeout(function timer() {
+                    tarjetaService.getAll().then(function (datos) {
+                        $scope.tarjetas = datos.data;
+                        $scope.tableTarjetas.reload();
+                    });
+                    toaster.pop('success', "Exito", "Tarjeta eliminada existosamente.");
+                }, 1000);
+            } else {
+                alert("error");
+            }
+        });
+    };
+
 
 });
 

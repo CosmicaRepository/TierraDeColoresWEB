@@ -111,7 +111,23 @@ and open the template in the editor.
                            ng-model="_producto.numeroFactura" name="factura" required
                            data-ng-class='{error: nuevoProducto.factura.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
-            </div>                       
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-lg-4">Fecha de compra</label>
+                <div class="col-lg-8">
+                    <p class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup ng-model="_producto.fechaProducto"
+                               is-open="popup2.opened" 
+                               datepicker-options="dateOptions"
+                               ng-required="true"
+                               current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label">Clase</label>
                 <div class="col-lg-8">
@@ -165,16 +181,7 @@ and open the template in the editor.
                            ng-model="_producto.precioVenta" name="venta" required
                            data-ng-class='{error: nuevoProducto.venta.$invalid && !nuevoProducto.$pristine}'/>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-lg-4">Fecha de compra</label>
-                <div class="col-lg-8">
-                    <input type="date" class="form-control" 
-                           ng-model="_producto.fechaProducto" name="fecha" required
-                           data-ng-class='{error: nuevoProducto.fecha.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
+            </div>            
             <div class="form-group">
                 <label class="control-label col-lg-4">Proveedor</label>
                 <div class="col-lg-8" ng-controller="ProveedorController">

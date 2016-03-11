@@ -9,9 +9,14 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"  style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
+    <uib-tabset justified="true"
+                ng-show="entidadBancarias[1]"
+                style="margin-top: 70px; width: 50%; margin-left: 25%; background-color: white; height: 550px;">
         <uib-tab heading="Entidades Bancarias">
-            <table data-ng-init="listaEntidadBancaria()" class="table table-bordered" style="width: 80%; margin-left: 10%; margin-top: 5%;">
+            <table data-ng-init="listaEntidadBancaria()"
+                   class="table table-bordered"
+                   ng-table="tableEntidades"
+                   style="width: 80%; margin-left: 10%; margin-top: 5%;">
                 <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -21,21 +26,23 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="entidad in entidadBancarias">
+                    <tr ng-repeat="entidad in $data">
                         <th style="text-align: center">{{entidad.idEntidadMonetaria}}</th>
                         <th style="text-align: center">{{entidad.nombreEntidad}}</th>                        
                         <th style="text-align: center">{{entidad.direccionEntidad}}</th>                        
                         <th style="text-align: center">
                             <button type="button"
                                     class="btn btn-xs btn-info"
-                                    data-toggle="modal"
-                                    ng-disabled="true"
-                                    data-target="#myModal" 
-                                    ng-click="seleccionarCategoria(categoria)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    data-toggle="modal" 
+                                    uib-tooltip="Modificar entidad"
+                                    data-target="#myModal"
+                                    ng-click="seleccionarEntidad(entidad)"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button type="button" 
                                     class="btn btn-xs btn-danger"
-                                    ng-disabled="true"
-                                    ng-click="eliminarCategoria(categoria)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    data-toggle="modal" 
+                                    uib-tooltip="Eliminar entidad"
+                                    data-target="#myModalDelete"
+                                    ng-click="seleccionarEntidad(entidad)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -47,14 +54,21 @@ and open the template in the editor.
                 <div class="form-group">                    
                     <label class="control-label col-lg-3">Nombre</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control" ng-model="_entidadBancaria.nombreEntidad" name="nombreEntidad" required
+                        <input type="text"
+                               class="form-control"
+                               ng-model="_entidadBancaria.nombreEntidad"
+                               maxlength="20"
+                               name="nombreEntidad" required
                                data-ng-class='{error: newEntidad.nombreEntidad.$invalid && !newEntidad.$pristine}'/>
                     </div>
                 </div>
                 <div class="form-group">                    
                     <label class="control-label col-lg-3">Direccion</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control" ng-model="_entidadBancaria.direccionEntidad" name="direccionEntidad" required
+                        <input type="text"
+                               class="form-control"
+                               maxlength="30"
+                               ng-model="_entidadBancaria.direccionEntidad" name="direccionEntidad" required
                                data-ng-class='{error: newEntidad.direccionEntidad.$invalid && !newEntidad.$pristine}'/>
                     </div>
                 </div>
@@ -66,10 +80,92 @@ and open the template in the editor.
                     </div>
                 </div>               
                 <div class="form-group">
-                    <button ng-click="agregarEntidad(_entidadBancaria)" type="submit" class="btn btn-success" ng-disabled="newEntidad.$invalid" style="margin-left: 40%;">Agregar</button>
+                    <button ng-click="agregarEntidad(_entidadBancaria)"
+                            type="submit"
+                            class="btn btn-success"
+                            ng-disabled="newEntidad.$invalid" style="margin-left: 40%;">Agregar</button>
                 </div>
             </form>
         </uib-tab>        
     </uib-tabset>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modificar entidad</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="updateEntidad" class="form-horizontal">
+                        <center><h3>Modificar entidad</h3></center>
+                        <div class="form-group">                    
+                            <label class="control-label col-lg-3">Nombre</label>
+                            <div class="col-lg-8">
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="entidadSeleccionada.nombreEntidad"
+                                       maxlength="20"x
+                                       name="nombreEntidad" required
+                                       data-ng-class='{error: updateEntidad.nombreEntidad.$invalid && !updateEntidad.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">                    
+                            <label class="control-label col-lg-3">Direccion</label>
+                            <div class="col-lg-8">
+                                <input type="text" 
+                                       class="form-control"
+                                       ng-model="entidadSeleccionada.direccionEntidad"
+                                       maxlength="30"
+                                       name="direccionEntidad" required
+                                       data-ng-class='{error: updateEntidad.direccionEntidad.$invalid && !updateEntidad.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">                    
+                            <label class="control-label col-lg-3">Telefono</label>
+                            <div class="col-lg-8">
+                                <input type="tel" class="form-control" ng-model="entidadSeleccionada.telefonoEntidad" name="entidadTelefono" required
+                                       data-ng-class='{error: updateEntidad.entidadTelefono.$invalid && !updateEntidad.$pristine}'/>
+                            </div>
+                        </div>               
+                        <div class="form-group">
+                            <button ng-click="modificarEntidad(entidadSeleccionada)"
+                                    type="submit"
+                                    class="btn btn-success"
+                                    data-dismiss="modal"
+                                    ng-disabled="updateEntidad.$invalid" style="margin-left: 40%;">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar entidad</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        ¿Desea eliminar esta entidad?
+                        <br>
+                        <button class="btn btn-danger"
+                                ng-click="eliminarEntidad()"
+                                data-dismiss="modal"
+                                >Eliminar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

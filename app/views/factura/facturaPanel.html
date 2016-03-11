@@ -221,7 +221,7 @@ and open the template in the editor.
                                                 <td>{{detalleFactura.producto.descripcion}}</td>
                                                 <td style="width: 30px; text-align: center;">{{detalleFactura.cantidadDetalle}}</td>
                                                 <td style="width: 150px; text-align: center;">${{detalleFactura.producto.precioVenta}}</td>
-                                                <td style="width: 50px; text-align: center;">{{detalleFactura.descuentoDetalle}}</td>
+                                                <td style="width: 50px; text-align: center;">${{detalleFactura.descuentoDetalle}}</td>
                                                 <td style="width: 50px; text-align: center;">${{detalleFactura.totalDetalle}}</td>
                                             </tr>
                                         </tbody>
@@ -441,82 +441,121 @@ and open the template in the editor.
             </div>
         </div>
     </div>
-    <script type="text/ng-template" id="searchResultados.html">    
-        <div class="modal-header">
+    <script type="text/ng-template" id="searchResultados.html">  
+    <div class="modal-header">
         <h3 class="modal-title">Lista de productos</h3>
-        </div>
-        <div class="modal-body">
-        <div class="input-group">
-        <input type="text" class="form-control" ng-model="barcode" placeholder="Ingresa codigo de barras para buscar">
-        <span class="input-group-btn">
-        <button class="btn btn-default" type="button">BUSCAR</button>
-        </span>
-        </div>
-        <h4>Resultados</h4>
-        <table class="table table-condensed table-bordered">
-        <thead>
-        <tr>
-        <th>Codigo de barras</th>
-        <th>Clase</th>
-        <th>Descripcion</th>
-        <th>Stock</th>
-        <th>Color</th>
-        <th>Precio</th>
-        <th>Talla</th>
-        <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="productoBarcode in productosBarcode">
-        <td>{{productoBarcode.codigoProducto}}</td>
-        <td>{{productoBarcode.claseProducto}}</td>
-        <td>{{productoBarcode.descripcion}}</td>
-        <td>{{productoBarcode.cantidadTotal}}</td>
-        <td>{{productoBarcode.colorProducto}}</td>
-        <td>${{productoBarcode.precioVenta}}</td>
-        <td>{{productoBarcode.talla}}</td>
-        <td>                    
-        <button ng-click="addProductoDetalle(productoBarcode)" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-check"></span></button>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-
-        </div>
-        <div class="modal-footer">
-        <button class="btn btn-danger" type="button" ng-click="close()">Cerrar</button>
-        </div>
-    </script>
-
-
-    <script type="text/ng-template" id="addProductoFactura.html">  
-        <div class="modal-header">
+    </div>
+    <div class="modal-body">
         <center>
-        <h3 class="modal-title">{{productoSelected.descripcion}}</h3>
-        </center>
-        </div>
-        <center>
-        <form name="detalleFactura">
-        <div class="form-group" style="width: 50%; margin-left: 5%;">
-        <label class="control-label">Cantidad</label>
-        <div class="">
-        <input type="text" class="form-control" ng-model="_detalleFactura.cantidadDetalle" name="cantidadDetalle" required
-        data-ng-class='{error: detalleFactura.cantidadDetalle.$invalid && !detalleFactura.$pristine}'/>
-        </div>
-        </div>
-        <div class="form-group" style="width: 50%; margin-left: 5%;">
-        <label class="control-label">Descuento</label>
-        <div class="">
-        <input type="text" class="form-control" ng-model="_detalleFactura.descuentoDetalle" name="descuentoDetalle" required
-        data-ng-class='{error: detalleFactura.descuentoDetalle.$invalid && !detalleFactura.$pristine}'/>
-        </div>
-        </div>
-        <button class="btn btn-success" type="button" ng-click="addDetalleFactura()">Agregar</button>
+        <form>
+            <div class="input-group col-md-8">
+                <input type="text" class="form-control" ng-model="modalBarcode" placeholder="Ingresa codigo de barras para buscar">
+                <span class="input-group-btn">
+                    <button class="btn btn-default"
+                            ng-click="buscarModal(modalBarcode)"
+                            >BUSCAR</button>
+                </span>
+            </div>    
         </form>
         </center>
-        <div class="modal-footer">
+        <h4>Resultados</h4>
+        <table             
+            class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Codigo de barras</th>
+                    <th>Clase</th>
+                    <th>Descripcion</th>
+                    <th>Stock</th>
+                    <th>Color</th>
+                    <th>Precio</th>
+                    <th>Talla</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="productoBarcode in productosBarcode">
+                    <td>{{productoBarcode.codigoProducto}}</td>
+                    <td>{{productoBarcode.claseProducto}}</td>
+                    <td>{{productoBarcode.descripcion| uppercase}}</td>
+                    <td>{{productoBarcode.cantidadTotal}}</td>
+                    <td>{{productoBarcode.colorProducto| uppercase}}</td>
+                    <td>${{productoBarcode.precioVenta}}</td>
+                    <td>{{productoBarcode.talla| uppercase}}</td>
+                    <td>                    
+                        <button ng-click="addProductoDetalle(productoBarcode)" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-check"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
         <button class="btn btn-danger" type="button" ng-click="close()">Cerrar</button>
-        </div>
+    </div>
+    </script>  
+
+
+    <script type="text/ng-template" id="addProductoFactura.html"> 
+    <div class="modal-header">
+        <center>
+            <h3 class="modal-title">{{productoSelected.descripcion}}</h3>
+        </center>
+    </div>
+    <div class="modal-body">
+        <center>
+            <form name="detalleFactura" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label">Cantidad</label>
+                    <div class="">
+                        <input type="text"
+                               class="form-control" 
+                               ng-model="_detalleFactura.cantidadDetalle"
+                               name="cantidadDetalle" required
+                               data-ng-class='{error: detalleFactura.cantidadDetalle.$invalid && !detalleFactura.$pristine}'/>
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <label class="control-label">Descuento %</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">%</span>
+                        <input type="text" 
+                               class="form-control"
+                               placeholder="% de descuento"
+                               aria-describedby="basic-addon1"
+                               ng-disabled="mount"
+                               maxlength="2"
+                               ng-model="percent"
+                               name="percent"
+                               data-ng-class='{error: detalleFactura.percent.$invalid && !detalleFactura.$pristine}'
+                               >                        
+                    </div>                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Descuento $</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">$$</span>
+                        <input type="text"
+                               class="form-control"
+                               maxlength="3"
+                               placeholder="$ de descuento"
+                               aria-describedby="basic-addon1"
+                               ng-disabled="percent"
+                               ng-model="mount"
+                               name="mount"
+                               data-ng-class='{error: detalleFactura.mount.$invalid && !detalleFactura.$pristine}'
+                               >
+                    </div>
+                </div>
+                <button class="btn btn-success"
+                        type="submit" 
+                        style="margin-top: 5%;"
+                        ng-click="addDetalleFacturaModal()">Agregar</button>
+            </form>
+        </center>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="close()">Cerrar</button>
+    </div>
     </script>
 
 </html>

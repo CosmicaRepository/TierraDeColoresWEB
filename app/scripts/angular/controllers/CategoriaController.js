@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('CategoriaController', function ($scope, $route, NgTableParams, categoriaService) {
+miAppHome.controller('CategoriaController', function ($scope, toaster, $route, NgTableParams, categoriaService) {
 
     /**
      * Modelo de objecto categoria usado en las vistas para Agregar.
@@ -69,6 +69,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, NgTablePar
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Categoria agregada con exito.');
             } else {
                 alert("error");
             }
@@ -77,14 +78,14 @@ miAppHome.controller('CategoriaController', function ($scope, $route, NgTablePar
 
     /**
      * Funcion eliminar Categoria
-     * @param {type} categoria objecto recibido desde la vista.
      * @returns {undefined}
      */
-    $scope.eliminarCategoria = function (categoria) {
-        $promesa = categoriaService.deleteCategoria(categoria);
+    $scope.eliminarCategoria = function () {
+        $promesa = categoriaService.deleteCategoria($scope.__categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Categoria eliminada con exito.');
             } else {
                 alert("error");
             }
@@ -112,6 +113,7 @@ miAppHome.controller('CategoriaController', function ($scope, $route, NgTablePar
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $route.reload();
+                toaster.pop('success', 'Exito', 'Categoria modificada con exito.');
             } else {
                 alert("error");
             }
