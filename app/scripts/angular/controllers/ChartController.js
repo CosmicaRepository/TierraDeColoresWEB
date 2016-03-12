@@ -3,17 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('ChartController', function ($scope) {
+miAppHome.controller('ChartController', function ($scope, chartService, facturaService) {
+
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = true;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+    var currIndex = 0;
 
     $scope.chartConfig = {
         options: {
+            subtitle: {
+                text: 'Cantidad de ventas por vendedor'
+            },
             chart: {
-                type: "areaspline",
-                zoomType: 'x'
+                type: "areaspline"
             },
             plotOptions: {
                 series: {
-                    stacking: ""
+                    lineWidth: 1,
+                    fillOpacity: 0.5
+                },
+                column: {
+                    stacking: 'normal'
+                },
+                area: {
+                    stacking: 'normal',
+                    marker: {
+                        enabled: false
+                    }
                 }
             },
             rangeSelector: {
@@ -30,9 +48,15 @@ miAppHome.controller('ChartController', function ($scope) {
         credits: {
             "enabled": false
         },
+        legend: {
+            enabled: false
+        },
+        loading: false,
         useHighStocks: false,
+        exporting: true,
         xAxis: [{
-                type: 'datetime'
+                type: 'datetime',
+                title: {text: 'Dias de la semana'}
             }],
         yAxis: [{
                 currentMin: 0,
@@ -41,26 +65,37 @@ miAppHome.controller('ChartController', function ($scope) {
                 title: {text: 'Cantidad'}
             }]
     };
-    var date = new Date('04-04-1992');
-    var date1 = new Date('04-05-1992').getTime();
-    var date2 = new Date('04-06-1992').getTime();
-    var date3 = new Date('04-07-1992').getTime();
-    var date4 = new Date('04-08-1992').getTime();
-    $scope.chartConfig.series.push({
-        id: 1,
-        data: [
-            [date.getTime(), 23.15],
-            [date1, 23.01],
-            [date2, 22.73],
-            [date3, 22.83],
-            [date4, 19.83]
-        ],
-        name: "Vendedor 1",
-        type: "spline",
-        dashStyle: "Solid",
-        color: "blue"
-    });
-
-
+    $scope.estadisticasVentas = function () {
+        $scope.chartConfig.loading = true;
+        $vendedores = facturaService.getVendedores();
+        $vendedores.then(function (datos) {
+            var colors = ['yellowgreen', 'purple', 'crimson', 'orange', 'yellow', 'red', 'green', 'pink', 'blue', 'cyan'];
+            angular.forEach(datos.data, function (value, key) {
+                console.log(value);
+                $estadistica = chartService.getEstadisticaVendedor(value.idUsuario);
+                $estadistica.then(function (datos) {
+                    if (datos.status === 200) {
+                        $scope.chartConfig.series.push({
+                            id: value.idUsuario,
+                            data: [
+                                [datos.data[0].date, datos.data[0].rowCount],
+                                [datos.data[1].date, datos.data[1].rowCount],
+                                [datos.data[2].date, datos.data[2].rowCount],
+                                [datos.data[3].date, datos.data[3].rowCount],
+                                [datos.data[4].date, datos.data[4].rowCount],
+                                [datos.data[5].date, datos.data[5].rowCount],
+                                [datos.data[6].date, datos.data[6].rowCount]
+                            ],
+                            name: value.nombre,
+                            type: "spline",
+                            dashStyle: "Solid",
+                            color: colors[key]
+                        });
+                    }
+                });
+            });
+            $scope.chartConfig.loading = false;
+        });
+    };
 });
 

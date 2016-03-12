@@ -9,8 +9,26 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-        <div class="row" style="margin-top: 100px; margin-left: 20%; margin-right: 20%;">
+
+        <div class="row"
+             data-ng-init="estadisticasVentas()"
+             style="margin-top: 100px; margin-left: 20%; margin-right: 20%;">
             <highchart id="chart1" config="chartConfig" class="span10"></highchart>
         </div>
-    </body>
+
+
+    <uib-carousel 
+        style="margin-top: 100px; margin-left: 20%; margin-right: 20%;"
+        active="active" interval="myInterval" no-wrap="noWrapSlides">
+        <uib-slide  index="slide.id">
+            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+        </uib-slide>
+        <uib-slide  index="slide.id">
+            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+        </uib-slide>
+        <uib-slide  index="slide.id">
+            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+        </uib-slide>
+    </uib-carousel>
+</body>
 </html>
