@@ -349,8 +349,10 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
                 toaster.pop('success', 'Exito.', 'El producto ha sido removido.');
                 $recargar = _productoService.getAll();
                 $recargar.then(function (datos) {
+                    $scope.listaBusqueda = datos.data;
                     $scope.productos = datos.data;
                     $scope.tableProductos.reload();
+                    $scope.tableBusqueda.reload();
                 });
 
             }
