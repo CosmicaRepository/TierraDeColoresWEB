@@ -62,38 +62,42 @@ miAppHome.controller('ModalController',
                             descuento = $scope.mount;
                             console.log(descuento);
                         }
-                        $promesa = facturaService.searchById(idFactura);
-                        $promesa.then(function (datos) {
-                            $scope._detalleFactura.factura = datos.data;
-                            $scope._detalleFactura.producto = $rootScope.productoSelected;
-                            $scope._detalleFactura.descuentoDetalle = descuento;
-                            $addDetalle = facturaService.addDetalleFactura($scope._detalleFactura);
-                            $addDetalle.then(function (datos) {
-                                toaster.pop('success', 'Exito', 'Se ha agregado detalle nuevo.');
-                            });
-                            $timeout(function timer() {
-                                $scope.toUpdateFactura = datos.data;
-                                $listDetalles = facturaService.getDetalleFacturaList(idFactura);
-                                $listDetalles.then(function (datos) {
-                                    console.log(datos);
-                                    var totalUpdate = 0;
-                                    angular.forEach(datos.data, function (value, key) {
-                                        totalUpdate = parseInt(totalUpdate) + parseInt(value.totalDetalle);
-                                    });
-                                    $scope.toUpdateFactura.total = totalUpdate;
-                                    console.log($scope.toUpdateFactura);
-                                    $updateTotal = facturaService.update($scope.toUpdateFactura);
-                                    $updateTotal.then(function (datos) {
-                                        $updated = facturaService.searchById(idFactura);
-                                        $updated.then(function (datos) {
-                                            $rootScope.factura = datos.data;
-                                        });
-                                    });
-                                    $uibModalInstance.close();
-                                    $rootScope.$emit('ReloadTable', {});
+                        if ($rootScope.productoSelected.cantidadTotal >= $scope._detalleFactura.cantidadDetalle) {
+                            $promesa = facturaService.searchById(idFactura);
+                            $promesa.then(function (datos) {
+                                $scope._detalleFactura.factura = datos.data;
+                                $scope._detalleFactura.producto = $rootScope.productoSelected;
+                                $scope._detalleFactura.descuentoDetalle = descuento;
+                                $addDetalle = facturaService.addDetalleFactura($scope._detalleFactura);
+                                $addDetalle.then(function (datos) {
+                                    toaster.pop('success', 'Exito', 'Se ha agregado detalle nuevo.');
                                 });
-                            }, 2000);
-                        });
+                                $timeout(function timer() {
+                                    $scope.toUpdateFactura = datos.data;
+                                    $listDetalles = facturaService.getDetalleFacturaList(idFactura);
+                                    $listDetalles.then(function (datos) {
+                                        console.log(datos);
+                                        var totalUpdate = 0;
+                                        angular.forEach(datos.data, function (value, key) {
+                                            totalUpdate = parseInt(totalUpdate) + parseInt(value.totalDetalle);
+                                        });
+                                        $scope.toUpdateFactura.total = totalUpdate;
+                                        console.log($scope.toUpdateFactura);
+                                        $updateTotal = facturaService.update($scope.toUpdateFactura);
+                                        $updateTotal.then(function (datos) {
+                                            $updated = facturaService.searchById(idFactura);
+                                            $updated.then(function (datos) {
+                                                $rootScope.factura = datos.data;
+                                            });
+                                        });
+                                        $uibModalInstance.close();
+                                        $rootScope.$emit('ReloadTable', {});
+                                    });
+                                }, 2000);
+                            });
+                        } else {
+                            toaster.pop('error', 'Error.', 'El stock actual es insuficiente a la cantidad ingresada.');
+                        }
                     } else {
                         toaster.pop('error', 'Error', 'La cantidad no puede estar vacia.');
                     }

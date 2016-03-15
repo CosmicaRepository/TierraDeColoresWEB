@@ -23,15 +23,26 @@ and open the template in the editor.
                 <th style="text-align: center">Cantidad</th> 
                 <th style="text-align: center">Talla</th> 
                 <th style="text-align: center">Color</th> 
+                <th style="text-align: center">Acciones</th> 
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="producto in $data">
+            <tr ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
+                ng-class="{ danger: stockMinimo(producto) }"                
+                >
                 <td style="text-align: center">{{producto.idProducto}}</td>
                 <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
                 <td style="text-align: center">{{producto.cantidadTotal}}</td>
                 <td style="text-align: center">{{producto.talla| uppercase}}</td>
-                <td style="text-align: center">{{producto.colorProducto | uppercase}}</td>                
+                <td style="text-align: center">{{producto.colorProducto| uppercase}}</td>                
+                <td style="text-align: center">
+                    <button class="btn btn-xs btn-danger"
+                            type="button"                            
+                            data-toggle="modal" data-target="#myModal"
+                            uib-tooltip="Remover producto."
+                            ng-click="seleccionarProducto(producto)"
+                            ><span class="glyphicon glyphicon-remove"></span></button>
+                </td>                
             </tr>
         </tbody>
         <tfoot>
@@ -46,7 +57,7 @@ and open the template in the editor.
                     margin-bottom: 0px;
                     padding-bottom: 0px;">
                     <button class="btn btn-warning btn-sm"
-                            ng-controller="LoginController"                            
+                            ng-controller="LoginController"  
                             uib-tooltip="Agregar nuevo producto"
                             ng-click="go('/agregarProducto')">Agregar Producto</button>
                 </th>
@@ -55,5 +66,32 @@ and open the template in the editor.
         </tfoot>
     </table>
 
+
+    <!-- Modal finalizar factura-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <center><h4 class="modal-title" id="myModalLabel">¿Remover producto?</h4></center>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label class="control-label">
+                            ¿Continuar?
+                        </label>
+                        <br>
+                        <button class="btn btn-danger"
+                                style="margin-top: 20px;"
+                                data-dismiss="modal"
+                                ng-click="removerProducto()">Remover</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

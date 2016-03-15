@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>        
+    </head>
+    <body>
+        <div style="margin-left: 10%; margin-right: 10%; margin-top: 70px;">
+            <center><h3>Busqueda avanzada de Productos</h3></center>
+            <form class="form-horizontal">
+                <div class="row col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Descripcion</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Descripcion de producto"
+                                   class="form-control"
+                                   ng-model="search.descripcion"
+                                   name="descripcion"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Categoria</label>
+                        <div class="col-lg-8">
+                            <select class="form-control"
+                                    name="categoria"
+                                    ng-controller="CategoriaController"
+                                    data-ng-init="listaCategorias()"
+                                    ng-options="categoria.nombreCategoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" 
+                                    ng-model="search.categoria"></select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Sexo</label>
+                        <div class="col-lg-8">
+                            <select class="form-control"
+                                    name="sexo"
+                                    data-ng-init="listaSexos()"
+                                    ng-controller="SexoController"
+                                    ng-options="sexo.nombreSexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo"
+                                    ng-model="search.sexo"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Color</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Color de producto"
+                                   class="form-control"
+                                   ng-model="search.color"
+                                   name="color"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">N° de Factura</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="N° de factura"
+                                   class="form-control"
+                                   ng-model="search.factura"
+                                   name="factura"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Clase</label>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-model="search.claseProducto">
+                                <option value="A"> Clase A</option>
+                                <option value="B"> Clase B</option>
+                            </select>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Proveedor</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Nombre de proveedor"
+                                   class="form-control"
+                                   ng-model="search.proveedor"
+                                   name="proveedor"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Marca</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Nombre marca"
+                                   class="form-control"
+                                   ng-model="search.marca"
+                                   name="marca"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Temporada</label>
+                        <div class="col-lg-8">
+                            <select class="form-control"
+                                    ng-controller="TemporadaController"
+                                    data-ng-init="listaTemporadas()"
+                                    ng-options="temporada.nombreTemporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada"
+                                    ng-model="search.temporada"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Talla</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Talla producto"
+                                   class="form-control"
+                                   ng-model="search.talla"
+                                   name="talla"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Codigo de barras</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Codigo de barras"
+                                   class="form-control"
+                                   ng-model="search.codigo"
+                                   name="codigo"/>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Precio de lista</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Precio de lista"
+                                   class="form-control"
+                                   ng-model="search.lista"
+                                   name="lista"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Precio de compra</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Precio de compra"
+                                   class="form-control"
+                                   ng-model="search.compra"
+                                   name="compra"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4">Precio de venta</label>
+                        <div class="col-lg-8">
+                            <input type="text"
+                                   placeholder="Precio de venta"
+                                   class="form-control"
+                                   ng-model="search.venta"
+                                   name="venta"/>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+            <center> 
+                <button class="btn btn-success btn-lg"
+                        type="button"                    
+                        ng-click="busquedaProducto(search)"
+                        >Buscar <span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-info btn-lg"
+                        type="button"                    
+                        ng-click="limpiarBusqueda()"
+                        >Limpiar <span class="glyphicon glyphicon-refresh"></span></button>
+            </center>
+
+            <center><h2 style="margin-top:50px;">Resultados</h2></center>
+            <table class="table table-bordered table-condensed"
+                   ng-table="tableBusqueda"                   
+                   style="background-color: white;">
+                <thead id="headTableProductos">
+                    <tr>
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Descripcion</th> 
+                        <th style="text-align: center">Cantidad</th> 
+                        <th style="text-align: center">Clase</th> 
+                        <th style="text-align: center">Talla</th> 
+                        <th style="text-align: center">Color</th> 
+                        <th style="text-align: center">Marca</th> 
+                        <th style="text-align: center">Factura</th> 
+                        <th style="text-align: center">Acciones</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
+                        ng-class="{ danger: stockMinimo(producto) }"                
+                        >
+                        <td style="text-align: center">{{producto.idProducto}}</td>
+                        <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
+                        <td style="text-align: center">{{producto.cantidadTotal}}</td>
+                        <td style="text-align: center">{{producto.claseProducto}}</td>
+                        <td style="text-align: center">{{producto.talla| uppercase}}</td>
+                        <td style="text-align: center">{{producto.colorProducto| uppercase}}</td>                
+                        <td style="text-align: center">{{producto.marcas.nombreMarca| uppercase}}</td>                
+                        <td style="text-align: center">{{producto.numeroFactura| uppercase}}</td>                
+                        <td style="text-align: center">
+                            <button class="btn btn-xs btn-danger"
+                                    type="button"                            
+                                    data-toggle="modal" data-target="#myModal"
+                                    uib-tooltip="Remover producto."
+                                    ng-click="seleccionarProducto(producto)"
+                                    ><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>                
+                    </tr>
+                </tbody>
+                <tfoot ng-hide="hide">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>SIN RESULTADOS</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </body>
+</html>

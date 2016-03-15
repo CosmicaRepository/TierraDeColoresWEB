@@ -6,7 +6,7 @@
 /* global usuarioController */
 "use strict";
 var miAppHome = angular.module('tierraDeColoresAppHome',
-        ['ngRoute',            
+        ['ngRoute',
             'highcharts-ng',
             'ngResource',
             'ngTable',
@@ -94,6 +94,11 @@ var miAppHome = angular.module('tierraDeColoresAppHome',
                     .when("/productos", {
                         controller: "ProductoController",
                         templateUrl: "views/producto/lista.html",
+                        resolve: {authentication: auth}
+                    })
+                    .when("/productos/busqueda", {
+                        controller: "ProductoController",
+                        templateUrl: "views/producto/busquedaProducto.html",
                         resolve: {authentication: auth}
                     })
                     .when("/producto/:idProducto", {

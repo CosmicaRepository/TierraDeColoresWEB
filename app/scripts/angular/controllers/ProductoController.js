@@ -7,7 +7,29 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
-    $scope.type = 'CODE128C';
+    $scope.listaBusqueda = "";
+    $scope.hide = false;
+    $scope.type = 'CODE128B';
+//    $scope.type = 'CODE39';
+//    $scope.type = 'CODE128C';
+//    $scope.type = 'CODE128C';
+
+    $scope.search = {
+        'categoria': "",
+        'claseProducto': "",
+        'codigo': "",
+        'color': "",
+        'compra': "",
+        'descripcion': "",
+        'factura': "",
+        'lista': "",
+        'marca': "",
+        'proveedor': "",
+        'sexo': "",
+        'talla': "",
+        'temporada': "",
+        'venta': ""
+    };
 
     /**
      * objeto Producto encargado de dar formato al objeto Producto para agregar
@@ -111,6 +133,19 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         opened: false
     };
 
+    /**
+     * Funcion para controlar el stock minimo en el listado
+     * @param {type} producto
+     * @returns {Boolean}
+     */
+    $scope.stockMinimo = function (producto) {
+        if (producto.cantidadTotal <= producto.cantidadMinima) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
 
     /**
      * Funcion encargada de enlistar los Productos disponibles en la base de 
@@ -182,7 +217,7 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         if (marcaId === null && categoriaId === null & talla === "") {
             toaster.pop('error', "Error", "Revisa los campos anteriores.");
         } else {
-            $scope._producto.codigoProducto = "" + categoriaId + marcaId + codigo + '-' + talla.toUpperCase();
+            $scope._producto.codigoProducto = "" + categoriaId + marcaId + codigo + ' ' + talla.toUpperCase();
         }
     };
 
@@ -242,8 +277,8 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
      */
     $scope.buscarProducto = function () {
         $scope.options = {
-            width: 1,
-            height: 50,
+            width: 0.8,
+            height: 40,
             displayValue: true,
             font: 'monospace',
             textAlign: 'center',
@@ -303,5 +338,73 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
         }
     };
 
+    /**
+     * Funcion remover producto, cambia estado false.
+     */
+    $scope.removerProducto = function () {
+        $scope.__producto.estadoProducto = false;
+        $remover = _productoService.update($scope.__producto);
+        $remover.then(function (datos) {
+            if (datos.status === 200) {
+                toaster.pop('success', 'Exito.', 'El producto ha sido removido.');
+                $recargar = _productoService.getAll();
+                $recargar.then(function (datos) {
+                    $scope.productos = datos.data;
+                    $scope.tableProductos.reload();
+                });
+
+            }
+        });
+    };
+
+    $scope.busquedaProducto = function (producto) {
+        $busqueda = _productoService.advancedSearch(producto);
+        $busqueda.then(function (datos) {
+            $scope.listaBusqueda = datos;
+            var data = datos;
+            $scope.tableBusqueda = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.listaBusqueda;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
+            if ($scope.listaBusqueda.length === 0) {
+                $scope.hide = false;
+                toaster.pop('info', "¡Op's!", 'Sin resultados.');
+            } else {
+                $scope.hide = true;
+                toaster.pop('success', 'Exito', 'Productos encontrados.');
+            }
+        });
+    };
+
+    $scope.limpiarBusqueda = function () {
+        $scope.search = {
+            'categoria': "",
+            'claseProducto': "",
+            'codigo': "",
+            'color': "",
+            'compra': "",
+            'descripcion': "",
+            'factura': "",
+            'lista': "",
+            'marca': "",
+            'proveedor': "",
+            'sexo': "",
+            'talla': "",
+            'temporada': "",
+            'venta': ""
+        };
+        $scope.hide = false;
+        $scope.listaBusqueda = "";
+        $scope.tableBusqueda.reload();
+    };
 });
 

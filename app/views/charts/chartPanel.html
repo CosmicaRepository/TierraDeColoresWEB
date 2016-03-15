@@ -9,26 +9,92 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
+        <div style="width: 80%; margin-left: 10%; margin-right: 10%; margin-top: 70px;">
+            <uib-accordion close-others="oneAtATime">
+                <uib-accordion-group heading="Vendedores"
+                                     panel-class="panel-warning">
+                    <div class="row">
+                        <center><h2><span class="label label-warning">Cantidad ~ Semanal</span></h2></center>
+                        <highchart id="chart1" 
+                                   config="chartConfig"
+                                   data-ng-init="estadisticasVentas()"
+                                   class="col-md-6"
+                                   ></highchart>
 
-        <div class="row"
-             data-ng-init="estadisticasVentas()"
-             style="margin-top: 100px; margin-left: 20%; margin-right: 20%;">
-            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+                        <div class="col-md-4 pull-right">
+                            <center><h4 style="margin-bottom: 15px; text-decoration: underline">Cantidad total por empleado</h4></center>                            
+                            <div class="row"
+                                 data-ng-repeat="cantidad in cantidadVendedor| orderBy : '-cantidad'">
+                                <div class="form-group col-xs-7" uib-tooltip="Cantidad total: {{cantidad.cantidad}}">
+                                    <label class="control-label">{{cantidad.nombre}} {{cantidad.apellido}}</label> 
+                                    <span class="label label-primary pull-right"                                          
+                                          style="font-size: 10pt; width: 40px;">{{cantidad.cantidad}}</span>
+                                </div>                                   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="montoPanel">
+                        <center><h2><span class="label label-warning">Monto ~ Semanal</span></h2></center>
+                        <highchart id="chart2"
+                                   data-ng-init="estadisticasVentasMonto()"
+                                   config="chartConfigVentas"
+                                   class="col-md-6"
+                                   ></highchart>
+                        <div class="col-md-4 pull-right">
+                            <center><h4 style="margin-bottom: 20px; text-decoration: underline">Monto total por empleado</h4></center>                            
+                            <div class="row"
+                                 data-ng-repeat="monto in montoVendedor| orderBy : '-monto' ">
+                                <div class="form-group col-xs-9" uib-tooltip="Cantidad total: ${{cantidad.monto}}">
+                                    <label class="control-label">{{monto.nombre}} {{monto.apellido}}</label> 
+                                    <span class="label label-success pull-right"                                          
+                                          style="font-size: 10pt; width: 60px;">${{monto.monto}}</span>
+                                </div>                                   
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion-group>
+                <uib-accordion-group heading="Medio de pago"
+                                     panel-class="panel-warning">
+                    <div class="row">
+                        <center><h2><span class="label label-warning">Cantidad ~ Semanal</span></h2></center>
+                        <highchart id="chart3"
+                                   data-ng-init="cantidadMedioPagoMonto()"
+                                   config="chartMedioPagoCantidad" 
+                                   class="col-md-6"></highchart>
+                        <div class="col-md-4 pull-right">
+                            <center><h4 style="margin-bottom: 20px; text-decoration: underline">Cantidad total por Medio de Pago</h4></center>                            
+                            <div class="row"
+                                 data-ng-repeat="cantidad in cantidadMedioPago| orderBy : '-monto' ">
+                                <div class="form-group col-xs-9" uib-tooltip="Cantidad total: {{cantidad.monto}}">
+                                    <label class="control-label">{{cantidad.nombreMedio}}</label> 
+                                    <span class="label label-primary pull-right"                                          
+                                          style="font-size: 10pt; width: 40px;">{{cantidad.monto}}</span>
+                                </div>                                   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="montoPanel">
+                        <center><h2><span class="label label-warning">Monto ~ Semanal</span></h2></center>
+                        <highchart id="chart3"
+                                   data-ng-init="ventasMedioPagoMonto()"
+                                   config="chartMedioPagoMonto" 
+                                   class="col-md-6"></highchart>
+                        <div class="col-md-4 pull-right">
+                            <center><h4 style="margin-bottom: 20px; text-decoration: underline">Monto total por Medio de Pago</h4></center>                            
+                            <div class="row"
+                                 data-ng-repeat="monto in montoMedioPago| orderBy : '-monto' ">
+                                <div class="form-group col-xs-9" uib-tooltip="Monto total: ${{monto.monto}}">
+                                    <label class="control-label">{{monto.nombreMedio}}</label> 
+                                    <span class="label label-success pull-right"                                          
+                                          style="font-size: 10pt; width: 60px;">${{monto.monto}}</span>
+                                </div>                                   
+                            </div>
+                        </div>                        
+                    </div>
+
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
 
-
-    <uib-carousel 
-        style="margin-top: 100px; margin-left: 20%; margin-right: 20%;"
-        active="active" interval="myInterval" no-wrap="noWrapSlides">
-        <uib-slide  index="slide.id">
-            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
-        </uib-slide>
-        <uib-slide  index="slide.id">
-            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
-        </uib-slide>
-        <uib-slide  index="slide.id">
-            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
-        </uib-slide>
-    </uib-carousel>
-</body>
+    </body>
 </html>

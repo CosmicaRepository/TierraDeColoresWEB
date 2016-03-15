@@ -303,3 +303,22 @@ body {
     font-weight: bolder;
     font-size: large;
 }
+#chart2{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 0px !important;
+}
+#chart1{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+#montoPanel{
+    border-top: 2px dotted black;
+    margin-top: 10px;
+}
+#myModalLabel{
+    text-align: center;
+}
