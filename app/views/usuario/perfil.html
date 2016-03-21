@@ -11,7 +11,7 @@ and open the template in the editor.
     <body>
         <div ng-show="user.nombre" class="panel panel-warning" data-ng-init="detailUsuario()" id="perfil"> 
             <div class="panel panel-heading"># {{user.idUsuario}}: {{user.username}}
-                <a href='#/editarUsuario' style="color: #8a6d3b;float: right;">Editar</a>
+                <a href='' ui-sref="home.usuario-modificar" style="color: #8a6d3b;float: right;">Editar</a>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal col-xs-7">
@@ -29,7 +29,7 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Fecha de nacimiento:</label>
-                        <div type="text" class="col-xs-7">{{user.fechaNacimiento}}</div>
+                        <div type="text" class="col-xs-7">{{user.fechaNacimiento.getTime() | date: 'fullDate'}}</div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Ciudad:</label>

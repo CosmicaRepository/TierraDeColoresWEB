@@ -322,3 +322,19 @@ body {
 #myModalLabel{
     text-align: center;
 }
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+    color: #FFF;
+    font-weight:bolder;
+    background-color: rgb(255, 202, 104);
+}
+.nav > li > a{
+    /*height: 55px;*/
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
+    color: #FFF;
+    /*font-weight:bolder;*/
+    background-color: rgb(255, 202, 104);
+}
+.dropdown-menu {
+    padding: 0px 0;
+}

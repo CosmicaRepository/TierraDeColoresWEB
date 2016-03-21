@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, $state, $stateParams, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -286,11 +286,11 @@ miAppHome.controller('ProductoController', function ($scope, toaster, NgTablePar
             backgroundColor: '#FFFFFF',
             lineColor: '#000000'
         };
-        var idProducto = $routeParams.idProducto;
+        var idProducto = $stateParams.idProducto;        
         $promesa = _productoService.searchById(idProducto);
         $promesa.then(function (datos) {
             if (datos.status !== 200) {
-                $location.path("/productos");
+                $state.transitionTo('home.producto-lista');
             } else {
                 $scope.foundProducto = datos.data;
             }

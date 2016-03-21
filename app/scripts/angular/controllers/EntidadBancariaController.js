@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('EntidadBancariaController', function ($scope, NgTableParams, toaster, $route, entidadBancariaService) {
+miAppHome.controller('EntidadBancariaController', function ($scope, $timeout, $state, NgTableParams, toaster, $route, entidadBancariaService) {
 
 
     $scope._entidadBancaria = {
@@ -26,7 +26,7 @@ miAppHome.controller('EntidadBancariaController', function ($scope, NgTableParam
             var data = datos.data;
             $scope.tableEntidades = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 8
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -48,8 +48,10 @@ miAppHome.controller('EntidadBancariaController', function ($scope, NgTableParam
         $promesa = entidadBancariaService.add(entidad);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
                 toaster.pop('success', 'Exito', 'Entidad agregada con exito.');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -60,7 +62,7 @@ miAppHome.controller('EntidadBancariaController', function ($scope, NgTableParam
         $promesa = entidadBancariaService.update(entidad);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                entidadBancariaService.getAll().then(function (datos){
+                entidadBancariaService.getAll().then(function (datos) {
                     $scope.entidadBancarias = datos.data;
                     $scope.tableEntidades.reload();
                 });
@@ -70,12 +72,12 @@ miAppHome.controller('EntidadBancariaController', function ($scope, NgTableParam
             }
         });
     };
-    
+
     $scope.eliminarEntidad = function () {
         $promesa = entidadBancariaService.delete($scope.entidadSeleccionada);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                entidadBancariaService.getAll().then(function (datos){
+                entidadBancariaService.getAll().then(function (datos) {
                     $scope.entidadBancarias = datos.data;
                     $scope.tableEntidades.reload();
                 });

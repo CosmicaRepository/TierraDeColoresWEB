@@ -28,7 +28,7 @@ and open the template in the editor.
                     <tr ng-repeat="proveedor in proveedores">
                         <th style="text-align: center">{{proveedor.idProveedor}}</th>
                         <th style="text-align: center">{{proveedor.cuitProveedor}}</th> 
-                        <th style="text-align: center"><a href="#/proveedor/{{proveedor.idProveedor}}">{{proveedor.nombreProveedor}}</a></th>                        
+                        <th style="text-align: center"><a href="" ui-sref="home.proveedor-detalle({idProveedor:{{proveedor.idProveedor}}})">{{proveedor.nombreProveedor}}</a></th>                        
                         <th style="text-align: center">{{proveedor.direccionProveedor}}</th>                        
                         <th style="text-align: center">{{proveedor.telefonoProveedor}}</th>                        
                         <th style="text-align: center">

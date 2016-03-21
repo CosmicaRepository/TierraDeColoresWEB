@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('TipoController', function ($scope, toaster, ngTableParams, $route, $timeout, $cookies, Upload, $location, _tipoService, factoryCache, $rootScope) {
+miAppHome.controller('TipoController', function ($scope, $state, toaster, ngTableParams, $route, $timeout, $cookies, Upload, $location, _tipoService, factoryCache, $rootScope) {
 
     $scope._tipo = {
         "idTipo": null,
@@ -29,9 +29,11 @@ miAppHome.controller('TipoController', function ($scope, toaster, ngTableParams,
     $scope.agregarTipo = function (tipo) {
         $promesa = _tipoService.addTipo(tipo);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {
-                $route.reload();
+            if (datos.status === 200) {                
                 toaster.pop('success', 'Exito', 'Tipo agregado con exito.');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -41,9 +43,11 @@ miAppHome.controller('TipoController', function ($scope, toaster, ngTableParams,
     $scope.eliminarTipo = function () {
         $promesa = _tipoService.deleteTipo($scope.__tipo);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {
-                $route.reload();
+            if (datos.status === 200) {                
                 toaster.pop('success', 'Exito', 'Tipo eliminado con exito.');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -59,7 +63,9 @@ miAppHome.controller('TipoController', function ($scope, toaster, ngTableParams,
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 toaster.pop('success', 'Exito', 'Tipo modificado con exito.');
-                $route.reload();
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('TarjetaController', function ($scope, NgTableParams, tarjetaService, $timeout, $location, $route, toaster) {
+miAppHome.controller('TarjetaController', function ($scope, $state, NgTableParams, tarjetaService, $timeout, $location, $route, toaster) {
 
     $scope._tarjeta = {
         "idTarjeta": null,
@@ -43,7 +43,7 @@ miAppHome.controller('TarjetaController', function ($scope, NgTableParams, tarje
             var data = datos.data;
             $scope.tableTarjetas = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 8
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -65,9 +65,9 @@ miAppHome.controller('TarjetaController', function ($scope, NgTableParams, tarje
         $promesa = tarjetaService.add(tarjeta);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
+                toaster.pop('success', "Exito", "Tarjeta agregada existosamente.");
                 $timeout(function timer() {
-                    $route.reload();
-                    toaster.pop('success', "Exito", "Tarjeta agregada existosamente.");
+                    $state.go($state.current, {}, {reload: true});                    
                 }, 1000);
             } else {
                 alert("error");
@@ -93,8 +93,8 @@ miAppHome.controller('TarjetaController', function ($scope, NgTableParams, tarje
         });
 
     };
-    
-    $scope.eliminarTarjeta = function (){
+
+    $scope.eliminarTarjeta = function () {
         $promesa = tarjetaService.delete($scope.tarjetaSeleccionada);
         $promesa.then(function (datos) {
             if (datos.status === 200) {

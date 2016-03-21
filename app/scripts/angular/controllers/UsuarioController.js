@@ -6,9 +6,9 @@
 /* global miAppHome */
 
 var usuarioController = miAppHome.controller('UsuarioController',
-        ['$scope', '$window', 'toaster', '$route', '$timeout', '$cookies', 'Upload', '$location', 'UsuarioService', '$rootScope',
-            function ($scope, $window, toaster, $route, $timeout, $cookies, Upload, $location, UsuarioService, $rootScope) {
-
+        ['$scope', '$state', '$window', 'toaster', '$route', '$timeout', '$cookies', 'Upload', '$location', 'UsuarioService', '$rootScope',
+            function ($scope, $state, $window, toaster, $route, $timeout, $cookies, Upload, $location, UsuarioService, $rootScope) {
+                console.log($scope.user);
                 $scope.user = {
                     "apellido": "",
                     "dni": "",
@@ -29,7 +29,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     "telefono": "",
                     "username": ""
                 };
-                
+
                 $scope.userPw = {
                     "old": "",
                     "new": "",
@@ -65,8 +65,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     }
                     $timeout(function timer() {
                         $route.reload();
-                        $window.location.href = 'home.html#/perfil';
-//                $location.path("/perfil");
+                        $state.transitionTo('home.perfil-usuario');
                     }, 2000);
                 };
                 $scope.actualizarPerfil = function () {
@@ -79,7 +78,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
                             toaster.pop('success', "Exito", "Datos actualizados.");
-                            $location.path("/");
+                            $state.transitionTo('home.perfil-usuario');
                         } else {
                             toaster.pop('error', "Error", "¡Op's algo paso, comunicate con el Administrador.");
                         }
@@ -106,22 +105,24 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.detailUsuario = function () {
                     $promesa = UsuarioService.getDetailUser();
                     $promesa.then(function (datos) {
-                        if (datos.data.estado === true) {
-                            datos.data.estado = 'Activo';
-                        } else {
-                            datos.data.estado = 'Inactivo';
+                        if (datos.status === 200) {
+                            if (datos.data.estado === true) {
+                                datos.data.estado = 'Activo';
+                            } else {
+                                datos.data.estado = 'Inactivo';
+                            }
+                            if ($location.path() === '/perfil') {
+                                $scope.user = datos.data;
+                            } else {
+                                $scope.user = datos.data;
+                                var date = new Date(datos.data.fechaNacimiento);
+                                var day = date.getDate();
+                                date.setDate(day + 1);
+                                $scope.user.fechaNacimiento = date;
+                            }
                         }
-                        if ($location.path() === '/perfil') {
-                            $scope.user = datos.data;
-                        } else {
-                            var arrayFecha = datos.data.fechaNacimiento.split("-");
-                            var fecha = new Date();
-                            fecha.setDate(arrayFecha[2]);
-                            fecha.setMonth(arrayFecha[1] - 1);
-                            fecha.setFullYear(arrayFecha[0]);
-                            $scope.user = datos.data;
-                            $scope.user.fechaNacimiento = fecha;
-                        }
+                    }).catch(function (fallback) {
+                        toaster.pop('error', 'Error', 'No se ha podido conectar con el servidor.');
                     });
                 };
 
@@ -160,7 +161,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa = UsuarioService.addUsuario($scope.newUser);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            $location.path("/usuarios");
+                            $state.transitionTo('home.usuario-lista');
                         } else {
                             alert(datos.data.msg);
                         }
@@ -173,7 +174,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
                             toaster.pop('success', "Exito", "Contraseña actualizada.");
-                            $location.path("/perfil");
+                            $state.transitionTo('home.perfil-usuario');
                         } else {
                             toaster.pop('error', "Error", datos.data.msg);
                         }

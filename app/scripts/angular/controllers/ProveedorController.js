@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
+miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $stateParams, $rootScope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
 
     /**
      * Modelo de objeto Proveedor utilizado para agregar nuevos proveedores
@@ -55,7 +55,10 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
         $promesa = _proveedorService.add(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
+                toaster.pop('success', 'Exito', 'Proveedor agregado exitosamente');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -72,7 +75,10 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
         $promesa = _proveedorService.delete(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
+                toaster.pop('success', 'Exito', 'Proveedor eliminado exitosamente');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -99,7 +105,10 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
         $promesa = _proveedorService.update(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
+                toaster.pop('success', 'Exito', 'Proveedor modificado exitosamente');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -112,11 +121,11 @@ miAppHome.controller('ProveedorController', function ($scope, $rootScope, $http,
      */
     $scope.buscarProveedor = function () {
         /* id proveniente de la url */
-        var idProveedor = $routeParams.idProveedor;
+        var idProveedor = $stateParams.idProveedor;
         $promesa = _proveedorService.searchById(idProveedor);
         $promesa.then(function (datos) {
             if (datos.status !== 200 || datos.data.estadoProveedor === false) {
-                $location.path("/proveedores");
+                $state.transitionTo('home.proveedor');
             } else {
                 $scope.foundProveedor = datos.data;
             }

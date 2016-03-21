@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.service('LoginService', function ($http, $q, $cookies, $rootScope, $location) {
+miAppHome.service('LoginService', function ($http, $q, $cookies, $rootScope, $location) {
 
     this.getAccess = function (Auth) {
         var datosRecu = null;

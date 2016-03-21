@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 miAppHome.controller('FacturaController',
-        ['$scope', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
-            function ($scope, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
+        ['$scope', '$state', '$stateParams', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
+            function ($scope, $state, $stateParams, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
 
                 $scope._newFactura = {
                     "idFactura": null,
@@ -65,13 +65,13 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.add(factura);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            $location.path("/factura/" + datos.data.msg);
+                            $state.transitionTo('home.factura', {idFactura: datos.data.msg});
                         }
                     });
                 };
 
                 $scope.detailFactura = function () {
-                    var idFactura = $routeParams.idFactura;
+                    var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         $rootScope.factura = datos.data;
@@ -97,9 +97,9 @@ miAppHome.controller('FacturaController',
                         }, 2000);
                     }
                 };
-                
+
                 $scope.listaDetalleFactura = function () {
-                    var idFacturaDetalle = $routeParams.idFactura;
+                    var idFacturaDetalle = $stateParams.idFactura;
                     $scope.detalleFacturas = "";
                     $promesa = facturaService.getDetalleFacturaList(idFacturaDetalle);
                     $promesa.then(function (datos) {
@@ -126,7 +126,7 @@ miAppHome.controller('FacturaController',
                 };
 
                 $rootScope.$on('ReloadTable', function () {
-                    var idFacturaDetalle = $routeParams.idFactura;
+                    var idFacturaDetalle = $stateParams.idFactura;
                     $timeout(function timer() {
                         facturaService.getDetalleFacturaList(idFacturaDetalle).then(function (datos) {
                             $scope.detalleFacturas = datos.data;
@@ -162,7 +162,7 @@ miAppHome.controller('FacturaController',
 
                 $scope.listaMetodoPagoFactura = function () {
                     $scope.metodoPagos = "";
-                    var idFactura = $routeParams.idFactura;
+                    var idFactura = $stateParams.idFactura;
                     $promesa = metodoPagoFacturaService.getListaPagoFactura(idFactura);
                     $promesa.then(function (datos) {
                         $scope.metodoPagos = datos.data;
@@ -248,7 +248,7 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.agregarMetodoPago = function () {
-                    var idFactura = $routeParams.idFactura;
+                    var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         /* suma monto a pagar y total para controlar que no exceda a la factura*/
@@ -415,7 +415,7 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.finalizarFactura = function () {
-                    var idFactura = $routeParams.idFactura;
+                    var idFactura = $stateParams.idFactura;
                     if ($scope.vendedor !== "") {
                         var metodo = 0;
                         $metodo = metodoPagoFacturaService.getListaPagoFactura(idFactura);

@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('CategoriaController', function ($scope, toaster, $route, NgTableParams, categoriaService) {
+miAppHome.controller('CategoriaController', function ($scope, $state, $timeout, $stateParams, toaster, $route, NgTableParams, categoriaService) {
 
     /**
      * Modelo de objecto categoria usado en las vistas para Agregar.
@@ -68,7 +68,9 @@ miAppHome.controller('CategoriaController', function ($scope, toaster, $route, N
         $promesa = categoriaService.addCategoria(categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 2000);
                 toaster.pop('success', 'Exito', 'Categoria agregada con exito.');
             } else {
                 alert("error");
@@ -84,8 +86,10 @@ miAppHome.controller('CategoriaController', function ($scope, toaster, $route, N
         $promesa = categoriaService.deleteCategoria($scope.__categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
                 toaster.pop('success', 'Exito', 'Categoria eliminada con exito.');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -112,8 +116,10 @@ miAppHome.controller('CategoriaController', function ($scope, toaster, $route, N
         $promesa = categoriaService.updateCategoria(categoria);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
                 toaster.pop('success', 'Exito', 'Categoria modificada con exito.');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }

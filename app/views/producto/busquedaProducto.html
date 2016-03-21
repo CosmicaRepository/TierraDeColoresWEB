@@ -189,10 +189,9 @@ and open the template in the editor.
                 </thead>
                 <tbody>
                     <tr ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
-                        ng-class="{ danger: stockMinimo(producto) }"                
-                        >
+                        ng-class="{danger: stockMinimo(producto)}">
                         <td style="text-align: center">{{producto.idProducto}}</td>
-                        <td style="text-align: center"><a href="#/producto/{{producto.idProducto}}">{{producto.descripcion}}</a></td>
+                        <td style="text-align: center"><a href="" ui-sref="home.producto-detalle({idProducto:{{producto.idProducto}}})">{{producto.descripcion | uppercase}}</td>
                         <td style="text-align: center">{{producto.cantidadTotal}}</td>
                         <td style="text-align: center">{{producto.claseProducto}}</td>
                         <td style="text-align: center">{{producto.talla| uppercase}}</td>

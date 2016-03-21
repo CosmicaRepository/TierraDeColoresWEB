@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miApp.controller('LoginController', function ($scope, toaster, LoginService, $location, $rootScope, $cookies, $window) {
+miAppHome.controller('LoginController', function ($scope, $timeout, $state, toaster, LoginService, $location, $rootScope, $cookies, $window) {
 
     $scope.usuario = {username: '', password: ''};
     $scope.go = function (path) {
@@ -20,8 +20,11 @@ miApp.controller('LoginController', function ($scope, toaster, LoginService, $lo
                     $cookies.put('a_tk', datos.data.access_token);
                     $rootScope.render = true;
                     var role = datos.data.role[0].authority;
-                    if (role === 'ROLE_ADMIN') {
-                        $window.location.href = 'home.html';
+                    if (role === 'ROLE_ADMIN') {                        
+                        $state.transitionTo('home');     
+                        $timeout(function timer() {
+                            toaster.pop('success', "¡Hola!", "Bienvenido.");
+                }, 1000);
                     } else {
                         $window.location.href = 'ventas.html';
                     }
@@ -37,13 +40,16 @@ miApp.controller('LoginController', function ($scope, toaster, LoginService, $lo
             }
         });
     };
-    
-    $scope.logout = function (){
+
+    $scope.logout = function () {
         $promesa = LoginService.logoutApi();
-        $promesa.then(function (datos){
-            if(datos.status === 200){
-                $window.location.href = 'index.html';
+        $promesa.then(function (datos) {
+            if (datos.status === 200) {
+                $timeout(function timer() {
+                    $state.go('login');
+                }, 2000);
             }
+            toaster.pop('info', "Adios.", "Hasta luego :)");
         });
     };
 });

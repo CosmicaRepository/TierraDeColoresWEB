@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('PlanPagoController', function ($scope, toaster, NgTableParams, planPagoService, $route) {
+miAppHome.controller('PlanPagoController', function ($scope, $timeout, toaster, $state, NgTableParams, planPagoService, $route) {
 
     $scope._planPago = {
         "idPlanesPago": null,
@@ -78,7 +78,7 @@ miAppHome.controller('PlanPagoController', function ($scope, toaster, NgTablePar
             var data = datos.data;
             $scope.tablePlanes = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 8
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -102,8 +102,10 @@ miAppHome.controller('PlanPagoController', function ($scope, toaster, NgTablePar
         $promesa = planPagoService.add(planPago);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                $route.reload();
                 toaster.pop('success', 'Exito', 'Plan de pago agregado exitosamente');
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
                 alert("error");
             }
@@ -124,7 +126,7 @@ miAppHome.controller('PlanPagoController', function ($scope, toaster, NgTablePar
             }
         });
     };
-    
+
     $scope.eliminarPlan = function () {
         $promesa = planPagoService.delete($scope.planSeleccionado);
         $promesa.then(function (datos) {

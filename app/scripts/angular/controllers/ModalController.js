@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 miAppHome.controller('ModalController',
-        ['$scope', '_productoService', 'toaster', 'facturaService', '$routeParams', '$uibModalInstance', '$uibModal', '$timeout', '$rootScope', 'facturaService',
-            function ($scope, _productoService, toaster, facturaService, $routeParams, $uibModalInstance, $uibModal, $timeout, $rootScope, facturaService) {
+        ['$scope', '$stateParams', '_productoService', 'toaster', 'facturaService', '$routeParams', '$uibModalInstance', '$uibModal', '$timeout', '$rootScope', 'facturaService',
+            function ($scope, $stateParams, _productoService, toaster, facturaService, $routeParams, $uibModalInstance, $uibModal, $timeout, $rootScope, facturaService) {
 
                 $scope._detalleFactura = {
                     "idDetalleFactura": null,
@@ -52,7 +52,7 @@ miAppHome.controller('ModalController',
                 };
 
                 $scope.addDetalleFacturaModal = function () {
-                    var idFactura = $routeParams.idFactura;
+                    var idFactura = $stateParams.idFactura;
                     if ($scope._detalleFactura.cantidadDetalle !== null) {
                         var descuento = 0;
                         if ($scope.percent !== "") {
