@@ -65,12 +65,22 @@ miAppHome.controller('TarjetaController', function ($scope, $state, NgTableParam
         $promesa = tarjetaService.add(tarjeta);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', "Exito", "Tarjeta agregada existosamente.");
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Tarjeta agregada existosamente.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
-                    $state.go($state.current, {}, {reload: true});                    
+                    $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -85,10 +95,20 @@ miAppHome.controller('TarjetaController', function ($scope, $state, NgTableParam
                         $scope.tarjetas = datos.data;
                         $scope.tableTarjetas.reload();
                     });
-                    toaster.pop('success', "Exito", "Tarjeta modificada existosamente.");
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Exito',
+                        body: 'Tarjeta modificada existosamente.',
+                        showCloseButton: false
+                    });
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
 
@@ -103,10 +123,20 @@ miAppHome.controller('TarjetaController', function ($scope, $state, NgTableParam
                         $scope.tarjetas = datos.data;
                         $scope.tableTarjetas.reload();
                     });
-                    toaster.pop('success', "Exito", "Tarjeta eliminada existosamente.");
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Exito',
+                        body: 'Tarjeta eliminada existosamente.',
+                        showCloseButton: false
+                    });
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };

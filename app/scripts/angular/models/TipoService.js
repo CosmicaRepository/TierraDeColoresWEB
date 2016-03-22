@@ -9,7 +9,7 @@ miAppHome.service('_tipoService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tipo/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_tipoService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tipo/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_tipoService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tipo/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_tipoService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tipo/delete';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tipo/delete';
         $http({
             url: uri,
             method: 'post',

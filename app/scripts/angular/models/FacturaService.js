@@ -9,7 +9,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/factura/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/factura/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/vendedores';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/vendedores';
         $http({
             url: uri,
             method: 'get',
@@ -53,7 +53,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/factura/day';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/factura/day';
         $http({
             url: uri,
             method: 'get',
@@ -75,7 +75,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/factura/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/factura/add';
         $http({
             url: uri,
             method: 'post',
@@ -98,7 +98,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/factura/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/factura/update';
         $http({
             url: uri,
             method: 'post',
@@ -121,7 +121,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/factura/search';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/factura/search';
         $http({
             url: uri,
             method: 'post',
@@ -146,7 +146,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/detalle/factura';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/detalle/factura';
         $http({
             url: uri,
             method: 'get',
@@ -171,7 +171,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/detalle/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/detalle/add';
         $http({
             url: uri,
             method: 'post',

@@ -81,7 +81,14 @@ and open the template in the editor.
                                                data-ng-class='{error: changePerfil.ciudad.$invalid && !changePerfil.$pristine}'/>
                                     </div>
                                 </div>                                
-                                <button ng-click="actualizarPerfil()" class="btn btn-success" ng-disabled="changePerfil.$invalid" style="float: right; margin-top: 6%; margin-right: 3%;">Guardar</button>
+                                <button ng-click="actualizarPerfil()"
+                                        class="btn btn-success"
+                                        ng-disabled="changePerfil.$invalid"
+                                        style="float: right; margin-top: 6%; margin-right: 3%;">Guardar</button>
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        style="float: right; margin-top: 6%; margin-right: 3%; width: 79px;"
+                                        ui-sref="home.perfil-usuario">Salir</button>
                             </form>                            
                         </div>
                     </div>
@@ -95,7 +102,16 @@ and open the template in the editor.
                         <input class="col-xs-8" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'image/*'"
                                ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100" type="file"
                                style="margin-left: 28%;" required/>
-                        <button ng-click="actualizarFoto(fileUpload)" ng-disabled="fotoPerfil.$invalid" class="btn btn-success" style="margin-left: 45%;">Guardar</button>
+                        <center style="margin-top: 10%;">
+                            <button ng-click="actualizarFoto(fileUpload)"
+                                    ng-disabled="fotoPerfil.$invalid" 
+                                    class="btn btn-success"
+                                    style="">Guardar</button>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    style=" width: 79px;"
+                                    ui-sref="home.perfil-usuario">Salir</button>
+                        </center>                        
                     </form>
                 </uib-tab>
                 <uib-tab heading="Contraseña">
@@ -121,13 +137,19 @@ and open the template in the editor.
                             <label class="control-label col-lg-4">Repetir contraseña</label> 
                             <div class="col-lg-8">
                                 <input type="password" class="form-control" ng-model="userPw.rep" name="rep" required 
-                                   data-ng-class='{error: changePassword.rep.$invalid && !changePassword.$pristine}'/>
+                                       data-ng-class='{error: changePassword.rep.$invalid && !changePassword.$pristine}'/>
                             </div>                            
                         </div>
-                        <button ng-click="cambiarPassword()"
-                                class="btn btn-success" 
-                                style="margin-left: 45%;"
-                                ng-disabled="changePassword.$invalid">Guardar</button>
+                        <center style="margin-top: 10%;">
+                            <button ng-click="cambiarPassword()"
+                                    class="btn btn-success" 
+                                    style=""
+                                    ng-disabled="changePassword.$invalid">Guardar</button>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    style=" width: 79px;"
+                                    ui-sref="home.perfil-usuario">Salir</button>
+                        </center>
                     </form>
                 </uib-tab>
             </uib-tabset>

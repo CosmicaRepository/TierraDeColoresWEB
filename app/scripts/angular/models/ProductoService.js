@@ -9,7 +9,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/delete';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/delete';
         $http({
             url: uri,
             method: 'post',
@@ -100,7 +100,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/search';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/search';
         $http({
             url: uri,
             method: 'post',
@@ -123,7 +123,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
 
     this.searchByBarcode = function (barcode) {
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/barcode';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/barcode';
         var list = $http({
             url: uri,
             method: 'post',
@@ -170,7 +170,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         var regVenta = new RegExp(item.venta, "i");
         var regProveedor = new RegExp(item.proveedor, "i");
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/producto/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/list';
         $http({
             url: uri,
             method: 'get',

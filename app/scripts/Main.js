@@ -5,7 +5,7 @@
  */
 /* global usuarioController */
 'use strict';
-var miAppHome = angular.module('tierraDeColoresAppHome',
+var miAppHome = angular.module('tierraDeColoresApp',
         ['ngRoute',
             'highcharts-ng',
             'ngResource',
@@ -20,11 +20,11 @@ var miAppHome = angular.module('tierraDeColoresAppHome',
             'ngTable',
             'ui.router',
             'io-barcode'])
-        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {            
             cfpLoadingBarProvider.includeSpinner = false; /*Activar/Desactivar Spinner.*/
             var auth = function ($cookies, $rootScope, $http, $state, $timeout) {
                 var tk = $cookies.get('a_tk');
-                var uri = 'http://localhost:8080/usuarios/logged';
+                var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/logged';
                 $http({
                     url: uri,
                     method: 'post',
@@ -55,23 +55,27 @@ var miAppHome = angular.module('tierraDeColoresAppHome',
                     .state('login', {
                         url: '',
                         templateUrl: "views/login.html",
-                        controller: "LoginController"
+                        controller: "LoginController",
+                        data: {pageTitle: 'Inicio de sesión.'}
                     })
                     .state('login.bar', {
                         url: '/',
                         templateUrl: "views/login.html",
-                        controller: "LoginController"
+                        controller: "LoginController",
+                        data: {pageTitle: 'Inicio de sesión.'}
                     })
                     /*Paginas de error*/
                     .state('404', {
                         url: '/404',
                         templateUrl: "views/error/404.html",
-                        controller: "LoginController"
+                        controller: "LoginController",
+                        data: {pageTitle: 'Error pagina no encontrada.'}
                     })
                     .state('500', {
                         url: '/500',
                         templateUrl: "views/error/500.html",
-                        controller: "UsuarioController"
+                        controller: "LoginController",
+                        data: {pageTitle: 'Error fatal.'}
                     })
                     /**
                      * Home para usuario administrador 
@@ -81,111 +85,138 @@ var miAppHome = angular.module('tierraDeColoresAppHome',
                         abstract: false,
                         templateUrl: "views/inicio.html",
                         controller: "UsuarioController",
+                        data: {pageTitle: 'Home'},
                         resolve: {isLogged: auth} /*Verificacion de sesion*/
                     })/*MODULO USUARIOS*/
                     .state('home.perfil-usuario', {
                         url: '/perfil',
                         templateUrl: "views/usuario/perfil.html",
-                        controller: "UsuarioController"
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Home - Perfil'}
                     })
                     .state('home.usuario-lista', {
                         url: '/lista-usuarios',
                         templateUrl: "views/usuario/lista.html",
-                        controller: "UsuarioController"
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Home - Usuarios'}
                     })
                     .state('home.usuario-agregar', {
                         url: '/agregar-usuario',
                         templateUrl: "views/usuario/nuevoUsuario.html",
-                        controller: "UsuarioController"
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Home - Agregar usuario'}
                     })
                     .state('home.usuario-modificar', {
                         url: '/modificar-usuario',
                         templateUrl: "views/usuario/modificarUsuario.html",
-                        controller: "UsuarioController"
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Home - Modificar perfil'}
                     })/*FIN MODULO USUARIOS*/
                     /*MODULO FINANZAS*/
                     .state('home.tarjetas', {
                         url: '/tarjetas',
                         templateUrl: "views/tarjeta/panelTarjeta.html",
-                        controller: "TarjetaController"
+                        controller: "TarjetaController",
+                        data: {pageTitle: 'Home - Tarjetas'}
                     })
                     .state('home.bancos', {
                         url: '/entidades-financieras',
                         templateUrl: "views/banco/panelBanco.html",
-                        controller: "EntidadBancariaController"
+                        controller: "EntidadBancariaController",
+                        data: {pageTitle: 'Home - Entidades'}
                     })
                     .state('home.planes-pago', {
                         url: '/planes-de-pago',
                         templateUrl: "views/planes/panelPlanes.html",
-                        controller: "PlanPagoController"
+                        controller: "PlanPagoController",
+                        data: {pageTitle: 'Home - Planes de pago'}
                     })/*FIN MODULO FINANZAS*/
                     /*MODULO STOCK*/
                     /*Productos*/
                     .state('home.producto-lista', {
                         url: '/productos',
                         templateUrl: "views/producto/lista.html",
-                        controller: "ProductoController"
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Home - Productos'}
                     })
                     .state('home.producto-agregar', {
                         url: '/agregar-producto',
                         templateUrl: "views/producto/agregarProducto.html",
-                        controller: "ProductoController"
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Home - Agregar producto'}
                     })
                     .state('home.producto-busqueda', {
                         url: '/buscar-producto',
                         templateUrl: "views/producto/busquedaProducto.html",
-                        controller: "ProductoController"
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Home - Busqueda de productos'}
                     })
                     .state('home.producto-detalle', {
                         url: '/producto/:idProducto',
                         templateUrl: "views/producto/detalleProducto.html",
-                        controller: "ProductoController"
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Home - Detalle de producto'}
                     })/*Fin productos*/
                     /*Categorias*/
                     .state('home.categorias', {
                         url: '/categorias',
                         templateUrl: "views/categoria/categoriaPanel.html",
-                        controller: "CategoriaController"
+                        controller: "CategoriaController",
+                        data: {pageTitle: 'Home - Categorias'}
                     })
                     /*Marcas*/
                     .state('home.marcas', {
                         url: '/marcas',
                         templateUrl: "views/marcas/marcasPanel.html",
-                        controller: "MarcaController"
+                        controller: "MarcaController",
+                        data: {pageTitle: 'Home - Marcas'}
                     })
                     /*Tipo productos*/
                     .state('home.tipo', {
                         url: '/tipo-de-productos',
                         templateUrl: "views/tipo/panelTipo.html",
-                        controller: "TipoController"
+                        controller: "TipoController",
+                        data: {pageTitle: 'Home - Tipo de productos'}
                     })
                     /*Proveedores*/
                     .state('home.proveedor', {
                         url: '/proveedores',
                         templateUrl: "views/proveedor/proveedorPanel.html",
-                        controller: "ProveedorController"
+                        controller: "ProveedorController",
+                        data: {pageTitle: 'Home - Proveedores'}
                     })
                     .state('home.proveedor-detalle', {
                         url: '/proveedor/:idProveedor',
                         templateUrl: "views/proveedor/detalleProveedor.html",
-                        controller: "ProveedorController"
+                        controller: "ProveedorController",
+                        data: {pageTitle: 'Home - Detalle de proveedor'}
                     })/*FIN MODULO STOCK*/
                     /*MODULO FACTURACION*/
                     .state('home.facturacion', {
                         url: '/facturacion',
                         templateUrl: "views/factura/lista.html",
-                        controller: "FacturaController"
+                        controller: "FacturaController",
+                        data: {pageTitle: 'Home - Facturacion'}
                     })
                     .state('home.factura', {
                         url: '/factura/:idFactura',
                         templateUrl: "views/factura/facturaPanel.html",
-                        controller: "FacturaController"
+                        controller: "FacturaController",
+                        data: {pageTitle: 'Home - Nueva factura'}
                     })/*FIN MODULO FACTURACION*/
                     /*Estadisticas*/
                     .state('home.estadisticas', {
                         url: '/estadisticas',
                         templateUrl: "views/charts/chartPanel.html",
-                        controller: "ChartController"
+                        controller: "ChartController",
+                        data: {pageTitle: 'Home - Estadisticas'}
                     });
+        })
+        .run(function ($rootScope) {            
+            $rootScope.previousState;
+            $rootScope.currentState;
+            $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                $rootScope.previousState = from.name;
+                $rootScope.currentState = to.name;
+            });
         });
-

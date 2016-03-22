@@ -102,12 +102,22 @@ miAppHome.controller('PlanPagoController', function ($scope, $timeout, toaster, 
         $promesa = planPagoService.add(planPago);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Plan de pago agregado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Plan de pago agregado exitosamente',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -120,9 +130,19 @@ miAppHome.controller('PlanPagoController', function ($scope, $timeout, toaster, 
                     $scope.planes = datos.data;
                     $scope.tablePlanes.reload();
                 });
-                toaster.pop('success', 'Exito', 'Plan de pago modificado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Plan de pago modificado exitosamente',
+                    showCloseButton: false
+                });
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -135,9 +155,19 @@ miAppHome.controller('PlanPagoController', function ($scope, $timeout, toaster, 
                     $scope.planes = datos.data;
                     $scope.tablePlanes.reload();
                 });
-                toaster.pop('success', 'Exito', 'Plan de pago eliminado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Plan de pago eliminado exitosamente',
+                    showCloseButton: false
+                });
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };

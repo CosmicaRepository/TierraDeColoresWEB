@@ -44,10 +44,20 @@ miAppHome.controller('ModalController',
                 $scope.buscarModal = function (barcode) {
                     $promesa = _productoService.searchByBarcode(barcode);
                     $promesa.then(function (datos) {
-                        toaster.pop('success', 'Encontrado/s', 'Se encontraron productos');
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Encontrado/s',
+                            body: 'Se encontraron productos',
+                            showCloseButton: false
+                        });
                         $rootScope.productosBarcode = datos.data;
                     }).catch(function (fallback) {
-                        toaster.pop('error', 'Error', 'No se han encontrado productos');
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'No se han encontrado productos',
+                            showCloseButton: false
+                        });
                     });
                 };
 
@@ -60,7 +70,6 @@ miAppHome.controller('ModalController',
                         }
                         if ($scope.mount !== "") {
                             descuento = $scope.mount;
-                            console.log(descuento);
                         }
                         if ($rootScope.productoSelected.cantidadTotal >= $scope._detalleFactura.cantidadDetalle) {
                             $promesa = facturaService.searchById(idFactura);
@@ -70,7 +79,12 @@ miAppHome.controller('ModalController',
                                 $scope._detalleFactura.descuentoDetalle = descuento;
                                 $addDetalle = facturaService.addDetalleFactura($scope._detalleFactura);
                                 $addDetalle.then(function (datos) {
-                                    toaster.pop('success', 'Exito', 'Se ha agregado detalle nuevo.');
+                                    toaster.pop({
+                                        type: 'success',
+                                        title: 'Encontrado/s',
+                                        body: 'Se ha agregado detalle nuevo.',
+                                        showCloseButton: false
+                                    });
                                 });
                                 $timeout(function timer() {
                                     $scope.toUpdateFactura = datos.data;
@@ -96,10 +110,20 @@ miAppHome.controller('ModalController',
                                 }, 2000);
                             });
                         } else {
-                            toaster.pop('error', 'Error.', 'El stock actual es insuficiente a la cantidad ingresada.');
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'El stock actual es insuficiente a la cantidad ingresada.',
+                                showCloseButton: false
+                            });
                         }
                     } else {
-                        toaster.pop('error', 'Error', 'La cantidad no puede estar vacia.');
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'La cantidad no puede estar vacia.',
+                            showCloseButton: false
+                        });
                     }
                 };
 

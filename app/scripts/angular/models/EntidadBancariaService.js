@@ -10,7 +10,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/entidad/list';
         $http({
             url: uri,
             method: 'get',
@@ -32,7 +32,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/entidad/add';
         $http({
             url: uri,
             method: 'post',
@@ -55,7 +55,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/entidad/update';
         $http({
             url: uri,
             method: 'post',
@@ -78,7 +78,7 @@ miAppHome.service('entidadBancariaService', function ($http, $q, $cookies, $root
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/entidad/delete';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/entidad/delete';
         $http({
             url: uri,
             method: 'post',

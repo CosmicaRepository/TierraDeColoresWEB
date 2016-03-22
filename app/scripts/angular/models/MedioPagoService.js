@@ -9,7 +9,7 @@ miAppHome.service('medioPagoService', function ($http, $q, $cookies, $rootScope)
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/medio/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/medio/list';
         $http({
             url: uri,
             method: 'get',

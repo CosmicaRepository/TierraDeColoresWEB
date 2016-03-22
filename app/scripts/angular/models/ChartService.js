@@ -9,7 +9,7 @@ miAppHome.service('chartService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/chart/vendedor/cantidad';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/chart/vendedor/cantidad';
         $http({
             url: uri,
             method: 'get',
@@ -34,7 +34,7 @@ miAppHome.service('chartService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/chart/vendedor/ventas';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/chart/vendedor/ventas';
         $http({
             url: uri,
             method: 'get',
@@ -59,7 +59,7 @@ miAppHome.service('chartService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/chart/medio/ventas';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/chart/medio/ventas';
         $http({
             url: uri,
             method: 'get',
@@ -84,7 +84,7 @@ miAppHome.service('chartService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/chart/medio/cantidad';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/chart/medio/cantidad';
         $http({
             url: uri,
             method: 'get',

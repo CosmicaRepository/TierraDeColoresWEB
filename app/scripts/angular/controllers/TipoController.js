@@ -21,7 +21,12 @@ miAppHome.controller('TipoController', function ($scope, $state, toaster, ngTabl
             if (datos.status === 200) {
                 $scope.tipos = datos.data;
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -29,13 +34,23 @@ miAppHome.controller('TipoController', function ($scope, $state, toaster, ngTabl
     $scope.agregarTipo = function (tipo) {
         $promesa = _tipoService.addTipo(tipo);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {                
-                toaster.pop('success', 'Exito', 'Tipo agregado con exito.');
+            if (datos.status === 200) {
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Tipo agregado con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -43,13 +58,23 @@ miAppHome.controller('TipoController', function ($scope, $state, toaster, ngTabl
     $scope.eliminarTipo = function () {
         $promesa = _tipoService.deleteTipo($scope.__tipo);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {                
-                toaster.pop('success', 'Exito', 'Tipo eliminado con exito.');
+            if (datos.status === 200) {
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Tipo eliminado con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -62,12 +87,22 @@ miAppHome.controller('TipoController', function ($scope, $state, toaster, ngTabl
         $promesa = _tipoService.updateTipo(tipo);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Tipo modificado con exito.');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Tipo modificado con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };

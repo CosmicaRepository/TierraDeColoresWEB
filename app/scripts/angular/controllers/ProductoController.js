@@ -10,9 +10,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
     $scope.listaBusqueda = "";
     $scope.hide = false;
     $scope.type = 'CODE128B';
-//    $scope.type = 'CODE39';
-//    $scope.type = 'CODE128C';
-//    $scope.type = 'CODE128C';
 
     $scope.search = {
         'categoria': "",
@@ -160,7 +157,12 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
             if (datos.status === 200) {
                 $scope.productos = datos.data;
             } else {
-                toaster.pop('error', "Error", "Un error ha ocurrido.");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
             $scope.tableProductos = new NgTableParams({
                 page: 1,
@@ -195,30 +197,47 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
                 /* directiva encargada de retrasar 1 segundo la redireccion a 
                  * la correspondiente location. */
                 $timeout(function timer() {
-                    toaster.pop('success', "Exito", "Producto agregado correctamente.");
-                    $location.path("/productos");
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Exito',
+                        body: 'Producto agregado correctamente.',
+                        showCloseButton: false
+                    });
+                    $state.go('^.producto-lista');
                 }, 1000);
             } else {
-                toaster.pop('error', "Error", "Un error ha ocurrido.");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
 
     /**
-     * Funcion randomCode regresa un numero random para insertar en un nuevo 
-     * producto
+     * 
+     * @param {type} idCategoria
+     * @param {type} idMarca
+     * @param {type} talla
      * @returns {undefined}
      */
-    $scope.randomCode = function () {
-        var marcaId = $scope._producto.marcas.idMarca;
-        var talla = $scope._producto.talla;
-        var categoriaId = $scope._producto.categoria.idCategoria;
-        var codigo = Math.floor((Math.random() * 999) + 100);
-        if (marcaId === null && categoriaId === null & talla === "") {
-            toaster.pop('error', "Error", "Revisa los campos anteriores.");
+    $scope.randomCode = function (idCategoria, idMarca, talla) {
+        console.log(idCategoria, idMarca, talla);
+        var codigo = Math.floor((Math.random() * 9999) + 1000);
+        var barcode = "";
+        if (idMarca === null && idCategoria === null & talla === "") {
+            toaster.pop({
+                type: 'error',
+                title: 'Error',
+                body: 'Revisa los campos anteriores.',
+                showCloseButton: false
+            });
         } else {
-            $scope._producto.codigoProducto = "" + categoriaId + marcaId + codigo + ' ' + talla.toUpperCase();
+            barcode = "" + idCategoria + idMarca + codigo + talla.toUpperCase();
         }
+        return barcode;
     };
 
     /**
@@ -233,10 +252,20 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
                 $promesa = _productoService.delete(datos.data);
                 $promesa.then(function (datos) {
                     if (datos.status === 200) {
-                        toaster.pop('success', 'Exito', 'EL producto ha sido eliminado exitosamente.');
-                        $location.path("/productos");
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Exito',
+                            body: 'Producto eliminado correctamente.',
+                            showCloseButton: false
+                        });
+                        $state.go('^.producto-lista');
                     } else {
-                        alert("error");
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: "¡Op's algo paso!, comunicate con el administrador.",
+                            showCloseButton: false
+                        });
                     }
                 });
             }
@@ -262,10 +291,22 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
         $promesa = _productoService.update(producto);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Producto modificado exitosamente.');
-                $route.reload();
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Producto modificado correctamente.',
+                    showCloseButton: false
+                });
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -286,11 +327,11 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
             backgroundColor: '#FFFFFF',
             lineColor: '#000000'
         };
-        var idProducto = $stateParams.idProducto;        
+        var idProducto = $stateParams.idProducto;
         $promesa = _productoService.searchById(idProducto);
         $promesa.then(function (datos) {
             if (datos.status !== 200) {
-                $state.transitionTo('home.producto-lista');
+                $state.go('^.producto-lista');
             } else {
                 $scope.foundProducto = datos.data;
             }
@@ -321,7 +362,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
         text: 'descripcion',
         options: function (searchText) {
             var token = $cookies.getObject('token');
-            var uri = 'http://localhost:8080/producto/searchText';
+            var uri = 'https://tierradecoloresapi.herokuapp.com/producto/searchText';
             return $http({
                 url: uri,
                 method: 'post',
@@ -346,7 +387,12 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
         $remover = _productoService.update($scope.__producto);
         $remover.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito.', 'El producto ha sido removido.');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'El producto ha sido removido.',
+                    showCloseButton: false
+                });
                 $recargar = _productoService.getAll();
                 $recargar.then(function (datos) {
                     $scope.listaBusqueda = datos.data;
@@ -379,10 +425,20 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
                 }});
             if ($scope.listaBusqueda.length === 0) {
                 $scope.hide = false;
-                toaster.pop('info', "¡Op's!", 'Sin resultados.');
+                toaster.pop({
+                    type: 'info',
+                    title: "¡Op's!",
+                    body: 'Sin resultados.',
+                    showCloseButton: false
+                });
             } else {
                 $scope.hide = true;
-                toaster.pop('success', 'Exito', 'Productos encontrados.');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Productos encontrados.',
+                    showCloseButton: false
+                });
             }
         });
     };

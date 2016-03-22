@@ -97,7 +97,13 @@ and open the template in the editor.
                            required maxlength="20"
                            data-ng-class='{error: nuevoProducto.codigo.$invalid && !nuevoProducto.$pristine}'/>
                     <span class="input-group-btn">
-                        <button class="btn btn-danger" ng-click="randomCode()" ng-disabled="_producto.codigoProducto" type="button">Random</button>
+                        <button class="btn btn-danger" 
+                                ng-click="_producto.codigoProducto = randomCode(
+                                            _producto.categoria.idCategoria,
+                                            _producto.marcas.idMarca,
+                                            _producto.talla)"
+                                ng-disabled="_producto.codigoProducto"
+                                type="button">Random</button>
                     </span>
                 </div> 
             </div>

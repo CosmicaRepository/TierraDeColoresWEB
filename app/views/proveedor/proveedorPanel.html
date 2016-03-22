@@ -13,7 +13,10 @@ and open the template in the editor.
                 ng-show="proveedores"
                 id="tabProveedor">
         <uib-tab heading="Lista de Proveedores">
-            <table data-ng-init="listaProveedores()" class="table table-bordered" id="tablaProveedores">
+            <table data-ng-init="listaProveedores()"
+                   class="table table-bordered"
+                   ng-table="tableProveedores"
+                   id="tablaProveedores">
                 <thead id="headTableProductos">
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -25,15 +28,23 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="proveedor in proveedores">
+                    <tr ng-repeat="proveedor in $data">
                         <th style="text-align: center">{{proveedor.idProveedor}}</th>
                         <th style="text-align: center">{{proveedor.cuitProveedor}}</th> 
                         <th style="text-align: center"><a href="" ui-sref="home.proveedor-detalle({idProveedor:{{proveedor.idProveedor}}})">{{proveedor.nombreProveedor}}</a></th>                        
                         <th style="text-align: center">{{proveedor.direccionProveedor}}</th>                        
                         <th style="text-align: center">{{proveedor.telefonoProveedor}}</th>                        
                         <th style="text-align: center">
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" ng-click="seleccionarProveedor(proveedor)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarProveedor(proveedor)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button"
+                                    class="btn btn-xs btn-info"
+                                    data-toggle="modal"
+                                    data-target="#myModal"
+                                    ng-click="seleccionarProveedor(proveedor)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button"
+                                    data-toggle="modal"
+                                    data-target="#myModalDelete"
+                                    class="btn btn-xs btn-danger"
+                                    ng-click="seleccionarProveedor(proveedor)"><span class="glyphicon glyphicon-trash"></span></button>
                         </th>                        
                     </tr>
                 </tbody>
@@ -201,6 +212,30 @@ and open the template in the editor.
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar proveedor</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        ¿Desea eliminar este Proveedor?
+                        <br>
+                        <button class="btn btn-danger"
+                                ng-click="eliminarProveedor()"
+                                data-dismiss="modal"
+                                >Eliminar</button>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

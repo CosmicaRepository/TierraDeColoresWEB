@@ -9,7 +9,7 @@ miAppHome.service('_sexoService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/sexo/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/sexo/list';
         $http({
             url: uri,
             method: 'get',

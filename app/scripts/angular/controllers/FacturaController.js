@@ -143,7 +143,7 @@ miAppHome.controller('FacturaController',
 
                 $scope.getCliente = function (val) {
                     var token = $cookies.getObject('token');
-                    var uri = 'http://localhost:8080/cliente/searchApellido';
+                    var uri = 'https://tierradecoloresapi.herokuapp.com/cliente/searchApellido';
                     return $http({
                         url: uri,
                         method: 'post',
@@ -263,12 +263,23 @@ miAppHome.controller('FacturaController',
                             }
                             /* control para evitar monto vacio*/
                             if ($scope.montoPago === "") {
-                                toaster.pop('warning', 'Advertencia', 'El monto a pagar no puede estar vacio.');
+                                toaster.pop({
+                                    type: 'warning',
+                                    title: 'Advertencia',
+                                    body: 'El monto a pagar no puede estar vacio.',
+                                    showCloseButton: false
+                                });
                             } else {
                                 $scope._metodoPago.montoPago = $scope.montoPago;
                                 /* control para evitar comprobante de pago vacio*/
                                 if ($scope.comprobantePago === "" && $scope.mediosPago.idMedioPago !== 1) {
                                     toaster.pop('warning', 'Advertencia', 'El comprobante no puede estar vacio.');
+                                    toaster.pop({
+                                        type: 'warning',
+                                        title: 'Advertencia',
+                                        body: 'El comprobante no puede estar vacio.',
+                                        showCloseButton: false
+                                    });
                                 } else {
                                     $scope._metodoPago.comprobante = $scope.comprobantePago;
                                     $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
@@ -292,7 +303,12 @@ miAppHome.controller('FacturaController',
                                                 $scope.disableSelectEntidades = true;
                                                 $scope.disableSelectTarjeta = true;
                                                 $scope.disableSelectMetodo = true;
-                                                toaster.pop('success', 'Exito', 'Metodo de pago agregado.');
+                                                toaster.pop({
+                                                    type: 'success',
+                                                    title: 'Exito',
+                                                    body: 'Metodo de pago agregado.',
+                                                    showCloseButton: false
+                                                });
                                             });
                                         }
                                     });
@@ -301,9 +317,19 @@ miAppHome.controller('FacturaController',
                         } else {
                             /* control para diferenciar monto vacio*/
                             if (isNaN(compare)) {
-                                toaster.pop('error', 'Error', 'El monto no puede estar vacio.');
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    body: 'El monto no puede estar vacio.',
+                                    showCloseButton: false
+                                });
                             } else {
-                                toaster.pop('error', 'Error', 'El monto supera el total de la factura.');
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    body: 'El monto supera el total de la factura.',
+                                    showCloseButton: false
+                                });
                             }
                         }
                     });
@@ -313,20 +339,35 @@ miAppHome.controller('FacturaController',
                     $addCliente = clienteService.add(cliente);
                     $addCliente.then(function (datos) {
                         if (datos.status === 200) {
-                            toaster.pop('success', "Exito", "Cliente agregado con exito.");
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Exito',
+                                body: 'Cliente agregado con exito.',
+                                showCloseButton: false
+                            });
                             cliente.idCliente = datos.data.msg;
                             $rootScope.factura.cliente = cliente;
                             $promesa = facturaService.update($rootScope.factura);
                             $promesa.then(function (datos) {
                                 if (datos.status === 200) {
-                                    toaster.pop('success', "Exito", "Factura actualizada.");
+                                    toaster.pop({
+                                        type: 'success',
+                                        title: 'Exito',
+                                        body: 'Factura actualizada.',
+                                        showCloseButton: false
+                                    });
                                     $timeout(function timer() {
                                         $route.reload();
                                     }, 2000);
                                 }
                             });
                         } else {
-                            toaster.pop('error', 'Error', 'El cliente no pudo ser agregado');
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'El cliente no pudo ser agregado',
+                                showCloseButton: false
+                            });
                         }
                     });
                 };
@@ -336,9 +377,19 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.update($rootScope.factura);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            toaster.pop('success', "Exito", "Factura actualizada.");
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Exito',
+                                body: 'Factura actualizada.',
+                                showCloseButton: false
+                            });
                         } else {
-                            toaster.pop('error', 'Error', 'Error, la factura no pudo ser actualizada');
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'Error, la factura no pudo ser actualizada',
+                                showCloseButton: false
+                            });
                         }
                     });
                 };
@@ -431,24 +482,44 @@ miAppHome.controller('FacturaController',
                                     $update = facturaService.update($rootScope.factura);
                                     $update.then(function (datos) {
                                         if (datos.status === 200) {
-                                            $location.path("/facturacion");
+                                            $state.transitionTo('home.facturacion');
                                         } else {
-                                            toaster.pop('error', 'Error', 'Un error ha ocurrido.');
+                                            toaster.pop({
+                                                type: 'error',
+                                                title: 'Error',
+                                                body: "¡Op's algo paso!, comunicate con el administrador.",
+                                                showCloseButton: false
+                                            });
                                         }
                                     });
                                 } else {
                                     if (datos.data.total === 0) {
-                                        toaster.pop('warning', 'Advertencia', 'El monto no puede ser cero.');
+                                        toaster.pop({
+                                            type: 'warning',
+                                            title: 'Advertencia',
+                                            body: "Advertencia', 'El monto no puede ser cero.",
+                                            showCloseButton: false
+                                        });
                                     } else {
                                         toaster.pop('error', 'Error', 'Aun queda saldo por pagar.');
+                                        toaster.pop({
+                                            type: 'error',
+                                            title: 'Error',
+                                            body: 'Aun queda saldo por pagar.',
+                                            showCloseButton: false
+                                        });
                                     }
                                 }
                             });
                         });
                     } else {
-                        toaster.pop('warning', 'Advertencia', 'Por favor elige un vendedor');
+                        toaster.pop({
+                            type: 'warning',
+                            title: 'Advertencia',
+                            body: 'Por favor elige un vendedor',
+                            showCloseButton: false
+                        });
                     }
-
                 };
 
             }]);

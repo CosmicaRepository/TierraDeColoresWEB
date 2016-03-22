@@ -9,7 +9,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/plan/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/plan/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/plan/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/delete';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/plan/delete';
         $http({
             url: uri,
             method: 'post',
@@ -100,7 +100,7 @@ miAppHome.service('planPagoService', function ($http, $q, $cookies, $rootScope) 
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/plan/tarjeta';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/plan/tarjeta';
         $http({
             url: uri,
             method: 'get',

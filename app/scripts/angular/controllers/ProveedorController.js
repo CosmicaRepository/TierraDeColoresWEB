@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $stateParams, $rootScope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
+miAppHome.controller('ProveedorController', function ($scope, NgTableParams, toaster, $state, $stateParams, $rootScope, $http, $routeParams, ngTableParams, $route, $timeout, $cookies, $location, _proveedorService) {
 
     /**
      * Modelo de objeto Proveedor utilizado para agregar nuevos proveedores
@@ -39,8 +39,27 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
         $promesa.then(function (datos) {
             if (datos.status === 200) {
                 $scope.proveedores = datos.data;
+                var data = datos;
+                $scope.tableProveedores = new NgTableParams({
+                    page: 1,
+                    count: 10
+                }, {
+                    total: data.length,
+                    getData: function (params) {
+                        data = $scope.proveedores;
+                        params.total(data.length);
+                        if (params.total() <= ((params.page() - 1) * params.count())) {
+                            params.page(1);
+                        }
+                        return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                    }});
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -55,12 +74,22 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
         $promesa = _proveedorService.add(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Proveedor agregado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Proveedor agregado exitosamente',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -68,19 +97,29 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
     /**
      * Funcion eliminar Proveedor, encargada de deshabilitar un proveedor en la 
      * base de datos.
-     * @param {type} proveedor
+     * 
      * @returns {undefined}
      */
-    $scope.eliminarProveedor = function (proveedor) {
-        $promesa = _proveedorService.delete(proveedor);
+    $scope.eliminarProveedor = function () {
+        $promesa = _proveedorService.delete($scope.__proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Proveedor eliminado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Proveedor eliminado exitosamente',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -105,12 +144,22 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
         $promesa = _proveedorService.update(proveedor);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Proveedor modificado exitosamente');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Proveedor modificado exitosamente',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -125,7 +174,7 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
         $promesa = _proveedorService.searchById(idProveedor);
         $promesa.then(function (datos) {
             if (datos.status !== 200 || datos.data.estadoProveedor === false) {
-                $state.transitionTo('home.proveedor');
+                $state.go('^.proveedor');
             } else {
                 $scope.foundProveedor = datos.data;
             }
@@ -140,7 +189,7 @@ miAppHome.controller('ProveedorController', function ($scope, toaster, $state, $
      */
     $scope.getProveedor = function (val) {
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/proveedor/searchText';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/proveedor/searchText';
         return $http({
             url: uri,
             method: 'post',

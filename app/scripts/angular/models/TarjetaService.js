@@ -9,7 +9,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tarjeta/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tarjeta/add';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tarjeta/update';
         $http({
             url: uri,
             method: 'post',
@@ -77,7 +77,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/delete';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tarjeta/delete';
         $http({
             url: uri,
             method: 'post',
@@ -101,7 +101,7 @@ miAppHome.service('tarjetaService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/tarjeta/entidadMedio';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/tarjeta/entidadMedio';
         $http({
             url: uri,
             method: 'get',

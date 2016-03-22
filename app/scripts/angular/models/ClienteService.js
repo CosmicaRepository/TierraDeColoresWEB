@@ -9,7 +9,7 @@ miAppHome.service('clienteService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/cliente/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/cliente/list';
         $http({
             url: uri,
             method: 'get',
@@ -30,7 +30,7 @@ miAppHome.service('clienteService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/cliente/add';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/cliente/add';
         $http({
             url: uri,
             method: 'post',
@@ -53,7 +53,7 @@ miAppHome.service('clienteService', function ($http, $cookies, $q) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/cliente/update';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/cliente/update';
         $http({
             url: uri,
             method: 'post',

@@ -8,7 +8,7 @@ miAppHome.service('LoginService', function ($http, $q, $cookies, $rootScope, $lo
     this.getAccess = function (Auth) {
         var datosRecu = null;
         var deferred = $q.defer();
-        var uri = 'http://localhost:8080/oauth/token';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/oauth/token';
         $http({
             url: uri,
             method: 'post',
@@ -35,7 +35,7 @@ miAppHome.service('LoginService', function ($http, $q, $cookies, $rootScope, $lo
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/oauth/logout';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/oauth/logout';
         $http({
             url: uri,
             method: 'post',
@@ -54,7 +54,7 @@ miAppHome.service('LoginService', function ($http, $q, $cookies, $rootScope, $lo
     };
 
     this.refreshToken = function (Token) {
-        var uri = 'http://localhost:8080/oauth/token';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/oauth/token';
         var request = $http({
             url: uri,
             method: 'post',
@@ -72,7 +72,7 @@ miAppHome.service('LoginService', function ($http, $q, $cookies, $rootScope, $lo
     this.isLogged = function () {
         var tk = $cookies.get('a_tk');
         $http({
-            url: 'http://localhost:8080/usuarios/logged',
+            url: 'https://tierradecoloresapi.herokuapp.com/usuarios/logged',
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + tk,

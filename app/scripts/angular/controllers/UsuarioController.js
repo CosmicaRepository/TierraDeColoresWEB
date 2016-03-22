@@ -8,7 +8,7 @@
 var usuarioController = miAppHome.controller('UsuarioController',
         ['$scope', '$state', '$window', 'toaster', '$route', '$timeout', '$cookies', 'Upload', '$location', 'UsuarioService', '$rootScope',
             function ($scope, $state, $window, toaster, $route, $timeout, $cookies, Upload, $location, UsuarioService, $rootScope) {
-                console.log($scope.user);
+
                 $scope.user = {
                     "apellido": "",
                     "dni": "",
@@ -54,7 +54,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.actualizarFoto = function (file) {
                     var token = $cookies.getObject('token');
                     if (typeof file !== 'undefined') {
-                        var uri = 'http://localhost:8080/usuarios/updatePhoto';
+                        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/updatePhoto';
                         Upload.upload({
                             url: uri,
                             headers: {'Authorization': 'Bearer ' + token.data.access_token},
@@ -64,8 +64,10 @@ var usuarioController = miAppHome.controller('UsuarioController',
                         });
                     }
                     $timeout(function timer() {
-                        $route.reload();
-                        $state.transitionTo('home.perfil-usuario');
+                        $state.go($state.current, {}, {reload: true});
+                        $timeout(function timer() {
+                            $state.go('^.perfil-usuario');
+                        }, 1000);
                     }, 2000);
                 };
                 $scope.actualizarPerfil = function () {
@@ -77,10 +79,20 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa = UsuarioService.updateUsuario($scope.user);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            toaster.pop('success', "Exito", "Datos actualizados.");
-                            $state.transitionTo('home.perfil-usuario');
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Exito',
+                                body: 'Datos actualizados.',
+                                showCloseButton: false
+                            });
+                            $state.go('^.perfil-usuario');
                         } else {
-                            toaster.pop('error', "Error", "¡Op's algo paso, comunicate con el Administrador.");
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: "¡Op's algo paso!, comunicate con el administrador.",
+                                showCloseButton: false
+                            });
                         }
                     });
                 };
@@ -122,7 +134,12 @@ var usuarioController = miAppHome.controller('UsuarioController',
                             }
                         }
                     }).catch(function (fallback) {
-                        toaster.pop('error', 'Error', 'No se ha podido conectar con el servidor.');
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'No se ha podido conectar con el servidor.',
+                            showCloseButton: false
+                        });
                     });
                 };
 
@@ -173,10 +190,20 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa = UsuarioService.changePassword($scope.userPw);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            toaster.pop('success', "Exito", "Contraseña actualizada.");
-                            $state.transitionTo('home.perfil-usuario');
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Exito',
+                                body: 'Contraseña actualizada.',
+                                showCloseButton: false
+                            });
+                            $state.go('^.perfil-usuario');
                         } else {
-                            toaster.pop('error', "Error", datos.data.msg);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: datos.data.msg,
+                                showCloseButton: false
+                            });
                         }
                     });
                 };
@@ -191,9 +218,14 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     $promesa = UsuarioService.changeStatus(status, $scope.modificarUsuario);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            $route.reload();
+                            $state.go($state.current, {}, {reload: true});
                         } else {
-                            alert("error");
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: "¡Op's algo paso!, comunicate con el administrador.",
+                                showCloseButton: false
+                            });
                         }
                     });
                 };

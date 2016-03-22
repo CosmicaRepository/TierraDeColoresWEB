@@ -9,7 +9,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/list';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/list';
         $http({
             url: uri,
             method: 'get',
@@ -31,7 +31,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var url = 'http://localhost:8080/usuarios/detail';
+        var url = 'https://tierradecoloresapi.herokuapp.com/usuarios/detail';
         $http({
             url: url,
             method: 'get',
@@ -53,7 +53,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/addUsuario';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/addUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -76,7 +76,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/updateUsuario';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/updateUsuario';
         $http({
             url: uri,
             method: 'post',
@@ -99,7 +99,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/changePassword';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/changePassword';
         $http({
             url: uri,
             method: 'post',
@@ -126,7 +126,7 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/usuarios/changeStatus';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/changeStatus';
         $http({
             url: uri,
             method: 'post',

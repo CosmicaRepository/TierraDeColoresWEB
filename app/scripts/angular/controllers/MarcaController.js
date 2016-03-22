@@ -31,11 +31,16 @@ miAppHome.controller('MarcaController', function ($scope, $state, toaster, $http
             if (datos.status === 200) {
                 $scope.marcas = datos.data;
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
             $scope.tableMarcas = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 8
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -58,12 +63,22 @@ miAppHome.controller('MarcaController', function ($scope, $state, toaster, $http
         $promesa = _marcaService.addMarca(marca);
         $promesa.then(function (datos) {
             if (datos.status === 200) {
-                toaster.pop('success', 'Exito', 'Marca agregada con exito.');
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Marca agregada con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -75,13 +90,23 @@ miAppHome.controller('MarcaController', function ($scope, $state, toaster, $http
     $scope.eliminarMarca = function () {
         $promesa = _marcaService.deleteMarca($scope.__marca);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {                
-                toaster.pop('success', 'Exito', 'Marca eliminada con exito.');
+            if (datos.status === 200) {
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Marca eliminada con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -103,13 +128,23 @@ miAppHome.controller('MarcaController', function ($scope, $state, toaster, $http
     $scope._modificarMarca = function (marca) {
         $promesa = _marcaService.updateMarca(marca);
         $promesa.then(function (datos) {
-            if (datos.status === 200) {                
-                toaster.pop('success', 'Exito', 'Marca modificada con exito.');
+            if (datos.status === 200) {
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Marca modificada con exito.',
+                    showCloseButton: false
+                });
                 $timeout(function timer() {
                     $state.go($state.current, {}, {reload: true});
                 }, 1000);
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
@@ -123,7 +158,7 @@ miAppHome.controller('MarcaController', function ($scope, $state, toaster, $http
      */
     $scope.getMarca = function (val) {
         var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8080/marcas/searchText';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/marcas/searchText';
         return $http({
             url: uri,
             method: 'post',

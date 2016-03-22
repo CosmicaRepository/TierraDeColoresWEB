@@ -4,7 +4,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('SexoController', function ($scope, _sexoService, $rootScope) {
+miAppHome.controller('SexoController', function ($scope, toaster, _sexoService, $rootScope) {
 
     /**
      * Funcion lista sexos encargada de enlistar los generos disponibles en la
@@ -18,7 +18,12 @@ miAppHome.controller('SexoController', function ($scope, _sexoService, $rootScop
             if (datos.status === 200) {
                 $scope.sexos = datos.data;
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };

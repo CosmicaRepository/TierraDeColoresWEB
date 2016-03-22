@@ -12,7 +12,7 @@ and open the template in the editor.
         <div class="panel panel-warning"
              data-ng-init="buscarProducto()"
              style="margin-top: 70px;width: 60%; margin-left: 20%;"
-             ng-show="foundProducto.codigoProducto"> 
+             ng-show="foundProducto"> 
             <div class="panel panel-heading"># {{foundProducto.idProducto}}
                 <div style="float: right;">
                     <a href='' 
@@ -41,7 +41,7 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Talla</label>            
-                        <div type="text" class="col-xs-7">{{foundProducto.talla | uppercase}}</div>
+                        <div type="text" class="col-xs-7">{{foundProducto.talla| uppercase}}</div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Precio costo</label>
@@ -183,7 +183,13 @@ and open the template in the editor.
                                            required maxlength="20"
                                            data-ng-class='{error: updateProducto.codigo.$invalid && !updateProducto.$pristine}'/>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-danger" ng-click="randomCode()" ng-disabled="__producto.codigoProducto" type="button">Random</button>
+                                        <button class="btn btn-danger"
+                                                ng-click="__producto.codigoProducto = randomCode(
+                                                            __producto.categoria.idCategoria,
+                                                            __producto.marcas.idMarca,
+                                                            __producto.talla)"
+                                                ng-disabled="__producto.codigoProducto"
+                                                type="button">Random</button>
                                     </span>
                                 </div> 
                             </div>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('TemporadaController', function ($scope, _temporadaService, $rootScope) {
+miAppHome.controller('TemporadaController', function ($scope, toaster, _temporadaService, $rootScope) {
 
     $scope.listaTemporadas = function () {
         $scope.temporadas = "";
@@ -12,7 +12,12 @@ miAppHome.controller('TemporadaController', function ($scope, _temporadaService,
             if (datos.status === 200) {
                 $scope.temporadas = datos.data;
             } else {
-                alert("error");
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
             }
         });
     };
