@@ -23,17 +23,19 @@ miAppHome.controller('LoginController',
                             var role = datos.data.role[0].authority;
                             if (role === 'ROLE_ADMIN') {
                                 $state.transitionTo('home');
-                                $timeout(function timer() {
-                                    toaster.pop({
-                                        type: 'success',
-                                        title: '¡Hola!',
-                                        body: 'Bienvenido',
-                                        showCloseButton: false
-                                    });
-                                }, 1000);
                             } else {
-//                        $window.location.href = 'ventas.html';
+                                if (role === 'ROLE_VENDEDOR') {
+                                    $state.transitionTo('ventas');
+                                }
                             }
+                            $timeout(function timer() {
+                                toaster.pop({
+                                    type: 'success',
+                                    title: '¡Hola!',
+                                    body: 'Bienvenido',
+                                    showCloseButton: false
+                                });
+                            }, 1000);
                             break;
                         case 401:
                             toaster.pop({

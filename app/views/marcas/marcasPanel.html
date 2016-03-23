@@ -21,7 +21,7 @@ and open the template in the editor.
                         <th style="text-align: center">ID</th>
                         <th style="text-align: center">Nombre</th> 
                         <th style="text-align: center">Fecha</th> 
-                        <th style="text-align: center">Acciones</th> 
+                        <th style="text-align: center" ng-hide="edit">Acciones</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -29,7 +29,7 @@ and open the template in the editor.
                         <th style="text-align: center">{{marca.idMarca}}</th>
                         <th style="text-align: center">{{marca.nombreMarca}}</th>                        
                         <th style="text-align: center">{{marca.fechaCreacion}}</th>                        
-                        <th style="text-align: center">
+                        <th style="text-align: center" ng-hide="edit">
                             <button type="button" class="btn btn-xs btn-info"
                                     data-toggle="modal"
                                     data-target="#myModal"
@@ -46,7 +46,7 @@ and open the template in the editor.
                 </tbody>
             </table>
         </uib-tab>
-        <uib-tab heading="Agregar nueva marca">
+        <uib-tab heading="Agregar nueva marca" ng-hide="edit">
             <form name="nuevaMarca" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%" >
                 <center><h3>Nueva Marca</h3></center>
                 <div class="form-group">                    

@@ -16,11 +16,11 @@
 }
 #bodyStyle{
     background-image: url('../images/wall5.jpg');
-    background-repeat: no-repeat;    
-    background-size: cover;
+    /*background-repeat: no-repeat;*/    
+    /*background-size: calc;*/
+    /*background-position:center;*/
 }
 #login-banner{
-    margin-left: 32%;
     background: #DF013A;
     border-radius: 25px;
     border-color: #8904B1;
@@ -60,21 +60,16 @@
     text-shadow: 2px 0 0 #8904B1;
 }
 #perfil{
-    margin-top: 70px;
-    width: 60%;
-    margin-left: 20%;
+    margin-top: 100px;
 }
 #foto-perfil{
-    width: 35%;
-    height: 35%;
-    margin-top: 5%;
+    width: 99%;
+    height: 99%;
+    margin-top: 10%;
 }
 #panel-editar-perfil{
-    margin-top: 5%;
-    width: 40%; 
-    margin-left: 30%;
     background-color: white;
-    height: 550px;
+    height: auto;
 }
 
 /*
@@ -240,19 +235,16 @@ body {
 }
 #tableUsuarios{
     background-color: white;
-    width: 80%; 
-    margin-left: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 #agregarUsuario{
-    width: 40%; 
-    margin-top: 5%;
     background-color: white;
     border-radius: 25px;
-    margin-left: 30%;
     margin-bottom: 5%;
 }
 #tituloUsuario{
-    padding-top: 10%;
+    padding-top: 5%;
     padding-bottom: 3%;
 }
 #btn-register{
@@ -340,5 +332,11 @@ body {
 }
 /*Evita que se muestren las llaves al cargar el HTML*/
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+    display: none !important;
+}
+#tituloTablas{
+    font-family: kaufmann-bold;
+    font-size: 35pt;
+    margin-top: 100px;
+    text-shadow: 2px 0 0 #fff;
 }

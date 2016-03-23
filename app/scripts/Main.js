@@ -20,7 +20,7 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'ngTable',
             'ui.router',
             'io-barcode'])
-        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {            
+        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = false; /*Activar/Desactivar Spinner.*/
             var auth = function ($cookies, $rootScope, $http, $state, $timeout) {
                 var tk = $cookies.get('a_tk');
@@ -47,6 +47,12 @@ var miAppHome = angular.module('tierraDeColoresApp',
                             $state.go('500');
                         }, 100);
                     }
+                    if (response.status === 401 || response.status === 403) {
+                        $rootScope.isLoggedIn = false;
+                        $timeout(function timer() {
+                            $state.go('ventas');
+                        }, 100);
+                    }                    
                 });
             };
             $urlRouterProvider.otherwise("/404");
@@ -92,44 +98,51 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         url: '/perfil',
                         templateUrl: "views/usuario/perfil.html",
                         controller: "UsuarioController",
-                        data: {pageTitle: 'Home - Perfil'}
+                        data: {pageTitle: 'Home - Perfil'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.usuario-lista', {
                         url: '/lista-usuarios',
                         templateUrl: "views/usuario/lista.html",
                         controller: "UsuarioController",
-                        data: {pageTitle: 'Home - Usuarios'}
+                        data: {pageTitle: 'Home - Usuarios'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.usuario-agregar', {
                         url: '/agregar-usuario',
                         templateUrl: "views/usuario/nuevoUsuario.html",
                         controller: "UsuarioController",
-                        data: {pageTitle: 'Home - Agregar usuario'}
+                        data: {pageTitle: 'Home - Agregar usuario'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.usuario-modificar', {
                         url: '/modificar-usuario',
                         templateUrl: "views/usuario/modificarUsuario.html",
                         controller: "UsuarioController",
-                        data: {pageTitle: 'Home - Modificar perfil'}
+                        data: {pageTitle: 'Home - Modificar perfil'},
+                        resolve: {isLogged: auth}
                     })/*FIN MODULO USUARIOS*/
                     /*MODULO FINANZAS*/
                     .state('home.tarjetas', {
                         url: '/tarjetas',
                         templateUrl: "views/tarjeta/panelTarjeta.html",
                         controller: "TarjetaController",
-                        data: {pageTitle: 'Home - Tarjetas'}
+                        data: {pageTitle: 'Home - Tarjetas'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.bancos', {
                         url: '/entidades-financieras',
                         templateUrl: "views/banco/panelBanco.html",
                         controller: "EntidadBancariaController",
-                        data: {pageTitle: 'Home - Entidades'}
+                        data: {pageTitle: 'Home - Entidades'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.planes-pago', {
                         url: '/planes-de-pago',
                         templateUrl: "views/planes/panelPlanes.html",
                         controller: "PlanPagoController",
-                        data: {pageTitle: 'Home - Planes de pago'}
+                        data: {pageTitle: 'Home - Planes de pago'},
+                        resolve: {isLogged: auth}
                     })/*FIN MODULO FINANZAS*/
                     /*MODULO STOCK*/
                     /*Productos*/
@@ -137,82 +150,146 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         url: '/productos',
                         templateUrl: "views/producto/lista.html",
                         controller: "ProductoController",
-                        data: {pageTitle: 'Home - Productos'}
+                        data: {pageTitle: 'Home - Productos'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.producto-agregar', {
                         url: '/agregar-producto',
                         templateUrl: "views/producto/agregarProducto.html",
                         controller: "ProductoController",
-                        data: {pageTitle: 'Home - Agregar producto'}
+                        data: {pageTitle: 'Home - Agregar producto'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.producto-busqueda', {
                         url: '/buscar-producto',
                         templateUrl: "views/producto/busquedaProducto.html",
                         controller: "ProductoController",
-                        data: {pageTitle: 'Home - Busqueda de productos'}
+                        data: {pageTitle: 'Home - Busqueda de productos'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.producto-detalle', {
                         url: '/producto/:idProducto',
                         templateUrl: "views/producto/detalleProducto.html",
                         controller: "ProductoController",
-                        data: {pageTitle: 'Home - Detalle de producto'}
+                        data: {pageTitle: 'Home - Detalle de producto'},
+                        resolve: {isLogged: auth}
                     })/*Fin productos*/
                     /*Categorias*/
                     .state('home.categorias', {
                         url: '/categorias',
                         templateUrl: "views/categoria/categoriaPanel.html",
                         controller: "CategoriaController",
-                        data: {pageTitle: 'Home - Categorias'}
+                        data: {pageTitle: 'Home - Categorias'},
+                        resolve: {isLogged: auth}
                     })
                     /*Marcas*/
                     .state('home.marcas', {
                         url: '/marcas',
                         templateUrl: "views/marcas/marcasPanel.html",
                         controller: "MarcaController",
-                        data: {pageTitle: 'Home - Marcas'}
+                        data: {pageTitle: 'Home - Marcas'},
+                        resolve: {isLogged: auth}
                     })
                     /*Tipo productos*/
                     .state('home.tipo', {
                         url: '/tipo-de-productos',
                         templateUrl: "views/tipo/panelTipo.html",
                         controller: "TipoController",
-                        data: {pageTitle: 'Home - Tipo de productos'}
+                        data: {pageTitle: 'Home - Tipo de productos'},
+                        resolve: {isLogged: auth}
                     })
                     /*Proveedores*/
                     .state('home.proveedor', {
                         url: '/proveedores',
                         templateUrl: "views/proveedor/proveedorPanel.html",
                         controller: "ProveedorController",
-                        data: {pageTitle: 'Home - Proveedores'}
+                        data: {pageTitle: 'Home - Proveedores'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.proveedor-detalle', {
                         url: '/proveedor/:idProveedor',
                         templateUrl: "views/proveedor/detalleProveedor.html",
                         controller: "ProveedorController",
-                        data: {pageTitle: 'Home - Detalle de proveedor'}
+                        data: {pageTitle: 'Home - Detalle de proveedor'},
+                        resolve: {isLogged: auth}
                     })/*FIN MODULO STOCK*/
                     /*MODULO FACTURACION*/
                     .state('home.facturacion', {
                         url: '/facturacion',
                         templateUrl: "views/factura/lista.html",
                         controller: "FacturaController",
-                        data: {pageTitle: 'Home - Facturacion'}
+                        data: {pageTitle: 'Home - Facturacion'},
+                        resolve: {isLogged: auth}
                     })
                     .state('home.factura', {
                         url: '/factura/:idFactura',
                         templateUrl: "views/factura/facturaPanel.html",
                         controller: "FacturaController",
-                        data: {pageTitle: 'Home - Nueva factura'}
+                        data: {pageTitle: 'Home - Nueva factura'},
+                        resolve: {isLogged: auth}
                     })/*FIN MODULO FACTURACION*/
                     /*Estadisticas*/
                     .state('home.estadisticas', {
                         url: '/estadisticas',
                         templateUrl: "views/charts/chartPanel.html",
                         controller: "ChartController",
-                        data: {pageTitle: 'Home - Estadisticas'}
+                        data: {pageTitle: 'Home - Estadisticas'},
+                        resolve: {isLogged: auth}
+                    })
+                    /*Ventas para usuarios tipo Vendedor*/
+                    .state('ventas', {
+                        url: '/ventas',
+                        abstract: false,
+                        templateUrl: "views/ventas.html",
+                        controller: "UsuarioController",
+                        resolve: {}, /*Revision para saber si es vendedor.*/
+                        data: {pageTitle: 'Ventas'}
+                    })/*MODULO USUARIOS*/
+                    .state('ventas.perfil-usuario', {
+                        url: '/perfil',
+                        templateUrl: "views/usuario/perfil.html",
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Ventas - Perfil'}
+                    }).state('ventas.usuario-modificar', {
+                        url: '/modificar-usuario',
+                        templateUrl: "views/usuario/modificarUsuario.html",
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Ventas - Modificar perfil'}
+                    })/*MODULO STOCK*/
+                    /*Productos*/
+                    .state('ventas.producto-busqueda', {
+                        url: '/busqueda-de-productos',
+                        templateUrl: "views/producto/busquedaProducto.html",
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Ventas - Busqueda de productos'}
+                    }).state('ventas.producto-detalle', {
+                        url: '/producto/:idProducto',
+                        templateUrl: "views/producto/detalleProducto.html",
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Ventas - Detalle de producto'}
+                    })
+                    /*Categorias*/
+                    .state('ventas.categorias', {
+                        url: '/categorias',
+                        templateUrl: "views/categoria/categoriaPanel.html",
+                        controller: "CategoriaController",
+                        data: {pageTitle: 'Ventas - Categorias'}
+                    })
+                    /*Marcas*/
+                    .state('ventas.marcas', {
+                        url: '/marcas',
+                        templateUrl: "views/marcas/marcasPanel.html",
+                        controller: "MarcaController",
+                        data: {pageTitle: 'Ventas - Marcas'}
+                    })/*MODULO ESTADISTICAS*/
+                    .state('ventas.estadisticas', {
+                        url: '/estadisticas',
+                        templateUrl: "views/charts/chartPanel.html",
+                        controller: "ChartController",
+                        data: {pageTitle: 'Ventas - Estadisticas'}
                     });
         })
-        .run(function ($rootScope) {            
+        .run(function ($rootScope) {
             $rootScope.previousState;
             $rootScope.currentState;
             $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {

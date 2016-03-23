@@ -27,7 +27,8 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     "provincia": "",
                     "roles": "",
                     "telefono": "",
-                    "username": ""
+                    "username": "",
+                    "ultimaConexion": ""
                 };
 
                 $scope.userPw = {
@@ -115,8 +116,9 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     });
                 };
                 $scope.detailUsuario = function () {
+                    $rootScope.edit = true;
                     $promesa = UsuarioService.getDetailUser();
-                    $promesa.then(function (datos) {
+                    $promesa.then(function (datos) {                       
                         if (datos.status === 200) {
                             if (datos.data.estado === true) {
                                 datos.data.estado = 'Activo';
@@ -131,6 +133,11 @@ var usuarioController = miAppHome.controller('UsuarioController',
                                 var day = date.getDate();
                                 date.setDate(day + 1);
                                 $scope.user.fechaNacimiento = date;
+                            }
+                            if($scope.user.roles.idRol === 1){
+                                $rootScope.edit = false;/*Falso para indicar que este en falso la directiva ng-hide*/
+                            }else{
+                                $rootScope.edit = true;
                             }
                         }
                     }).catch(function (fallback) {

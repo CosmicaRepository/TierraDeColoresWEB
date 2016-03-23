@@ -14,7 +14,7 @@ and open the template in the editor.
              style="margin-top: 70px;width: 60%; margin-left: 20%;"
              ng-show="foundProducto"> 
             <div class="panel panel-heading"># {{foundProducto.idProducto}}
-                <div style="float: right;">
+                <div style="float: right;" ng-hide="edit">
                     <a href='' 
                        data-toggle="modal" 
                        uib-tooltip="Eliminar producto"
@@ -73,7 +73,7 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Proveedor</label>
-                        <div type="text" class="col-xs-7"><a href="#/proveedor/{{foundProducto.proveedor.idProveedor}}">{{foundProducto.proveedor.nombreProveedor}}</a></div>
+                        <div type="text" class="col-xs-7">{{foundProducto.proveedor.nombreProveedor}}</div>
                     </div>
                 </form>
                 <center>

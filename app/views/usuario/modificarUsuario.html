@@ -9,150 +9,177 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
+        <div class="col-lg-3"></div>
 
-        <div id="panel-editar-perfil" ng-show="user.estado">
-            <uib-tabset justified="true">
-                <uib-tab heading="Perfil de {{user.username}}">
-                    <div class="panel" data-ng-init="detailUsuario()">
-                        <div class="panel-heading">
-                            <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar datos de usuario</h3>
+        <div class="col-lg-6" style="margin-top: 100px;">
+            <div id="panel-editar-perfil"             
+                 ng-show="user.estado">
+                <uib-tabset justified="true">
+                    <uib-tab heading="Perfil de {{user.username}}">
+                        <div class="panel" data-ng-init="detailUsuario()">
+                            <div class="panel-body">
+                                <form class="form-horizontal" 
+                                      name="changePerfil" data-ng-init="detailUsuario()">                    
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Nombre</label>
+                                        <div class="col-lg-8">
+                                            <input type="text"
+                                                   class="form-control" 
+                                                   ng-model="user.nombre" name="nombre" required minlength="4"
+                                                   data-ng-class='{error: changePerfil.nombre.$invalid && !changePerfil.$pristine}'/>
+                                        </div>                                   
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Apellido</label>
+                                        <div class="col-lg-8">    
+                                            <input type="text"
+                                                   class="form-control"
+                                                   ng-model="user.apellido" name="apellido" required
+                                                   data-ng-class='{error: changePerfil.apellido.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Documento</label>
+                                        <div class="col-lg-8">  
+                                            <input type="text"
+                                                   class="form-control"
+                                                   ng-model="user.dni" name="documento" required
+                                                   data-ng-class='{error: changePerfil.documento.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>            
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Domicilio</label>
+                                        <div class="col-lg-8">  
+                                            <input type="text" 
+                                                   class="form-control"
+                                                   ng-model="user.domicilio" name="domicilio" required
+                                                   data-ng-class='{error: changePerfil.domicilio.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" >                    
+                                        <label class="control-label col-lg-4">Fecha nacimiento</label>
+                                        <div class="col-lg-8">  
+                                            <input type="date" 
+                                                   class="form-control"
+                                                   ng-model="user.fechaNacimiento" name="fecha" required
+                                                   data-ng-class='{error: changePerfil.fecha.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">E-mail</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" 
+                                                   class="form-control"
+                                                   ng-model="user.email" name="email" required 
+                                                   data-ng-class='{error: changePerfil.email.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Telefono</label>   
+                                        <div class="col-lg-8">
+                                            <input type="text"
+                                                   class="form-control"
+                                                   ng-model="user.telefono" name="telefono" required 
+                                                   data-ng-class='{error: changePerfil.telefono.$invalid && !changePerfil.$pristine}'/>
+                                        </div>                                    
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label col-lg-4">Ciudad</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control" 
+                                                   ng-model="user.provincia" name="ciudad" required 
+                                                   data-ng-class='{error: changePerfil.ciudad.$invalid && !changePerfil.$pristine}'/>
+                                        </div>
+                                    </div>
+                                    <center style="margin-top: 5%;">
+                                        <button ng-click="actualizarPerfil()"
+                                                class="btn btn-success"
+                                                ng-disabled="changePerfil.$invalid"
+                                                >Guardar</button>
+                                        <button type="button"
+                                                class="btn btn-danger"
+                                                style="width: 79px;"
+                                                ui-sref="^.perfil-usuario">Salir</button>
+                                    </center>                                    
+                                </form>                            
+                            </div>                            
                         </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal" role="form" name="changePerfil" data-ng-init="detailUsuario()">                    
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Nombre</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" class="form-control" ng-model="user.nombre" name="nombre" required
-                                               minlength="4"
-                                               data-ng-class='{error: changePerfil.nombre.$invalid && !changePerfil.$pristine}'/>
-                                    </div>                                   
-                                </div>
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Apellido</label>
-                                    <div class="col-lg-8">    
-                                        <input type="text" class="form-control" ng-model="user.apellido" name="apellido" required
-                                               data-ng-class='{error: changePerfil.apellido.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Documento</label>
-                                    <div class="col-lg-8">  
-                                        <input type="text" class="form-control" ng-model="user.dni" name="documento" required
-                                               data-ng-class='{error: changePerfil.documento.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>            
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Domicilio</label>
-                                    <div class="col-lg-8">  
-                                        <input type="text" class="form-control" ng-model="user.domicilio" name="domicilio" required
-                                               data-ng-class='{error: changePerfil.domicilio.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>
-                                <div class="form-group" >                    
-                                    <label class="control-label col-lg-4">Fecha nacimiento</label>
-                                    <div class="col-lg-8">  
-                                        <input type="date" class="form-control" ng-model="user.fechaNacimiento" name="fecha" required
-                                               data-ng-class='{error: changePerfil.fecha.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">E-mail</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" 
-                                               class="form-control"
-                                               ng-model="user.email" name="email" required 
-                                               data-ng-class='{error: changePerfil.email.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Telefono</label>   
-                                    <div class="col-lg-8">
-                                        <input type="text"
-                                               class="form-control"
-                                               ng-model="user.telefono" name="telefono" required 
-                                               data-ng-class='{error: changePerfil.telefono.$invalid && !changePerfil.$pristine}'/>
-                                    </div>                                    
-                                </div>
-                                <div class="form-group">                    
-                                    <label class="control-label col-lg-4">Ciudad</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" class="form-control" 
-                                               ng-model="user.provincia" name="ciudad" required 
-                                               data-ng-class='{error: changePerfil.ciudad.$invalid && !changePerfil.$pristine}'/>
-                                    </div>
-                                </div>                                
-                                <button ng-click="actualizarPerfil()"
-                                        class="btn btn-success"
-                                        ng-disabled="changePerfil.$invalid"
-                                        style="float: right; margin-top: 6%; margin-right: 3%;">Guardar</button>
-                                <button type="button"
-                                        class="btn btn-danger"
-                                        style="float: right; margin-top: 6%; margin-right: 3%; width: 79px;"
-                                        ui-sref="home.perfil-usuario">Salir</button>
-                            </form>                            
-                        </div>
-                    </div>
-                </uib-tab>
-                <uib-tab heading="Foto perfil">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" style="margin-left: 35%; font-weight: bolder;">Selecciona foto perfil</h3>
-                    </div>
-                    <form name="fotoPerfil">
-                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 300px; height: 300px; margin-left: 25%;">
-                        <input class="col-xs-8" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'image/*'"
-                               ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100" type="file"
-                               style="margin-left: 28%;" required/>
-                        <center style="margin-top: 10%;">
-                            <button ng-click="actualizarFoto(fileUpload)"
-                                    ng-disabled="fotoPerfil.$invalid" 
-                                    class="btn btn-success"
-                                    style="">Guardar</button>
-                            <button type="button"
-                                    class="btn btn-danger"
-                                    style=" width: 79px;"
-                                    ui-sref="home.perfil-usuario">Salir</button>
-                        </center>                        
-                    </form>
-                </uib-tab>
-                <uib-tab heading="Contraseña">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" style="margin-left: 40%; font-weight: bolder;">Cambiar contraseña</h3>
-                    </div>
-                    <form class="form-horizontal" name="changePassword" data-ng-init="detailUsuario()" style="margin-top: 7%;">  
-                        <div class="form-group">                    
-                            <label class="control-label col-lg-4">Contraseña actual</label>
-                            <div class="col-lg-8">
-                                <input type="password" class="form-control" ng-model="userPw.old" name="old" required
-                                       data-ng-class='{error: changePassword.old.$invalid && !changePassword.$pristine}'/>
+                    </uib-tab>
+                    <uib-tab heading="Foto perfil">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <center class="row">
+                                    <form name="fotoPerfil">
+                                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="height: 50%; width: 50%; margin-top: 5%;">
+                                        <input ngf-select 
+                                               ng-model="fileUpload" name="file" ngf-pattern="'image/*'"
+                                               ngf-accept="'image/*'"
+                                               ngf-max-size="2MB" ngf-min-height="100" type="file"
+                                               style="margin-bottom: 5%;" required/>
+
+                                        <button ng-click="actualizarFoto(fileUpload)"
+                                                ng-disabled="fotoPerfil.$invalid" 
+                                                class="btn btn-success"
+                                                style="">Guardar</button>
+                                        <button type="button"
+                                                class="btn btn-danger"
+                                                style=" width: 79px;"
+                                                ui-sref="^.perfil-usuario">Salir</button>
+
+                                    </form>
+                                </center>
                             </div>
                         </div>
-                        <div class="form-group">                    
-                            <label class="control-label col-lg-4">Contraseña nueva</label>
-                            <div class="col-lg-8">
-                                <input type="password" class="form-control" ng-model="userPw.new" name="new" required 
-                                       data-ng-class='{error: changePassword.new.$invalid && !changePassword.$pristine}'/>
-                            </div>                            
+                    </uib-tab>
+                    <uib-tab heading="Contraseña">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <form class="form-horizontal"
+                                      name="changePassword"
+                                      data-ng-init="detailUsuario()" style="margin-top: 7%;">  
+                                    <div class="form-group">                    
+                                        <label class="control-label">Contraseña actual</label>                                        
+                                        <input type="password" 
+                                               class="form-control"
+                                               placeholder="Ingresa contraseña actual"
+                                               ng-model="userPw.old" name="old" required
+                                               data-ng-class='{error: changePassword.old.$invalid && !changePassword.$pristine}'/>
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label">Contraseña nueva</label>                                        
+                                        <input type="password"
+                                               class="form-control" 
+                                               placeholder="Ingresa nueva contraseña"
+                                               ng-model="userPw.new" name="new" required 
+                                               data-ng-class='{error: changePassword.new.$invalid && !changePassword.$pristine}'/>                                                       
+                                    </div>
+                                    <div class="form-group">                    
+                                        <label class="control-label">Repetir contraseña</label>                                         
+                                        <input type="password"
+                                               class="form-control"
+                                               placeholder="Repite contraseña nueva"
+                                               ng-model="userPw.rep" name="rep" required 
+                                               data-ng-class='{error: changePassword.rep.$invalid && !changePassword.$pristine}'/>
+                                    </div>
+                                    <center style="margin-top: 10%;">
+                                        <button ng-click="cambiarPassword()"
+                                                class="btn btn-success" 
+                                                style=""
+                                                ng-disabled="changePassword.$invalid">Guardar</button>
+                                        <button type="button"
+                                                class="btn btn-danger"
+                                                style=" width: 79px;"
+                                                ui-sref="^.perfil-usuario">Salir</button>
+                                    </center>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group">                    
-                            <label class="control-label col-lg-4">Repetir contraseña</label> 
-                            <div class="col-lg-8">
-                                <input type="password" class="form-control" ng-model="userPw.rep" name="rep" required 
-                                       data-ng-class='{error: changePassword.rep.$invalid && !changePassword.$pristine}'/>
-                            </div>                            
-                        </div>
-                        <center style="margin-top: 10%;">
-                            <button ng-click="cambiarPassword()"
-                                    class="btn btn-success" 
-                                    style=""
-                                    ng-disabled="changePassword.$invalid">Guardar</button>
-                            <button type="button"
-                                    class="btn btn-danger"
-                                    style=" width: 79px;"
-                                    ui-sref="home.perfil-usuario">Salir</button>
-                        </center>
-                    </form>
-                </uib-tab>
-            </uib-tabset>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
         </div>
+
+
+        <div class="col-lg-3"></div>
     </body>
 </html>

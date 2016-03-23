@@ -184,21 +184,21 @@ and open the template in the editor.
                         <th style="text-align: center">Color</th> 
                         <th style="text-align: center">Marca</th> 
                         <th style="text-align: center">Factura</th> 
-                        <th style="text-align: center">Acciones</th> 
+                        <th style="text-align: center" ng-hide="edit">Acciones</th> 
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
                         ng-class="{danger: stockMinimo(producto)}">
                         <td style="text-align: center">{{producto.idProducto}}</td>
-                        <td style="text-align: center"><a href="" ui-sref="home.producto-detalle({idProducto:{{producto.idProducto}}})">{{producto.descripcion | uppercase}}</td>
+                        <td style="text-align: center"><a href="" ui-sref="^.producto-detalle({idProducto:{{producto.idProducto}}})">{{producto.descripcion | uppercase}}</td>
                         <td style="text-align: center">{{producto.cantidadTotal}}</td>
                         <td style="text-align: center">{{producto.claseProducto}}</td>
                         <td style="text-align: center">{{producto.talla| uppercase}}</td>
                         <td style="text-align: center">{{producto.colorProducto| uppercase}}</td>                
                         <td style="text-align: center">{{producto.marcas.nombreMarca| uppercase}}</td>                
                         <td style="text-align: center">{{producto.numeroFactura| uppercase}}</td>                
-                        <td style="text-align: center">
+                        <td style="text-align: center" ng-hide="edit">
                             <button class="btn btn-xs btn-danger"
                                     type="button"                            
                                     data-toggle="modal" data-target="#myModal"

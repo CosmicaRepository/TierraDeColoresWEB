@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" ng-controller="UsuarioController">            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/ventas" id="nav-titulo">Tierra de colores</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse pull-right" style="margin-right: 5%;" data-ng-init="detailUsuario()">
+                <ul class="nav navbar-nav" ng-show="user.idUsuario">
+                    <li ui-sref-active="active"><a href="" ui-sref=".perfil-usuario"><img ng-src="data:image/JPEG;base64,{{user.imagen}}" style="width: 25px; height: 25px; margin-right: 10px;">{{user.nombre}}</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stock<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Productos</li>
+                            <li ui-sref-active="active"><a href="" ui-sref=".producto-busqueda">Busqueda <span class="glyphicon glyphicon-search"></span></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Stock</li>
+                            <li ui-sref-active="active"><a href="" ui-sref=".categorias">Categorias</a></li>
+                            <li ui-sref-active="active"><a href="" ui-sref=".marcas">Marcas</a></li>
+                        </ul>
+                    </li> 
+                    <li ui-sref-active="active"><a href="" ui-sref=".estadisticas" style="height: 55px;">Estadisticas</a></li>
+                    <li><a href="" ng-controller="LoginController" ng-click="logout()">Salir</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->            
+        </nav>        
+        <article ui-view>
+            <center>
+                <h1 id="tituloInicio">Bienvenido/a al Sistema de tierra de colores</h1>
+            </center>    
+        </article>
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+
+</body>
+</html>
