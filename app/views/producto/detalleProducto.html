@@ -45,11 +45,11 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Precio costo</label>
-                        <div type="text" class="col-xs-7">${{foundProducto.precioCosto}}</div>
+                        <div type="text" class="col-xs-7">{{foundProducto.precioCosto|currency}}</div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Precio venta</label>
-                        <div type="text" class="col-xs-7">${{foundProducto.precioVenta}}</div>
+                        <div type="text" class="col-xs-7">{{foundProducto.precioVenta|currency}}</div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-5">Cantidad en stock</label>
@@ -291,7 +291,6 @@ and open the template in the editor.
                                 </div>               
                             </div>
                             <button class="btn btn-warning"
-                                    ng-disabled="updateProducto.$invalid"
                                     style="margin-left: 40%;"
                                     data-dismiss="modal"
                                     ng-click="_modificarProducto(__producto)">Modificar</button>

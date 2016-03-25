@@ -187,10 +187,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
      * @returns {undefined}
      */
     $scope.agregarProducto = function (producto) {
-        var fecha = producto.fechaProducto.getFullYear() + "-" +
-                (producto.fechaProducto.getMonth() + 1) + "-" +
-                producto.fechaProducto.getDate();
-        producto.fechaProducto = fecha;
         $promesa = _productoService.add(producto);
         $promesa.then(function (datos) {
             if (datos.status === 200) {

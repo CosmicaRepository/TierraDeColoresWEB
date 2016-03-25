@@ -22,9 +22,10 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'io-barcode'])
         .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = false; /*Activar/Desactivar Spinner.*/
-            var auth = function ($cookies, $rootScope, $http, $state, $timeout) {
+            var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/logged';
+            var session = 'https://tierradecoloresapi.herokuapp.com/usuarios/activeSession';
+            var auth = function ($rootScope, $http, $state, $timeout, $cookies) {
                 var tk = $cookies.get('a_tk');
-                var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/logged';
                 $http({
                     url: uri,
                     method: 'post',
@@ -47,12 +48,29 @@ var miAppHome = angular.module('tierraDeColoresApp',
                             $state.go('500');
                         }, 100);
                     }
-                    if (response.status === 401 || response.status === 403) {
+                    if (response.status === 403) {
                         $rootScope.isLoggedIn = false;
                         $timeout(function timer() {
                             $state.go('ventas');
                         }, 100);
-                    }                    
+                    }
+                });
+            };
+            var activeSession = function ($http, $state, $timeout, $rootScope, $cookies) {
+                var tk = $cookies.get('a_tk');
+                $http({
+                    url: session,
+                    method: 'post',
+                    headers: {
+                        'Authorization': 'Bearer ' + tk,
+                        'Content-type': 'application/json'
+                    }
+                }).then(function (datos) {
+                    if (datos.status === 200) {
+                        $timeout(function timer() {
+                            $state.go(datos.data.msg);
+                        }, 100);
+                    }
                 });
             };
             $urlRouterProvider.otherwise("/404");
@@ -62,13 +80,15 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         url: '',
                         templateUrl: "views/login.html",
                         controller: "LoginController",
-                        data: {pageTitle: 'Inicio de sesión.'}
+                        data: {pageTitle: 'Inicio de sesión.'},
+                        resolve: {isLogged: activeSession}
                     })
                     .state('login.bar', {
                         url: '/',
                         templateUrl: "views/login.html",
                         controller: "LoginController",
-                        data: {pageTitle: 'Inicio de sesión.'}
+                        data: {pageTitle: 'Inicio de sesión.'},
+                        resolve: {isLogged: activeSession}
                     })
                     /*Paginas de error*/
                     .state('404', {
@@ -251,11 +271,11 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         controller: "UsuarioController",
                         data: {pageTitle: 'Ventas - Perfil'}
                     }).state('ventas.usuario-modificar', {
-                        url: '/modificar-usuario',
-                        templateUrl: "views/usuario/modificarUsuario.html",
-                        controller: "UsuarioController",
-                        data: {pageTitle: 'Ventas - Modificar perfil'}
-                    })/*MODULO STOCK*/
+                url: '/modificar-usuario',
+                templateUrl: "views/usuario/modificarUsuario.html",
+                controller: "UsuarioController",
+                data: {pageTitle: 'Ventas - Modificar perfil'}
+            })/*MODULO STOCK*/
                     /*Productos*/
                     .state('ventas.producto-busqueda', {
                         url: '/busqueda-de-productos',
@@ -263,11 +283,11 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         controller: "ProductoController",
                         data: {pageTitle: 'Ventas - Busqueda de productos'}
                     }).state('ventas.producto-detalle', {
-                        url: '/producto/:idProducto',
-                        templateUrl: "views/producto/detalleProducto.html",
-                        controller: "ProductoController",
-                        data: {pageTitle: 'Ventas - Detalle de producto'}
-                    })
+                url: '/producto/:idProducto',
+                templateUrl: "views/producto/detalleProducto.html",
+                controller: "ProductoController",
+                data: {pageTitle: 'Ventas - Detalle de producto'}
+            })
                     /*Categorias*/
                     .state('ventas.categorias', {
                         url: '/categorias',

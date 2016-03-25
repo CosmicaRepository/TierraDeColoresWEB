@@ -93,10 +93,9 @@ miAppHome.controller('ModalController',
                                         console.log(datos);
                                         var totalUpdate = 0;
                                         angular.forEach(datos.data, function (value, key) {
-                                            totalUpdate = parseInt(totalUpdate) + parseInt(value.totalDetalle);
+                                            totalUpdate = parseFloat(totalUpdate) + parseFloat(value.totalDetalle);
                                         });
                                         $scope.toUpdateFactura.total = totalUpdate;
-                                        console.log($scope.toUpdateFactura);
                                         $updateTotal = facturaService.update($scope.toUpdateFactura);
                                         $updateTotal.then(function (datos) {
                                             $updated = facturaService.searchById(idFactura);

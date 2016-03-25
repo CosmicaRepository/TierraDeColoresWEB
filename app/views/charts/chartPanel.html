@@ -44,10 +44,10 @@ and open the template in the editor.
                             <center><h4 style="margin-bottom: 20px; text-decoration: underline">Monto total por empleado</h4></center>                            
                             <div class="row"
                                  data-ng-repeat="monto in montoVendedor| orderBy : '-monto' ">
-                                <div class="form-group col-xs-9" uib-tooltip="Cantidad total: ${{cantidad.monto}}">
+                                <div class="form-group col-xs-9" uib-tooltip="Cantidad total: {{monto.monto|currency}}">
                                     <label class="control-label">{{monto.nombre}} {{monto.apellido}}</label> 
                                     <span class="label label-success pull-right"                                          
-                                          style="font-size: 10pt; width: 60px;">${{monto.monto}}</span>
+                                          style="font-size: 10pt; width: 90px;">{{monto.monto|currency}}</span>
                                 </div>                                   
                             </div>
                         </div>
@@ -83,10 +83,10 @@ and open the template in the editor.
                             <center><h4 style="margin-bottom: 20px; text-decoration: underline">Monto total por Medio de Pago</h4></center>                            
                             <div class="row"
                                  data-ng-repeat="monto in montoMedioPago| orderBy : '-monto' ">
-                                <div class="form-group col-xs-9" uib-tooltip="Monto total: ${{monto.monto}}">
+                                <div class="form-group col-xs-9" uib-tooltip="Monto total: {{monto.monto|currency}}">
                                     <label class="control-label">{{monto.nombreMedio}}</label> 
                                     <span class="label label-success pull-right"                                          
-                                          style="font-size: 10pt; width: 60px;">${{monto.monto}}</span>
+                                          style="font-size: 10pt; width: 90px;">{{monto.monto|currency}}</span>
                                 </div>                                   
                             </div>
                         </div>                        

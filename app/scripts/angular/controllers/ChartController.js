@@ -101,7 +101,7 @@ miAppHome.controller('ChartController', function ($scope, chartService, facturaS
                         });
                     }
                     angular.forEach(datos.data, function (value, key) {
-                        $scope.sum = parseInt($scope.sum) + parseInt(value.value);
+                        $scope.sum = parseFloat($scope.sum) + parseFloat(value.value);
                     });
                     $scope.cantidadVendedor.push({
                         nombre: value.nombre,
@@ -178,11 +178,6 @@ miAppHome.controller('ChartController', function ($scope, chartService, facturaS
      * @returns {undefined}
      */
     $scope.estadisticasVentasMonto = function () {
-        $scope.estadistica = {
-            'nombre': '',
-            'apellido': '',
-            'monto': 0
-        };
         $scope.montoVendedor = [];
         $scope.chartConfigVentas.loading = true;
         $vendedores = facturaService.getVendedores();
@@ -211,7 +206,7 @@ miAppHome.controller('ChartController', function ($scope, chartService, facturaS
                         });
                     }
                     angular.forEach(datos.data, function (value, key) {
-                        $scope.sum = parseInt($scope.sum) + parseInt(value.value);
+                        $scope.sum = parseFloat($scope.sum) + parseFloat(value.value);
                     });
                     $scope.montoVendedor.push({
                         nombre: value.nombre,
@@ -312,7 +307,7 @@ miAppHome.controller('ChartController', function ($scope, chartService, facturaS
                             color: colors[key]
                         });
                         angular.forEach(datos.data, function (value, key) {
-                            $scope.sum = parseInt($scope.sum) + parseInt(value.value);
+                            $scope.sum = parseFloat($scope.sum) + parseFloat(value.value);
                         });
                         console.log(value);
                         $scope.montoMedioPago.push({
@@ -411,7 +406,7 @@ miAppHome.controller('ChartController', function ($scope, chartService, facturaS
                             color: colors[key]
                         });
                         angular.forEach(datos.data, function (value, key) {
-                            $scope.sum = parseInt($scope.sum) + parseInt(value.value);
+                            $scope.sum = parseFloat($scope.sum) + parseFloat(value.value);
                         });
                         console.log(value);
                         $scope.cantidadMedioPago.push({

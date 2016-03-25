@@ -36,7 +36,7 @@ and open the template in the editor.
                     <tr ng-repeat="factura in $data">
                         <td style="width: 30px; text-align: center;"><a href="">{{factura.idFactura}}</a></td>
                         <td style="width: 150px;">{{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}</td>
-                        <td style="width: 40px; text-align: center">${{factura.total}}</td>
+                        <td style="width: 40px; text-align: center">{{factura.total|currency}}</td>
                         <td style="text-align: center; width: 150px;">{{factura.fechaCreacion| date : 'medium'}}</td>
                         <td style="width: 50px; text-align: center;">{{factura.estado}}</td>
                         <td>{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}</td>
@@ -49,7 +49,7 @@ and open the template in the editor.
                 <tfoot>
                     <tr>
                         <th>Total</th>
-                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">${{totalFacturas}}</th>
+                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">{{totalFacturas|currency}}</th>
                     </tr>
                 </tfoot>
             </table>
@@ -80,7 +80,7 @@ and open the template in the editor.
                     <tr ng-repeat="factura in $data">
                         <td style="width: 30px; text-align: center;"><a href="">{{factura.idFactura}}</a></td>
                         <td style="width: 150px;">{{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}</td>
-                        <td style="width: 40px; text-align: center">${{factura.total}}</td>
+                        <td style="width: 40px; text-align: center">{{factura.total|currency}}</td>
                         <td style="text-align: center; width: 150px;">{{factura.fechaCreacion| date : 'medium'}}</td>
                         <td style="width: 50px; text-align: center;">{{factura.estado}}</td>
                         <td>{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}</td>
@@ -93,7 +93,7 @@ and open the template in the editor.
                 <tfoot>
                     <tr>
                         <th>Total</th>
-                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">${{totalFacturasDiaria}}</th>
+                        <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">{{totalFacturasDiaria|currency}}</th>
                     </tr>
                 </tfoot>
             </table>

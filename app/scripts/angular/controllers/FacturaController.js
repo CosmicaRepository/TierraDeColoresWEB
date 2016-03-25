@@ -107,7 +107,7 @@ miAppHome.controller('FacturaController',
                         var data = datos.data;
                         angular.forEach(data, function (value, key) {
 //                            value.idDetalleFactura = key + 1; //posiblemente a eliminar, de mas
-                            $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
+                            $scope.totalCompra = parseFloat($scope.totalCompra) + parseFloat(value.totalDetalle);
                         });
                         $scope.tableParams = new NgTableParams({
                             page: 1,
@@ -133,7 +133,7 @@ miAppHome.controller('FacturaController',
                             $scope.totalCompra = 0;
                             angular.forEach(datos.data, function (value, key) {
 //                                value.idDetalleFactura = key; //posiblemente a eliminar, de mas
-                                $scope.totalCompra = parseInt($scope.totalCompra) + parseInt(value.totalDetalle);
+                                $scope.totalCompra = parseFloat($scope.totalCompra) + parseFloat(value.totalDetalle);
                             });
                             $scope.tableParams.reload();
                         });
@@ -168,7 +168,7 @@ miAppHome.controller('FacturaController',
                         $scope.metodoPagos = datos.data;
                         var data = datos.data;
                         angular.forEach(datos.data, function (value, key) {
-                            $scope.totalPago = parseInt($scope.totalPago) + parseInt(value.montoPago);
+                            $scope.totalPago = parseFloat($scope.totalPago) + parseFloat(value.montoPago);
                         });
                         $scope.tableMetodos = new NgTableParams({
                             page: 1,
@@ -252,7 +252,7 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         /* suma monto a pagar y total para controlar que no exceda a la factura*/
-                        var compare = parseInt($scope.totalPago) + parseInt($scope.montoPago);
+                        var compare = parseFloat($scope.totalPago) + parseFloat($scope.montoPago);
                         if (datos.data.total >= compare) {
                             $scope._metodoPago.factura = datos.data;
                             /* control para separar pago contado y otros metodos*/
@@ -289,7 +289,7 @@ miAppHome.controller('FacturaController',
                                             $recharge.then(function (datos) {
                                                 var control = 0;
                                                 angular.forEach(datos.data, function (value, key) {
-                                                    control = parseInt(control) + parseInt(value.montoPago);
+                                                    control = parseFloat(control) + parseFloat(value.montoPago);
                                                 });
                                                 $scope.totalPago = control;
                                                 $scope.metodoPagos = datos.data;
@@ -404,7 +404,7 @@ miAppHome.controller('FacturaController',
                             $scope.totalFacturas = 0;
                             angular.forEach(datos.data, function (value, key) {
                                 if (value.estado === 'CONFIRMADO') {
-                                    $scope.totalFacturas = parseInt($scope.totalFacturas) + parseInt(value.total);
+                                    $scope.totalFacturas = parseFloat($scope.totalFacturas) + parseFloat(value.total);
                                 }
                             });
                             $scope.facturas = datos.data;
@@ -433,7 +433,7 @@ miAppHome.controller('FacturaController',
                             $scope.totalFacturasDiaria = 0;
                             angular.forEach(datos.data, function (value, key) {
                                 if (value.estado === 'CONFIRMADO') {
-                                    $scope.totalFacturasDiaria = parseInt($scope.totalFacturasDiaria) + parseInt(value.total);
+                                    $scope.totalFacturasDiaria = parseFloat($scope.totalFacturasDiaria) + parseFloat(value.total);
                                 }
                             });
                             $scope.facturaDiarias = datos.data;
@@ -472,7 +472,7 @@ miAppHome.controller('FacturaController',
                         $metodo = metodoPagoFacturaService.getListaPagoFactura(idFactura);
                         $metodo.then(function (datos) {
                             angular.forEach(datos.data, function (value, key) {
-                                metodo = parseInt(metodo) + parseInt(value.montoPago);
+                                metodo = parseFloat(metodo) + parseFloat(value.montoPago);
                             });
                             $promesa = facturaService.searchById(idFactura);
                             $promesa.then(function (datos) {
