@@ -13,85 +13,86 @@ and open the template in the editor.
         <div class="col-lg-6" style="margin-top: 100px;">
             <center id="agregarUsuario">
                 <form class="form-horizontal" name="registrarUsuario" autocomplete="off">
-                    <h2 id="tituloUsuario">Registrar nuevo usuario</h2>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Nombre</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.nombre" name="nombre" required
-                                   data-ng-class='{ error: registrarUsuario.nombre.$invalid && !registrarUsuario.$pristine }'/>
+                    <fieldset>
+                        <legend style="font-size: xx-large;">Registrar nuevo Usuario</legend>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Nombre</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.nombre" name="nombre" required
+                                       data-ng-class='{ error: registrarUsuario.nombre.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Apellido</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.apellido" name="apellido" required
-                                   data-ng-class='{ error: registrarUsuario.apellido.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Apellido</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.apellido" name="apellido" required
+                                       data-ng-class='{ error: registrarUsuario.apellido.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Nombre de usuario</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.username" name="newUsernameUser" required
-                                   data-ng-class='{ error: registrarUsuario.newUsername.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Nombre de usuario</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.username" name="newUsernameUser" required
+                                       data-ng-class='{ error: registrarUsuario.newUsername.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Contraseña</label>
-                        <div class="col-lg-8">
-                            <input type="password" class="form-control" ng-model="user.passwordUsuario" name="newPasswordUser" required
-                                   data-ng-class='{ error: registrarUsuario.newPassword.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Contraseña</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" ng-model="user.passwordUsuario" name="newPasswordUser" required
+                                       data-ng-class='{ error: registrarUsuario.newPassword.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">D.N.I.</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.dni" name="dni" required
-                                   data-ng-class='{ error: registrarUsuario.dni.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">D.N.I.</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.dni" name="dni" required
+                                       data-ng-class='{ error: registrarUsuario.dni.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Domicilio</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.domicilio" name="domicilio" required
-                                   data-ng-class='{ error: registrarUsuario.domicilio.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Domicilio</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.domicilio" name="domicilio" required
+                                       data-ng-class='{ error: registrarUsuario.domicilio.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Fecha nacimiento</label>
-                        <div class="col-lg-8">
-                            <p class="input-group">
-                                <input type="text" class="form-control"
-                                       uib-datepicker-popup ng-model="user.fechaNacimiento"
-                                       is-open="popup2.opened" 
-                                       datepicker-options="dateOptions"
-                                       ng-required="true"
-                                       current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                            </p>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Fecha nacimiento</label>
+                            <div class="col-lg-8">
+                                <p class="input-group">
+                                    <input type="text" class="form-control"
+                                           uib-datepicker-popup ng-model="user.fechaNacimiento"
+                                           is-open="popup2.opened" 
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">E-mail</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.email" name="email" required 
-                                   data-ng-class='{ error: registrarUsuario.email.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">E-mail</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.email" name="email" required 
+                                       data-ng-class='{ error: registrarUsuario.email.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">                    
-                        <label class="col-lg-4 control-label">Telefono</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="user.telefono" name="telefono" required 
-                                   data-ng-class='{ error: registrarUsuario.telefono.$invalid && !registrarUsuario.$pristine }'/>
+                        <div class="form-group">                    
+                            <label class="col-lg-4 control-label">Telefono</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" ng-model="user.telefono" name="telefono" required 
+                                       data-ng-class='{ error: registrarUsuario.telefono.$invalid && !registrarUsuario.$pristine }'/>
+                            </div>
                         </div>
-                    </div>
-                    <button class="btn btn-lg btn-success"
-                            id="btn-register" 
-                            type="submit"
-                            ng-click="nuevoUsuario(user)"
-                            ng-disabled="registrarUsuario.$invalid">Registrarse</button>
-
+                        <button class="btn btn-lg btn-success"
+                                id="btn-register" 
+                                type="submit"
+                                ng-click="nuevoUsuario(user)"
+                                ng-disabled="registrarUsuario.$invalid">Registrarse</button>
+                    </fieldset>
                 </form>
             </center>
         </div>

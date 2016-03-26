@@ -220,10 +220,9 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
      * @returns {undefined}
      */
     $scope.randomCode = function (idCategoria, idMarca, talla) {
-        console.log(idCategoria, idMarca, talla);
         var codigo = Math.floor((Math.random() * 9999) + 1000);
         var barcode = "";
-        if (idMarca === null && idCategoria === null & talla === "") {
+        if (idMarca === null || idCategoria === null || talla === "") {
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -459,6 +458,109 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
         $scope.hide = false;
         $scope.listaBusqueda = "";
         $scope.tableBusqueda.reload();
+    };
+
+    $scope.agregarRepetirClase = function (producto) {
+        $add = _productoService.add(producto);
+        $add.then(function (datos) {
+            if (datos.status === 200) {
+                /*deshabilitamos campos que no deben cambiar*/
+                $scope.descripcionProducto = true;
+                $scope.marcaProducto = true;
+                $scope.categoriaProducto = true;
+                $scope.temporadaProducto = true;
+                $scope.sexoProducto = true;
+                $scope.tallaProducto = true;
+                $scope.colorProducto = true;
+                $scope.codigoProducto = true;
+                $scope.facturaProducto = true;
+                $scope.fechaProducto = true;
+                $scope.proveedorProducto = true;
+                /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
+                $scope.claseProducto = false;
+                $scope.stockProducto = false;
+                $scope.minimoProducto = false;
+                /*limpiamos campos*/
+                $scope._producto.claseProducto = "";
+                $scope._producto.precioCosto = "";
+                $scope._producto.precioLista = "";
+                $scope._producto.precioVenta = "";
+                $scope._producto.cantidadMinima = "";
+                $scope._producto.cantidadTotal = "";
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito.',
+                    body: 'Producto añadido, puedes recargar otro.',
+                    showCloseButton: false
+                });
+            } else {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: 'No se ha podido agregar Producto.',
+                    showCloseButton: false
+                });
+            }
+        }).catch(function (fallback) {
+            toaster.pop({
+                type: 'error',
+                title: 'Error',
+                body: 'No se ha podido agregar Producto.',
+                showCloseButton: false
+            });
+        });
+    };
+
+    $scope.agregarCambiarTalla = function (producto) {
+        $add = _productoService.add(producto);
+        $add.then(function (datos) {
+            if (datos.status === 200) {
+                /*deshabilitamos campos que no deben cambiar*/
+                $scope.descripcionProducto = true;
+                $scope.marcaProducto = true;
+                $scope.categoriaProducto = true;
+                $scope.temporadaProducto = true;
+                $scope.sexoProducto = true;
+                $scope.claseProducto = true;
+                $scope.facturaProducto = true;
+                $scope.fechaProducto = true;
+                $scope.proveedorProducto = true;
+                /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
+                $scope.codigoProducto = false;
+                $scope.colorProducto = false;
+                $scope.stockProducto = false;
+                $scope.minimoProducto = false;
+                $scope.tallaProducto = false;
+                /*limpiamos codigo para evitar repetir*/
+                $scope._producto.codigoProducto = "";
+                $scope._producto.precioCosto = "";
+                $scope._producto.precioLista = "";
+                $scope._producto.precioVenta = "";
+                $scope._producto.cantidadMinima = "";
+                $scope._producto.cantidadTotal = "";
+                $scope._producto.talla = "";
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito.',
+                    body: 'Producto añadido, puedes recargar otro.',
+                    showCloseButton: false
+                });
+            } else {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: 'No se ha podido agregar Producto.',
+                    showCloseButton: false
+                });
+            }
+        }).catch(function (fallback) {
+            toaster.pop({
+                type: 'error',
+                title: 'Error',
+                body: 'No se ha podido agregar Producto.',
+                showCloseButton: false
+            });
+        });
     };
 });
 

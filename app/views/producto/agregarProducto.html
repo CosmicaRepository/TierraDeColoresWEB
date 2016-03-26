@@ -9,275 +9,297 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <center id="agregarProducto">
-        <form class="form-horizontal" name="nuevoProducto">
-            <h2 class="iniciarSesion" style="color: black">Agregar nuevo Producto</h2>
 
-            <div class="form-group"> 
-                <label class="control-label col-lg-4">Descripcion </label>
-                <div class="col-lg-8">
-                    <input type="text"
-                           style="text-transform:uppercase;"
-                           class="form-control"
-                           maxlength="30"
-                           placeholder="Descripción del producto"
-                           ng-model="_producto.descripcion"
-                           name="descripcion" required
-                           data-ng-class='{error: nuevoProducto.descripcion.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Marca</label>
-                <div class="col-lg-8" ng-controller="MarcaController">                    
-                    <input type="text" 
-                           ng-model="_producto.marcas"
-                           placeholder="Buscar marca..."
-                           maxlength="20"
-                           uib-typeahead="marca as marca.nombreMarca for marca in getMarca($viewValue)"
-                           typeahead-loading="loadingcliente"
-                           typeahead-no-results="noResults" class="form-control">
-                    <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6" style="margin-top: 100px;">
+            <center id="agregarProducto">
+                <form class="form-horizontal" name="nuevoProducto">
+                    <fieldset>
+                        <legend style="font-size: xx-large;">Registrar nuevo Producto</legend>
+
+                        <div class="form-group"> 
+                            <label class="control-label col-lg-4">Descripcion </label>
+                            <div class="col-lg-8">
+                                <input type="text"
+                                       style="text-transform:uppercase;"
+                                       class="form-control"
+                                       maxlength="30"
+                                       ng-disabled="descripcionProducto"
+                                       placeholder="Descripción del producto"
+                                       ng-model="_producto.descripcion"
+                                       name="descripcion" required
+                                       data-ng-class='{error: nuevoProducto.descripcion.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Marca</label>
+                            <div class="col-lg-8" ng-controller="MarcaController">                    
+                                <input type="text" 
+                                       ng-model="_producto.marcas"
+                                       placeholder="Buscar marca..."
+                                       maxlength="20"
+                                       ng-disabled="marcaProducto"
+                                       uib-typeahead="marca as marca.nombreMarca for marca in getMarca($viewValue)"
+                                       typeahead-loading="loadingcliente"
+                                       typeahead-no-results="noResults" class="form-control">
+                                <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
+                                <div ng-show="noResults">
+                                    <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Categoria</label>
+                            <div class="col-lg-8" ng-controller="CategoriaController" data-ng-init="listaCategorias()" >
+                                <select class="form-control"
+                                        ng-disabled="categoriaProducto"
+                                        ng-options="categoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" 
+                                        ng-model="_producto.categoria">
+                                    <option value="" disabled selected>Seleccionar categoria</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Temporada</label>
+                            <div class="col-lg-8">                                        
+                                <select class="form-control"
+                                        ng-disabled="temporadaProducto"
+                                        ng-controller="TemporadaController"
+                                        data-ng-init="listaTemporadas()"
+                                        ng-options="temporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada"
+                                        ng-model="_producto.temporada">
+                                    <option value="" disabled selected>Seleccionar temporada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Sexo</label>
+                            <div class="col-lg-8">                    
+                                <select class="form-control"
+                                        ng-disabled="sexoProducto"
+                                        data-ng-init="listaSexos()"
+                                        ng-controller="SexoController"
+                                        ng-options="sexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo"
+                                        ng-model="_producto.sexo">
+                                    <option value="" disabled selected>Seleccionar sexo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Talla</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" 
+                                       style="text-transform:uppercase;"
+                                       maxlength="3"
+                                       ng-disabled="tallaProducto"
+                                       placeholder="Ingresar talla"
+                                       ng-model="_producto.talla" name="talla" required
+                                       data-ng-class='{error: nuevoProducto.talla.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Color</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="20"
+                                       ng-disabled="colorProducto"
+                                       placeholder="Ingresar color"
+                                       ng-model="_producto.colorProducto" name="color" required
+                                       data-ng-class='{error: nuevoProducto.color.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Codigo</label>   
+                            <div class="input-group col-lg-7" id="btnRandom">                   
+                                <input type="text" class="form-control"
+                                       ng-model="_producto.codigoProducto" 
+                                       name="codigo" 
+                                       ng-disabled="codigoProducto"
+                                       placeholder="Codigo de barras"
+                                       required maxlength="20"
+                                       data-ng-class='{error: nuevoProducto.codigo.$invalid && !nuevoProducto.$pristine}'/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" 
+                                            ng-click="_producto.codigoProducto = randomCode(
+                                                _producto.categoria.idCategoria,
+                                                _producto.marcas.idMarca,
+                                                _producto.talla)"
+                                            ng-disabled="_producto.codigoProducto"
+                                            type="button">Random</button>
+                                </span>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">N° de Factura</label>
+                            <div class="col-lg-8">
+                                <input type="text"
+                                       class="col-xs-6 form-control"
+                                       maxlength="6"
+                                       ng-disabled="facturaProducto"
+                                       placeholder="Ingresar numero de factura"
+                                       ng-model="_producto.numeroFactura" name="factura" required
+                                       data-ng-class='{error: nuevoProducto.factura.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Fecha de compra</label>
+                            <div class="col-lg-8">
+                                <p class="input-group">
+                                    <input type="text" class="form-control"
+                                           uib-datepicker-popup ng-model="_producto.fechaProducto"
+                                           is-open="popup2.opened" 
+                                           ng-disabled="fechaProducto"
+                                           placeholder="Ingresar fecha de compra"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Clase</label>
+                            <div class="col-lg-8">
+                                <select class="form-control"
+                                        ng-disabled="claseProducto"
+                                        ng-model="_producto.claseProducto">
+                                    <option value="" disabled selected>Seleccionar clase de producto</option>
+                                    <option value="A"> Clase A</option>
+                                    <option value="B"> Clase B</option>
+                                </select>
+                            </div>
+                        </div>            
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Stock</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="3"
+                                       ng-disabled="stockProducto"
+                                       placeholder="Ingresar stock total"
+                                       ng-model="_producto.cantidadTotal" name="stock" required
+                                       data-ng-class='{error: nuevoProducto.stock.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Stock minimo</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="3"
+                                       ng-disabled="minimoProducto"
+                                       placeholder="Ingresar stock minimo"
+                                       ng-model="_producto.cantidadMinima" name="minimo" required
+                                       data-ng-class='{error: nuevoProducto.minimo.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Precio de Lista</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="7"
+                                       placeholder="0000.00"
+                                       ng-model="_producto.precioLista" name="lista" required
+                                       data-ng-class='{error: nuevoProducto.lista.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Precio de Costo</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="7"
+                                       placeholder="0000.00"
+                                       ng-model="_producto.precioCosto" name="costo" required
+                                       data-ng-class='{error: nuevoProducto.costo.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Precio de Venta</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                       maxlength="7"
+                                       placeholder="0000.00"
+                                       ng-model="_producto.precioVenta" name="venta" required
+                                       data-ng-class='{error: nuevoProducto.venta.$invalid && !nuevoProducto.$pristine}'/>
+                            </div>
+                        </div>            
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Proveedor</label>
+                            <div class="col-lg-8" ng-controller="ProveedorController">
+                                <input type="text" 
+                                       maxlength="20"
+                                       ng-disabled="proveedorProducto"
+                                       ng-model="_producto.proveedor"
+                                       placeholder="Buscar proveedor..."
+                                       uib-typeahead="proveedor as proveedor.nombreProveedor for proveedor in getProveedor($viewValue)"
+                                       typeahead-loading="loadingcliente"
+                                       typeahead-no-results="noResults" class="form-control">
+                                <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
+                                <div ng-show="noResults">
+                                    <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                                </div>
+                            </div>               
+                        </div>
+                        <button class="btn btn-warning"
+                                id="btnFinalizarProducto" 
+                                data-toggle="modal" 
+                                uib-tooltip="Agregar producto"
+                                data-target="#againModal"
+                                >AGREGAR</button>
+                    </fieldset>
+                </form>
+            </center>
+        </div>
+        <div class="col-lg-3"></div>
+
+
+
+        <div class="modal fade" id="againModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Repetir producto</h4>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Categoria</label>
-                <div class="col-lg-8" ng-controller="CategoriaController" data-ng-init="listaCategorias()" >
-                    <select class="form-control"
-                            ng-options="categoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" 
-                            ng-model="_producto.categoria">
-                        <option value="" disabled selected>Seleccionar categoria</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Temporada</label>
-                <div class="col-lg-8">                                        
-                    <select class="form-control"
-                            ng-controller="TemporadaController"
-                            data-ng-init="listaTemporadas()"
-                            ng-options="temporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada"
-                            ng-model="_producto.temporada">
-                        <option value="" disabled selected>Seleccionar temporada</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Sexo</label>
-                <div class="col-lg-8">                    
-                    <select class="form-control"
-                            data-ng-init="listaSexos()"
-                            ng-controller="SexoController"
-                            ng-options="sexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo"
-                            ng-model="_producto.sexo">
-                        <option value="" disabled selected>Seleccionar sexo</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Talla</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control" 
-                           style="text-transform:uppercase;"
-                           maxlength="3"
-                           placeholder="Ingresar talla"
-                           ng-model="_producto.talla" name="talla" required
-                           data-ng-class='{error: nuevoProducto.talla.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label">Color</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="20"
-                           placeholder="Ingresar color"
-                           ng-model="_producto.colorProducto" name="color" required
-                           data-ng-class='{error: nuevoProducto.color.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div> 
-            <div class="form-group">
-                <label class="control-label col-lg-4">Codigo</label>   
-                <div class="input-group col-lg-7" id="btnRandom">                   
-                    <input type="text" class="form-control"
-                           ng-model="_producto.codigoProducto" 
-                           name="codigo" 
-                           placeholder="Codigo de barras"
-                           required maxlength="20"
-                           data-ng-class='{error: nuevoProducto.codigo.$invalid && !nuevoProducto.$pristine}'/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-danger" 
-                                ng-click="_producto.codigoProducto = randomCode(
-                                            _producto.categoria.idCategoria,
-                                            _producto.marcas.idMarca,
-                                            _producto.talla)"
-                                ng-disabled="_producto.codigoProducto"
-                                type="button">Random</button>
-                    </span>
-                </div> 
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">N° de Factura</label>
-                <div class="col-lg-8">
-                    <input type="text"
-                           class="col-xs-6 form-control"
-                           maxlength="6"
-                           placeholder="Ingresar numero de factura"
-                           ng-model="_producto.numeroFactura" name="factura" required
-                           data-ng-class='{error: nuevoProducto.factura.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>  
-            <div class="form-group">
-                <label class="control-label col-lg-4">Fecha de compra</label>
-                <div class="col-lg-8">
-                    <p class="input-group">
-                        <input type="text" class="form-control"
-                               uib-datepicker-popup ng-model="_producto.fechaProducto"
-                               is-open="popup2.opened" 
-                               placeholder="Ingresar fecha de compra"
-                               datepicker-options="dateOptions"
-                               ng-required="true"
-                               current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label">Clase</label>
-                <div class="col-lg-8">
-                    <select class="form-control"
-                            ng-model="_producto.claseProducto">
-                        <option value="" disabled selected>Seleccionar clase de producto</option>
-                        <option value="A"> Clase A</option>
-                        <option value="B"> Clase B</option>
-                    </select>
-                </div>
-            </div>            
-            <div class="form-group">
-                <label class="col-lg-4 control-label">Stock</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="3"
-                           placeholder="Ingresar stock total"
-                           ng-model="_producto.cantidadTotal" name="stock" required
-                           data-ng-class='{error: nuevoProducto.stock.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Stock minimo</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="3"
-                           placeholder="Ingresar stock minimo"
-                           ng-model="_producto.cantidadMinima" name="minimo" required
-                           data-ng-class='{error: nuevoProducto.minimo.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Precio de Lista</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="7"
-                           placeholder="0000.00"
-                           ng-model="_producto.precioLista" name="lista" required
-                           data-ng-class='{error: nuevoProducto.lista.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Precio de Costo</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="7"
-                           placeholder="0000.00"
-                           ng-model="_producto.precioCosto" name="costo" required
-                           data-ng-class='{error: nuevoProducto.costo.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-4">Precio de Venta</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control"
-                           maxlength="7"
-                           placeholder="0000.00"
-                           ng-model="_producto.precioVenta" name="venta" required
-                           data-ng-class='{error: nuevoProducto.venta.$invalid && !nuevoProducto.$pristine}'/>
-                </div>
-            </div>            
-            <div class="form-group">
-                <label class="control-label col-lg-4">Proveedor</label>
-                <div class="col-lg-8" ng-controller="ProveedorController">
-                    <input type="text" 
-                           maxlength="20"
-                           ng-model="_producto.proveedor"
-                           placeholder="Buscar proveedor..."
-                           uib-typeahead="proveedor as proveedor.nombreProveedor for proveedor in getProveedor($viewValue)"
-                           typeahead-loading="loadingcliente"
-                           typeahead-no-results="noResults" class="form-control">
-                    <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                    <div class="modal-body">
+                        <center>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label>Agregar producto y finalizar.</label>
+                                    <button class="btn btn-success"
+                                            style="width: 180px;"
+                                            uib-tooltip="Finaliza la accion y te redirige a la lista de productos"
+                                            ng-click="agregarProducto(_producto)"
+                                            data-dismiss="modal"
+                                            >Finalizar</button>
+                                </div>
+                                <div class="form-group">
+                                    <label>Agregar producto y cargar otra clase.</label>
+                                    <button class="btn btn-success"
+                                            style="width: 180px;"
+                                            uib-tooltip="Agrega el producto actual y te permite agregar una clase diferente del mismo producto"
+                                            ng-click="agregarRepetirClase(_producto)"
+                                            data-dismiss="modal"
+                                            >Clase</button>
+                                </div>
+                                <div class="form-group">
+                                    <label>Agregar producto y cargar otra talla.</label>
+                                    <button class="btn btn-success"
+                                            uib-tooltip="Agrega el producto actual y te permite agregar una talla diferente del mismo producto"
+                                            style="width: 180px;"
+                                            ng-click="agregarCambiarTalla(_producto)"
+                                            data-dismiss="modal"
+                                            >Talla</button>
+                                </div>
+                            </form>
+                        </center>
                     </div>
-                </div>               
-            </div>
-            <button class="btn btn-warning"
-                    id="btnFinalizarProducto" 
-                    data-toggle="modal" 
-                    uib-tooltip="Agregar producto"
-                    data-target="#againModal"
-                    >AGREGAR</button>
-        </form>
-    </center>
-
-
-    <div class="modal fade" id="againModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Repetir producto</h4>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label>Agregar producto y finalizar.</label>
-                                <button class="btn btn-success"
-                                        style="width: 180px;"
-                                        uib-tooltip="Finaliza la accion y te redirige a la lista de productos"
-                                        ng-click="agregarProducto(_producto)"
-                                        data-dismiss="modal"
-                                        >Finalizar</button>
-                            </div>
-                            <div class="form-group">
-                                <label>Agregar producto y cargar otra clase.</label>
-                                <button class="btn btn-success"
-                                        style="width: 180px;"
-                                        uib-tooltip="Agrega el producto actual y te permite agregar una clase diferente del mismo producto"
-                                        ng-click=""
-                                        data-dismiss="modal"
-                                        >Clase</button>
-                            </div>
-                            <div class="form-group">
-                                <label>Agregar producto y cargar otra talla.</label>
-                                <button class="btn btn-success"
-                                        uib-tooltip="Agrega el producto actual y te permite agregar una talla diferente del mismo producto"
-                                        style="width: 180px;"
-                                        ng-click=""
-                                        data-dismiss="modal"
-                                        >Talla</button>
-                            </div>
-                        </form>
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</body>
+    </body>
 </html>

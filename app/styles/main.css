@@ -14,11 +14,20 @@
     border-left-color: #8904B1;
     border-radius: 50%;
 }
+
 #bodyStyle{
-    background-image: url('../images/wall5.jpg');
+    /*background-image: url('../images/wall5.jpg');*/
     /*background-repeat: no-repeat;*/    
-    /*background-size: calc;*/
+    background-size: cover;
     /*background-position:center;*/
+    background: rgba(241,231,103,1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(241,231,103,1)), color-stop(0%, rgba(254,173,38,1)), color-stop(100%, rgba(254,173,38,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
+    background: radial-gradient(ellipse at center, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#fead26', GradientType=1 );   
 }
 #login-banner{
     background: #DF013A;
@@ -178,9 +187,18 @@ body {
     border-radius: 50%;
 }
 #tableProductos{
-    background-color: white;
-    width: 60%;
-    margin-left: 20%;
+    background-color: white;    
+}
+#btnAgregarProducto{
+    margin-top: 0px;
+    width: 95px;
+    padding-top: 0px;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 #headTableProductos{
     background:black; 
@@ -188,11 +206,8 @@ body {
     text-align: center;
 }
 #agregarProducto{
-    width: 40%;
-    margin-top: 5%; 
     background-color: white;
-    border-radius: 25px;    
-    margin-left: 30%;
+    border-radius: 25px;
     margin-bottom: 5%;
 }
 #btnRandom{
@@ -325,7 +340,7 @@ body {
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
     color: #FFF;
     /*font-weight:bolder;*/
-    background-color: rgb(255, 202, 104);
+    background-color: rgb(254, 173, 38);
 }
 .dropdown-menu {
     padding: 0px 0;
