@@ -9,140 +9,166 @@ and open the template in the editor.
         <title></title>        
     </head>
     <body>
-    <uib-tabset justified="true"
-                ng-show="categorias[1]"
-                id="tabCategoria">
-        <uib-tab heading="Lista de Categorias">
-            <table data-ng-init="listaCategorias()"
-                   ng-table="tableCategorias"
-                   class="table table-bordered">
-                <thead id="headTableProductos">
-                    <tr>
-                        <th style="text-align: center">ID</th>
-                        <th style="text-align: center">Nombre</th> 
-                        <th style="text-align: center">Fecha</th> 
-                        <th style="text-align: center" ng-hide="edit">Acciones</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="categoria in $data">
-                        <th style="text-align: center">{{categoria.idCategoria}}</th>
-                        <th style="text-align: center">{{categoria.nombreCategoria}}</th>                        
-                        <th style="text-align: center">{{categoria.fechaCreacion}}</th>                        
-                        <th style="text-align: center" ng-hide="edit">
-                            <button type="button"                                     
-                                    class="btn btn-xs btn-info"
-                                    data-toggle="modal"
-                                    data-target="#myModal"
-                                    uib-tooltip="Modificar categoria"
-                                    ng-click="seleccionarCategoria(categoria)">
-                                <span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button"   
-                                    data-toggle="modal"
-                                    data-target="#myModalDelete"
-                                    uib-tooltip="Eliminar categoria"
-                                    class="btn btn-xs btn-danger" 
-                                    ng-click="seleccionarCategoria(categoria)">
-                                <span class="glyphicon glyphicon-trash"></span></button>
-                        </th>                        
-                    </tr>
-                </tbody>
-            </table>
-        </uib-tab>
-        <uib-tab heading="Agregar nueva categoria" ng-hide="edit">
-            <form name="newCategoria" class="form-horizontal" style="width: 70%; margin-left: 15%; margin-top: 5%;">
-                <center><h3>Nueva categoria</h3></center>
-                <div class="form-group" style="margin-top: 13%;">                    
-                    <label class="control-label">Nombre categoria</label>
-                    <input type="text" class="form-control" ng-model="_categoria.nombreCategoria" name="categoria" required
-                           data-ng-class='{error: newCategoria.categoria.$invalid && !newCategoria.$pristine}'/>
-                </div>
-                <div class="form-group" ng-controller="TipoController" data-ng-init="listaTipo()">                    
-                    <label class="control-label">Tipo de producto</label>
-                    <select name="tipo" class="form-control" ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo" ng-model="_categoria.tipoCategoria" required
-                            data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
-                </div>
-                <div class="form-group">
-                    <button ng-click="agrearCategoria(_categoria)"
-                            type="submit"
-                            id="btnAgregarCategoria"
-                            class="btn btn-warning"
-                            ng-disabled="newCategoria.$invalid">Agregar</button>
-                </div>
-            </form>
-        </uib-tab>        
-    </uib-tabset>
-
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modificar Categoria</h4>
-                </div>
-                <form name="modificarCategoria" class="form-horizontal" id="newAfilidadoModal">    
-                    <div class="form-group">                    
-                        <label class="col-lg-3 control-label">Id</label>
-                        <div class="col-lg-7">
-                            <input type="number" class="form-control" ng-model="__categoria.idCategoria" name="idCategoria" required  disabled
-                                   data-ng-class='{ error: modificarCategoria.idCategoria.$invalid && !modificarCategoria.$pristine }'/>            
-                        </div>
-                    </div>    
-                    <div class="form-group">                    
-                        <label class="col-lg-3 control-label">Nombre categoria</label>
-                        <div class="col-lg-7">
-                            <input type="text" class="form-control" ng-model="__categoria.nombreCategoria" name="nombreCategoria" required placeholder="Ingrese nombre de categoria"
-                                   data-ng-class='{ error: modificarCategoria.nombreCategoria.$invalid && !modificarCategoria.$pristine }'/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Tipo Producto</label>
-                        <div class="col-lg-7">
-                            <select name="tipo"
-                                    class="form-control"
-                                    ng-controller="TipoController"
-                                    data-ng-init="listaTipo()"
-                                    ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo"
-                                    ng-model="__categoria.tipoCategoria" required
-                                    data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'></select>
-                        </div>                    
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <uib-tabset justified="true"
+                        ng-show="categorias[0]"
+                        id="tabCategoria">
+                <uib-tab heading="Lista de Categorias">
+                    <div class="table-responsive">
+                        <table data-ng-init="listaCategorias()"
+                               ng-table="tableCategorias"
+                               class="table table-bordered">
+                            <thead id="headTableProductos">
+                                <tr>
+                                    <th style="text-align: center">ID</th>
+                                    <th style="text-align: center">Nombre</th> 
+                                    <th style="text-align: center">Fecha</th> 
+                                    <th style="text-align: center" ng-hide="edit">Acciones</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="categoria in $data">
+                                    <th style="text-align: center">{{categoria.idCategoria}}</th>
+                                    <th style="text-align: center">{{categoria.nombreCategoria}}</th>                        
+                                    <th style="text-align: center">{{categoria.fechaCreacion}}</th>                        
+                                    <th style="text-align: center" ng-hide="edit">
+                                        <button type="button"                                     
+                                                class="btn btn-xs btn-info"
+                                                data-toggle="modal"
+                                                data-target="#myModal"
+                                                uib-tooltip="Modificar categoria"
+                                                ng-click="seleccionarCategoria(categoria)">
+                                            <span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button type="button"   
+                                                data-toggle="modal"
+                                                data-target="#myModalDelete"
+                                                uib-tooltip="Eliminar categoria"
+                                                class="btn btn-xs btn-danger" 
+                                                ng-click="seleccionarCategoria(categoria)">
+                                            <span class="glyphicon glyphicon-trash"></span></button>
+                                    </th>                        
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>                    
-                    <center>
-                        <div>
-                            <button class="btn btn-primary" data-dismiss="modal" ng-click="_modificarCategoria(__categoria)" ng-disabled="modificarCategoria.$invalid">Modificar</button>
-                        </div>
-                    </center>
-                </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+                </uib-tab>
+                <uib-tab heading="Agregar nueva categoria" ng-hide="edit">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <form name="newCategoria" class="form-horizontal">
+                            <fieldset>
+                                <legend style="text-align: center;">Datos de la categoria</legend>
+                                <div class="form-group">                    
+                                    <label class="control-label">Nombre categoria</label>
+                                    <input type="text"
+                                           class="form-control" 
+                                           placeholder="Ingrese nombre de categoria"
+                                           ng-model="_categoria.nombreCategoria"
+                                           name="categoria" required
+                                           data-ng-class='{error: newCategoria.categoria.$invalid && !newCategoria.$pristine}'/>
+                                </div>
+                                <div class="form-group" ng-controller="TipoController" data-ng-init="listaTipo()">                    
+                                    <label class="control-label">Tipo de producto</label>
+                                    <select name="tipo" 
+                                            class="form-control"
+                                            ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo"
+                                            ng-model="_categoria.tipoCategoria" required
+                                            data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'>
+                                        <option value="" disabled selected>Seleccionar tipo de producto</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button ng-click="agrearCategoria(_categoria)"
+                                                type="submit"
+                                                id="btnAgregarCategoria"
+                                                class="btn btn-warning"
+                                                ng-disabled="newCategoria.$invalid">Agregar</button>
+                                    </center>                                
+                                </div>
+                            </fieldset>                        
+                        </form>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </uib-tab>        
+            </uib-tabset>
         </div>
-    </div>
+        <div class="col-lg-3"></div>
 
-    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Eliminar categoria</h4>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        ¿Desea eliminar esta Categoria?
-                        <br>
-                        <button class="btn btn-danger"
-                                ng-click="eliminarCategoria()"
-                                data-dismiss="modal"
-                                >Eliminar</button>
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Cambiar datos de la Categoria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form name="modificarCategoria" class="form-horizontal" id="newAfilidadoModal">    
+                            <div class="form-group">                    
+                                <label class="control-label">Id de categoria</label>                            
+                                <input type="number" class="form-control" ng-model="__categoria.idCategoria" name="idCategoria" required  disabled
+                                       data-ng-class='{ error: modificarCategoria.idCategoria.$invalid && !modificarCategoria.$pristine }'/> 
+                            </div>    
+                            <div class="form-group">                    
+                                <label class="control-label">Nombre categoria</label>                            
+                                <input type="text" class="form-control" ng-model="__categoria.nombreCategoria" name="nombreCategoria" required placeholder="Ingrese nombre de categoria"
+                                       data-ng-class='{ error: modificarCategoria.nombreCategoria.$invalid && !modificarCategoria.$pristine }'/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Tipo Producto</label>                            
+                                <select name="tipo"
+                                        class="form-control"
+                                        ng-controller="TipoController"
+                                        data-ng-init="listaTipo()"                                        
+                                        ng-options="tipo as tipo.nombreTipo for tipo in tipos track by tipo.idTipo"
+                                        ng-model="__categoria.tipoCategoria" required
+                                        data-ng-class='{error: newCategoria.tipo.$invalid && !newCategoria.$pristine}'>
+                                    <option value="" disabled selected>Seleccionar tipo de producto</option>   
+                                </select>
+                            </div>                    
+                            <center>
+                                <div>
+                                    <button class="btn btn-warning" 
+                                            data-dismiss="modal"
+                                            style="margin-top: 5%;"
+                                            ng-click="_modificarCategoria(__categoria)"
+                                            ng-disabled="modificarCategoria.$invalid">Modificar</button>
+                                </div>
+                            </center>
+                        </form>
+                    </div>                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+
+        <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Eliminar categoria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            ¿Desea eliminar esta Categoria?
+                            <br>
+                            <button class="btn btn-danger"
+                                    ng-click="eliminarCategoria()"
+                                    data-dismiss="modal"
+                                    >Eliminar</button>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

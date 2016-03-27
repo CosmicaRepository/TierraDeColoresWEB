@@ -1,7 +1,8 @@
 @font-face{
     font-family: kaufmann-bold;
-    src: url('../styles/fonts/Kaufmann-Bold.otf');
-}
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v7/Q_Z9mv4hySLTMoMjnk_rCfesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');}
 #loading-bar .bar {
     background: #8904B1 !important;
     height: 3px !important;
@@ -15,11 +16,8 @@
     border-radius: 50%;
 }
 
-#bodyStyle{
-    /*background-image: url('../images/wall5.jpg');*/
-    /*background-repeat: no-repeat;*/    
+#bodyStyle{   
     background-size: cover;
-    /*background-position:center;*/
     background: rgba(241,231,103,1);
     background: -moz-radial-gradient(center, ellipse cover, rgba(241,231,103,1) 0%, rgba(254,173,38,1) 0%, rgba(254,173,38,1) 100%);
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(241,231,103,1)), color-stop(0%, rgba(254,173,38,1)), color-stop(100%, rgba(254,173,38,1)));
@@ -217,29 +215,22 @@ body {
     margin-bottom: 5%;
 }
 #tabCategoria{
-    margin-top: 70px;
-    width: 50%;
-    margin-left: 25%;
-    height: 550px;
+    margin-top: 100px;
+    height: 500px;
     background-color: white;
 }
 #btnAgregarCategoria{
-    margin-left: 40%;
     margin-top: 5%;
 }
 #panelMarcas{
-    margin-top: 70px;
-    width: 50%;
-    height: 550px;
-    margin-left: 25%;
+    margin-top: 100px;
+    height: 500px;
     background-color: white;
 }
 #tabProveedor{
-    margin-top: 70px;
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 5%;
-    height: 600px;
+    margin-top: 100px;    
+    min-height: 600px;
+    height: auto;
     margin-bottom: 5%;
     background-color: white;
 }
@@ -267,11 +258,9 @@ body {
     margin-top: 5%;
 }
 #tabTipo{
-    margin-top: 70px;
+    margin-top: 100px;
     background-color: white;
-    height: 550px;
-    width: 50%; 
-    margin-left: 25%;
+    height: 500px;
 }
 #tituloInicio{
     font-family: kaufmann-bold;

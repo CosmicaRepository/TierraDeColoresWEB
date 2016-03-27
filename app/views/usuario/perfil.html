@@ -32,11 +32,11 @@ and open the template in the editor.
                             </div>
                            <div class="form-group">
                                 <label class="col-lg-4">D.N.I.:</label>            
-                                <div class="col-lg-8">{{user.dni}}</div>
+                                <div class="col-lg-8">{{user.dni |number:0}}</div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4">Fecha de nacimiento:</label>
-                                <div class="col-lg-8">{{user.fechaNacimiento.getTime() | date: 'fullDate'}}</div>
+                                <div class="col-lg-8">{{user.fechaNacimiento | date: 'fullDate'}}</div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4">Ciudad:</label>
@@ -48,7 +48,7 @@ and open the template in the editor.
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4">Telefono:</label>
-                                <div class="col-lg-8">{{user.telefono}}</div>
+                                <div class="col-lg-8">{{user.telefono |tel}}</div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4">Rol:</label>

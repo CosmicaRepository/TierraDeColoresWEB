@@ -10,25 +10,25 @@ var usuarioController = miAppHome.controller('UsuarioController',
             function ($scope, $state, $window, toaster, $route, $timeout, $cookies, Upload, $location, UsuarioService, $rootScope) {
 
                 $scope.user = {
-                    "apellido": "",
-                    "dni": "",
-                    "domicilio": "",
-                    "email": "",
-                    "estado": "",
-                    "fechaCreacion": "",
-                    "fechaModificacion": "",
-                    "fechaNacimiento": "",
-                    "idUsuario": "",
-                    "idUsuarioCreacion": "",
-                    "idUsuarioModificacion": "",
-                    "imagen": "",
-                    "nombre": "",
-                    "passwordUsuario": "",
-                    "provincia": "",
-                    "roles": "",
-                    "telefono": "",
-                    "username": "",
-                    "ultimaConexion": ""
+                    "idUsuario": null,
+                    "roles": null,
+                    "nombre": null,
+                    "apellido": null,
+                    "fechaNacimiento": null,
+                    "dni": null,
+                    "email": null,
+                    "telefono": null,
+                    "domicilio": null,
+                    "provincia": null,
+                    "username": null,
+                    "password": null,
+                    "imagen": null,
+                    "estado": true,
+                    "fechaCreacion": null,
+                    "fechaModificacion": null,
+                    "ultimaConexion": null,
+                    "idUsuarioCreacion": null,
+                    "idUsuarioModificacion": null
                 };
 
                 $scope.userPw = {
@@ -118,7 +118,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.detailUsuario = function () {
                     $rootScope.edit = true;
                     $promesa = UsuarioService.getDetailUser();
-                    $promesa.then(function (datos) {                       
+                    $promesa.then(function (datos) {
                         if (datos.status === 200) {
                             if (datos.data.estado === true) {
                                 datos.data.estado = 'Activo';
@@ -129,14 +129,13 @@ var usuarioController = miAppHome.controller('UsuarioController',
                                 $scope.user = datos.data;
                             } else {
                                 $scope.user = datos.data;
-                                var date = new Date(datos.data.fechaNacimiento);
-                                var day = date.getDate();
-                                date.setDate(day + 1);
+                                var splited = datos.data.fechaNacimiento.split("-");
+                                var date = new Date(splited[0],splited[1],splited[2]);                                
                                 $scope.user.fechaNacimiento = date;
                             }
-                            if($scope.user.roles.idRol === 1){
+                            if ($scope.user.roles.idRol === 1) {
                                 $rootScope.edit = false;/*Falso para indicar que este en falso la directiva ng-hide*/
-                            }else{
+                            } else {
                                 $rootScope.edit = true;
                             }
                         }
@@ -152,25 +151,8 @@ var usuarioController = miAppHome.controller('UsuarioController',
 
 
                 $scope.nuevoUsuario = function (usuario) {
-                    var fecha = usuario.fechaNacimiento.getFullYear() + "-" +
-                            (usuario.fechaNacimiento.getMonth() + 1) + "-" +
-                            usuario.fechaNacimiento.getDate();
                     $scope.newUser = {
-                        "apellido": usuario.apellido,
-                        "dni": usuario.dni,
-                        "domicilio": usuario.domicilio,
-                        "email": usuario.email,
-                        "estado": false,
-                        "fechaCreacion": "",
-                        "fechaModificacion": "",
-                        "fechaNacimiento": fecha,
-                        "idUsuario": "",
-                        "idUsuarioCreacion": "",
-                        "idUsuarioModificacion": "",
-                        "imagen": null,
-                        "nombre": usuario.nombre,
-                        "passwordUsuario": usuario.passwordUsuario,
-                        "provincia": "San Salvador de Jujuy",
+                        "idUsuario": null,
                         "roles": {
                             "idRol": 2,
                             "nombreRol": "VENDEDOR",
@@ -179,16 +161,51 @@ var usuarioController = miAppHome.controller('UsuarioController',
                             "usuarioCreacion": 1,
                             "usuarioModificacion": null
                         },
+                        "nombre": usuario.nombre,
+                        "apellido": usuario.apellido,
+                        "fechaNacimiento": usuario.fechaNacimiento,
+                        "dni": usuario.dni,
+                        "email": usuario.email,
                         "telefono": usuario.telefono,
-                        "username": usuario.username
+                        "domicilio": usuario.domicilio,
+                        "provincia": "San Salvador de Jujuy",
+                        "username": usuario.username,
+                        "password": usuario.password,
+                        "imagen": null,
+                        "estado": false,
+                        "fechaCreacion": null,
+                        "fechaModificacion": null,
+                        "ultimaConexion": null,
+                        "idUsuarioCreacion": null,
+                        "idUsuarioModificacion": null
                     };
                     $promesa = UsuarioService.addUsuario($scope.newUser);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
                             $state.transitionTo('home.usuario-lista');
+                            $timeout(function timer() {
+                                toaster.pop({
+                                    type: 'success',
+                                    title: 'Exito',
+                                    body: 'Usuario agregado con exito.',
+                                    showCloseButton: false
+                                });
+                            }, 2000);
                         } else {
-                            alert(datos.data.msg);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: datos.data.msg,
+                                showCloseButton: false
+                            });
                         }
+                    }).catch(function (fallback) {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'No se ha podido agregar usuario.',
+                            showCloseButton: false
+                        });
                     });
                 };
 
