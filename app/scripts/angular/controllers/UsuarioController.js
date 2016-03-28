@@ -124,13 +124,13 @@ var usuarioController = miAppHome.controller('UsuarioController',
                                 datos.data.estado = 'Activo';
                             } else {
                                 datos.data.estado = 'Inactivo';
-                            }
-                            if ($location.path() === '/perfil') {
-                                $scope.user = datos.data;
+                            }                            
+                            if ($location.path() === '/home/perfil') {
+                                $scope.user = datos.data;                                
                             } else {
                                 $scope.user = datos.data;
                                 var splited = datos.data.fechaNacimiento.split("-");
-                                var date = new Date(splited[0], splited[1], splited[2]);
+                                var date = new Date(splited[0], splited[1]-1, splited[2]);
                                 $scope.user.fechaNacimiento = date;
                             }
                             if ($scope.user.roles.idRol === 1) {

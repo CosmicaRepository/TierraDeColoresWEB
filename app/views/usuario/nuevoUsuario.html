@@ -7,7 +7,9 @@
             <fieldset>
                 <!-- TITULO FORMULARIO-->
                 <legend style="font-size: xx-large;">Registrar nuevo Usuario</legend>
-                <!-- ------------------------------------------------------------------------------------ -->
+                <!------------------------------------------------------------------------------------------>
+                
+                
                 <!-- INPUT NOMBRE-->
                 <div class="form-group"
                      data-ng-class="
@@ -42,6 +44,8 @@
                     </div>
                 </div><!-- FIN INPUT NOMBRE-->
                 <!-- ------------------------------------------------------------------------------------ -->
+               
+                
                 <!-- INPUT APELLIDO-->
                 <div class="form-group" 
                      data-ng-class="{'has-error has-feedback': registrarUsuario.apellido.$invalid && !registrarUsuario.$pristine && registrarUsuario.apellido.$dirty,
@@ -76,6 +80,7 @@
                 </div><!--FIN INPUT APELLIDO-->
                 <!-- ------------------------------------------------------------------------------------ -->
 
+                
                 <!--INPUT USERNAME -->
                 <div class="form-group" 
                      data-ng-class="{'has-error has-feedback': registrarUsuario.username.$invalid && !registrarUsuario.$pristine && registrarUsuario.username.$dirty,
@@ -265,8 +270,8 @@
                         <input type="email" 
                                class="form-control"
                                ng-minlength="8" 
-                               ng-maxlength="25"
-                               maxlength="30"
+                               ng-maxlength="35"
+                               maxlength="40"
                                placeholder="E-mail"
                                ng-model="user.email" name="email" required/>
                         <!-- MENSAJES-->
