@@ -130,7 +130,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                             } else {
                                 $scope.user = datos.data;
                                 var splited = datos.data.fechaNacimiento.split("-");
-                                var date = new Date(splited[0],splited[1],splited[2]);                                
+                                var date = new Date(splited[0], splited[1], splited[2]);
                                 $scope.user.fechaNacimiento = date;
                             }
                             if ($scope.user.roles.idRol === 1) {

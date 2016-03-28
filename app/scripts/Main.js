@@ -8,6 +8,7 @@
 var miAppHome = angular.module('tierraDeColoresApp',
         ['ngRoute',
             'highcharts-ng',
+            'ngMessages',
             'ui.mask',
             'ngTable',
             'toaster',
