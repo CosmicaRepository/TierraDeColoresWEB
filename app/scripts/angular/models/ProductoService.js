@@ -120,6 +120,31 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
         });
         return deferred.promise;
     };
+    
+    this.searchByIdFactura = function (idFacturaProducto) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/list/factura';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'idFacturaProducto': idFacturaProducto
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 
     this.searchByBarcode = function (barcode) {
         var token = $cookies.getObject('token');
@@ -220,7 +245,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
                 }
             });
             angular.forEach(itemCodigoBarras, function (value, key) {
-                if (value.numeroFactura.search(regFactura) !== -1) {
+                if (value.facturaProducto.numeroFactura.search(regFactura) !== -1) {
                     itemFactura.push(value);
                 }
             });
@@ -245,7 +270,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
                 }
             });
             angular.forEach(itemVenta, function (value, key) {
-                if (value.proveedor.nombreProveedor.search(regProveedor) !== -1) {
+                if (value.facturaProducto.proveedor.nombreProveedor.search(regProveedor) !== -1) {
                     itemProveedor.push(value);
                 }
             });

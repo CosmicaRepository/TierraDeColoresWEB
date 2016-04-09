@@ -377,13 +377,15 @@ and open the template in the editor.
                                         <!--ICONOS DE MENSAJE -->
                                         <span ng-show="changePassword.old.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                         <span ng-show="changePassword.old.$dirty && changePassword.old.$invalid" class="glyphicon glyphicon-remove  form-control-feedback"></span>
-                                    </div>
+                                    </div><!-- FIN INPUT CONTRASEÑA ACTUAL -->
+                                    <!------------------------------------------------------------------------------------------>
+
 
                                     <!-- INPUT CONTRASEÑA NUEVA -->
                                     <div class="form-group"
-                                         data-ng-class="{'has-error has-feedback': changePassword.new.$invalid && !changePassword.$pristine && changePassword.new.$dirty && (userPw.new === userPw.old) ,
+                                         data-ng-class="{'has-error has-feedback': changePassword.new.$invalid && !changePassword.$pristine && changePassword.new.$dirty || ((userPw.new === userPw.old) && changePassword.new.$touched) ,
                      'has-warning has-feedback': changePassword.new.$invalid && changePassword.new.$touched,
-                 'has-success has-feedback': changePassword.new.$valid}">
+                 'has-success has-feedback': changePassword.new.$valid && (userPw.new !== userPw.old)}">
                                         <!-- LABEL CONTRASEÑA ACTUAL-->
                                         <label class="control-label">Contraseña nueva</label>                                        
                                         <input type="password" 
@@ -396,22 +398,21 @@ and open the template in the editor.
                                              style="color: #a94442; margin-top: 1%;"
                                              ng-messages="changePassword.new.$error"
                                              ng-if='changePassword.new.$dirty || changePassword.new.$touched'>
-                                            <div ng-message="password">Contraseña invalida.</div>
                                             <div ng-message="minlength">Contraseña demasiado corta.</div>
                                             <div ng-message="required" style="color: #8a6d3b;">Este campo no puede estar vacio.</div>                            
                                         </div>
                                         <!--ICONOS DE MENSAJE -->
                                         <span ng-show="changePassword.new.$valid && (userPw.new !== userPw.old)" class="glyphicon glyphicon-ok form-control-feedback"></span>
-                                        <span ng-show="changePassword.new.$dirty && changePassword.new.$invalid || (userPw.new === userPw.old)" class="glyphicon glyphicon-remove  form-control-feedback"></span>
-                                    </div>
+                                        <span ng-show="changePassword.new.$dirty && changePassword.new.$invalid || ((userPw.new === userPw.old) && changePassword.new.$touched)" class="glyphicon glyphicon-remove  form-control-feedback"></span>
+                                    </div><!-- FIN INPUT CONTRASEÑA NUEVA-->
+                                    <!------------------------------------------------------------------------------------------>
 
-
-                                    <!-- INPUT CONTRASEÑA NUEVA -->
+                                    <!-- INPUT REPETIR CONTRASEÑA NUEVA -->
                                     <div class="form-group"
-                                         data-ng-class="{'has-error has-feedback': changePassword.rep.$invalid && !changePassword.$pristine && changePassword.rep.$dirty && (userPw.new !== userPw.rep) ,
+                                         data-ng-class="{'has-error has-feedback': changePassword.rep.$invalid && !changePassword.$pristine && changePassword.rep.$dirty || (userPw.new !== userPw.rep) ,
                      'has-warning has-feedback': changePassword.rep.$invalid && changePassword.rep.$touched,
-                 'has-success has-feedback': changePassword.rep.$valid}">
-                                        <!-- LABEL CONTRASEÑA ACTUAL-->
+                 'has-success has-feedback': changePassword.rep.$valid && (userPw.new === userPw.rep)}">
+                                        <!-- LABEL REPETIR CONTRASEÑA ACTUAL-->
                                         <label class="control-label">Repetir contraseña</label>                                        
                                         <input type="password" 
                                                class="form-control"
@@ -430,7 +431,7 @@ and open the template in the editor.
                                         <!--ICONOS DE MENSAJE -->
                                         <span ng-show="changePassword.rep.$valid && (userPw.rep === userPw.new)" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                         <span ng-show="changePassword.rep.$dirty && changePassword.rep.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                                    </div>
+                                    </div><!-- FIN INPUT REPETIR CONTRASEÑA NUEVA-->
 
 
 

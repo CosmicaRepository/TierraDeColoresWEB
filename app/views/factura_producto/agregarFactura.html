@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<div class="col-lg-3"></div>
+<div class="col-lg-6" style="margin-top: 100px;">
+    <div class="panel" style="min-height: 440px; background-color: white;">
+        <div class="panel-heading panel-warning" style="text-align: center; color: #8a6d3b">
+            <label>Agregar nueva factura</label>
+        </div>
+        <div class="panel-body">
+            <form name="factura" class="form-horizontal">
+                <fieldset>
+                    <legend style="text-align: center;">Datos de la compra</legend>
+                    <div class="row col-lg-7">
+                        <div class="form-group">
+                            <label class="control-label">N° Factura</label>
+                            <input type="text"
+                                   ng-model="_facturaProducto.numeroFactura"
+                                   maxlength="12"
+                                   min="6"
+                                   placeholder="N° de Factura"
+                                   name="numeroFactura" required
+                                   class="form-control" />
+                        </div>
+                        <div class="form-group" ng-controller="ProveedorController">
+                            <label class="control-label">Proveedor</label>
+                            <input type="text" 
+                                   maxlength="20"
+                                   ng-disabled="proveedorProducto"
+                                   ng-model="_facturaProducto.proveedor"
+                                   placeholder="Buscar proveedor..."
+                                   uib-typeahead="proveedor as proveedor.nombreProveedor for proveedor in getProveedor($viewValue)"
+                                   typeahead-loading="loadingcliente"
+                                   typeahead-no-results="noResults" class="form-control">
+                            <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
+                            <div ng-show="noResults">
+                                <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row col-lg-5" style="padding-right: 0px;">
+                        <div class="form-group" style="margin-right: 5px;">
+                            <label class="control-label">Fecha</label>
+                            <input type="date"
+                                   ng-model="_facturaProducto.fechaFactura"
+                                   placeholder="Fecha de la factura"
+                                   name="fecha" required
+                                   class="form-control" />
+                        </div>
+                         <div class="form-group" style="margin-right: 5px;">
+                            <label class="control-label">Monto</label>
+                            <input type="text"
+                                   ng-model="_facturaProducto.monto"
+                                   min="2"
+                                   maxlength="7"
+                                   placeholder="Monto factura"
+                                   name="monto" required
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label">Observaciones</label>
+                            <textarea type="text"
+                                      rows="3"
+                                      ng-model="_facturaProducto.observaciones"
+                                      name="observaciones"
+                                      maxlength="200"
+                                      placeholder="Observaciones del pedido"
+                                      id="textarea"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="form-group" style="text-align: center;">
+                            <button class="btn btn-warning"
+                                    type="submit"
+                                    ng-click="agregarFacturaProducto(_facturaProducto)">Continuar</button>
+                        </div>
+                    </div>                    
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3"></div>

@@ -48,8 +48,8 @@ and open the template in the editor.
                                         data-ng-init="listaSexos()"
                                         ng-controller="SexoController"
                                         ng-options="sexo.nombreSexo as sexo.nombreSexo for sexo in sexos track by sexo.idSexo"
-                                    ng-model="search.sexo">
-                                            <option value="" disabled selected>Seleccionar sexo</option>
+                                        ng-model="search.sexo">
+                                    <option value="" disabled selected>Seleccionar sexo</option>
                                 </select>
                             </div>
                         </div>
@@ -112,8 +112,8 @@ and open the template in the editor.
                                         ng-controller="TemporadaController"
                                         data-ng-init="listaTemporadas()"
                                         ng-options="temporada.nombreTemporada as temporada.nombreTemporada for temporada in temporadas track by temporada.idTemporada"
-                                    ng-model="search.temporada">
-                                            <option value="" disabled selected>Seleccionar temporada</option>
+                                        ng-model="search.temporada">
+                                    <option value="" disabled selected>Seleccionar temporada</option>
                                 </select>
                             </div>
                         </div>
@@ -210,7 +210,7 @@ and open the template in the editor.
                             <td style="text-align: center">{{producto.talla| uppercase}}</td>
                             <td style="text-align: center">{{producto.colorProducto| uppercase}}</td>                
                             <td style="text-align: center">{{producto.marcas.nombreMarca| uppercase}}</td>                
-                            <td style="text-align: center">{{producto.numeroFactura| uppercase}}</td>                
+                            <td style="text-align: center">{{producto.facturaProducto.numeroFactura| uppercase}}</td>                
                             <td style="text-align: center" ng-hide="edit">
                                 <button class="btn btn-xs btn-danger"
                                         type="button"                            

@@ -24,15 +24,25 @@
 }
 
 #bodyStyle{   
+    background-size: auto;
+    background:  white;
+    background-image: url("../styles/img/background-1.png");
+    background-repeat: no-repeat;
+}
+#banner-1{
+    min-width: 420px;
+    height: 170px;
+    margin-top: 50px;
+    background: url("../styles/img/tierra.png") top;
     background-size: cover;
-    background:  rgb(255, 235, 97);
+    background-repeat: no-repeat;
 }
 #login-banner{
-    background: #DF013A;
-    border-radius: 25px;
-    border-color: #8904B1;
+    background: #FF7E00;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-color: #FF7E00;
     border-style: solid;
-    margin-top: 5%;
 }
 
 .form-horizontal .form-group {
@@ -343,4 +353,11 @@ body {
     font-size: 35pt;
     margin-top: 100px;
     text-shadow: 2px 0 0 #fff;
+}
+#textarea{
+    resize: none;
+}
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
 }

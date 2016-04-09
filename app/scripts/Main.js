@@ -173,8 +173,22 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         data: {pageTitle: 'Home - Productos'},
                         resolve: {isLogged: auth}
                     })
+                    .state('home.producto-factura', {
+                        url: '/productos/factura',
+                        templateUrl: "views/factura_producto/agregarFactura.html",
+                        controller: "FacturaProductoController",
+                        data: {pageTitle: 'Home - Factura de producto'},
+                        resolve: {isLogged: auth}
+                    })
+                    .state('home.agregar-producto-factura', {
+                        url: '/productos/factura/:idFactura',
+                        templateUrl: "views/factura_producto/lista.html",
+                        controller: "FacturaProductoController",
+                        data: {pageTitle: 'Home - Factura de producto'},
+                        resolve: {isLogged: auth}
+                    })
                     .state('home.producto-agregar', {
-                        url: '/agregar-producto',
+                        url: '/productos/factura/:idFactura/agregar-producto',
                         templateUrl: "views/producto/agregarProducto.html",
                         controller: "ProductoController",
                         data: {pageTitle: 'Home - Agregar producto'},

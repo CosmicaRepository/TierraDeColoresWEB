@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $state, $stateParams, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, $state, facturaProductoService, $stateParams, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -36,7 +36,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
         "idProducto": null,
         "codigoProducto": null,
         "claseProducto": "",
-        "numeroFactura": "",
         "categoria": {
             "idCategoria": null,
             "nombreCategoria": "",
@@ -64,23 +63,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
             "usuarioModificacion": null,
             "estado": true
         },
-        "proveedor": {
-            "idProveedor": null,
-            "nombreProveedor": "",
-            "cuitProveedor": "",
-            "direccionProveedor": "",
-            "paisProveedor": "",
-            "provinciaProveedor": "",
-            "localidadProveedor": "",
-            "codigoPostal": "",
-            "telefonoProveedor": "",
-            "emailProveedor": "",
-            "estadoProveedor": true,
-            "usuarioCreacion": null,
-            "usuarioModificacion": null,
-            "fechaCreacion": "",
-            "fechaModificacion": ""
-        },
+        "facturaProducto": null,
         "sexo": {
             "idSexo": null,
             "nombreSexo": "",
@@ -187,28 +170,35 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
      * @returns {undefined}
      */
     $scope.agregarProducto = function (producto) {
-        $promesa = _productoService.add(producto);
-        $promesa.then(function (datos) {
+        var idFacturaProducto = parseInt($stateParams.idFactura);
+        $detail = facturaProductoService.detail(idFacturaProducto);
+        $detail.then(function (datos) {
             if (datos.status === 200) {
-                /* directiva encargada de retrasar 1 segundo la redireccion a 
-                 * la correspondiente location. */
-                $timeout(function timer() {
+                producto.facturaProducto = datos.data;
+            }
+            $promesa = _productoService.add(producto);
+            $promesa.then(function (datos) {
+                if (datos.status === 200) {
+                    /* directiva encargada de retrasar 1 segundo la redireccion a 
+                     * la correspondiente location. */
+                    $timeout(function timer() {
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Exito',
+                            body: 'Producto agregado correctamente.',
+                            showCloseButton: false
+                        });
+                        $state.go('^.agregar-producto-factura', {"idFactura": idFacturaProducto});
+                    }, 1000);
+                } else {
                     toaster.pop({
-                        type: 'success',
-                        title: 'Exito',
-                        body: 'Producto agregado correctamente.',
+                        type: 'error',
+                        title: 'Error',
+                        body: "¡Op's algo paso!, comunicate con el administrador.",
                         showCloseButton: false
                     });
-                    $state.go('^.producto-lista');
-                }, 1000);
-            } else {
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error',
-                    body: "¡Op's algo paso!, comunicate con el administrador.",
-                    showCloseButton: false
-                });
-            }
+                }
+            });
         });
     };
 
@@ -461,105 +451,138 @@ miAppHome.controller('ProductoController', function ($scope, $state, $stateParam
     };
 
     $scope.agregarRepetirClase = function (producto) {
-        $add = _productoService.add(producto);
-        $add.then(function (datos) {
+        var idFacturaProducto = parseInt($stateParams.idFactura);
+        $detail = facturaProductoService.detail(idFacturaProducto);
+        $detail.then(function (datos) {
             if (datos.status === 200) {
-                /*deshabilitamos campos que no deben cambiar*/
-                $scope.descripcionProducto = true;
-                $scope.marcaProducto = true;
-                $scope.categoriaProducto = true;
-                $scope.temporadaProducto = true;
-                $scope.sexoProducto = true;
-                $scope.tallaProducto = true;
-                $scope.colorProducto = true;
-                $scope.codigoProducto = true;
-                $scope.facturaProducto = true;
-                $scope.fechaProducto = true;
-                $scope.proveedorProducto = true;
-                /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
-                $scope.claseProducto = false;
-                $scope.stockProducto = false;
-                $scope.minimoProducto = false;
-                /*limpiamos campos*/
-                $scope._producto.claseProducto = "";
-                $scope._producto.precioCosto = "";
-                $scope._producto.precioLista = "";
-                $scope._producto.precioVenta = "";
-                $scope._producto.cantidadMinima = "";
-                $scope._producto.cantidadTotal = "";
-                toaster.pop({
-                    type: 'success',
-                    title: 'Exito.',
-                    body: 'Producto añadido, puedes recargar otro.',
-                    showCloseButton: false
-                });
-            } else {
+                producto.facturaProducto = datos.data;
+            }
+            $add = _productoService.add(producto);
+            $add.then(function (datos) {
+                if (datos.status === 200) {
+                    /*deshabilitamos campos que no deben cambiar*/
+                    $scope.descripcionProducto = true;
+                    $scope.marcaProducto = true;
+                    $scope.categoriaProducto = true;
+                    $scope.temporadaProducto = true;
+                    $scope.sexoProducto = true;
+                    $scope.tallaProducto = true;
+                    $scope.colorProducto = true;
+                    $scope.codigoProducto = true;
+                    $scope.facturaProducto = true;
+                    /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
+                    $scope.claseProducto = false;
+                    $scope.stockProducto = false;
+                    $scope.minimoProducto = false;
+                    /*limpiamos campos*/
+                    $scope._producto.claseProducto = "";
+                    $scope._producto.precioCosto = "";
+                    $scope._producto.precioLista = "";
+                    $scope._producto.precioVenta = "";
+                    $scope._producto.cantidadMinima = "";
+                    $scope._producto.cantidadTotal = "";
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Exito.',
+                        body: 'Producto añadido, puedes recargar otro.',
+                        showCloseButton: false
+                    });
+                } else {
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: 'No se ha podido agregar Producto.',
+                        showCloseButton: false
+                    });
+                }
+            }).catch(function (fallback) {
                 toaster.pop({
                     type: 'error',
                     title: 'Error',
                     body: 'No se ha podido agregar Producto.',
                     showCloseButton: false
                 });
-            }
-        }).catch(function (fallback) {
-            toaster.pop({
-                type: 'error',
-                title: 'Error',
-                body: 'No se ha podido agregar Producto.',
-                showCloseButton: false
             });
         });
     };
 
     $scope.agregarCambiarTalla = function (producto) {
-        $add = _productoService.add(producto);
-        $add.then(function (datos) {
+        var idFacturaProducto = parseInt($stateParams.idFactura);
+        $detail = facturaProductoService.detail(idFacturaProducto);
+        $detail.then(function (datos) {
             if (datos.status === 200) {
-                /*deshabilitamos campos que no deben cambiar*/
-                $scope.descripcionProducto = true;
-                $scope.marcaProducto = true;
-                $scope.categoriaProducto = true;
-                $scope.temporadaProducto = true;
-                $scope.sexoProducto = true;
-                $scope.claseProducto = true;
-                $scope.facturaProducto = true;
-                $scope.fechaProducto = true;
-                $scope.proveedorProducto = true;
-                /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
-                $scope.codigoProducto = false;
-                $scope.colorProducto = false;
-                $scope.stockProducto = false;
-                $scope.minimoProducto = false;
-                $scope.tallaProducto = false;
-                /*limpiamos codigo para evitar repetir*/
-                $scope._producto.codigoProducto = "";
-                $scope._producto.precioCosto = "";
-                $scope._producto.precioLista = "";
-                $scope._producto.precioVenta = "";
-                $scope._producto.cantidadMinima = "";
-                $scope._producto.cantidadTotal = "";
-                $scope._producto.talla = "";
-                toaster.pop({
-                    type: 'success',
-                    title: 'Exito.',
-                    body: 'Producto añadido, puedes recargar otro.',
-                    showCloseButton: false
-                });
-            } else {
+                producto.facturaProducto = datos.data;
+            }
+            $add = _productoService.add(producto);
+            $add.then(function (datos) {
+                if (datos.status === 200) {
+                    /*deshabilitamos campos que no deben cambiar*/
+                    $scope.descripcionProducto = true;
+                    $scope.marcaProducto = true;
+                    $scope.categoriaProducto = true;
+                    $scope.temporadaProducto = true;
+                    $scope.sexoProducto = true;
+                    $scope.fechaProducto = true;
+                    /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
+                    $scope.codigoProducto = false;
+                    $scope.colorProducto = false;
+                    $scope.stockProducto = false;
+                    $scope.minimoProducto = false;
+                    $scope.tallaProducto = false;
+                    $scope.claseProducto = false;
+                    /*limpiamos codigo para evitar repetir*/
+                    $scope._producto.codigoProducto = "";
+                    $scope._producto.claseProducto = "";
+                    $scope._producto.precioCosto = "";
+                    $scope._producto.precioLista = "";
+                    $scope._producto.precioVenta = "";
+                    $scope._producto.cantidadMinima = "";
+                    $scope._producto.cantidadTotal = "";
+                    $scope._producto.talla = "";
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Exito.',
+                        body: 'Producto añadido, puedes recargar otro.',
+                        showCloseButton: false
+                    });
+                } else {
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: 'No se ha podido agregar Producto.',
+                        showCloseButton: false
+                    });
+                }
+            }).catch(function (fallback) {
                 toaster.pop({
                     type: 'error',
                     title: 'Error',
                     body: 'No se ha podido agregar Producto.',
                     showCloseButton: false
                 });
-            }
-        }).catch(function (fallback) {
-            toaster.pop({
-                type: 'error',
-                title: 'Error',
-                body: 'No se ha podido agregar Producto.',
-                showCloseButton: false
             });
+        });
+    };
+
+    $scope.listaProductosFactura = function () {
+        var idFacturaProducto = parseInt($stateParams.idFactura);
+        $list = _productoService.searchByIdFactura(idFacturaProducto);
+        $list.then(function (datos) {
+            $scope.productosFactura = datos.data;
+            var data = datos;
+            $scope.tableProductosFactura = new NgTableParams({
+                page: 1,
+                count: 8
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.productosFactura;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
         });
     };
 });
