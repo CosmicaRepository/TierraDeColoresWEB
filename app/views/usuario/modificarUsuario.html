@@ -391,6 +391,8 @@ and open the template in the editor.
                                         <input type="password" 
                                                class="form-control"
                                                ng-minlength="8"
+                                               ng-pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
                                                placeholder="Ingresa contraseña nueva"
                                                ng-model="userPw.new" name="new" required/>
                                         <!-- MENSAJES-->
@@ -398,6 +400,7 @@ and open the template in the editor.
                                              style="color: #a94442; margin-top: 1%;"
                                              ng-messages="changePassword.new.$error"
                                              ng-if='changePassword.new.$dirty || changePassword.new.$touched'>
+                                            <div ng-message="pattern">La contraseña debe contener al menos una mayuscula, una minuscula y un número.</div>
                                             <div ng-message="minlength">Contraseña demasiado corta.</div>
                                             <div ng-message="required" style="color: #8a6d3b;">Este campo no puede estar vacio.</div>                            
                                         </div>

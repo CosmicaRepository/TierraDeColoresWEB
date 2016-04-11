@@ -129,6 +129,8 @@
                                ng-minlength="8" 
                                ng-maxlength="25"
                                maxlength="25"
+                               ng-pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
                                placeholder="Contraseña"
                                ng-model="user.password" name="password" required/>
                         <!-- MENSAJES-->
@@ -137,6 +139,7 @@
                              ng-messages="registrarUsuario.password.$error"
                              ng-if='registrarUsuario.password.$dirty || registrarUsuario.password.$touched'>
                             <div ng-message="minlength">Contraseña ingresada demasiado corta.</div>
+                            <div ng-message="pattern">La contraseña debe contener al menos una mayuscula, una minuscula y un número.</div>
                             <div ng-message="required" style="color: #8a6d3b;">Este campo no puede estar vacio.</div>
                         </div>
                         <!--ICONOS DE MENSAJE -->
