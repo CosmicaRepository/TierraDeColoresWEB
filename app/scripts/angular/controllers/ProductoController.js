@@ -516,14 +516,14 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
             $add = _productoService.add(producto);
             $add.then(function (datos) {
                 if (datos.status === 200) {
-                    /*deshabilitamos campos que no deben cambiar*/
-                    $scope.descripcionProducto = true;
+                    /*deshabilitamos campos que no deben cambiar*/                    
                     $scope.marcaProducto = true;
                     $scope.categoriaProducto = true;
                     $scope.temporadaProducto = true;
                     $scope.sexoProducto = true;
                     $scope.fechaProducto = true;
                     /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
+                    $scope.descripcionProducto = false;
                     $scope.codigoProducto = false;
                     $scope.colorProducto = false;
                     $scope.stockProducto = false;
