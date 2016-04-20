@@ -25,13 +25,6 @@
 #shadow-boz{
     box-shadow: 10px 10px 5px #888888;
 }
-
-#bodyStyle{   
-    background-size: auto;
-    /*background:  #B6D4E9;*/
-    background-image: url("../images/background-1.png");
-    /*background-repeat: no-repeat;*/
-}
 #banner-1{
     min-width: 420px;
     height: 170px;
@@ -282,14 +275,11 @@ body {
     margin-bottom: 0px;
 }
 #clienteContainer{
-    border-color: #8a6d3b !important;
-    border-width: 3px !important;
     height: auto;
     width: auto;
     margin-left: 10%;
-    margin-bottom: 5%;
-    margin-top: 5%;
-    background-color: black;
+    margin-bottom: 10%;
+    margin-top: 10%;
 }
 .ng-table-counts{
     display: none !important;
@@ -357,4 +347,28 @@ body {
 .disabled {
     cursor: not-allowed;
     pointer-events: none;
+}
+.panel-factura{
+    min-height: 520px;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #8a6d3b;
+}
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important; 
+}
+.tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; 
+}
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+    background: white; 
+}
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; 
+}
+.busqueda-producto{
+    margin-top: 100px;
+    border-radius: 25px;
+    background-color: #EBCAE7;
 }

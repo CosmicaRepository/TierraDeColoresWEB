@@ -7,6 +7,15 @@ miAppHome.controller('FacturaController',
         ['$scope', '$state', '$stateParams', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
             function ($scope, $state, $stateParams, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
 
+                $scope.oneAtATime = true;
+                $scope.clientElement = {
+                    open: false
+                };
+                $scope.clientElementSearch = {
+                    open: false
+                };
+
+
                 $scope._newFactura = {
                     "idFactura": null,
                     "cliente": null,
@@ -78,11 +87,11 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
-                $scope.open = function () {
+                $scope.open = function (barcode) {
                     $rootScope.productosBarcode = "";
-                    var control = $scope.barcode.length;
-                    if (control >= 8) {
-                        $promesa = _productoService.searchByBarcode($scope.barcode);
+                    var control = barcode.length;
+                    if (control >= 9) {
+                        $promesa = _productoService.searchByBarcode(barcode);
                         $promesa.then(function (datos) {
                             $rootScope.productosBarcode = datos.data;
                         });
@@ -140,6 +149,28 @@ miAppHome.controller('FacturaController',
                     }, 1000);
                 });
 
+                $rootScope.$on('reloadMetodo', function () {
+                    var idFactura = $stateParams.idFactura;
+                    $recharge = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+                    $recharge.then(function (datos) {
+                        var control = 0;
+                        angular.forEach(datos.data, function (value, key) {
+                            control = parseFloat(control) + parseFloat(value.montoPago);
+                        });
+                        $scope.montoPago = "";
+                        $scope.planPago = null;
+                        $scope.tarjetasPago = "";
+                        $scope.entidadPago = "";
+                        $scope.mediosPago = "";
+                        $scope.comprobantePago = "";
+                        $scope.disableSelectEntidades = true;
+                        $scope.disableSelectTarjeta = true;
+                        $scope.disableSelectMetodo = true;
+                        $scope.totalPago = control;
+                        $scope.metodoPagos = datos.data;
+                        $scope.tableMetodos.reload();
+                    });
+                });
 
                 $scope.getCliente = function (val) {
                     var token = $cookies.getObject('token');
@@ -247,22 +278,33 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
+                $scope.seleccionarMetodoPago = function (montoPago, mediosPago, entidadPago, tarjetasPago, planPago, comprobantePago) {
+                    $rootScope.metodo = {
+                        'montoPago': montoPago,
+                        'mediosPago': mediosPago,
+                        'entidadPago': entidadPago,
+                        'tarjetasPago': tarjetasPago,
+                        'planPago': planPago,
+                        'comprobantePago': comprobantePago
+                    };
+                };
+
                 $scope.agregarMetodoPago = function () {
                     var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
                         /* suma monto a pagar y total para controlar que no exceda a la factura*/
-                        var compare = parseFloat($scope.totalPago) + parseFloat($scope.montoPago);
+                        var compare = parseFloat($scope.totalPago) + parseFloat($rootScope.metodo.montoPago);
                         if (datos.data.total >= compare) {
                             $scope._metodoPago.factura = datos.data;
                             /* control para separar pago contado y otros metodos*/
-                            if ($scope.mediosPago.idMedioPago !== 1) {
-                                $scope._metodoPago.planPago = $scope.planPago;
+                            if ($rootScope.metodo.mediosPago.idMedioPago !== 1) {
+                                $scope._metodoPago.planPago = $rootScope.metodo.planPago;
                             } else {
                                 $scope._metodoPago.planPago = null;
                             }
                             /* control para evitar monto vacio*/
-                            if ($scope.montoPago === "") {
+                            if ($rootScope.metodo.montoPago === "") {
                                 toaster.pop({
                                     type: 'warning',
                                     title: 'Advertencia',
@@ -270,9 +312,9 @@ miAppHome.controller('FacturaController',
                                     showCloseButton: false
                                 });
                             } else {
-                                $scope._metodoPago.montoPago = $scope.montoPago;
+                                $scope._metodoPago.montoPago = $rootScope.metodo.montoPago;
                                 /* control para evitar comprobante de pago vacio*/
-                                if ($scope.comprobantePago === "" && $scope.mediosPago.idMedioPago !== 1) {
+                                if ($rootScope.metodo.comprobantePago === "" && $rootScope.metodo.mediosPago.idMedioPago !== 1) {
                                     toaster.pop('warning', 'Advertencia', 'El comprobante no puede estar vacio.');
                                     toaster.pop({
                                         type: 'warning',
@@ -281,35 +323,19 @@ miAppHome.controller('FacturaController',
                                         showCloseButton: false
                                     });
                                 } else {
-                                    $scope._metodoPago.comprobante = $scope.comprobantePago;
+                                    $scope._metodoPago.comprobante = $rootScope.metodo.comprobantePago;
                                     $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
                                     $prom.then(function (datos) {
                                         if (datos.status === 200) {
-                                            $recharge = metodoPagoFacturaService.getListaPagoFactura(idFactura);
-                                            $recharge.then(function (datos) {
-                                                var control = 0;
-                                                angular.forEach(datos.data, function (value, key) {
-                                                    control = parseFloat(control) + parseFloat(value.montoPago);
-                                                });
-                                                $scope.totalPago = control;
-                                                $scope.metodoPagos = datos.data;
-                                                $scope.tableMetodos.reload();
-                                                $scope.montoPago = "";
-                                                $scope.planPago = null;
-                                                $scope.tarjetasPago = "";
-                                                $scope.entidadPago = "";
-                                                $scope.mediosPago = "";
-                                                $scope.comprobantePago = "";
-                                                $scope.disableSelectEntidades = true;
-                                                $scope.disableSelectTarjeta = true;
-                                                $scope.disableSelectMetodo = true;
+                                            $timeout(function timer() {
                                                 toaster.pop({
                                                     type: 'success',
                                                     title: 'Exito',
                                                     body: 'Metodo de pago agregado.',
                                                     showCloseButton: false
                                                 });
-                                            });
+                                            }, 1000);
+                                            $rootScope.$emit('reloadMetodo', {});
                                         }
                                     });
                                 }
@@ -357,7 +383,7 @@ miAppHome.controller('FacturaController',
                                         showCloseButton: false
                                     });
                                     $timeout(function timer() {
-                                        $route.reload();
+                                        $scope.clientElement.open = !$scope.clientElement.open;
                                     }, 2000);
                                 }
                             });
@@ -377,6 +403,7 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.update($rootScope.factura);
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
+                            $scope.clientElementSearch.open = !$scope.clientElementSearch.open;
                             toaster.pop({
                                 type: 'success',
                                 title: 'Exito',

@@ -9,7 +9,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
      */
     $scope.listaBusqueda = "";
     $scope.hide = false;
-    $scope.type = 'CODE128B';
+    $scope.type = 'CODE128C';
 
     $scope.search = {
         'categoria': "",
@@ -35,7 +35,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
     $scope._producto = {
         "idProducto": null,
         "codigoProducto": null,
-        "claseProducto": "",
+        "claseProducto": null,
         "categoria": {
             "idCategoria": null,
             "nombreCategoria": "",
@@ -80,17 +80,17 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
             "fechaCreacion": "",
             "fechaModificacion": null
         },
-        "descripcion": "",
-        "colorProducto": "",
+        "descripcion": null,
+        "colorProducto": null,
         "precioCosto": null,
         "precioVenta": null,
         "precioLista": null,
         "cantidadTotal": null,
         "cantidadMinima": null,
-        "talla": "",
-        "fechaProducto": "",
+        "talla": null,
+        "fechaProducto": null,
         "estadoProducto": true,
-        "fechaCreacion": "",
+        "fechaCreacion": null,
         "fechaModificacion": null,
         "usuarioCreacion": null,
         "usuarioModificacion": null
@@ -176,6 +176,9 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
             if (datos.status === 200) {
                 producto.facturaProducto = datos.data;
             }
+//            if(producto.){
+//                
+//            }
             $promesa = _productoService.add(producto);
             $promesa.then(function (datos) {
                 if (datos.status === 200) {
@@ -206,13 +209,12 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
      * 
      * @param {type} idCategoria
      * @param {type} idMarca
-     * @param {type} talla
      * @returns {undefined}
      */
-    $scope.randomCode = function (idCategoria, idMarca, talla) {
+    $scope.randomCode = function (idCategoria, idMarca) {
         var codigo = Math.floor((Math.random() * 9999) + 1000);
         var barcode = "";
-        if (idMarca === null || idCategoria === null || talla === "") {
+        if (idMarca === null || idCategoria === null) {
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -220,7 +222,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
                 showCloseButton: false
             });
         } else {
-            barcode = "" + idCategoria + idMarca + codigo + talla.toUpperCase();
+            barcode = "" + idCategoria + idMarca + codigo;
         }
         return barcode;
     };
