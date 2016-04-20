@@ -372,3 +372,14 @@ body {
     border-radius: 25px;
     background-color: #EBCAE7;
 }
+.etiqueta{
+    font-family: monospace;
+    font-size: medium;    
+}
+.etiqueta-box{
+    text-align: center;
+    align-content: center;
+    margin-top: 50%; 
+    border-radius: 25px;
+    border: 2px dotted black;
+}

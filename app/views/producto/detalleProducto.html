@@ -82,15 +82,49 @@ and open the template in the editor.
                     </div>
                     <div class="row col-lg-4">
                         <center>
-                            <div style="margin-top: 20%;">
-                                <span kendo-barcode
-                                      k-type="'code128'"
-                                      ng-model="foundProducto.codigoProducto"
-                                      style="width: 120px; height: 60px; margin: 0 auto;"></span>
+                            <!-- CODIGO VISIBLE -->
+                            <div class="etiqueta-box" ng-cloak>
+                                <center>
+                                    <div ng-bind="'Talla/edad: '+foundProducto.talla" class="etiqueta"></div>
+                                    <span kendo-barcode
+                                          k-type="'code128'"
+                                          ng-model="foundProducto.codigoProducto"
+                                          style="width: 160px; height: 80px;">                                          
+                                    </span>
+                                    <div ng-bind="foundProducto.descripcion" class="etiqueta" style="font-size: 8pt; font-family: monospace"></div>
+                                </center>
                             </div>
-                            <div id="printable" style="margin-top: 20%;" ng-hide="true">
+                            <!-- CODIGO 20 X 30 CON DESCRIPCION Y TALLE-->
+                            <div id="printable" class="etiqueta-box" ng-hide="true">
+                                <center>
+                                    <div ng-bind="'Talla/edad: '+foundProducto.talla" class="etiqueta"></div>
+                                    <span kendo-barcode
+                                          k-type="'code128'"
+                                          ng-model="foundProducto.codigoProducto"
+                                          style="width: 160px; height: 80px;">                                          
+                                    </span>
+                                    <div ng-bind="foundProducto.descripcion" class="etiqueta" style="font-size: 8pt; font-family: monospace"></div>
+                                </center>
                             </div>
-                            <button ng-click="printDiv('printable');" class="btn btn-info">Imprimir codigo</button>
+                            <!-- CODIGO 34 X 38 CON TALLE-->
+                            <div id="printable2" class="etiqueta-box" ng-hide="true">
+                                <center>
+                                    <div ng-bind="'Talla/edad: '+foundProducto.talla" class="etiqueta"></div>
+                                    <span kendo-barcode
+                                          k-type="'code128'"
+                                          ng-model="foundProducto.codigoProducto"
+                                          style="width: 160px; height: 80px;">                                          
+                                    </span>
+                                </center>
+                            </div>
+                            <!-- BOTON 20 X 30 -->
+                            <button ng-click="printDiv('printable');"
+                                    style='margin-top: 10%;'
+                                    class="btn btn-info">Imprimir codigo 20 x 30</button>
+                            <!-- BOTON  34 X 38-->
+                            <button ng-click="printDiv('printable2');"
+                                    style='margin-top: 10%;'
+                                    class="btn btn-info">Imprimir codigo 34 x 38</button>
                         </center>
                     </div>
                 </div>
