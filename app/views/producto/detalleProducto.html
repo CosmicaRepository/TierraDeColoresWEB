@@ -84,15 +84,11 @@ and open the template in the editor.
                         <center>
                             <div style="margin-top: 20%;">
                                 <span kendo-barcode
-                                      k-type="'code128C'"
+                                      k-type="'code128'"
                                       ng-model="foundProducto.codigoProducto"
                                       style="width: 120px; height: 60px; margin: 0 auto;"></span>
                             </div>
                             <div id="printable" style="margin-top: 20%;" ng-hide="true">
-                                <span kendo-barcode
-                                      k-type="'code128C'"
-                                      ng-model="foundProducto.codigoProducto"
-                                      style="width: 120px; height: 60px; margin: 0 auto;"></span>
                             </div>
                             <button ng-click="printDiv('printable');" class="btn btn-info">Imprimir codigo</button>
                         </center>
