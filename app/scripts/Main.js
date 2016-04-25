@@ -21,6 +21,7 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'ngMaterial',
             'ui.router',
             'kendo.directives',
+            'ngDialog',
             'io-barcode'])
         .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = false; /*Activar/Desactivar Spinner.*/

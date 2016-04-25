@@ -13,7 +13,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
     this.printer = function () {
         var datosRecu = null;
         var deferred = $q.defer();
-        var uri = 'http://localhost:8085/HasarPrinterAPI-0.5/oauth/token';
+        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/oauth/token';
         $http({
             url: uri,
             method: 'post',
@@ -35,7 +35,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
-    
+
     this.connection = function () {
         var datosRecu = null;
         var deferred = $q.defer();
@@ -45,7 +45,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
             url: uri,
             method: 'post',
             headers: {
-                'Authorization': 'Bearer '+tk,
+                'Authorization': 'Bearer ' + tk,
                 'Content-type': 'application/json'
             },
             params: {
@@ -64,16 +64,17 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
     };
 
 
-    this.ticket = function () {
+    this.ticket = function (listaDetalles) {
         var datosRecu = null;
         var deferred = $q.defer();
-        var token = $cookies.getObject('token');
-        var uri = 'http://localhost:8081/ticket/test';
+        var token = $cookies.get('ptk');
+        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/fiscal/ticket';
         $http({
             url: uri,
             method: 'post',
+            data: angular.toJson(listaDetalles),
             headers: {
-                'Authorization': 'Bearer ' + token.data.access_token,
+                'Authorization': 'Bearer ' + token,
                 'Content-type': 'application/json'
             }
         }).then(function successCallback(response) {

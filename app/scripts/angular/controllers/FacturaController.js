@@ -25,7 +25,8 @@ miAppHome.controller('FacturaController',
                     "fechaModificacion": null,
                     "usuarioCreacion": null,
                     "usuarioModificacion": null,
-                    "total": null
+                    "total": null,
+                    "numeracion": null
                 };
                 $rootScope.factura = "";
                 $scope._metodoPago = {
@@ -83,6 +84,7 @@ miAppHome.controller('FacturaController',
                     var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
+                        console.log(datos.data);
                         $rootScope.factura = datos.data;
                     });
                 };
