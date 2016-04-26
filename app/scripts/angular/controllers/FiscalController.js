@@ -3,7 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('FiscalController', function ($scope, toaster, $rootScope, $window, ngDialog, $state, $stateParams, fiscalService, $cookies, facturaService) {
+miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFacturaService, $rootScope, $window, ngDialog, $state, $stateParams, fiscalService, $cookies, facturaService) {
+
+    $scope.comprobanteFiscal = null;
+    $scope.vendedorFiscal = null;
+
+    $scope.listaVendedores = function () {
+        $scope.vendedores = "";
+        $promesa = facturaService.getVendedores();
+        $promesa.then(function (datos) {
+            if (datos.status === 200) {
+                $scope.vendedores = datos.data;
+            }
+        });
+    };
 
     $scope.accesoFiscal = function () {
         var tk = $cookies.get('ptk');
@@ -38,17 +51,17 @@ miAppHome.controller('FiscalController', function ($scope, toaster, $rootScope, 
         }
     };
 
-    $scope.optImprimir = function (tipoComprobante) {
+    $scope.optImprimir = function () {
         ngDialog.open({
-            template: 'tipoFactura',
+            template: 'views/modals/tipo-factura.html',
             className: 'ngdialog-theme-flat ngdialog-theme-custom',
             showClose: false,
             controller: 'FiscalController',
             closeByDocument: false,
-            closeByEscape: false,
+            closeByEscape: false
 //            preCloseCallback: function (value) {
 //                var nestedConfirmDialog = ngDialog.openConfirm({
-//                    template: 'advertencia',
+//                    template: 'views/modals/advertencia-cierre.html',
 //                    className: 'ngdialog-theme-advertencia',
 //                    showClose: false,
 //                    closeByDocument: false,
@@ -59,10 +72,11 @@ miAppHome.controller('FiscalController', function ($scope, toaster, $rootScope, 
         });
     };
 
-    $scope.confirmarImpresion = function (tipoComprobante) {
-        $rootScope.toPrint = tipoComprobante;
+    $scope.confirmarImpresion = function (comprobanteFiscal, vendedorFiscal) {
+        $rootScope.toPrint = comprobanteFiscal;
+        $rootScope.vendedor = vendedorFiscal;
         ngDialog.open({
-            template: 'confirmarImpresion',
+            template: 'views/modals/confirmar-impresion.html',
             className: 'ngdialog-theme-advertencia',
             showClose: false,
             controller: 'FiscalController',
@@ -73,13 +87,37 @@ miAppHome.controller('FiscalController', function ($scope, toaster, $rootScope, 
 
 
     $scope.imprimir = function () {
-        switch (parseInt($rootScope.toPrint)) {
-            case 1:
-                $scope.$emit('imprimitTicket', {});
-                break;
-            case 2:
-                break;
-        }
+        var control = 0;
+        var idFactura = $stateParams.idFactura;
+        $factura = facturaService.searchById(idFactura);
+        $factura.then(function (datos) {
+            var compare = datos.data;
+            $pago = metodoPagoFacturaService.getListaPagoFactura(idFactura);
+            $pago.then(function (datos) {
+                angular.forEach(datos.data, function (value, key) {
+                    control = control + parseFloat(value.montoPago);
+                });
+                if (control === compare.total) {
+                    switch (parseInt($rootScope.toPrint)) {
+                        case 1:
+                            $scope.$emit('imprimitTicket', {});
+                            break;
+                        case 2:
+                            break;
+                    }
+                } else {
+                    ngDialog.closeAll();
+                    toaster.pop({
+                        type: 'warning',
+                        title: 'Advertencia',
+                        body: '¡Aun hay saldo por pagar!',
+                        showCloseButton: false
+                    });
+                }
+
+            });
+        });
+
     };
 
     $scope.$on('imprimitTicket', function () {
@@ -93,17 +131,16 @@ miAppHome.controller('FiscalController', function ($scope, toaster, $rootScope, 
                 $scope.facturaImpresa = datos.data;
                 $detalles = facturaService.getDetalleFacturaList(idFactura);
                 $detalles.then(function (datos) {
-                    console.log(datos);
                     if (datos.status === 200) {
                         $ticket = fiscalService.ticket(datos.data);
                         $ticket.then(function (datos) {
-                            console.log(datos);
                             var lastString = datos.data[datos.data.length - 1];
                             var split = lastString.split("|");
                             numeracion = split[split.length - 1];
                             $scope.facturaImpresa.numeracion = numeracion;
                             $scope.facturaImpresa.tipoFactura = "ticket";
                             $scope.facturaImpresa.estado = "CONFIRMADO";
+                            $scope.facturaImpresa.idVendedor = $rootScope.vendedor;
                             $update = facturaService.update($scope.facturaImpresa);
                             $update.then(function (datos) {
                                 if (datos.status === 200) {

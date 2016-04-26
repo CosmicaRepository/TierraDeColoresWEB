@@ -88,7 +88,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
         "cantidadTotal": null,
         "cantidadMinima": null,
         "talla": null,
-        "fechaProducto": null,
         "estadoProducto": true,
         "fechaCreacion": null,
         "fechaModificacion": null,
@@ -305,8 +304,8 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
      */
     $scope.buscarProducto = function () {
         $scope.options = {
-            width: 0.8,
-            height: 40,
+            width: 1,
+            height: 30,
             displayValue: true,
             font: 'monospace',
             textAlign: 'center',

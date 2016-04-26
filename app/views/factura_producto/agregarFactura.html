@@ -24,6 +24,7 @@
                             <label class="control-label">Proveedor</label>
                             <input type="text" 
                                    maxlength="20"
+                                   required
                                    ng-disabled="proveedorProducto"
                                    ng-model="_facturaProducto.proveedor"
                                    placeholder="Buscar proveedor..."
@@ -36,14 +37,22 @@
                             </div>
                         </div> 
                     </div>
-                    <div class="row col-lg-5" style="padding-right: 0px;">
-                        <div class="form-group" style="margin-right: 5px;">
-                            <label class="control-label">Fecha</label>
-                            <input type="date"
-                                   ng-model="_facturaProducto.fechaFactura"
-                                   placeholder="Fecha de la factura"
-                                   name="fecha" required
-                                   class="form-control" />
+                    <div class="row col-lg-5" style="padding-right: 0px;">                        
+                        <div class="form-group" style="height: 61px;">
+                            <label class="control-label">Fecha</label>                            
+                                <p class="input-group">
+                                    <input type="text" class="form-control"
+                                           uib-datepicker-popup ng-model="_facturaProducto.fechaFactura"
+                                           is-open="popup2.opened" 
+                                           placeholder="Fecha de la factura"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           style="width: 172.5px;"
+                                           current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>                            
                         </div>
                          <div class="form-group" style="margin-right: 5px;">
                             <label class="control-label">Monto</label>
@@ -71,6 +80,7 @@
                         <div class="form-group" style="text-align: center;">
                             <button class="btn btn-warning"
                                     type="submit"
+                                    ng-disabled="factura.$invalid"
                                     ng-click="agregarFacturaProducto(_facturaProducto)">Continuar</button>
                         </div>
                     </div>                    

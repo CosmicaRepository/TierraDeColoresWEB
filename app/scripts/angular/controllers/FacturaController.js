@@ -84,7 +84,6 @@ miAppHome.controller('FacturaController',
                     var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
-                        console.log(datos.data);
                         $rootScope.factura = datos.data;
                     });
                 };
@@ -292,6 +291,7 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.agregarMetodoPago = function () {
+                    console.log($rootScope.metodo);
                     var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
@@ -328,6 +328,7 @@ miAppHome.controller('FacturaController',
                                     $scope._metodoPago.comprobante = $rootScope.metodo.comprobantePago;
                                     $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
                                     $prom.then(function (datos) {
+                                        console.log($prom);
                                         if (datos.status === 200) {
                                             $timeout(function timer() {
                                                 toaster.pop({
@@ -339,6 +340,14 @@ miAppHome.controller('FacturaController',
                                             }, 1000);
                                             $rootScope.$emit('reloadMetodo', {});
                                         }
+                                    }).catch(function (fallback) {
+                                        console.log(fallback);
+                                        toaster.pop({
+                                            type: 'error',
+                                            title: 'Error',
+                                            body: '¡Ops Algo paso!',
+                                            showCloseButton: false
+                                        });
                                     });
                                 }
                             }
@@ -489,6 +498,7 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.getVendedores();
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
+                            console.log(datos.data);
                             $scope.vendedores = datos.data;
                         }
                     });

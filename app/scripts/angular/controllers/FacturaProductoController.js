@@ -22,6 +22,25 @@ miAppHome.controller('FacturaProductoController', function ($scope, NgTableParam
     };
 
 
+    /**
+     * Funciones encargadas de manejar el datepicker en productos
+     */
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: null,
+        startingDay: 1
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+
     $scope.listaFacturaProducto = function () {
         $list = facturaProductoService.getAll();
         $list.then(function (datos) {
