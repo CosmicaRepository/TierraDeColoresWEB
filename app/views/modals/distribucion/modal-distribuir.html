@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<div class="ngdialog-message ngdialog-advertencia" style="width: 400px;">
+    <div class="modal-header">
+        <center>
+            <h3 class="modal-title">{{modalProducto.descripcion}}</h3>
+        </center>
+    </div>
+    <div class="modal-body">    
+        <uib-alert style="font-size: small;" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="8000">{{alert.msg}}</uib-alert>
+        <form class="form-horizontal" name="distribuir">
+            <div class="form-group">
+                <label class="control-label">Tierra de colores</label>
+                <input class="form-control"
+                       ng-model="tierra"
+                       maxlength="2"
+                       placeholder="Cantidad a distribuir a Tierra de colores"
+                       name="tierra"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Bebelandia</label>
+                <input class="form-control"
+                       ng-model="bebelandia"
+                       maxlengh="2"
+                       placeholder="Cantidad a distribuir a Bebelandia"
+                       name="bebelandia"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Libertador</label>
+                <input class="form-control"
+                       ng-model="libertador"
+                       maxlengh="2"
+                       placeholder="Cantidad a distribuir a Libertador"
+                       name="libertador"/>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <button class="btn btn-success"
+                        ng-click="finalizarDistribucion(tierra, bebelandia, libertador)">Distribuir</button>
+                <button type="button" class='btn btn-default' ng-click="addAlert()">Add Alert</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-md btn-danger"
+                ng-click="closeThisDialog('')">Cerrar</button>
+    </div>
+</div> 

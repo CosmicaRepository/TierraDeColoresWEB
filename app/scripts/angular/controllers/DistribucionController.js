@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('DistribucionController', function ($scope, NgTableParams, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
+miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
 
+    $scope.alerts = [];
 
     $scope.detallesFacturaProducto = function () {
         var idFacturaProducto = parseInt($stateParams.idFactura);
@@ -36,7 +37,7 @@ miAppHome.controller('DistribucionController', function ($scope, NgTableParams, 
                 }});
         });
     };
-    
+
     $scope.listaBebelandia = function () {
         $tierra = distribucionService.getAll(2);
         $tierra.then(function (datos) {
@@ -57,7 +58,7 @@ miAppHome.controller('DistribucionController', function ($scope, NgTableParams, 
                 }});
         });
     };
-    
+
     $scope.listaLibertador = function () {
         $tierra = distribucionService.getAll(3);
         $tierra.then(function (datos) {
@@ -79,5 +80,38 @@ miAppHome.controller('DistribucionController', function ($scope, NgTableParams, 
         });
     };
 
+    $scope.distribuirModal = function (producto) {
+        $rootScope.modalProducto = producto;
+        ngDialog.open({
+            template: 'views/modals/distribucion/modal-distribuir.html',
+            className: 'ngdialog-theme-advertencia',
+            showClose: false,
+            controller: 'DistribucionController',
+            closeByDocument: false,
+            closeByEscape: false
+        });
+        $timeout(function timer() {
+            toaster.pop({
+                type: 'warning',
+                title: 'Advertencia',
+                body: '¡Aun hay saldo por pagar!',
+                showCloseButton: false
+            });
+        }, 5000);
+    };
+
+    $scope.finalizarDistribucion = function (tierra, bebelandia, libertador) {
+        var control = 0;
+        control = parseInt(tierra) + parseInt(bebelandia) + parseInt(libertador);
+        console.log(control);
+    };
+
+    $scope.addAlert = function () {
+        $scope.alerts.push({msg: 'La cantidad total de productos a distribuir debe ser igual a la cantidad total de productos en almacen.'});
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
 });
 
