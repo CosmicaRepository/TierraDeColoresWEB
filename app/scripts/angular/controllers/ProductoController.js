@@ -334,7 +334,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
         var printContents = document.getElementById(divName).innerHTML;
         var popupWin = window.open('', '_blank', 'width=500,height=500');
         popupWin.document.open();
-        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/main.css"  type=\"text/css\" media=\"print\" /></head><body onload="window.print()">' + printContents + '</body></html>');
         popupWin.document.close();
     };
 
@@ -370,7 +370,8 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
      */
     $scope.removerProducto = function () {
         $scope.__producto.estadoProducto = false;
-        $remover = _productoService.update($scope.__producto);
+        $remover = _productoService.delete($scope.__producto);
+        /*$remover = _productoService.update($scope.__producto);*/
         $remover.then(function (datos) {
             if (datos.status === 200) {
                 toaster.pop({

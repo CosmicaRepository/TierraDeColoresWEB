@@ -138,14 +138,14 @@ and open the template in the editor.
             <div id="printable" ng-hide="true" style="margin-top: 50%;">
                 <div class="row">
                     <div style="float: left; text-align: center;">
-                        <div class="etiqueta">Talla: {{foundProducto.talla}}</div>
+                        <div class="etiqueta">T-N: {{foundProducto.talla}}</div>
                         <span kendo-barcode
                               k-type="'code128'"
                               ng-model="foundProducto.codigoProducto"
                               style="width: 100px; height: 40px;"></span>   
                     </div>
                     <div style="float: right; text-align: center;">
-                        <div class="etiqueta">Talla: {{foundProducto.talla}}</div>
+                        <div class="etiqueta">T-N: {{foundProducto.talla}}</div>
                         <span kendo-barcode
                               k-type="'code128'"
                               ng-model="foundProducto.codigoProducto"
@@ -246,7 +246,7 @@ and open the template in the editor.
                                     <input type="text" class="form-control"
                                            ng-model="__producto.codigoProducto" 
                                            name="codigo"                                           
-                                           required maxlength="20"
+                                           required maxlength="30"
                                            data-ng-class='{error: updateProducto.codigo.$invalid && !updateProducto.$pristine}'/>
                                     <span class="input-group-btn">
                                         <button class="btn btn-danger"
@@ -258,22 +258,6 @@ and open the template in the editor.
                                                 type="button">Random</button>
                                     </span>
                                 </div> 
-                            </div> 
-                            <div class="form-group">
-                                <label class="control-label col-lg-4">Fecha de compra</label>
-                                <div class="col-lg-8">
-                                    <p class="input-group">
-                                        <input type="text" class="form-control"
-                                               uib-datepicker-popup ng-model="__producto.fechaProducto"
-                                               is-open="popup2.opened" 
-                                               datepicker-options="dateOptions"
-                                               ng-required="true"
-                                               current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                        </span>
-                                    </p>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Clase</label>
@@ -306,7 +290,7 @@ and open the template in the editor.
                                 <label class="control-label col-lg-4">Costo real</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control"
-                                           maxlength="4"
+                                           maxlength="8"
                                            ng-model="__producto.precioLista" name="lista" required
                                            data-ng-class='{error: updateProducto.lista.$invalid && !updateProducto.$pristine}'/>
                                 </div>
@@ -315,7 +299,7 @@ and open the template in the editor.
                                 <label class="control-label col-lg-4">Precio de Costo</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control"
-                                           maxlength="4"
+                                           maxlength="8"
                                            ng-model="__producto.precioCosto" name="costo" required
                                            data-ng-class='{error: updateProducto.costo.$invalid && !updateProducto.$pristine}'/>
                                 </div>
@@ -324,7 +308,7 @@ and open the template in the editor.
                                 <label class="control-label col-lg-4">Precio de Venta</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control"
-                                           maxlength="4"
+                                           maxlength="8"
                                            ng-model="__producto.precioVenta" name="venta" required
                                            data-ng-class='{error: updateProducto.venta.$invalid && !updateProducto.$pristine}'/>
                                 </div>

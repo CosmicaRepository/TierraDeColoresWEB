@@ -89,7 +89,6 @@ miAppHome.controller('FacturaProductoController', function ($scope, NgTableParam
         var idFacturaProducto = parseInt($stateParams.idFactura);
         $finish = facturaProductoService.finish(idFacturaProducto);
         $finish.then(function (datos) {
-            console.log(datos);
             if (datos.status === 200) {
                 toaster.pop({
                     type: 'success',

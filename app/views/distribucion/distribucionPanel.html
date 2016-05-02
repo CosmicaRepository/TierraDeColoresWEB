@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<div class="col-lg-1"></div>
+<div class="col-lg-10">
+    <div class="distribucion-panel">
+        <div ng-cloak>
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Facturas">
+                        <md-content class="md-padding">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-condensed"
+                                       ng-table="tableFacturaProductos"
+                                       ng-controller="FacturaProductoController"
+                                       data-ng-init="listaFacturaProducto()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>N° Factura</th>
+                                            <th>Proveedor</th>
+                                            <th>Monto</th>
+                                            <th>Estado</th>
+                                            <th>Carga</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="facturaProducto in $data">
+                                        <tr ng-class="{
+                                                    danger: facturaProducto.carga === true, success: facturaProducto.carga === false}">
+                                            <td style="text-align: center">{{facturaProducto.idFacturaProducto}}</td>
+                                            <td style="text-align: center">
+                                                <a ui-sref="^.agregar-producto-factura({idFactura: facturaProducto.idFacturaProducto})" target="_blank"
+                                                   ng-class="{
+                                                               disabled: facturaProducto.carga === false
+                                                           }">{{facturaProducto.numeroFactura}}</a>
+                                            </td>
+                                            <td style="text-align: center">{{facturaProducto.proveedor.nombreProveedor}}</td>
+                                            <td style="text-align: center">{{facturaProducto.monto|currency}}</td>
+                                            <td style="text-align: center">{{facturaProducto.estadoLocal}}</td>
+                                            <td style="text-align: center">
+                                                <div ng-show="facturaProducto.carga">INICIADA</div>                                
+                                                <div ng-hide="facturaProducto.carga">FINALIZADA</div> 
+                                            </td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-xs btn-success"
+                                                        uib-tooltip="Distribuir mercaderia"
+                                                        ui-sref="^.distribuir-factura({idFactura: facturaProducto.idFacturaProducto})"
+                                                        ng-disabled="false"><span class="glyphicon glyphicon-random"></span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Stock tierra de colores">
+                        <md-content class="md-padding">
+                            <div class="table-responsive">
+                                <table class="table table-bordered"
+                                       ng-table="tableTierraStock"
+                                       data-ng-init="listaTierra()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Color</th>
+                                            <th>Cantidad</th>
+                                            <th>Talla</th>
+                                            <th>N° Factura</th>
+                                            <th>Precio U.</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="producto in $data track by $index">
+                                        <tr>
+                                            <td style="text-align: center">{{producto.idProducto.idProducto}}</td>
+                                            <td style="text-align: center">{{producto.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">{{producto.idProducto.colorProducto}}</td>
+                                            <td style="text-align: center">{{producto.cantidad}}</td>
+                                            <td style="text-align: center">{{producto.idProducto.talla}}</td>
+                                            <td style="text-align: center">{{producto.idProducto.facturaProducto.numeroFactura}}</td>
+                                            <td style="text-align: center">{{producto.idProducto.precioVenta|currency}}</td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Stock bebelandia">
+                        <md-content class="md-padding">
+                            <div class="table-responsive">
+                                <table class="table table-bordered"
+                                       ng-table="tableBebelandiaStock"
+                                       data-ng-init="listaBebelandia()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Color</th>
+                                            <th>Cantidad</th>
+                                            <th>Talla</th>
+                                            <th>N° Factura</th>
+                                            <th>Precio U.</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="bebelandia in $data track by $index">
+                                        <tr>
+                                            <td style="text-align: center">{{bebelandia.idProducto.idProducto}}</td>
+                                            <td style="text-align: center">{{bebelandia.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">{{bebelandia.idProducto.colorProducto}}</td>
+                                            <td style="text-align: center">{{bebelandia.cantidad}}</td>
+                                            <td style="text-align: center">{{bebelandia.idProducto.talla}}</td>
+                                            <td style="text-align: center">{{bebelandia.idProducto.facturaProducto.numeroFactura}}</td>
+                                            <td style="text-align: center">{{bebelandia.idProducto.precioVenta|currency}}</td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Stock libertador">
+                        <md-content class="md-padding">
+                            <div class="table-responsive">
+                                <table class="table table-bordered"
+                                       ng-table="tableLibertadorStock"
+                                       data-ng-init="listaLibertador()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Color</th>
+                                            <th>Cantidad</th>
+                                            <th>Talla</th>
+                                            <th>N° Factura</th>
+                                            <th>Precio U.</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="libertador in $data track by $index">
+                                        <tr>
+                                            <td style="text-align: center">{{libertador.idProducto.idProducto}}</td>
+                                            <td style="text-align: center">{{libertador.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">{{libertador.idProducto.colorProducto}}</td>
+                                            <td style="text-align: center">{{libertador.cantidad}}</td>
+                                            <td style="text-align: center">{{libertador.idProducto.talla}}</td>
+                                            <td style="text-align: center">{{libertador.idProducto.facturaProducto.numeroFactura}}</td>
+                                            <td style="text-align: center">{{libertador.idProducto.precioVenta|currency}}</td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
+        </div>
+    </div>    
+</div>
+<div class="col-lg-1"></div>

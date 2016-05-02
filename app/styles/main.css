@@ -354,6 +354,13 @@ body {
     background-color: white;
     border: 1px solid #8a6d3b;
 }
+.distribucion-panel{
+    margin-top: 100px;
+    min-height: 520px;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #8a6d3b;
+}
 .tabsdemoDynamicHeight md-content {
     background-color: transparent !important; 
 }
@@ -374,7 +381,8 @@ body {
 }
 .etiqueta{
     font-family: monospace;
-    font-size: medium;    
+    font-size: medium; 
+    color: #428bca;
 }
 .etiqueta-box{
     text-align: center;

@@ -273,6 +273,22 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         data: {pageTitle: 'Home - Estadisticas'},
                         resolve: {isLogged: auth}
                     })
+                    /*MODULO DISTRIBUCION*/
+                    .state('home.distribucion', {
+                        url: '/distribuir',
+                        templateUrl: 'views/distribucion/distribucionPanel.html',
+                        controller: 'DistribucionController',
+                        data: {pageTitle: 'Home - Distribución'},
+                        resolve: {isLogged: auth}
+                    })
+                    /*Panel distribuir factura*/
+                    .state('home.distribuir-factura', {
+                        url: '/distribuir/:idFactura',
+                        templateUrl: 'views/distribucion/distribuir.html',
+                        controller: 'DistribucionController',
+                        data: {pageTitle: 'Home - Distribuir'},
+                        resolve: {isLogged: auth}
+                    })
                     /*Ventas para usuarios tipo Vendedor*/
                     .state('ventas', {
                         url: '/ventas',
