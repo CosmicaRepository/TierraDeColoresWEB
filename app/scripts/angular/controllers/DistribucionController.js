@@ -6,6 +6,45 @@
 miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
 
     $scope.alerts = [];
+    $scope.modalDistribuir = {
+        tierra: null,
+        bebelandia: null,
+        libertador: null
+    };
+    $scope.wrapper = {
+        "stockTierra": {
+            "idStock": null,
+            "cantidad": null,
+            "idProducto": null,
+            "estado": true,
+            "usuarioCreacion": null,
+            "usuarioModificacion": null,
+            "fechaCreacion": null,
+            "fechaModificacion": null,
+            "idSucursal": null
+        },
+        "stockBebelandia": {
+            "idStock": null,
+            "cantidad": null,
+            "idProducto": null,
+            "estado": true,
+            "usuarioCreacion": null,
+            "usuarioModificacion": null,
+            "fechaCreacion": null,
+            "fechaModificacion": null,
+            "idSucursal": null
+        },
+        "stockLibertador": {
+            "idStock": null,
+            "cantidad": null,
+            "idProducto": null,
+            "estado": true,
+            "usuarioCreacion": null,
+            "usuarioModificacion": null,
+            "fechaCreacion": null,
+            "fechaModificacion": null,
+            "idSucursal": null
+        }};
 
     $scope.detallesFacturaProducto = function () {
         var idFacturaProducto = parseInt($stateParams.idFactura);
@@ -90,28 +129,67 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgT
             closeByDocument: false,
             closeByEscape: false
         });
-        $timeout(function timer() {
-            toaster.pop({
-                type: 'warning',
-                title: 'Advertencia',
-                body: '¡Aun hay saldo por pagar!',
-                showCloseButton: false
-            });
-        }, 5000);
     };
 
-    $scope.finalizarDistribucion = function (tierra, bebelandia, libertador) {
+    $scope.confirmarDistribuir = function (modalDistribuir) {
         var control = 0;
-        control = parseInt(tierra) + parseInt(bebelandia) + parseInt(libertador);
-        console.log(control);
+        control = modalDistribuir.tierra + modalDistribuir.bebelandia + modalDistribuir.libertador;
+        if (control === $rootScope.modalProducto.cantidadTotal) {
+            if (modalDistribuir.tierra !== null) {
+                $scope.wrapper.stockTierra.idProducto = $rootScope.modalProducto;
+                $scope.wrapper.stockTierra.cantidad = modalDistribuir.tierra;
+            }
+            if (modalDistribuir.bebelandia !== null) {
+                $scope.wrapper.stockBebelandia.idProducto = $rootScope.modalProducto;
+                $scope.wrapper.stockBebelandia.cantidad = modalDistribuir.bebelandia;
+            }
+            if (modalDistribuir.libertador !== null) {
+                $scope.wrapper.stockLibertador.idProducto = $rootScope.modalProducto;
+                $scope.wrapper.stockLibertador.cantidad = modalDistribuir.libertador;
+            }
+            ngDialog.open({
+                template: 'views/modals/distribucion/confirmacion-distribuir.html',
+                className: 'ngdialog-theme-advertencia',
+                showClose: false,
+                controller: 'DistribucionController',
+                closeByDocument: false,
+                closeByEscape: false,
+                data: $scope.wrapper
+            });
+            //            $distribute = distribucionService.add($scope.wrapper);
+        } else {
+            $scope.alerts.push({
+                type: 'danger',
+                msg: 'La cantidad total de productos a distribuir debe ser igual a la cantidad total de productos en almacen.'
+            });
+        }
     };
 
-    $scope.addAlert = function () {
-        $scope.alerts.push({msg: 'La cantidad total de productos a distribuir debe ser igual a la cantidad total de productos en almacen.'});
+    $scope.finalizarDistribucion = function () {
+        $scope.sendWrapper = {
+            stockTierra: null,
+            stockBebelandia: null,
+            stockLibertador: null
+        };
+        if ($scope.ngDialogData.stockTierra.idProducto !== null && $scope.ngDialogData.stockTierra.cantidad) {
+            $scope.sendWrapper.stockTierra = $scope.ngDialogData.stockTierra;
+        }
+        if($scope.ngDialogData.stockBebelandia.idProducto !== null && $scope.ngDialogData.stockBebelandia.cantidad){
+            $scope.sendWrapper.stockBebelandia = $scope.ngDialogData.stockBebelandia;
+        }
+        if($scope.ngDialogData.stockLibertador.idProducto !== null && $scope.ngDialogData.stockLibertador.cantidad){
+            $scope.sendWrapper.stockLibertador = $scope.ngDialogData.stockLibertador;
+        }
+        $distribute = distribucionService.add($scope.sendWrapper);
+        $distribute.then(function (datos) {
+            if(datos.status === 200){
+                ngDialog.closeAll();
+            }
+        });
     };
+
 
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
 });
-
