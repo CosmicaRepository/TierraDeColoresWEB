@@ -52,4 +52,78 @@ miAppHome.service('distribucionService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
+    
+    this.getStockTierra = function (idFactura) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/stock/tierra/search';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'idFactura': idFactura
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.getStockBebelandia = function (idFactura) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/stock/bebelandia/search';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'idFactura': idFactura
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    this.getStockLibertador = function (idFactura) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/stock/libertador/search';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'idFactura': idFactura
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 });

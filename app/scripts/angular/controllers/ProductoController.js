@@ -518,7 +518,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
             $add = _productoService.add(producto);
             $add.then(function (datos) {
                 if (datos.status === 200) {
-                    /*deshabilitamos campos que no deben cambiar*/                    
+                    /*deshabilitamos campos que no deben cambiar*/
                     $scope.marcaProducto = true;
                     $scope.categoriaProducto = true;
                     $scope.temporadaProducto = true;
@@ -587,5 +587,14 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
                 }});
         });
     };
+
+    $rootScope.$on('updateTableProducto', function (event, object) {
+        $list = _productoService.searchByIdFactura(object.idFactura);
+        $list.then(function (datos) {
+            $scope.productosFactura = datos.data;
+            $rootScope.$broadcast('updateStock', {});
+            $scope.tableProductosFactura.reload();
+        });
+    });
 });
 

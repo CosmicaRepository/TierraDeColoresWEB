@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
+miAppHome.controller('DistribucionController', function ($scope, $rootScope, _productoService, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
 
     $scope.alerts = [];
     $scope.modalDistribuir = {
@@ -119,6 +119,72 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgT
         });
     };
 
+    $scope.listaFacturaTierra = function () {
+        var idFactura = $stateParams.idFactura;
+        $facturaTierra = distribucionService.getStockTierra(idFactura);
+        $facturaTierra.then(function (datos) {
+            $scope.facturaTierra = datos.data;
+            var data = datos;
+            $scope.tableFacturaTierra = new NgTableParams({
+                page: 1,
+                count: 8
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.facturaTierra;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
+        });
+    };
+
+    $scope.listaFacturaBebelandia = function () {
+        var idFactura = $stateParams.idFactura;
+        $facturaBebelandia = distribucionService.getStockBebelandia(idFactura);
+        $facturaBebelandia.then(function (datos) {
+            var data = datos.data;
+            $scope.facturaBebelandia = datos.data;
+            $scope.tableFacturaBebelandia = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.facturaBebelandia;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
+        });
+    };
+
+    $scope.listaFacturaLibertador = function () {
+        var idFactura = $stateParams.idFactura;
+        $facturaLibertador = distribucionService.getStockLibertador(idFactura);
+        $facturaLibertador.then(function (datos) {
+            var data = datos.data;
+            $scope.facturaLibertador = datos.data;
+            $scope.tableFacturaLibertador = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: data.length,
+                getData: function (params) {
+                    data = $scope.facturaLibertador;
+                    params.total(data.length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
+        });
+    };
+
     $scope.distribuirModal = function (producto) {
         $rootScope.modalProducto = producto;
         ngDialog.open({
@@ -154,9 +220,11 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgT
                 controller: 'DistribucionController',
                 closeByDocument: false,
                 closeByEscape: false,
-                data: $scope.wrapper
+                data: {
+                    'wrapper': $scope.wrapper,
+                    'producto': $rootScope.modalProducto
+                }
             });
-            //            $distribute = distribucionService.add($scope.wrapper);
         } else {
             $scope.alerts.push({
                 type: 'danger',
@@ -171,22 +239,61 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, NgT
             stockBebelandia: null,
             stockLibertador: null
         };
-        if ($scope.ngDialogData.stockTierra.idProducto !== null && $scope.ngDialogData.stockTierra.cantidad) {
-            $scope.sendWrapper.stockTierra = $scope.ngDialogData.stockTierra;
+        if ($scope.ngDialogData.wrapper.stockTierra.idProducto !== null && $scope.ngDialogData.wrapper.stockTierra.cantidad) {
+            $scope.sendWrapper.stockTierra = $scope.ngDialogData.wrapper.stockTierra;
         }
-        if($scope.ngDialogData.stockBebelandia.idProducto !== null && $scope.ngDialogData.stockBebelandia.cantidad){
-            $scope.sendWrapper.stockBebelandia = $scope.ngDialogData.stockBebelandia;
+        if ($scope.ngDialogData.wrapper.stockBebelandia.idProducto !== null && $scope.ngDialogData.wrapper.stockBebelandia.cantidad) {
+            $scope.sendWrapper.stockBebelandia = $scope.ngDialogData.wrapper.stockBebelandia;
         }
-        if($scope.ngDialogData.stockLibertador.idProducto !== null && $scope.ngDialogData.stockLibertador.cantidad){
-            $scope.sendWrapper.stockLibertador = $scope.ngDialogData.stockLibertador;
+        if ($scope.ngDialogData.wrapper.stockLibertador.idProducto !== null && $scope.ngDialogData.wrapper.stockLibertador.cantidad) {
+            $scope.sendWrapper.stockLibertador = $scope.ngDialogData.wrapper.stockLibertador;
         }
         $distribute = distribucionService.add($scope.sendWrapper);
         $distribute.then(function (datos) {
-            if(datos.status === 200){
+            if (datos.status === 200) {
                 ngDialog.closeAll();
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Se ha distribuido con exito los productos.',
+                    showCloseButton: false
+                });
             }
         });
+        $scope.$emit('updateTables', $scope.ngDialogData.producto);
     };
+
+    $scope.$on('updateTables', function (event, object) {
+        var idFactura = parseInt($stateParams.idFactura);
+        object.estadoDistribucion = true;
+        $updateProducto = _productoService.update(object);
+        $updateProducto.then(function (datos) {
+            if (datos.status === 200) {
+                $rootScope.$broadcast('updateTableProducto', {'idFactura': idFactura});
+            }
+        });
+    });
+
+    $scope.$on('updateStock', function (event, object) {
+        var idFactura = parseInt($stateParams.idFactura);
+        $facturaTierra = distribucionService.getStockTierra(idFactura);
+        $facturaTierra.then(function (datos) {
+            $scope.facturaTierra = datos.data;
+            $scope.tableFacturaTierra.reload();
+        });
+        $facturaBebelandia = distribucionService.getStockBebelandia(idFactura);
+        $facturaBebelandia.then(function (datos) {
+            $scope.facturaBebelandia = datos.data;
+            $scope.tableFacturaBebelandia.reload();
+        });
+        $facturaLibertador = distribucionService.getStockLibertador(idFactura);
+        $facturaLibertador.then(function (datos) {
+            $scope.facturaLibertador = datos.data;
+            $scope.tableFacturaLibertador.reload();
+        });
+    });
+
+
 
 
     $scope.closeAlert = function (index) {

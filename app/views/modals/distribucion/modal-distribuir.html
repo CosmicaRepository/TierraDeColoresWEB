@@ -9,7 +9,10 @@
         <uib-alert style="font-size: small;" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="8000">{{alert.msg}}</uib-alert>
         <form class="form-horizontal" name="distribuir">
             <div class="form-group" style="text-align: center;">                
-                <label class="control-label" style="font-size: medium;">CANTIDAD: {{modalProducto.cantidadTotal}}</label>
+                <label class="control-label" style="font-size: medium;">En almacen: {{modalProducto.cantidadTotal}}</label>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <label class="control-label" style="font-size: medium;">A distribuir: {{modalDistribuir.tierra + modalDistribuir.bebelandia + modalDistribuir.libertador}}</label>
             </div>
             <div class="form-group">
                 <label class="control-label">Tierra de colores</label>
