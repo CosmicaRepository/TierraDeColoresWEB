@@ -125,7 +125,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
         }
     };
 
-
     /**
      * Funcion encargada de enlistar los Productos disponibles en la base de 
      * datos
@@ -161,7 +160,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
                 }});
         });
     };
-
 
     /**
      * Funcion encargada de agregar un Producto nuevo a la base de datos.
@@ -522,7 +520,7 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
                     $scope.marcaProducto = true;
                     $scope.categoriaProducto = true;
                     $scope.temporadaProducto = true;
-                    $scope.sexoProducto = true;
+                    $scope.sexoProducto = false;
                     $scope.fechaProducto = true;
                     /*nos aseguramos que los campos posibles a cambiar esten habilitados*/
                     $scope.descripcionProducto = false;
