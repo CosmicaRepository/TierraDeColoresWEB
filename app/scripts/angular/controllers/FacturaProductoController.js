@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('FacturaProductoController', function ($scope, NgTableParams, toaster, $timeout, facturaProductoService, $location, $state, $stateParams) {
+miAppHome.controller('FacturaProductoController', function ($scope, ngDialog, NgTableParams, toaster, $timeout, facturaProductoService, $location, $state, $stateParams) {
 
     $scope._facturaProducto = {
         "idFacturaProducto": null,
@@ -26,7 +26,6 @@ miAppHome.controller('FacturaProductoController', function ($scope, NgTableParam
      * Funciones encargadas de manejar el datepicker en productos
      */
     $scope.dateOptions = {
-        formatYear: 'yy',
         maxDate: new Date(2020, 5, 22),
         minDate: null,
         startingDay: 1
@@ -80,6 +79,9 @@ miAppHome.controller('FacturaProductoController', function ($scope, NgTableParam
                     $state.go('^.producto-lista');
                 } else {
                     $scope.detalle = datos.data;
+                    var splited = datos.data.fechaFactura.split("-");
+                    var date = new Date(splited[0], splited[1] - 1, splited[2]);
+                    $scope.detalle.fechaFactura = date;
                 }
             }
         });
@@ -140,5 +142,39 @@ miAppHome.controller('FacturaProductoController', function ($scope, NgTableParam
     };
 
 
-});
+    $scope.confirmarActualizarFacturaProducto = function (toUpdate) {
+        ngDialog.open({
+            template: 'views/modals/factura_producto/confirmar-actualizacion.html',
+            className: 'ngdialog-theme-advertencia',
+            showClose: false,
+            controller: 'FacturaProductoController',
+            closeByDocument: false,
+            closeByEscape: false,
+            data: {
+                'toUpdate': toUpdate
+            }
+        });
+    };
 
+    $scope.actualizarFacturaProducto = function () {
+        $toUpdate = facturaProductoService.update($scope.ngDialogData.toUpdate);
+        $toUpdate.then(function (datos) {
+            ngDialog.closeAll();
+            if (datos.status === 200) {
+                $timeout(function timer() {
+                    $state.go($state.current, {}, {reload: true});
+                }, 2000);
+            } else {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    body: "¡Op's algo paso!, comunicate con el administrador.",
+                    showCloseButton: false
+                });
+            }
+        });
+    };
+
+
+
+});

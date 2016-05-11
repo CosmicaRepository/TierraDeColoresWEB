@@ -303,24 +303,26 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         templateUrl: "views/usuario/perfil.html",
                         controller: "UsuarioController",
                         data: {pageTitle: 'Ventas - Perfil'}
-                    }).state('ventas.usuario-modificar', {
-                url: '/modificar-usuario',
-                templateUrl: "views/usuario/modificarUsuario.html",
-                controller: "UsuarioController",
-                data: {pageTitle: 'Ventas - Modificar perfil'}
-            })/*MODULO STOCK*/
+                    })
+                    .state('ventas.usuario-modificar', {
+                        url: '/modificar-usuario',
+                        templateUrl: "views/usuario/modificarUsuario.html",
+                        controller: "UsuarioController",
+                        data: {pageTitle: 'Ventas - Modificar perfil'}
+                    })/*MODULO STOCK*/
                     /*Productos*/
                     .state('ventas.producto-busqueda', {
                         url: '/busqueda-de-productos',
                         templateUrl: "views/producto/busquedaProducto.html",
                         controller: "ProductoController",
                         data: {pageTitle: 'Ventas - Busqueda de productos'}
-                    }).state('ventas.producto-detalle', {
-                url: '/producto/:idProducto',
-                templateUrl: "views/producto/detalleProducto.html",
-                controller: "ProductoController",
-                data: {pageTitle: 'Ventas - Detalle de producto'}
-            })
+                    })
+                    .state('ventas.producto-detalle', {
+                        url: '/producto/:idProducto',
+                        templateUrl: "views/producto/detalleProducto.html",
+                        controller: "ProductoController",
+                        data: {pageTitle: 'Ventas - Detalle de producto'}
+                    })
                     /*Categorias*/
                     .state('ventas.categorias', {
                         url: '/categorias',

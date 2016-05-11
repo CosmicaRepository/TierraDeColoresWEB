@@ -9,23 +9,23 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-lg-5">Número: </label>
-                        <div class="col-lg-7">{{detalle.numeroFactura}}</div>                                
+                        <div class="col-lg-7">{{::detalle.numeroFactura}}</div>                                
                     </div>
                     <div class="form-group">
                         <label class="col-lg-5">Fecha: </label>
-                        <div class="col-lg-7">{{detalle.fechaFactura}}</div>                                
+                        <div class="col-lg-7">{{::detalle.fechaFactura|date:'yyyy-MM-dd'}}</div>                                
                     </div>
                     <div class="form-group">
                         <label class="col-lg-5">Proveedor: </label>
-                        <div class="col-lg-7">{{detalle.proveedor.nombreProveedor}}</div>                                
+                        <div class="col-lg-7">{{::detalle.proveedor.nombreProveedor}}</div>                                
                     </div>
                     <div class="form-group">
                         <label class="col-lg-5">Monto: </label>
-                        <div class="col-lg-7">{{detalle.monto|currency}}</div>                                
+                        <div class="col-lg-7">{{::detalle.monto|currency}}</div>                                
                     </div>
                     <div class="form-group">
                         <label class="col-lg-5">Estado: </label>
-                        <div class="col-lg-7">{{detalle.estadoLocal}}</div>                                
+                        <div class="col-lg-7">{{::detalle.estadoLocal}}</div>                                
                     </div>
                     <div class="form-group">
                         <label class="col-lg-5">Carga: </label>
@@ -36,7 +36,7 @@
                         <label class="control-label">Observaciones</label>                        
                     </div>
                     <div class="form-group" style="text-align: center;">
-                        <div>{{detalle.observaciones}}</div>
+                        <div>{{::detalle.observaciones}}</div>
                         <div ng-hide="detalle.observaciones">NINGUNA</div>
                     </div>
                 </form>
@@ -103,12 +103,91 @@
                 </div>
             </uib-tab>
             <uib-tab heading="Modificar datos de la factura">
-                <center>
-                    <div style="margin-top: 100px; color: #8a6d3b; border: 2px solid #8a6d3b; box-shadow: 10px 10px 5px #888888; width: 300px;">
-                        <h1>En desarrollo.</h1>
-                        <h1><span class="glyphicon glyphicon-wrench"></span></h1>
-                    </div>
-                </center>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-7">
+                    <form name="modificarFacturaPRoducto" class="form-horizontal" data-ng-init="detallesFacturaProducto()">
+                        <fieldset>
+                            <legend style="text-align: center;">Datos de la factura</legend>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">N° Factura</label>
+                                <div class="col-md-8">
+                                    <input type="text"
+                                           ng-model="detalle.numeroFactura"
+                                           maxlength="12"
+                                           min="12"
+                                           placeholder="N° de Factura"
+                                           name="numeroFactura" required
+                                           class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Fecha</label>
+                                <div class="col-md-8">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control"
+                                               uib-datepicker-popup ng-model="detalle.fechaFactura"
+                                               is-open="popup2.opened" 
+                                               placeholder="Fecha de la factura"
+                                               datepicker-options="dateOptions"
+                                               ng-required="true"
+                                               current-text="Hoy" clear-text="Limpiar" close-text="Cerrar"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-warning" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-controller="ProveedorController">
+                                <label class="control-label col-md-4">Proveedor</label>
+                                <div class="col-md-8">
+                                    <input type="text" 
+                                           maxlength="20"
+                                           required
+                                           ng-disabled="proveedorProducto"
+                                           ng-model="detalle.proveedor"
+                                           placeholder="Buscar proveedor..."
+                                           uib-typeahead="proveedor as proveedor.nombreProveedor for proveedor in getProveedor($viewValue)"
+                                           typeahead-loading="loadingcliente"
+                                           typeahead-no-results="noResults" class="form-control input-md">
+                                    <i ng-show="loadingcliente" class="glyphicon glyphicon-refresh"></i>
+                                    <div ng-show="noResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No se encontraron resultados
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Monto</label>
+                                <div class="col-md-8">
+                                    <input type="text"
+                                           ng-model="detalle.monto"
+                                           min="2"
+                                           maxlength="9"
+                                           placeholder="Monto factura"
+                                           name="monto" required
+                                           class="form-control" />
+                                </div>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Observaciones</label>
+                                <div class="col-md-8">
+                                    <textarea type="text"
+                                              rows="3"
+                                              ng-model="detalle.observaciones"
+                                              name="observaciones"
+                                              maxlength="200"
+                                              placeholder="Observaciones del pedido"
+                                              id="textarea"
+                                              class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align: center;">
+                                <button class="btn btn-warning" type="button"
+                                        ng-click="confirmarActualizarFacturaProducto(detalle)">Guardar</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="col-lg-3"></div>               
             </uib-tab>
         </uib-tabset>
     </div>

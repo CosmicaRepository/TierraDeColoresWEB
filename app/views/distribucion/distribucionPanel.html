@@ -54,8 +54,16 @@
                     </md-tab>
                     <md-tab label="Stock tierra de colores">
                         <md-content class="md-padding">
-                            <div class="table-responsive">
-                                <table class="table table-bordered"
+                            <div class="table-responsive">                                
+                                <div class="col-md-4"></div>
+                                <div class="form-group col-md-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="q"
+                                           style="text-align: center;"
+                                           placeholder="Busqueda rapida"/>
+                                </div>
+                                <table class="table table-bordered table-condensed"
                                        ng-table="tableTierraStock"
                                        data-ng-init="listaTierra()">
                                     <thead id="headTableProductos">
@@ -70,8 +78,8 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="producto in $data track by $index">
-                                        <tr>
+                                    <tbody>
+                                        <tr class="animate-repeat" ng-repeat="producto in $data| orderBy: 'producto.idProducto.idProducto' | filter:q as results">
                                             <td style="text-align: center">{{producto.idProducto.idProducto}}</td>
                                             <td style="text-align: center">{{producto.idProducto.descripcion}}</td>
                                             <td style="text-align: center">{{producto.idProducto.colorProducto}}</td>
@@ -83,6 +91,16 @@
                                                 <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
                                             </td>
                                         </tr>
+                                        <tr ng-if="results.length === 0">
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center">SIN RESULTADOS</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -91,7 +109,15 @@
                     <md-tab label="Stock bebelandia">
                         <md-content class="md-padding">
                             <div class="table-responsive">
-                                <table class="table table-bordered"
+                                <div class="col-md-4"></div>
+                                <div class="form-group col-md-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="r"
+                                           style="text-align: center;"
+                                           placeholder="Busqueda rapida"/>
+                                </div>
+                                <table class="table table-bordered table-condensed"
                                        ng-table="tableBebelandiaStock"
                                        data-ng-init="listaBebelandia()">
                                     <thead id="headTableProductos">
@@ -106,8 +132,8 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="bebelandia in $data track by $index">
-                                        <tr>
+                                    <tbody>
+                                        <tr class="animate-repeat" ng-repeat="bebelandia in $data| filter:r as results track by $index">
                                             <td style="text-align: center">{{bebelandia.idProducto.idProducto}}</td>
                                             <td style="text-align: center">{{bebelandia.idProducto.descripcion}}</td>
                                             <td style="text-align: center">{{bebelandia.idProducto.colorProducto}}</td>
@@ -119,6 +145,16 @@
                                                 <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
                                             </td>
                                         </tr>
+                                        <tr ng-if="results.length === 0">
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center">SIN RESULTADOS</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -127,7 +163,15 @@
                     <md-tab label="Stock libertador">
                         <md-content class="md-padding">
                             <div class="table-responsive">
-                                <table class="table table-bordered"
+                                <div class="col-md-4"></div>
+                                <div class="form-group col-md-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="s"
+                                           style="text-align: center;"
+                                           placeholder="Busqueda rapida"/>
+                                </div>
+                                <table class="table table-bordered table-condensed"
                                        ng-table="tableLibertadorStock"
                                        data-ng-init="listaLibertador()">
                                     <thead id="headTableProductos">
@@ -142,8 +186,8 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="libertador in $data track by $index">
-                                        <tr>
+                                    <tbody>
+                                        <tr class="animate-repeat" ng-repeat="libertador in $data|filter: s as results track by $index">
                                             <td style="text-align: center">{{libertador.idProducto.idProducto}}</td>
                                             <td style="text-align: center">{{libertador.idProducto.descripcion}}</td>
                                             <td style="text-align: center">{{libertador.idProducto.colorProducto}}</td>
@@ -154,6 +198,16 @@
                                             <td style="text-align: center">
                                                 <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
                                             </td>
+                                        </tr>
+                                        <tr ng-if="results.length === 0">
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center">SIN RESULTADOS</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
                                         </tr>
                                     </tbody>
                                 </table>

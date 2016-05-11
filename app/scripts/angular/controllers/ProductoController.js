@@ -369,7 +369,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
     $scope.removerProducto = function () {
         $scope.__producto.estadoProducto = false;
         $remover = _productoService.delete($scope.__producto);
-        /*$remover = _productoService.update($scope.__producto);*/
         $remover.then(function (datos) {
             if (datos.status === 200) {
                 toaster.pop({

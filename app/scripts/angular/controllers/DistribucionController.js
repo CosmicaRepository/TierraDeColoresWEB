@@ -63,7 +63,7 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
             $scope.tierraStock = datos.data;
             $scope.tableTierraStock = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 7
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -84,7 +84,7 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
             $scope.bebelandiaStock = datos.data;
             $scope.tableBebelandiaStock = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 7
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -105,7 +105,7 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
             $scope.libertadorStock = datos.data;
             $scope.tableLibertadorStock = new NgTableParams({
                 page: 1,
-                count: 10
+                count: 7
             }, {
                 total: data.length,
                 getData: function (params) {
@@ -292,9 +292,6 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
             $scope.tableFacturaLibertador.reload();
         });
     });
-
-
-
 
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
