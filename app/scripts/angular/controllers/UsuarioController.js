@@ -28,7 +28,8 @@ var usuarioController = miAppHome.controller('UsuarioController',
                     "fechaModificacion": null,
                     "ultimaConexion": null,
                     "idUsuarioCreacion": null,
-                    "idUsuarioModificacion": null
+                    "idUsuarioModificacion": null,
+                    "usuarioSucursal": null
                 };
 
                 $scope.userPw = {
@@ -124,13 +125,13 @@ var usuarioController = miAppHome.controller('UsuarioController',
                                 datos.data.estado = 'Activo';
                             } else {
                                 datos.data.estado = 'Inactivo';
-                            }                            
+                            }
                             if ($location.path() === '/home/perfil') {
-                                $scope.user = datos.data;                                
+                                $scope.user = datos.data;
                             } else {
                                 $scope.user = datos.data;
                                 var splited = datos.data.fechaNacimiento.split("-");
-                                var date = new Date(splited[0], splited[1]-1, splited[2]);
+                                var date = new Date(splited[0], splited[1] - 1, splited[2]);
                                 $scope.user.fechaNacimiento = date;
                             }
                             if ($scope.user.roles.idRol === 1) {
@@ -153,14 +154,7 @@ var usuarioController = miAppHome.controller('UsuarioController',
                 $scope.nuevoUsuario = function (usuario) {
                     $scope.newUser = {
                         "idUsuario": null,
-                        "roles": {
-                            "idRol": 2,
-                            "nombreRol": "VENDEDOR",
-                            "fechaCreacion": "2016-01-31",
-                            "fechaModificacion": null,
-                            "usuarioCreacion": 1,
-                            "usuarioModificacion": null
-                        },
+                        "roles": usuario.roles,
                         "nombre": usuario.nombre,
                         "apellido": usuario.apellido,
                         "fechaNacimiento": usuario.fechaNacimiento,
@@ -177,7 +171,8 @@ var usuarioController = miAppHome.controller('UsuarioController',
                         "fechaModificacion": null,
                         "ultimaConexion": null,
                         "idUsuarioCreacion": null,
-                        "idUsuarioModificacion": null
+                        "idUsuarioModificacion": null,
+                        "usuarioSucursal": usuario.usuarioSucursal
                     };
                     $promesa = UsuarioService.addUsuario($scope.newUser);
                     $promesa.then(function (datos) {
@@ -250,6 +245,27 @@ var usuarioController = miAppHome.controller('UsuarioController',
                                 body: "¡Op's algo paso!, comunicate con el administrador.",
                                 showCloseButton: false
                             });
+                        }
+                    });
+                };
+
+                $scope.listaRoles = function () {
+                    $scope.roles = "";
+                    $roles = UsuarioService.getListRol();
+                    $roles.then(function (datos) {
+                        if (datos.status === 200) {
+                            datos.data.shift();
+                            $scope.roles = datos.data;
+                        }
+                    });
+                };
+
+                $scope.listaSucursales = function () {
+                    $scope.sucursales = "";
+                    $sucursales = UsuarioService.getListSucursales();
+                    $sucursales.then(function (datos) {
+                        if (datos.status === 200) {
+                            $scope.sucursales = datos.data;
                         }
                     });
                 };

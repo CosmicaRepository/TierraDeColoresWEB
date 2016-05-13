@@ -20,7 +20,8 @@ and open the template in the editor.
                 <tr>
                     <th>ID</th>
                     <th>Nombre y Apellido</th>
-                    <th>Role</th>
+                    <th>Rol</th>
+                    <th>Sucursal</th>
                     <th>E-mail</th>
                     <th>Telefono</th>
                     <th>Domicilio Particular</th>                
@@ -33,6 +34,7 @@ and open the template in the editor.
                 <td>{{usuario.idUsuario}}</td>
                 <td>{{usuario.nombre}} {{usuario.apellido}}</td>
                 <td style="font-size: smaller;">{{usuario.roles.nombreRol}}</td>
+                <td style="font-size: smaller;">{{usuario.usuarioSucursal.nombreSucursal}}</td>
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.telefono}}</td>
                 <td>{{usuario.domicilio}}</td>

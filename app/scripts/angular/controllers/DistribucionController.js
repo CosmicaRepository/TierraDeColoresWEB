@@ -297,3 +297,12 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
         $scope.alerts.splice(index, 1);
     };
 });
+miAppHome.filter('highlight', function ($sce) {
+    return function (text, phrase) {
+        if (phrase)
+            text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
+                    '<span class="highlighted">$1</span>')
+
+        return $sce.trustAsHtml(text)
+    };
+});

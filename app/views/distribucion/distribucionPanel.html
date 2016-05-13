@@ -79,7 +79,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="animate-repeat" ng-repeat="producto in $data| orderBy: 'producto.idProducto.idProducto' | filter:q as results">
+                                        <tr class="animate-repeat"
+                                            ng-repeat="producto in $data| orderBy: 'producto.idProducto.idProducto' | filter:q as results">                                            
                                             <td style="text-align: center">{{producto.idProducto.idProducto}}</td>
                                             <td style="text-align: center">{{producto.idProducto.descripcion}}</td>
                                             <td style="text-align: center">{{producto.idProducto.colorProducto}}</td>

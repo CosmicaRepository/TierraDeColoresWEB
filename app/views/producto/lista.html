@@ -29,12 +29,12 @@
                             <td style="text-align: center">{{producto.talla| uppercase}}</td>
                             <td style="text-align: center">{{producto.colorProducto| uppercase}}</td>                
                             <td style="text-align: center">
-                                <button class="btn btn-xs btn-danger"
+                                <button class="btn btn-xs btn-info"
                                         type="button"                            
                                         data-toggle="modal" data-target="#myModal"
-                                        uib-tooltip="Remover producto."
+                                        uib-tooltip="Ocultar producto."
                                         ng-click="seleccionarProducto(producto)"
-                                        ><span class="glyphicon glyphicon-remove"></span></button>
+                                        ><span class="glyphicon glyphicon-eye-close"></span></button>
                             </td>                
                         </tr>
                     </tbody>
@@ -102,16 +102,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <center><h4 class="modal-title" id="myModalLabel">Eliminar producto</h4></center>
+                <center><h4 class="modal-title" id="myModalLabel">Ocultar producto</h4></center>
             </div>
             <div class="modal-body">
-                <center>                        
-                    ¿Desea eliminar este producto?                         
-                    <br>
-                    <button class="btn btn-danger"
+                <center class="well">                        
+                    <p style="font-weight: bolder">Estas a punto de ocultar este producto.</p>                       
+                    <p>¿Deseas continuar?</p> 
+                    <button class="btn btn-info"
                             style="margin-top: 20px;"
                             data-dismiss="modal"
-                            ng-click="removerProducto()">Remover</button>
+                            uib-tooltip="Esta acción no elimina el producto y es totalmente reversible."
+                            tooltip-placement="bottom"
+                            ng-click="removerProducto()">Ocultar</button>
                 </center>
             </div>
             <div class="modal-footer">

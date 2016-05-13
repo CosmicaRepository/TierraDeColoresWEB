@@ -147,5 +147,49 @@ miAppHome.service('UsuarioService', function ($http, $q, $rootScope, $cookies) {
         });
         return deferred.promise;
     };
+    
+    this.getListRol = function () {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/rol/list';
+        $http({
+            url: uri,
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.getListSucursales = function () {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/sucursal/list';
+        $http({
+            url: uri,
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 });
 
