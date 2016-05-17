@@ -22,8 +22,12 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'ui.router',
             'kendo.directives',
             'ngDialog',
+            'LocalStorageModule',
+            'ngLoader',
             'io-barcode'])
-        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
+            localStorageServiceProvider
+                    .setPrefix('myApp');
             cfpLoadingBarProvider.includeSpinner = false; /*Activar/Desactivar Spinner.*/
             var uri = 'https://tierradecoloresapi.herokuapp.com/usuarios/logged';
             var session = 'https://tierradecoloresapi.herokuapp.com/usuarios/activeSession';

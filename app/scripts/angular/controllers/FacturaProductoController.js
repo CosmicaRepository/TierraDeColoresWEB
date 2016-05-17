@@ -48,7 +48,7 @@ miAppHome.controller('FacturaProductoController', function ($scope, ngDialog, Ng
                 var data = datos.data;
                 $scope.tableFacturaProductos = new NgTableParams({
                     page: 1,
-                    count: 8
+                    count: 7
                 }, {
                     total: data.length,
                     getData: function (params) {
@@ -144,7 +144,7 @@ miAppHome.controller('FacturaProductoController', function ($scope, ngDialog, Ng
 
     $scope.confirmarActualizarFacturaProducto = function (toUpdate) {
         ngDialog.open({
-            template: 'views/modals/factura_producto/confirmar-actualizacion.html',
+            template: 'views/factura_producto/modal-confirmar-actualizacion.html',
             className: 'ngdialog-theme-advertencia',
             showClose: false,
             controller: 'FacturaProductoController',

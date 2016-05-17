@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-miAppHome.controller('DistribucionController', function ($scope, $rootScope, _productoService, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
+miAppHome.controller('DistribucionController', function ($scope, localStorageService, $rootScope, _productoService, NgTableParams, ngDialog, toaster, $timeout, facturaProductoService, $state, $stateParams, distribucionService) {
 
     $scope.alerts = [];
     $scope.modalDistribuir = {
@@ -188,7 +188,7 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
     $scope.distribuirModal = function (producto) {
         $rootScope.modalProducto = producto;
         ngDialog.open({
-            template: 'views/modals/distribucion/modal-distribuir.html',
+            template: 'views/distribucion/modal-distribuir-stock.html',
             className: 'ngdialog-theme-advertencia',
             showClose: false,
             controller: 'DistribucionController',
@@ -214,7 +214,7 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
                 $scope.wrapper.stockLibertador.cantidad = modalDistribuir.libertador;
             }
             ngDialog.open({
-                template: 'views/modals/distribucion/confirmacion-distribuir.html',
+                template: 'views/distribucion/modal-confirmacion-distribuir.html',
                 className: 'ngdialog-theme-advertencia',
                 showClose: false,
                 controller: 'DistribucionController',
@@ -293,16 +293,53 @@ miAppHome.controller('DistribucionController', function ($scope, $rootScope, _pr
         });
     });
 
+    $scope.verificarDistribucion = function (facturaProducto) {
+        if (facturaProducto.carga === true) {
+            ngDialog.open({
+                template: 'views/distribucion/modal-advertencia-distribuir.html',
+                scope: $scope,
+                className: 'ngdialog-theme-advertencia',
+                showClose: false,
+                controller: 'DistribucionController',
+                closeByDocument: false,
+                closeByEscape: false
+            });
+        } else {
+            $state.go('^.distribuir-factura', {idFactura: facturaProducto.idFacturaProducto});
+        }
+
+    };
+
+    $scope.confirmarFinalizarDistribucion = function (detalle) {
+        ngDialog.open({
+            template: 'views/distribucion/modal-confirmar-finalizar.html',
+            className: 'ngdialog-theme-advertencia',
+            showClose: false,
+            controller: 'DistribucionController',
+            closeByDocument: false,
+            closeByEscape: false,
+            data: {'detalle': detalle}
+        });
+    };
+
+    $scope.finalizarEstadoDistribucion = function () {
+        $scope.ngDialogData.detalle.estadoLocal = "REPARTIDO";
+        $estado = facturaProductoService.update($scope.ngDialogData.detalle);
+        $estado.then(function (datos) {
+            if (datos.status === 200) {
+                ngDialog.closeAll();
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'El estado de la factura se modifico correctamente.',
+                    showCloseButton: false
+                });
+            }
+        });
+    };
+
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
-    };
-});
-miAppHome.filter('highlight', function ($sce) {
-    return function (text, phrase) {
-        if (phrase)
-            text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
-                    '<span class="highlighted">$1</span>')
+    };   
 
-        return $sce.trustAsHtml(text)
-    };
 });

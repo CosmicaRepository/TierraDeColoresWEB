@@ -3,7 +3,7 @@
  * @param {type} param1
  * @param {type} param2
  */
-miAppHome.controller('ProductoController', function ($scope, $state, facturaProductoService, $stateParams, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
+miAppHome.controller('ProductoController', function ($scope, localStorageService, $state, facturaProductoService, $stateParams, toaster, NgTableParams, $rootScope, $http, $routeParams, $route, $timeout, $cookies, $location, _productoService) {
     /*
      * objeto type encargado de dar formato a los codigos de barra.
      */
@@ -130,13 +130,48 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
      * datos
      * @returns {undefined}
      */
+    $scope.productos = localStorageService.get('localStorageProductos');
     $scope.listaProductos = function () {
-        $scope.productos = "";
+        var length = 0;
+        if ($scope.productos !== null) {
+            length = $scope.productos.length;
+            $scope.tableProductos = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: length,
+                getData: function (params) {
+                    var data = $scope.productos;
+                    params.total(length);
+                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                        params.page(1);
+                    }
+                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }});
+        }
         $promesa = _productoService.getAll();
         $promesa.then(function (datos) {
-            var data = datos.data;
             if (datos.status === 200) {
-                $scope.productos = datos.data;
+                localStorageService.set('localStorageProductos', datos.data);
+                if ($scope.productos === null) {
+                    $scope.productos = datos.data;
+                    $scope.tableProductos = new NgTableParams({
+                        page: 1,
+                        count: 10
+                    }, {
+                        total: $scope.productos.length,
+                        getData: function (params) {
+                            var data = $scope.productos;
+                            params.total(data.length);
+                            if (params.total() <= ((params.page() - 1) * params.count())) {
+                                params.page(1);
+                            }
+                            return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                        }});
+                } else {
+                    $scope.productos = datos.data;
+                    $scope.tableProductos.reload();
+                }
             } else {
                 toaster.pop({
                     type: 'error',
@@ -145,19 +180,6 @@ miAppHome.controller('ProductoController', function ($scope, $state, facturaProd
                     showCloseButton: false
                 });
             }
-            $scope.tableProductos = new NgTableParams({
-                page: 1,
-                count: 10
-            }, {
-                total: data.length,
-                getData: function (params) {
-                    data = $scope.productos;
-                    params.total(data.length);
-                    if (params.total() <= ((params.page() - 1) * params.count())) {
-                        params.page(1);
-                    }
-                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                }});
         });
     };
 

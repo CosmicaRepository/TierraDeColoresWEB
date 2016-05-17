@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="col-lg-1"></div>
-<div class="col-lg-10">
+<div class="col-lg-10">    
     <div class="distribucion-panel">
         <div ng-cloak>
             <md-content>
@@ -8,10 +8,23 @@
                     <md-tab label="Facturas">
                         <md-content class="md-padding">
                             <div class="table-responsive">
+                                <p><input type="text" ng-model="localStorageDemo" placeholder="Start typing..."></p>
+
+                                <blockquote class="well" ng-show="localStorageDemoValue">
+                                    <p ng-bind="localStorageDemoValue"></p>                                   
+                                </blockquote>
                                 <table class="table table-bordered table-condensed"
                                        ng-table="tableFacturaProductos"
                                        ng-controller="FacturaProductoController"
                                        data-ng-init="listaFacturaProducto()">
+                                    <div class="col-md-4"></div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="f"
+                                               style="text-align: center;"
+                                               placeholder="Busqueda rapida"/>
+                                    </div>
                                     <thead id="headTableProductos">
                                         <tr>
                                             <th>ID</th>
@@ -23,19 +36,22 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="facturaProducto in $data">
-                                        <tr ng-class="{
-                                                    danger: facturaProducto.carga === true, success: facturaProducto.carga === false}">
+                                    <tbody>
+                                        <tr ng-class="{danger: facturaProducto.carga === true, success: facturaProducto.carga === false}"
+                                            ng-repeat="facturaProducto in $data| filter:f as results"
+                                            class="animate-repeat">
                                             <td style="text-align: center">{{facturaProducto.idFacturaProducto}}</td>
                                             <td style="text-align: center">
                                                 <a ui-sref="^.agregar-producto-factura({idFactura: facturaProducto.idFacturaProducto})" target="_blank"
-                                                   ng-class="{
-                                                               disabled: facturaProducto.carga === false
-                                                           }">{{facturaProducto.numeroFactura}}</a>
+                                                   ng-class="{disabled: facturaProducto.carga === false}">{{facturaProducto.numeroFactura}}</a>
                                             </td>
                                             <td style="text-align: center">{{facturaProducto.proveedor.nombreProveedor}}</td>
                                             <td style="text-align: center">{{facturaProducto.monto|currency}}</td>
-                                            <td style="text-align: center">{{facturaProducto.estadoLocal}}</td>
+                                            <td style="text-align: center">
+                                                <span style="color:#3c763d;"
+                                                      ng-if="facturaProducto.estadoLocal === 'REPARTIDO'"
+                                                      class="glyphicon glyphicon-ok"></span> {{facturaProducto.estadoLocal}}
+                                            </td>
                                             <td style="text-align: center">
                                                 <div ng-show="facturaProducto.carga">INICIADA</div>                                
                                                 <div ng-hide="facturaProducto.carga">FINALIZADA</div> 
@@ -43,7 +59,7 @@
                                             <td style="text-align: center">
                                                 <button class="btn btn-xs btn-success"
                                                         uib-tooltip="Distribuir mercaderia"
-                                                        ui-sref="^.distribuir-factura({idFactura: facturaProducto.idFacturaProducto})"
+                                                        ng-click="verificarDistribucion(facturaProducto)"
                                                         ng-disabled="false"><span class="glyphicon glyphicon-random"></span></button>
                                             </td>
                                         </tr>
@@ -188,7 +204,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="animate-repeat" ng-repeat="libertador in $data|filter: s as results track by $index">
+                                        <tr class="animate-repeat" ng-repeat="libertador in $data| filter: s as results track by $index">
                                             <td style="text-align: center">{{libertador.idProducto.idProducto}}</td>
                                             <td style="text-align: center">{{libertador.idProducto.descripcion}}</td>
                                             <td style="text-align: center">{{libertador.idProducto.colorProducto}}</td>

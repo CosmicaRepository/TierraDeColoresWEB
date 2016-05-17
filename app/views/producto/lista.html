@@ -3,10 +3,16 @@
 <div class="col-lg-8" style="margin-top: 100px;">
     <uib-tabset justified="true" style="min-height: 500px; background-color: white;">
         <uib-tab heading="Listado de productos">
-            <div class="table-responsive">
+            <div class="table-responsive" ng-init="working = true">
+                <div class="loader-container">
+                    <div loader working="working"></div>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas
+                        dui bibendum ligula ornare viverra. Suspendisse at consequat ante. Cras
+                        viverra congue urna, vel vehicula lectus. Aliquam sagittis ut dui sed
+                        ultrices.</span>
+                </div>
                 <table data-ng-init="listaProductos()"
                        class="table table-bordered table-condensed"
-                       ng-show="productos[0]"
                        ng-table="tableProductos"
                        id="tableProductos">
                     <thead id="headTableProductos">
@@ -20,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
+                        <tr class="animate-repeat" ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
                             ng-class="{ danger: stockMinimo(producto) }"                
                             >
                             <td style="text-align: center">{{producto.idProducto}}</td>
@@ -69,7 +75,8 @@
                         </tr>
                     </thead>
                     <tbody ng-repeat="facturaProducto in $data">
-                        <tr ng-class="{danger: facturaProducto.carga === true, success: facturaProducto.carga === false}">
+                        <tr class="animate-repeat"
+                            ng-class="{danger: facturaProducto.carga === true, success: facturaProducto.carga === false}">
                             <td style="text-align: center">{{facturaProducto.idFacturaProducto}}</td>
                             <td style="text-align: center">
                                 <a ui-sref="^.agregar-producto-factura({idFactura: facturaProducto.idFacturaProducto})"

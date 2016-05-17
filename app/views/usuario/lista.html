@@ -43,8 +43,8 @@ and open the template in the editor.
                     <div ng-hide="usuario.ultimaConexion">NUNCA</div>
                 </td>
                 <td style="text-align: center;">
-                    <div ng-show="{{usuario.estado}}">ACTIVO</div>
-                    <div ng-hide="{{usuario.estado}}">INACTIVO</div>
+                    <div ng-show="{{::usuario.estado}}">ACTIVO</div>
+                    <div ng-hide="{{::usuario.estado}}">INACTIVO</div>
                 </td>
                 <td>
             <center>
