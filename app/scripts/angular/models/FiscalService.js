@@ -43,15 +43,10 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
         var tk = $cookies.get('ptk');
         $http({
             url: uri,
-            method: 'post',
+            method: 'get',
             headers: {
                 'Authorization': 'Bearer ' + tk,
                 'Content-type': 'application/json'
-            },
-            params: {
-                username: Auth.usuario,
-                password: Auth.password,
-                grant_type: 'password'
             }
         }).then(function successCallback(response) {
             datosRecu = response;

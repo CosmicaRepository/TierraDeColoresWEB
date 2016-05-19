@@ -349,7 +349,7 @@ body {
     pointer-events: none;
 }
 .panel-factura{
-    min-height: 520px;
+    min-height: 525px;
     height: fit-content;
     background-color: white;
     border: 1px solid #8a6d3b;

@@ -37,7 +37,7 @@ and open the template in the editor.
                                 <input type="text" 
                                        ng-model="_producto.marcas"
                                        placeholder="Buscar marca..."
-                                       maxlength="20"
+                                       maxlength="20" name="marca" required
                                        ng-disabled="marcaProducto"
                                        uib-typeahead="marca as marca.nombreMarca for marca in getMarca($viewValue)"
                                        typeahead-loading="loadingcliente"
@@ -52,6 +52,7 @@ and open the template in the editor.
                             <label class="control-label col-lg-4">Categoria</label>
                             <div class="col-lg-8" ng-controller="CategoriaController" data-ng-init="listaCategorias()" >
                                 <select class="form-control"
+                                        name="categoria" required
                                         ng-disabled="categoriaProducto"
                                         ng-options="categoria as categoria.nombreCategoria for categoria in categorias track by categoria.idCategoria" 
                                         ng-model="_producto.categoria">
@@ -63,6 +64,7 @@ and open the template in the editor.
                             <label class="control-label col-lg-4">Temporada</label>
                             <div class="col-lg-8">                                        
                                 <select class="form-control"
+                                        name="temporada" required
                                         ng-disabled="temporadaProducto"
                                         ng-controller="TemporadaController"
                                         data-ng-init="listaTemporadas()"
@@ -76,6 +78,7 @@ and open the template in the editor.
                             <label class="control-label col-lg-4">Sexo</label>
                             <div class="col-lg-8">                    
                                 <select class="form-control"
+                                        name="sexo" required
                                         ng-disabled="sexoProducto"
                                         data-ng-init="listaSexos()"
                                         ng-controller="SexoController"
@@ -113,7 +116,7 @@ and open the template in the editor.
                             <div class="input-group col-lg-7" id="btnRandom">                   
                                 <input type="text" class="form-control"
                                        ng-model="_producto.codigoProducto" 
-                                       name="codigo" 
+                                       name="codigo" required
                                        ng-disabled="codigoProducto"
                                        placeholder="Codigo de barras"
                                        required maxlength="30"
@@ -133,6 +136,7 @@ and open the template in the editor.
                             <label class="col-lg-4 control-label">Clase</label>
                             <div class="col-lg-8">
                                 <select class="form-control"
+                                        name="clase" required
                                         ng-disabled="claseProducto"
                                         ng-model="_producto.claseProducto">
                                     <option value="" disabled selected>Seleccionar clase de producto</option>

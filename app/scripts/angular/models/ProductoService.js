@@ -148,7 +148,7 @@ miAppHome.service('_productoService', function ($http, $q, $cookies, $rootScope)
 
     this.searchByBarcode = function (barcode) {
         var token = $cookies.getObject('token');
-        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/barcode';
+        var uri = 'https://tierradecoloresapi.herokuapp.com/producto/stock';
         var list = $http({
             url: uri,
             method: 'post',

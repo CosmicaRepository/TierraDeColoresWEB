@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 miAppHome.controller('FacturaController',
-        ['$scope', '$state', '$stateParams', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
-            function ($scope, $state, $stateParams, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
+        ['$scope', 'ngDialog', '$state', '$stateParams', 'clienteService', 'toaster', '$rootScope', 'NgTableParams', '_productoService', '$http', '$timeout', '$uibModal', '$cookies', '$route', 'facturaService', '$location', '$routeParams', 'metodoPagoFacturaService', 'medioPagoService', 'entidadBancariaService', 'planPagoService', 'tarjetaService',
+            function ($scope, ngDialog, $state, $stateParams, clienteService, toaster, $rootScope, NgTableParams, _productoService, $http, $timeout, $uibModal, $cookies, $route, facturaService, $location, $routeParams, metodoPagoFacturaService, medioPagoService, entidadBancariaService, planPagoService, tarjetaService) {
 
                 $scope.oneAtATime = true;
                 $scope.clientElement = {
@@ -291,7 +291,6 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.agregarMetodoPago = function () {
-                    console.log($rootScope.metodo);
                     var idFactura = $stateParams.idFactura;
                     $promesa = facturaService.searchById(idFactura);
                     $promesa.then(function (datos) {
@@ -328,7 +327,6 @@ miAppHome.controller('FacturaController',
                                     $scope._metodoPago.comprobante = $rootScope.metodo.comprobantePago;
                                     $prom = metodoPagoFacturaService.addMetodoPago($scope._metodoPago);
                                     $prom.then(function (datos) {
-                                        console.log($prom);
                                         if (datos.status === 200) {
                                             $timeout(function timer() {
                                                 toaster.pop({
@@ -341,7 +339,6 @@ miAppHome.controller('FacturaController',
                                             $rootScope.$emit('reloadMetodo', {});
                                         }
                                     }).catch(function (fallback) {
-                                        console.log(fallback);
                                         toaster.pop({
                                             type: 'error',
                                             title: 'Error',
@@ -498,7 +495,6 @@ miAppHome.controller('FacturaController',
                     $promesa = facturaService.getVendedores();
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
-                            console.log(datos.data);
                             $scope.vendedores = datos.data;
                         }
                     });
@@ -559,6 +555,37 @@ miAppHome.controller('FacturaController',
                             showCloseButton: false
                         });
                     }
+                };
+
+                $scope.buscarCodigoBarra = function (codigo) {
+                    $promesa = _productoService.searchByBarcode(codigo);
+                    $promesa.then(function (datos) {
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Encontrado/s',
+                            body: 'Se encontraron productos',
+                            showCloseButton: false
+                        });
+                        $scope.stock = datos.data;
+                        ngDialog.open({
+                            template: 'views/factura/modal-buscar-codigo-barra.html',
+                            className: 'ngdialog-theme-lg ngdialog-theme-custom',
+                            showClose: false,
+                            controller: 'DistribucionController',
+                            closeByDocument: false,
+                            closeByEscape: false,
+                            data: {
+                                stock:$scope.stock
+                            }
+                        });
+                    }).catch(function (fallback) {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'No se han encontrado productos',
+                            showCloseButton: false
+                        });
+                    });
                 };
 
             }]);

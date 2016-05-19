@@ -23,7 +23,6 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'kendo.directives',
             'ngDialog',
             'LocalStorageModule',
-            'ngLoader',
             'io-barcode'])
         .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
             localStorageServiceProvider

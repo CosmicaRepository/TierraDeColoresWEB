@@ -6,7 +6,7 @@
 <div class="col-lg-3">
     <div class="panel panel-factura"
          ng-show="factura"
-         style="min-height: 520px;"
+         style="min-height: 525px;"
          data-ng-init="detailFactura()">
         <div class="panel-heading panel-warning" style="text-align: center; color: #8a6d3b">
             <label>Factura N°{{factura.idFactura}} {{factura.numeracion}}</label>
@@ -40,8 +40,8 @@
                             style="float: bottom;">Finalizar</button>
 
                     <button class="btn btn-block btn-warning">Anular</button>
-
-                    <div data-ng-init="accesoFiscal()">
+                    <!-- reactivar funcion accesoFiscal()-->
+                    <div data-ng-init="">
                         <h2>
                             <span class="glyphicon glyphicon-print"
                                   ng-hide="printer"
@@ -63,7 +63,7 @@
         <div ng-cloak>
             <md-content>
                 <md-tabs md-dynamic-height md-border-bottom>
-                    <md-tab label="Cliente">
+                    <md-tab label="Cliente" ng-disabled="true">
                         <md-content class="md-padding">
                             <uib-accordion close-others="oneAtATime">            
                                 <uib-accordion-group
@@ -205,6 +205,7 @@
                         <md-content class="md-padding">
                             <div class="col-lg-12"
                                  data-ng-init="detailFactura()">
+                                <!--
                                 <form class="form-inline" style="margin-top: 5%;">
                                     <div class="form-group" style="width: 100%; text-align: center;">
                                         <label class="control-label">Ingresa codigo de producto</label>
@@ -217,7 +218,25 @@
                                                style="width: 50%; text-align: center;"
                                                class="form-control"/>
                                     </div>
-                                </form>
+                                </form> -->
+                                <md-content layout-padding>
+                                    <form name="codigoBarras">
+                                        <div layout="row" flex>
+                                            <md-input-container flex class="md-block">
+                                                <label>Codigo de barras</label>
+                                                <input md-maxlength="30" required name="codigo" ng-model="codigo" focus-if>
+                                                <div ng-messages="codigoBarras.codigo.$error">
+                                                    <div ng-message="required">No debe estar vacio para realizar una busqueda.</div>
+                                                    <div ng-message="md-maxlength">El codigo de barras es demasiado largo.</div>
+                                                </div>
+                                            </md-input-container>
+                                            <div>
+                                                <md-button class="md-raised"
+                                                           ng-click="buscarCodigoBarra(codigo)">Buscar</md-button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </md-content>
                                 <div class="table-responsive">
                                     <table ng-table="tableParams" style="margin-top: 10px;" 
                                            class="table table-condensed table-bordered table-striped"                                   

@@ -3,14 +3,7 @@
 <div class="col-lg-8" style="margin-top: 100px;">
     <uib-tabset justified="true" style="min-height: 500px; background-color: white;">
         <uib-tab heading="Listado de productos">
-            <div class="table-responsive" ng-init="working = true">
-                <div class="loader-container">
-                    <div loader working="working"></div>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas
-                        dui bibendum ligula ornare viverra. Suspendisse at consequat ante. Cras
-                        viverra congue urna, vel vehicula lectus. Aliquam sagittis ut dui sed
-                        ultrices.</span>
-                </div>
+            <div class="table-responsive">                
                 <table data-ng-init="listaProductos()"
                        class="table table-bordered table-condensed"
                        ng-table="tableProductos"
@@ -26,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="animate-repeat" ng-repeat="producto in $data| orderBy: 'cantidadTotal'"
+                        <tr class="animate-repeat" ng-repeat="producto in $data"
                             ng-class="{ danger: stockMinimo(producto) }"                
                             >
                             <td style="text-align: center">{{producto.idProducto}}</td>

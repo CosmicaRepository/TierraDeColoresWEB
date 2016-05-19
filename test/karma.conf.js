@@ -42,7 +42,6 @@ module.exports = function(config) {
       'bower_components/angular-material/angular-material.js',
       'bower_components/ng-dialog/js/ngDialog.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
-      'bower_components/ng-loaders/ngLoader.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
