@@ -2,7 +2,11 @@
 <div class="ngdialog-message">
     <div class="modal-header">
         <center>
-            <h3 class="modal-title">Selecciona tipo de comprobante</h3>
+            <h3 class="modal-title">
+                <div ng-if="ngDialogData.stock[0].idSucursal === 1">Stock disponible en Tierra de colores.</div>
+                <div ng-if="ngDialogData.stock[0].idSucursal === 2">Stock disponible en Bebelandia.</div>
+                <div ng-if="ngDialogData.stock[0].idSucursal === 3">Stock disponible en Libertador</div>
+            </h3>
         </center>
     </div>
     <div class="modal-body">
@@ -23,42 +27,29 @@
                 <tbody style="text-align:center;">
                     <tr ng-repeat="item in ngDialogData.stock">
                         <td>
-                            {{item.stockTierra.idProducto.codigoProducto}}
-                            {{item.stockBebelandia.idProducto.codigoProducto}}
-                            {{item.stockLibertador.idProducto.codigoProducto}}
+                            {{item.idProducto.codigoProducto}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.claseProducto}}
-                            {{item.stockBebelandia.idProducto.claseProducto}}
-                            {{item.stockLibertador.idProducto.claseProducto}}
+                            {{item.idProducto.claseProducto}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.descripcion| uppercase}}
-                            {{item.stockBebelandia.idProducto.descripcion| uppercase}}
-                            {{item.stockLibertador.idProducto.descripcion| uppercase}}
+                            {{item.idProducto.descripcion| uppercase}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.talla| uppercase}}
-                            {{item.stockBebelandia.idProducto.talla| uppercase}}
-                            {{item.stockLibertador.idProducto.talla| uppercase}}
+                            {{item.idProducto.talla| uppercase}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.colorProducto| uppercase}}
-                            {{item.stockBebelandia.idProducto.colorProducto| uppercase}}
-                            {{item.stockLibertador.idProducto.colorProducto| uppercase}}
+                            {{item.idProducto.colorProducto| uppercase}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.precioVenta|currency}}
-                            {{item.stockBebelandia.idProducto.precioVenta|currency}}
-                            {{item.stockLibertador.idProducto.precioVenta|currency}}
+                            {{item.idProducto.precioVenta|currency}}
                         </td>
                         <td>
-                            {{item.stockTierra.idProducto.cantidadTotal}}
-                            {{item.stockBebelandia.idProducto.cantidadTotal}}
-                            {{item.stockLibertador.idProducto.cantidadTotal}}
+                            {{item.cantidad}}
                         </td>
                         <td>                    
-                            <button ng-click="addProductoDetalle(item.idProducto)"
+                            <button ng-click="agregarItem(item)"
+                                    type="button"
                                     class="btn btn-xs btn-success">
                                 <span class="glyphicon glyphicon-check"></span>
                             </button>

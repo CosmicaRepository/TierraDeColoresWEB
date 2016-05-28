@@ -26,7 +26,8 @@ miAppHome.controller('FacturaController',
                     "usuarioCreacion": null,
                     "usuarioModificacion": null,
                     "total": null,
-                    "numeracion": null
+                    "numeracion": null,
+                    "idSucursal": null
                 };
                 $rootScope.factura = "";
                 $scope._metodoPago = {
@@ -116,7 +117,6 @@ miAppHome.controller('FacturaController',
                         $scope.detalleFacturas = datos.data;
                         var data = datos.data;
                         angular.forEach(data, function (value, key) {
-//                            value.idDetalleFactura = key + 1; //posiblemente a eliminar, de mas
                             $scope.totalCompra = parseFloat($scope.totalCompra) + parseFloat(value.totalDetalle);
                         });
                         $scope.tableParams = new NgTableParams({
@@ -135,19 +135,16 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
-                $rootScope.$on('ReloadTable', function () {
+                $scope.$on('reloadDetalles', function () {
                     var idFacturaDetalle = $stateParams.idFactura;
-                    $timeout(function timer() {
-                        facturaService.getDetalleFacturaList(idFacturaDetalle).then(function (datos) {
-                            $scope.detalleFacturas = datos.data;
-                            $scope.totalCompra = 0;
-                            angular.forEach(datos.data, function (value, key) {
-//                                value.idDetalleFactura = key; //posiblemente a eliminar, de mas
-                                $scope.totalCompra = parseFloat($scope.totalCompra) + parseFloat(value.totalDetalle);
-                            });
-                            $scope.tableParams.reload();
+                    facturaService.getDetalleFacturaList(idFacturaDetalle).then(function (datos) {
+                        $scope.detalleFacturas = datos.data;
+                        $scope.totalCompra = 0;
+                        angular.forEach(datos.data, function (value, key) {
+                            $scope.totalCompra = parseFloat($scope.totalCompra) + parseFloat(value.totalDetalle);
                         });
-                    }, 1000);
+                        $scope.tableParams.reload();
+                    });
                 });
 
                 $rootScope.$on('reloadMetodo', function () {
@@ -536,7 +533,6 @@ miAppHome.controller('FacturaController',
                                             showCloseButton: false
                                         });
                                     } else {
-                                        toaster.pop('error', 'Error', 'Aun queda saldo por pagar.');
                                         toaster.pop({
                                             type: 'error',
                                             title: 'Error',
@@ -567,15 +563,20 @@ miAppHome.controller('FacturaController',
                             showCloseButton: false
                         });
                         $scope.stock = datos.data;
+                        var initial = "";
+                        $scope.codigo = angular.copy(initial);
+                        $scope.codigoBarras.$setPristine();
+                        $scope.codigoBarras.$setValidity();
+                        $scope.codigoBarras.$setUntouched();
                         ngDialog.open({
                             template: 'views/factura/modal-buscar-codigo-barra.html',
                             className: 'ngdialog-theme-lg ngdialog-theme-custom',
                             showClose: false,
-                            controller: 'DistribucionController',
+                            controller: 'ModalController',
                             closeByDocument: false,
                             closeByEscape: false,
                             data: {
-                                stock:$scope.stock
+                                stock: $scope.stock
                             }
                         });
                     }).catch(function (fallback) {
@@ -587,6 +588,43 @@ miAppHome.controller('FacturaController',
                         });
                     });
                 };
+
+                $scope.cargarDescuento = function (detalleFactura) {
+                    ngDialog.open({
+                        template: 'views/factura/modal-cargar-descuento.html',
+                        className: 'ngdialog-theme-sm',
+                        showClose: false,
+                        controller: 'ModalController',
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        data: {detalleFactura: detalleFactura}
+                    });
+                };
+                
+                $scope.eliminarDescuento = function (detalleFactura) {
+                    ngDialog.open({
+                        template: 'views/factura/modal-eliminar-descuento.html',
+                        className: 'ngdialog-theme-advertencia',
+                        showClose: false,
+                        controller: 'ModalController',
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        data: {detalleFactura: detalleFactura}
+                    });
+                };
+                
+                $scope.eliminarDetalleFactura = function (detalleFactura) {
+                    ngDialog.open({
+                        template: 'views/factura/modal-eliminar-detalle.html',
+                        className: 'ngdialog-theme-advertencia',
+                        showClose: false,
+                        controller: 'ModalController',
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        data: {detalleFactura: detalleFactura}
+                    });
+                };
+
 
             }]);
 

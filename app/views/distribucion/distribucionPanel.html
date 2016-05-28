@@ -96,7 +96,13 @@
                                         <tr class="animate-repeat"
                                             ng-repeat="producto in $data| orderBy: 'producto.idProducto.idProducto' | filter:q as results">                                            
                                             <td style="text-align: center">{{producto.idProducto.idProducto}}</td>
-                                            <td style="text-align: center">{{producto.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">
+                                                <a target="_blank"
+                                                   href=""
+                                                   ui-sref="^.producto-detalle({idProducto:{{producto.idProducto.idProducto}}})">
+                                                    {{producto.idProducto.descripcion}}
+                                                </a>
+                                            </td>
                                             <td style="text-align: center">{{producto.idProducto.colorProducto}}</td>
                                             <td style="text-align: center">{{producto.cantidad}}</td>
                                             <td style="text-align: center">{{producto.idProducto.talla}}</td>
@@ -150,7 +156,13 @@
                                     <tbody>
                                         <tr class="animate-repeat" ng-repeat="bebelandia in $data| filter:r as results track by $index">
                                             <td style="text-align: center">{{bebelandia.idProducto.idProducto}}</td>
-                                            <td style="text-align: center">{{bebelandia.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">
+                                                <a target="_blank"
+                                                   href=""
+                                                   ui-sref="^.producto-detalle({idProducto:{{bebelandia.idProducto.idProducto}}})">
+                                                    {{bebelandia.idProducto.descripcion}}
+                                                </a>
+                                            </td>
                                             <td style="text-align: center">{{bebelandia.idProducto.colorProducto}}</td>
                                             <td style="text-align: center">{{bebelandia.cantidad}}</td>
                                             <td style="text-align: center">{{bebelandia.idProducto.talla}}</td>
@@ -204,7 +216,13 @@
                                     <tbody>
                                         <tr class="animate-repeat" ng-repeat="libertador in $data| filter: s as results track by $index">
                                             <td style="text-align: center">{{libertador.idProducto.idProducto}}</td>
-                                            <td style="text-align: center">{{libertador.idProducto.descripcion}}</td>
+                                            <td style="text-align: center">
+                                                <a target="_blank"
+                                                   href=""
+                                                   ui-sref="^.producto-detalle({idProducto:{{libertador.idProducto.idProducto}}})">
+                                                    {{libertador.idProducto.descripcion}}
+                                                </a>
+                                            </td>
                                             <td style="text-align: center">{{libertador.idProducto.colorProducto}}</td>
                                             <td style="text-align: center">{{libertador.cantidad}}</td>
                                             <td style="text-align: center">{{libertador.idProducto.talla}}</td>

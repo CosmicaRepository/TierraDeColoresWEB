@@ -167,7 +167,7 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         return deferred.promise;
     };
 
-    this.addDetalleFactura = function (detalle) {
+    this.addDetalleFactura = function (idFactura, idProducto, idItem, cantidadItem) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.getObject('token');
@@ -175,7 +175,89 @@ miAppHome.service('facturaService', function ($q, $http, $cookies, $rootScope) {
         $http({
             url: uri,
             method: 'post',
-            data: angular.toJson(detalle),
+            params: {
+                'idFactura': idFactura,
+                'idProducto': idProducto,
+                'idItem': idItem,
+                'cantidadItem': cantidadItem
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+
+    this.updateDetalleFactura = function (detaleFactura) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/detalle/update';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(detaleFactura),
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+
+    this.deleteDetalleFactura = function (detaleFactura, dni, pw) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/detalle/delete';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(detaleFactura),
+            params: {
+                'dni': dni,
+                'password': pw
+            },
+            headers: {
+                'Authorization': 'Bearer ' + token.data.access_token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+
+    this.deleteDiscount = function (detalleFactura, dni, pw) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.getObject('token');
+        var uri = 'https://tierradecoloresapi.herokuapp.com/detalle/delete/discount';
+        $http({
+            url: uri,
+            method: 'post',
+            params: {
+                'dni': dni,
+                'password': pw
+            },
+            data: angular.toJson(detalleFactura),
             headers: {
                 'Authorization': 'Bearer ' + token.data.access_token,
                 'Content-type': 'application/json'
