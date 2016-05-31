@@ -4,7 +4,8 @@
         <div class="panel panel-factura"
              style="min-height: 525px;"
              ng-controller="UsuarioController"
-             data-ng-init="detailUsuario()">
+             data-ng-init="detailUsuario()"
+             ng-show="user.username">
             <div class="panel-heading panel-warning" style="text-align: center; color: #8a6d3b">
                 <label>
                     <div>{{user.nombre}} {{user.apellido}}</div>
@@ -20,15 +21,15 @@
                     </div>                    
                     <div class="form-group">
                         <label style="margin-bottom: 0px;">Facturas hoy</label>
-                        <div>0</div>
+                        <div>{{factConf}}</div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-ng-init="efectivoHoy()">
                         <label style="margin-bottom: 0px;">Efectivo hoy</label>
-                        <div>{{0|currency}}</div>
+                        <div>{{efectivo|currency}}</div>
                     </div>
                     <div class="form-group">
                         <label style="margin-bottom: 0px;">Impresas hoy</label>
-                        <div>{{0|currency}}</div>
+                        <div>{{impresasHoy|currency}}</div>
                     </div>                    
                     <div class="form-group">
                         <button class="btn btn-block btn-success"
@@ -48,7 +49,8 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-9" ng-controller="FacturaController">
+    <div class="col-lg-9"
+         ng-controller="FacturaController">
         <div class="panel-factura">
             <div ng-cloak>
                 <md-content>
@@ -77,7 +79,7 @@
                                                 <div ng-if="factura.cliente === null">Sin cliente</div>
                                             </td>
                                             <td style="text-align: center">{{factura.total|currency}}</td>
-                                            <td style="text-align: center; font-size: smaller;">{{factura.fechaCreacion| date : 'medium'}}</td>
+                                            <td style="text-align: center; font-size: smaller;">{{factura.fechaCreacion| date : 'medium' : 'utc'}}</td>
                                             <td style="text-align: center;">{{factura.estado}}</td>
                                             <td style="text-align: center;">{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}
                                                 <div ng-if="factura.idVendedor === null">En espera</div>

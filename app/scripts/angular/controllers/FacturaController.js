@@ -468,6 +468,8 @@ miAppHome.controller('FacturaController',
                 };
                 $scope.listaFacturasDiaria = function () {
                     $scope.facturaDiarias = "";
+                    $rootScope.factConf = 0;
+                    $rootScope.impresasHoy = 0;
                     $promesa = facturaService.getDay();
                     $promesa.then(function (datos) {
                         if (datos.status === 200) {
@@ -475,6 +477,10 @@ miAppHome.controller('FacturaController',
                             angular.forEach(datos.data, function (value, key) {
                                 if (value.estado === 'CONFIRMADO') {
                                     $scope.totalFacturasDiaria = parseFloat($scope.totalFacturasDiaria) + parseFloat(value.total);
+                                    $rootScope.factConf = $rootScope.factConf + 1;
+                                    if(value.numeracion !== null){
+                                        $rootScope.impresasHoy = $rootScope.impresasHoy + parseFloat(value.total);
+                                    }
                                 }
                             });
                             $scope.facturaDiarias = datos.data;
@@ -631,6 +637,20 @@ miAppHome.controller('FacturaController',
                         closeByDocument: false,
                         closeByEscape: false,
                         data: {detalleFactura: detalleFactura}
+                    });
+                };
+
+                $scope.efectivoHoy = function () {
+                    $scope.efectivo = 0;
+                    $efectivo = metodoPagoFacturaService.getDay();
+                    $efectivo.then(function (datos) {
+                        if (datos.status === 200) {
+                            angular.forEach(datos.data, function (value, key) {
+                               if(value.planPago.idPlanesPago === 1){
+                                  $scope.efectivo = $scope.efectivo + parseFloat(value.montoPago);
+                               }
+                            });                            
+                        }
                     });
                 };
 

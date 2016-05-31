@@ -201,13 +201,13 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
      * @returns {String}
      */
     $scope.onExit = function () {
-        return ('bye bye');
+//        return ('bye bye');
     };
 //    $window.onbeforeunload = $scope.onExit;
     $scope.$on('$stateChangeStart', function (event) {
-        var answer = confirm("¿Estas seguro de que quieres salir?");
-        if (!answer) {
-            event.preventDefault();
-        }
+//        var answer = confirm("¿Estas seguro de que quieres salir?");
+//        if (!answer) {
+//            event.preventDefault();
+//        }
     });
 });
