@@ -1,59 +1,48 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title></title>        
-    </head>
-    <body>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div id="banner-1"></div>
-                <center id="login-banner">
-                    <div id="imagen-login"></div>
-                    <form class="form-horizontal" name="loginForm">
-                        <h2 class="iniciarSesion" >Iniciar sesión</h2>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="text"
-                                       required
-                                       class="form-control"
-                                       name="username"
-                                       ng-model="usuario.username"
-                                       placeholder="Ingresar usuario"
-                                       uib-tooltip="Ingresa tu usuario para iniciar sesion"
-                                       tooltip-placement="bottom"
-                                       tooltip-trigger="mouseenter"
-                                       tooltip-enable="!usuario.username">
-                            </div>                
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password"
-                                       required
-                                       class="form-control"
-                                       name="password"
-                                       ng-model="usuario.password"
-                                       placeholder="Ingresar contraseña">
-                            </div> 
-                        </div>           
-                        <div class="form-group">
-                            <button id="btn-login"
-                                    type="submit"
-                                    class="btn btn-lg btn-primary"
-                                    ng-click="iniciarSesion()">Ingresar</button>
-                        </div>
-                    </form>       
-                </center>   
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
-</body>
-</html>
+<div style="position: absolute;">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div id="banner-1"></div>
+        <center id="login-banner">
+            <div id="imagen-login"></div>
+            <form class="form-horizontal" name="loginForm">
+                <h2 class="iniciarSesion" >Iniciar sesión</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        <input type="text"
+                               required
+                               class="form-control"
+                               name="username"
+                               ng-model="usuario.username"
+                               placeholder="Ingresar usuario"
+                               uib-tooltip="Ingresa tu usuario para iniciar sesion"
+                               tooltip-placement="bottom"
+                               tooltip-trigger="mouseenter"
+                               tooltip-enable="!usuario.username">
+                    </div>                
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input type="password"
+                               required
+                               class="form-control"
+                               name="password"
+                               ng-model="usuario.password"
+                               placeholder="Ingresar contraseña">
+                    </div> 
+                </div>           
+                <div class="form-group">
+                    <button id="btn-login"
+                            type="submit"
+                            class="btn btn-lg btn-primary"
+                            ng-click="iniciarSesion()">Ingresar</button>
+                </div>
+            </form>       
+        </center>   
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+

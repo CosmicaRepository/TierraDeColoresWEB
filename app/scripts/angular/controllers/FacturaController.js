@@ -15,6 +15,15 @@ miAppHome.controller('FacturaController',
                     open: false
                 };
 
+                $scope.clock = "Cargando hora..."; // initialise the time variable
+                $scope.tickInterval = 1000; //ms
+                $scope.tick = function () {
+                    $scope.clock = Date.now(); // get the current time
+                    $timeout($scope.tick, $scope.tickInterval); // reset the timer
+                };
+                // Start the timer
+                $timeout($scope.tick, $scope.tickInterval);
+
 
                 $scope._newFactura = {
                     "idFactura": null,
@@ -600,7 +609,7 @@ miAppHome.controller('FacturaController',
                         data: {detalleFactura: detalleFactura}
                     });
                 };
-                
+
                 $scope.eliminarDescuento = function (detalleFactura) {
                     ngDialog.open({
                         template: 'views/factura/modal-eliminar-descuento.html',
@@ -612,7 +621,7 @@ miAppHome.controller('FacturaController',
                         data: {detalleFactura: detalleFactura}
                     });
                 };
-                
+
                 $scope.eliminarDetalleFactura = function (detalleFactura) {
                     ngDialog.open({
                         template: 'views/factura/modal-eliminar-detalle.html',

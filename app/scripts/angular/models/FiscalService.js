@@ -81,6 +81,28 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
         });
         return deferred.promise;
     };
+    
+    this.comprobanteZ = function () {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.get('ptk');
+        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/fiscal/comprobante/Z';
+        $http({
+            url: uri,
+            method: 'post',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
 
 });
 

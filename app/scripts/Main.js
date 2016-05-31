@@ -24,6 +24,7 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'ngDialog',
             'LocalStorageModule',
             'focus-if',
+            'anim-in-out',
             'io-barcode'])
         .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
             localStorageServiceProvider

@@ -160,6 +160,39 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
         });
     });
 
+    $scope.imprimirComprobanteZ = function () {
+        ngDialog.open({
+            template: 'views/factura/modal-comprobante-z.html',
+            className: 'ngdialog-theme-advertencia',
+            showClose: false,
+            controller: 'FiscalController',
+            closeByDocument: false,
+            closeByEscape: false
+        });
+    };
+
+    $scope.finalizarComprobanteZ = function () {
+        $comprobante = fiscalService.comprobanteZ();
+        $comprobante.then(function (datos) {
+            if (datos.status === 200) {
+                ngDialog.closeAll();
+                toaster.pop({
+                    type: 'success',
+                    title: 'Exito',
+                    body: 'Comprobante impreso con exito.',
+                    showCloseButton: false
+                });
+            }else{
+                ngDialog.closeAll();
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error.',
+                    body: 'No se ha podido imprimir el comprobante.',
+                    showCloseButton: false
+                });
+            }
+        });
+    };
 
 
 

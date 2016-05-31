@@ -1,71 +1,62 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title></title>        
-    </head>
-    <body>
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            <div ng-show="user.nombre"
-                 class="panel panel-warning"
-                 data-ng-init="detailUsuario()"
-                 id="perfil"> 
-                <div class="panel panel-heading"># {{user.idUsuario}}: {{user.username}}
-                    <a href='' ui-sref="^.usuario-modificar" style="color: #8a6d3b;float: right;">Editar</a>
-                </div>
-                <div class="panel-body">
-                    <div class="row col-lg-8">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-lg-4">Nombre:</label>
-                                <div class="col-lg-8">{{user.nombre}}</div>                                
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="col-lg-4">Apellido:</label>
-                                <div class="col-lg-8">{{user.apellido}}</div>  
-                            </div>
-                           <div class="form-group">
-                                <label class="col-lg-4">D.N.I.:</label>            
-                                <div class="col-lg-8">{{user.dni |number:0}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Fecha de nacimiento:</label>
-                                <div class="col-lg-8">{{user.fechaNacimiento | date: 'fullDate'}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Ciudad:</label>
-                                <div class="col-lg-8">{{user.provincia}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Email:</label>
-                                <div class="col-lg-8">{{user.email}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Telefono:</label>
-                                <div class="col-lg-8">{{user.telefono |tel}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Rol:</label>
-                                <div class="col-lg-8">{{user.roles.nombreRol}}</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4">Estado:</label>
-                                <div class="col-lg-8">{{user.estado}}</div>
-                            </div>
-                        </form>  
-                    </div>
-                    <div class="row col-lg-4">
-                        <img ng-src="data:image/JPEG;base64,{{user.imagen}}" id="foto-perfil">
-                    </div>
-                </div>        
+<div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div ng-show="user.nombre"
+             class="panel panel-warning"
+             data-ng-init="detailUsuario()"
+             id="perfil"> 
+            <div class="panel panel-heading"># {{user.idUsuario}}: {{user.username}}
+                <a href='' ui-sref="^.usuario-modificar" style="color: #8a6d3b;float: right;">Editar</a>
             </div>
+            <div class="panel-body">
+                <div class="row col-lg-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-4">Nombre:</label>
+                            <div class="col-lg-8">{{user.nombre}}</div>                                
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-4">Apellido:</label>
+                            <div class="col-lg-8">{{user.apellido}}</div>  
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">D.N.I.:</label>            
+                            <div class="col-lg-8">{{user.dni|number:0}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Fecha de nacimiento:</label>
+                            <div class="col-lg-8">{{user.fechaNacimiento| date: 'fullDate'}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Ciudad:</label>
+                            <div class="col-lg-8">{{user.provincia}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Email:</label>
+                            <div class="col-lg-8">{{user.email}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Telefono:</label>
+                            <div class="col-lg-8">{{user.telefono|tel}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Rol:</label>
+                            <div class="col-lg-8">{{user.roles.nombreRol}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Estado:</label>
+                            <div class="col-lg-8">{{user.estado}}</div>
+                        </div>
+                    </form>  
+                </div>
+                <div class="row col-lg-4">
+                    <img ng-src="data:image/JPEG;base64,{{user.imagen}}" id="foto-perfil">
+                </div>
+            </div>        
         </div>
-        <div class="col-lg-2"></div>
-    </body>
-</html>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+

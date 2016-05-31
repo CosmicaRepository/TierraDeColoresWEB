@@ -20,6 +20,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
         <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css" />
         <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css" />
+        <link rel="stylesheet" href="bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <link href="styles/kendo.common.min.css" rel="stylesheet" type="text/css"/>
@@ -32,7 +33,6 @@ and open the template in the editor.
         <link href="styles/kendo.rtl.min.css" rel="stylesheet" type="text/css"/>
         <link href="styles/ngDialog-theme-flat.css" rel="stylesheet" type="text/css"/>
         <link href="styles/ngDialog.css" rel="stylesheet" type="text/css"/>
-        <link href="styles/animation.less" rel="stylesheet/less" type="text/css"/>
         <!-- endbuild -->
     </head>
     <body class="body">
@@ -41,7 +41,7 @@ and open the template in the editor.
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <main class="col-sm-12 body" ui-view>
+        <main class="col-sm-12 body anim-in-out anim-fade" ui-view data-anim-speed="1000">
 
         </main>
         <footer class="footer">
@@ -88,6 +88,7 @@ and open the template in the editor.
         <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
         <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
         <script src="bower_components/ng-focus-if/focusIf.js"></script>
+        <script src="bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
