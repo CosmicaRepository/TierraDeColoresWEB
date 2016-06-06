@@ -301,59 +301,96 @@
                                         <form class="form-horizontal" name="clienteEncabezado">
                                             <div class="row col-lg-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">DNI o CUIT</label>
+                                                    <label class="control-label">Documento *</label>
                                                     <div class="">
-                                                        <input type="text" class="form-control" ng-model="_cliente.dniCuit" name="dniCliente" required
-                                                               data-ng-class='{error: clienteEncabezado.dniCliente.$invalid && !clienteEncabezado.$pristine}'/>
+                                                        <input type="text" class="form-control" ng-model="clienteFactura.documento" name="documento" required
+                                                               data-ng-class='{error: clienteEncabezado.documento.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Nombre</label>
+                                                    <label class="control-label">Tipo de documento *</label>
                                                     <div class="">
-                                                        <input type="text" class="form-control" ng-model="_cliente.nombreCliente" name="nombreCliente" required
+                                                        <select class="form-control" ng-model="clienteFactura.tipoDocumento"
+                                                                required name="tipoDocumento">
+                                                            <option selected value="" disabled>Elegir una opcion</option>
+                                                            <option value="C">CUIT</option>
+                                                            <option value="0">Libreta de enrolamiento</option>
+                                                            <option value="1">Libreta civica</option>
+                                                            <option value="2">Documento Nacional de Identidad</option>
+                                                            <option value="3">Pasaporte</option>
+                                                            <option value="4">Cedula de identidad</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre cliente/empresa *</label>
+                                                    <div class="">
+                                                        <input type="text" maxlength="45"
+                                                               class="form-control"
+                                                               ng-model="clienteFactura.nombreCliente"
+                                                               name="nombreCliente" required
                                                                data-ng-class='{error: clienteEncabezado.nombreCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
-                                                </div>                                    
+                                                </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Apellido</label>
+                                                    <label class="control-label">Domicilio *</label>
                                                     <div class="">
-                                                        <input type="text" class="form-control" ng-model="_cliente.apellidoCliente" name="apellidoCliente" required
-                                                               data-ng-class='{error: clienteEncabezado.apellidoCliente.$invalid && !clienteEncabezado.$pristine}'/>
-                                                    </div>
-                                                </div> 
-
-                                                <div class="form-group">
-                                                    <label class="control-label">Domicilio</label>
-                                                    <div class="">
-                                                        <input type="text" class="form-control" ng-model="_cliente.domicilio" name="domicilioCliente" required
+                                                        <input type="text" maxlength="45"
+                                                               class="form-control"
+                                                               ng-model="clienteFactura.domicilio"
+                                                               name="domicilioCliente" required
                                                                data-ng-class='{error: clienteEncabezado.domicilioCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
-                                                </div>     
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Responsabilidad frente al IVA *</label>
+                                                    <div class="">
+                                                        <select class="form-control" ng-model="clienteFactura.responsabilidadIva"
+                                                                required name="responsabilidad">
+                                                            <option selected value="" disabled>Elegir una opcion</option>
+                                                            <option value="I">Responsable inscripto</option>
+                                                            <option value="N">Responsable no inscripto</option>
+                                                            <option value="E">Exento</option>
+                                                            <option value="A">No responsible</option>
+                                                            <option value="C">Consumidor final</option>
+                                                            <option value="B">Responsable no inscripto, venta de bienes de uso</option>
+                                                            <option value="M">Responsable monotributo</option>
+                                                            <option value="T">No categorizado</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="row col-lg-6">
+                                            <div class="row col-lg-6">                                                
                                                 <div class="form-group">
                                                     <label class="control-label">Telefono</label>
                                                     <div class="">
-                                                        <input type="tel" class="form-control" ng-model="_cliente.telefono" name="telefonoCliente" required
+                                                        <input type="tel"
+                                                               class="form-control"
+                                                               ng-model="clienteFactura.telefono" name="telefonoCliente"
                                                                data-ng-class='{error: clienteEncabezado.telefonoCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
                                                 </div>                                    
                                                 <div class="form-group">
                                                     <label class="control-label">E-mail</label>
                                                     <div class="">
-                                                        <input type="email" class="form-control" ng-model="_cliente.emailCliente" name="emailCliente" required
+                                                        <input type="email"
+                                                               class="form-control"
+                                                               ng-model="clienteFactura.emailCliente" name="emailCliente"
                                                                data-ng-class='{error: clienteEncabezado.emailCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
                                                 </div>                                    
                                                 <div class="form-group">
                                                     <label class="control-label">Fecha de nacimiento</label>
                                                     <div class="">
-                                                        <input type="date" class="form-control" ng-model="_cliente.fechaNacimiento" name="nacimientoCliente" required
+                                                        <input type="date" 
+                                                               class="form-control" 
+                                                               ng-model="clienteFactura.fechaNacimiento"
+                                                               name="nacimientoCliente" 
                                                                data-ng-class='{error: clienteEncabezado.nacimientoCliente.$invalid && !clienteEncabezado.$pristine}'/>
                                                     </div>
                                                     <button class="btn btn-block btn-warning"
                                                             ng-disabled="clienteEncabezado.$invalid"
-                                                            ng-click="agregarCliente(_cliente)"
+                                                            ng-click="agregarCliente(clienteFactura)"
                                                             style="margin-top: 10%;">Agregar cliente</button>
                                                 </div> 
 
@@ -365,16 +402,32 @@
                                 <div id="clienteContainer">
                                     <div class="row col-lg-5">
                                         <div class="form-group">
-                                            <label class="control-label">Nombre:</label>
+                                            <label class="control-label">Documento:</label>
+                                            <div class="pull-right">{{factura.cliente.documento}}</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de documento</label>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === 'C'">CUIT</div>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === '0'">Libreta de enrolamiento</div>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === '1'">Libreta civica</div>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === '2'">DNI</div>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === '3'">Pasaporte</div>
+                                            <div class="pull-right" ng-if="factura.cliente.tipoDocumento === '4'">Cedula de identidad</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Resp. IVA</label>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'I'">Resp. inscripto</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'N'">Resp. no inscripto</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'E'">Exento</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'A'">No responsible</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'C'">Consumidor final</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'B'">Resp. no inscripto, venta bienes</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'M'">Resp. monotributo</div>
+                                            <div class="pull-right" ng-if="factura.cliente.responsabilidadIva === 'T'">No categorizado</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre cliente/empresa</label>
                                             <div class="pull-right">{{factura.cliente.nombreCliente}}</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Apellido:</label>
-                                            <div class="pull-right">{{factura.cliente.apellidoCliente}}</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">DNI/CUIT:</label>
-                                            <div class="pull-right">{{factura.cliente.dniCuit}}</div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Domicilio:</label>

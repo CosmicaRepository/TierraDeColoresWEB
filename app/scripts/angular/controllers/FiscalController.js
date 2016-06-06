@@ -30,24 +30,6 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
                     $scope.printer = true;
                 }
             });
-        } else {
-            $printerState = fiscalService.connection();
-            $printerState.then(function (datos) {
-                if (datos.status !== 200) {
-                    $scope.printer = true;
-                    $printer = fiscalService.printer();
-                    $printer.then(function (datos) {
-                        if (datos.status === 200) {
-                            $cookies.put('ptk', datos.data.access_token);
-                            $scope.printer = false;
-                        } else {
-                            $scope.printer = true;
-                        }
-                    });
-                } else {
-                    $scope.printer = false;
-                }
-            });
         }
     };
 
@@ -92,6 +74,7 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
         $factura = facturaService.searchById(idFactura);
         $factura.then(function (datos) {
             var compare = datos.data;
+            var cliente = datos.data.cliente;
             $pago = metodoPagoFacturaService.getListaPagoFactura(idFactura);
             $pago.then(function (datos) {
                 angular.forEach(datos.data, function (value, key) {
@@ -102,7 +85,18 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
                         case 1:
                             $scope.$emit('imprimitTicket', {});
                             break;
-                        case 2:
+                        case 3:
+                            if (cliente !== null) {
+                                $scope.$emit('imprimirFactura_A', {});
+                            } else {
+                                ngDialog.closeAll();
+                                toaster.pop({
+                                    type: 'warning',
+                                    title: 'Advertencia',
+                                    body: '¡Debes añadir un cliente para imprimir!',
+                                    showCloseButton: false
+                                });
+                            }
                             break;
                     }
                 } else {
@@ -119,6 +113,50 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
         });
 
     };
+
+
+    $scope.$on('imprimirFactura_A', function () {
+        ngDialog.closeAll();
+        var numeracion = null;
+        $scope.facturaImpresa = null;
+        var idFactura = $stateParams.idFactura;
+        $factura = facturaService.searchById(idFactura);
+        $factura.then(function (datos) {
+            console.log(datos);
+            if (datos.status === 200 && datos.data.numeracion === null) {
+                $scope.facturaImpresa = datos.data;
+                $detalles = facturaService.getDetalleFacturaList(idFactura);
+                $detalles.then(function (datos) {
+                    console.log(datos);
+                    if (datos.status === 200) {
+                        $ticket = fiscalService.factura_a(datos.data);
+                        $ticket.then(function (datos) {
+                            console.log(datos);
+                            var lastString = datos.data[datos.data.length - 1];
+                            var split = lastString.split("|");
+                            numeracion = split[split.length - 1];
+                            $scope.facturaImpresa.numeracion = numeracion;
+                            $scope.facturaImpresa.tipoFactura = "Factura A";
+                            $scope.facturaImpresa.estado = "CONFIRMADO";
+                            $scope.facturaImpresa.idVendedor = $rootScope.vendedor;
+                            $update = facturaService.update($scope.facturaImpresa);
+                            $update.then(function (datos) {
+                                if (datos.status === 200) {
+                                    toaster.pop({
+                                        type: 'success',
+                                        title: 'Exito',
+                                        body: 'Ticket impreso.',
+                                        showCloseButton: false
+                                    });
+                                    $rootScope.factura = $scope.facturaImpresa;
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    });
 
     $scope.$on('imprimitTicket', function () {
         ngDialog.closeAll();
@@ -182,7 +220,7 @@ miAppHome.controller('FiscalController', function ($scope, toaster, metodoPagoFa
                     body: 'Comprobante impreso con exito.',
                     showCloseButton: false
                 });
-            }else{
+            } else {
                 ngDialog.closeAll();
                 toaster.pop({
                     type: 'error',

@@ -13,7 +13,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
     this.printer = function () {
         var datosRecu = null;
         var deferred = $q.defer();
-        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/oauth/token';
+        var uri = 'http://localhost:8888/HasarPrinterAPI-0.5/oauth/token';
         $http({
             url: uri,
             method: 'post',
@@ -39,7 +39,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
     this.connection = function () {
         var datosRecu = null;
         var deferred = $q.defer();
-        var uri = 'http://localhost:8085/HasarPrinterAPI-0.5/fiscal/connection';
+        var uri = 'http://localhost:8888/HasarPrinterAPI-0.5/fiscal/connection';
         var tk = $cookies.get('ptk');
         $http({
             url: uri,
@@ -63,7 +63,30 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.get('ptk');
-        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/fiscal/ticket';
+        var uri = 'http://localhost:8888/HasarPrinterAPI-0.5/fiscal/ticket';
+        $http({
+            url: uri,
+            method: 'post',
+            data: angular.toJson(listaDetalles),
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        }, function errorCallback(response) {
+            datosRecu = response;
+            deferred.resolve(datosRecu);
+        });
+        return deferred.promise;
+    };
+    
+    this.factura_a = function (listaDetalles) {
+        var datosRecu = null;
+        var deferred = $q.defer();
+        var token = $cookies.get('ptk');
+        var uri = 'http://localhost:8888/HasarPrinterAPI-0.5/fiscal/factura/A';
         $http({
             url: uri,
             method: 'post',
@@ -86,7 +109,7 @@ miAppHome.service('fiscalService', function ($http, $q, $cookies) {
         var datosRecu = null;
         var deferred = $q.defer();
         var token = $cookies.get('ptk');
-        var uri = 'http://192.168.1.16:8085/HasarPrinterAPI-0.5/fiscal/comprobante/Z';
+        var uri = 'http://localhost:8888/HasarPrinterAPI-0.5/fiscal/comprobante/Z';
         $http({
             url: uri,
             method: 'post',

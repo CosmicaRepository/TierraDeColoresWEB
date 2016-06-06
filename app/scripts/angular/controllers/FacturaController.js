@@ -67,18 +67,19 @@ miAppHome.controller('FacturaController',
                 $scope.disableSelectMetodo = true;
 
                 $scope.clienteFactura = {
-                    "idCliente": null,
-                    "nombreCliente": "",
-                    "apellidoCliente": "",
-                    "fechaNacimiento": "",
-                    "dniCuit": "",
-                    "domicilio": "",
-                    "telefono": "",
-                    "emailCliente": "",
-                    "fechaCreacion": "",
-                    "fechaModificacion": null,
-                    "usuarioCreacion": null,
-                    "usuarioModificacion": null
+                    documento: null,
+                    domicilio: null,
+                    emailCliente: null,
+                    fechaCreacion: null,
+                    fechaModificacion: null,
+                    fechaNacimiento: null,
+                    idCliente: null,
+                    nombreCliente: null,
+                    responsabilidadIva: null,
+                    telefono: null,
+                    tipoDocumento: null,
+                    usuarioCreacion: null,
+                    usuarioModificacion: null
                 };
 
                 $scope.agregarFactura = function (factura) {
@@ -376,8 +377,10 @@ miAppHome.controller('FacturaController',
                 };
 
                 $scope.agregarCliente = function (cliente) {
+                    console.log(cliente);
                     $addCliente = clienteService.add(cliente);
                     $addCliente.then(function (datos) {
+                        console.log(datos);
                         if (datos.status === 200) {
                             toaster.pop({
                                 type: 'success',
@@ -478,7 +481,7 @@ miAppHome.controller('FacturaController',
                                 if (value.estado === 'CONFIRMADO') {
                                     $scope.totalFacturasDiaria = parseFloat($scope.totalFacturasDiaria) + parseFloat(value.total);
                                     $rootScope.factConf = $rootScope.factConf + 1;
-                                    if(value.numeracion !== null){
+                                    if (value.numeracion !== null) {
                                         $rootScope.impresasHoy = $rootScope.impresasHoy + parseFloat(value.total);
                                     }
                                 }
@@ -646,10 +649,10 @@ miAppHome.controller('FacturaController',
                     $efectivo.then(function (datos) {
                         if (datos.status === 200) {
                             angular.forEach(datos.data, function (value, key) {
-                               if(value.planPago.idPlanesPago === 1){
-                                  $scope.efectivo = $scope.efectivo + parseFloat(value.montoPago);
-                               }
-                            });                            
+                                if (value.planPago.idPlanesPago === 1) {
+                                    $scope.efectivo = $scope.efectivo + parseFloat(value.montoPago);
+                                }
+                            });
                         }
                     });
                 };
