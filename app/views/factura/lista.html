@@ -35,8 +35,10 @@
                         <button class="btn btn-block btn-success"
                                 ng-click="agregarFactura(_newFactura)">Nueva Factura</button>
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-block btn-success">Nueva Reserva</button>
+                    <div class="form-group" ng-controller="ReservaController">
+                        <button 
+                            ng-click="agregarReserva(nuevaReserva)"
+                            class="btn btn-block btn-success">Nueva Reserva</button>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-block btn-warning">Cambio de producto</button>
@@ -98,14 +100,136 @@
                                 </table>
                             </md-content>
                         </md-tab>
-                        <md-tab label="Facturas ultimos 7 dias">
-                            <md-content class="md-padding"></md-content>
+                        <md-tab label="Facturas ultimos 30 dias">
+                            <md-content class="md-padding">
+                                <table class="table table-bordered table-condensed"
+                                       ng-table="tableFacturasMensual"
+                                       data-ng-init="listaFacturasMensual()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th style="text-align: center;">N°</th>
+                                            <th style="text-align: center;">Cliente</th>
+                                            <th style="text-align: center;">Total</th>
+                                            <th style="width: 160px; text-align: center;">Fecha</th>
+                                            <th style="width: 100px; text-align: center;">Estado</th>
+                                            <th style="text-align: center;">Vendedor</th>
+                                            <th style="width: 120px; text-align: center;">N°</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="factura in $data">
+                                            <td style="text-align: center;"><a href="" ui-sref="^.factura({idFactura:{{factura.idFactura}}})">{{factura.idFactura}}</a></td>
+                                            <td style="text-align: center;">
+                                                {{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}
+                                                <div ng-if="factura.cliente === null">Sin cliente</div>
+                                            </td>
+                                            <td style="text-align: center">{{factura.total|currency}}</td>
+                                            <td style="text-align: center; font-size: smaller;">{{factura.fechaCreacion| date : 'medium' : 'utc'}}</td>
+                                            <td style="text-align: center;">{{factura.estado}}</td>
+                                            <td style="text-align: center;">{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}
+                                                <div ng-if="factura.idVendedor === null">En espera</div>
+                                            </td>
+                                            <td style="text-align: center;">{{factura.numeracion}}
+                                                <div ng-if="factura.numeracion === null">S/N</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th uib-tooltip="Este es un estimado del total entre las facturas CONFIRMADAS">{{totalFacturasMensual|currency}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </md-content>
                         </md-tab>
                         <md-tab label="Reservas de hoy">
-                            <md-content class="md-padding"></md-content>
+                            <md-content class="md-padding">
+                                <table class="table table-bordered table-condensed"
+                                       ng-controller="ReservaController"
+                                       ng-table="tableReservasDiaria"
+                                       data-ng-init="listaReservasDiaria()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th style="text-align: center;">N°</th>
+                                            <th style="text-align: center;">Cliente</th>
+                                            <th style="text-align: center;">Total</th>
+                                            <th style="width: 160px; text-align: center;">Fecha</th>
+                                            <th style="width: 100px; text-align: center;">Estado</th>
+                                            <th style="text-align: center;">Vendedor</th>
+                                            <th style="width: 120px; text-align: center;">N°</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="factura in $data">
+                                            <td style="text-align: center;"><a href="" ui-sref="^.reserva({idFactura:{{factura.idFactura}}})">{{factura.idFactura}}</a></td>
+                                            <td style="text-align: center;">
+                                                {{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}
+                                                <div ng-if="factura.cliente === null">Sin cliente</div>
+                                            </td>
+                                            <td style="text-align: center">{{factura.total|currency}}</td>
+                                            <td style="text-align: center; font-size: smaller;">{{factura.fechaCreacion| date : 'medium' : 'utc'}}</td>
+                                            <td style="text-align: center;">{{factura.estado}}</td>
+                                            <td style="text-align: center;">{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}
+                                                <div ng-if="factura.idVendedor === null">En espera</div>
+                                            </td>
+                                            <td style="text-align: center;">{{factura.numeracion}}
+                                                <div ng-if="factura.numeracion === null">S/N</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th uib-tooltip="Este es un estimado del total">{{totalReservas|currency}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </md-content>
                         </md-tab>
                         <md-tab label="Reservas ultimos 30 dias">
-                            <md-content class="md-padding"></md-content>
+                            <md-content class="md-padding">
+                                <table class="table table-bordered table-condensed"
+                                       ng-controller="ReservaController"
+                                       ng-table="tableReservasDiaria"
+                                       data-ng-init="listaReservasMensual()">
+                                    <thead id="headTableProductos">
+                                        <tr>
+                                            <th style="text-align: center;">N°</th>
+                                            <th style="text-align: center;">Cliente</th>
+                                            <th style="text-align: center;">Total</th>
+                                            <th style="width: 160px; text-align: center;">Fecha</th>
+                                            <th style="width: 100px; text-align: center;">Estado</th>
+                                            <th style="text-align: center;">Vendedor</th>
+                                            <th style="width: 120px; text-align: center;">N°</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="factura in $data">
+                                            <td style="text-align: center;"><a href="" ui-sref="^.reserva({idFactura:{{factura.idFactura}}})">{{factura.idFactura}}</a></td>
+                                            <td style="text-align: center;">
+                                                {{factura.cliente.nombreCliente}} {{factura.cliente.apellidoCliente}}
+                                                <div ng-if="factura.cliente === null">Sin cliente</div>
+                                            </td>
+                                            <td style="text-align: center">{{factura.total|currency}}</td>
+                                            <td style="text-align: center; font-size: smaller;">{{factura.fechaCreacion| date : 'medium' : 'utc'}}</td>
+                                            <td style="text-align: center;">{{factura.estado}}</td>
+                                            <td style="text-align: center;">{{factura.idVendedor.nombre}} {{factura.idVendedor.apellido}}
+                                                <div ng-if="factura.idVendedor === null">En espera</div>
+                                            </td>
+                                            <td style="text-align: center;">{{factura.numeracion}}
+                                                <div ng-if="factura.numeracion === null">S/N</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th uib-tooltip="Este es un estimado del total">{{totalReservasMensuales|currency}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </md-content>
                         </md-tab>
                     </md-tabs>
                 </md-content>

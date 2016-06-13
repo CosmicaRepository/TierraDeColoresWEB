@@ -24,7 +24,6 @@ var miAppHome = angular.module('tierraDeColoresApp',
             'ngDialog',
             'LocalStorageModule',
             'focus-if',
-            'anim-in-out',
             'io-barcode'])
         .config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
             localStorageServiceProvider
@@ -270,6 +269,14 @@ var miAppHome = angular.module('tierraDeColoresApp',
                         data: {pageTitle: 'Home - Nueva factura'},
                         resolve: {isLogged: auth}
                     })/*FIN MODULO FACTURACION*/
+                    /*MODULO RESERVA*/
+                    .state('home.reserva', {
+                        url: '/reserva/:idFactura',
+                        templateUrl: "views/reserva/reservaPanel.html",
+                        controller: "ReservaController",
+                        data: {pageTitle: 'Home - Nueva reserva'},
+                        resolve: {isLogged: auth}
+                    })
                     /*Estadisticas*/
                     .state('home.estadisticas', {
                         url: '/estadisticas',

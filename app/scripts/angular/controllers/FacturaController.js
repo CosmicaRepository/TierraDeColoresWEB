@@ -505,6 +505,36 @@ miAppHome.controller('FacturaController',
                     });
                 };
 
+                $scope.listaFacturasMensual = function () {
+                    $scope.facturasMensual = "";
+                    $mes = facturaService.getMonth();
+                    $mes.then(function (datos) {
+                        if (datos.status === 200) {
+                            $scope.totalFacturasMensual = 0;
+                            angular.forEach(datos.data, function (value, key) {
+                                if (value.estado === 'CONFIRMADO') {
+                                    $scope.totalFacturasMensual = parseFloat($scope.totalFacturasMensual) + parseFloat(value.total);
+                                }
+                            });
+                            $scope.facturasMensual = datos.data;
+                            var data = datos.data;
+                            $scope.tableFacturasMensual = new NgTableParams({
+                                page: 1,
+                                count: 10
+                            }, {
+                                total: data.length,
+                                getData: function (params) {
+                                    data = $scope.facturasMensual;
+                                    params.total(data.length);
+                                    if (params.total() <= ((params.page() - 1) * params.count())) {
+                                        params.page(1);
+                                    }
+                                    return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                                }});
+                        }
+                    });
+                };
+
                 $scope.listaVendedores = function () {
                     $scope.vendedores = "";
                     $promesa = facturaService.getVendedores();
